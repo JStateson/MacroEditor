@@ -210,6 +210,7 @@
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.timer2 = new System.Windows.Forms.Timer(this.components);
+            this.tsmLoadTR = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.lbName)).BeginInit();
             this.groupBox6.SuspendLayout();
             this.gbManageImages.SuspendLayout();
@@ -1006,8 +1007,8 @@
             // menuStrip1
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.fileToolStripMenuItem,
             this.helpToolStripMenuItem,
+            this.fileToolStripMenuItem,
             this.utilsToolStripMenuItem,
             this.settingsToolStripMenuItem,
             this.mMoveMacro,
@@ -1038,6 +1039,7 @@
             this.loadHardwareMacsToolStripMenuItem,
             this.mnuRef,
             this.mnuNote,
+            this.tsmLoadTR,
             this.toolStripSeparator1,
             this.readHTMLToolStripMenuItem,
             this.saveToXMLToolStripMenuItem,
@@ -1050,86 +1052,86 @@
             // mHPload
             // 
             this.mHPload.Name = "mHPload";
-            this.mHPload.Size = new System.Drawing.Size(194, 22);
-            this.mHPload.Text = "Load local HP";
-            this.mHPload.Click += new System.EventHandler(this.mHPload_Click);
+            this.mHPload.Size = new System.Drawing.Size(208, 22);
+            this.mHPload.Text = "Load local HP macros";
+            this.mHPload.Click += new System.EventHandler(this.LoadTSMmenu);
             // 
             // mPCload
             // 
             this.mPCload.Name = "mPCload";
-            this.mPCload.Size = new System.Drawing.Size(194, 22);
+            this.mPCload.Size = new System.Drawing.Size(208, 22);
             this.mPCload.Text = "Load PC macro";
-            this.mPCload.Click += new System.EventHandler(this.mPCload_Click);
+            this.mPCload.Click += new System.EventHandler(this.LoadTSMmenu);
             // 
             // mAIOload
             // 
             this.mAIOload.Name = "mAIOload";
-            this.mAIOload.Size = new System.Drawing.Size(194, 22);
+            this.mAIOload.Size = new System.Drawing.Size(208, 22);
             this.mAIOload.Text = "L:oad AIO macs";
-            this.mAIOload.Click += new System.EventHandler(this.mAIOload_Click);
+            this.mAIOload.Click += new System.EventHandler(this.LoadTSMmenu);
             // 
             // mLJload
             // 
             this.mLJload.Name = "mLJload";
-            this.mLJload.Size = new System.Drawing.Size(194, 22);
+            this.mLJload.Size = new System.Drawing.Size(208, 22);
             this.mLJload.Text = "Load LJ printer macs";
-            this.mLJload.Click += new System.EventHandler(this.mLJload_Click);
+            this.mLJload.Click += new System.EventHandler(this.LoadTSMmenu);
             // 
             // loadOJPrinterMacsToolStripMenuItem
             // 
             this.loadOJPrinterMacsToolStripMenuItem.Name = "loadOJPrinterMacsToolStripMenuItem";
-            this.loadOJPrinterMacsToolStripMenuItem.Size = new System.Drawing.Size(194, 22);
+            this.loadOJPrinterMacsToolStripMenuItem.Size = new System.Drawing.Size(208, 22);
             this.loadOJPrinterMacsToolStripMenuItem.Text = "Load OJ printer macs";
-            this.loadOJPrinterMacsToolStripMenuItem.Click += new System.EventHandler(this.mOJload);
+            this.loadOJPrinterMacsToolStripMenuItem.Click += new System.EventHandler(this.LoadTSMmenu);
             // 
             // mDJload
             // 
             this.mDJload.Name = "mDJload";
-            this.mDJload.Size = new System.Drawing.Size(194, 22);
+            this.mDJload.Size = new System.Drawing.Size(208, 22);
             this.mDJload.Text = "Load DJ printer macs";
-            this.mDJload.Click += new System.EventHandler(this.mDJload_Click);
+            this.mDJload.Click += new System.EventHandler(this.LoadTSMmenu);
             // 
             // loadINPrinterMacsToolStripMenuItem
             // 
             this.loadINPrinterMacsToolStripMenuItem.Name = "loadINPrinterMacsToolStripMenuItem";
-            this.loadINPrinterMacsToolStripMenuItem.Size = new System.Drawing.Size(194, 22);
+            this.loadINPrinterMacsToolStripMenuItem.Size = new System.Drawing.Size(208, 22);
             this.loadINPrinterMacsToolStripMenuItem.Text = "Load IN printer macs";
-            this.loadINPrinterMacsToolStripMenuItem.Click += new System.EventHandler(this.mINload);
+            this.loadINPrinterMacsToolStripMenuItem.Click += new System.EventHandler(this.LoadTSMmenu);
             // 
             // mOSload
             // 
             this.mOSload.Name = "mOSload";
-            this.mOSload.Size = new System.Drawing.Size(194, 22);
+            this.mOSload.Size = new System.Drawing.Size(208, 22);
             this.mOSload.Text = "Load OS related";
-            this.mOSload.Click += new System.EventHandler(this.mOSload_Click);
+            this.mOSload.Click += new System.EventHandler(this.LoadTSMmenu);
             // 
             // mnuNet
             // 
             this.mnuNet.Name = "mnuNet";
-            this.mnuNet.Size = new System.Drawing.Size(194, 22);
+            this.mnuNet.Size = new System.Drawing.Size(208, 22);
             this.mnuNet.Text = "Load NET macros";
-            this.mnuNet.Click += new System.EventHandler(this.mnuNet_Click);
+            this.mnuNet.Click += new System.EventHandler(this.LoadTSMmenu);
             // 
             // loadHardwareMacsToolStripMenuItem
             // 
             this.loadHardwareMacsToolStripMenuItem.Name = "loadHardwareMacsToolStripMenuItem";
-            this.loadHardwareMacsToolStripMenuItem.Size = new System.Drawing.Size(194, 22);
-            this.loadHardwareMacsToolStripMenuItem.Text = "Load Hardware macs";
-            this.loadHardwareMacsToolStripMenuItem.Click += new System.EventHandler(this.loadHardwareMacsToolStripMenuItem_Click);
+            this.loadHardwareMacsToolStripMenuItem.Size = new System.Drawing.Size(208, 22);
+            this.loadHardwareMacsToolStripMenuItem.Text = "Load Hardware HW macs";
+            this.loadHardwareMacsToolStripMenuItem.Click += new System.EventHandler(this.LoadTSMmenu);
             // 
             // mnuRef
             // 
             this.mnuRef.Name = "mnuRef";
-            this.mnuRef.Size = new System.Drawing.Size(194, 22);
-            this.mnuRef.Text = "Load References";
-            this.mnuRef.Click += new System.EventHandler(this.mnuRef_Click);
+            this.mnuRef.Size = new System.Drawing.Size(208, 22);
+            this.mnuRef.Text = "Load Reference RF macs";
+            this.mnuRef.Click += new System.EventHandler(this.LoadTSMmenu);
             // 
             // mnuNote
             // 
             this.mnuNote.Name = "mnuNote";
-            this.mnuNote.Size = new System.Drawing.Size(194, 22);
-            this.mnuNote.Text = "Load Notes";
-            this.mnuNote.Click += new System.EventHandler(this.mnuNote_Click);
+            this.mnuNote.Size = new System.Drawing.Size(208, 22);
+            this.mnuNote.Text = "Load Notes NO macs";
+            this.mnuNote.Click += new System.EventHandler(this.LoadTSMmenu);
             // 
             // toolStripSeparator1
             // 
@@ -1331,14 +1333,14 @@
             // tsmConfig
             // 
             this.tsmConfig.Name = "tsmConfig";
-            this.tsmConfig.Size = new System.Drawing.Size(179, 22);
+            this.tsmConfig.Size = new System.Drawing.Size(180, 22);
             this.tsmConfig.Text = "Configure";
             this.tsmConfig.Click += new System.EventHandler(this.tsmConfig_Click);
             // 
             // tsmAssociate
             // 
             this.tsmAssociate.Name = "tsmAssociate";
-            this.tsmAssociate.Size = new System.Drawing.Size(179, 22);
+            this.tsmAssociate.Size = new System.Drawing.Size(180, 22);
             this.tsmAssociate.Text = "Associate Clipboard";
             this.tsmAssociate.Click += new System.EventHandler(this.tsmAssociate_Click);
             // 
@@ -1369,21 +1371,21 @@
             // mnuImgSig
             // 
             this.mnuImgSig.Name = "mnuImgSig";
-            this.mnuImgSig.Size = new System.Drawing.Size(153, 22);
+            this.mnuImgSig.Size = new System.Drawing.Size(180, 22);
             this.mnuImgSig.Text = "Image & Sig";
             this.mnuImgSig.Click += new System.EventHandler(this.mnuImgSig_Click);
             // 
             // mnuEmoji
             // 
             this.mnuEmoji.Name = "mnuEmoji";
-            this.mnuEmoji.Size = new System.Drawing.Size(153, 22);
+            this.mnuEmoji.Size = new System.Drawing.Size(180, 22);
             this.mnuEmoji.Text = "Emoji";
             this.mnuEmoji.Click += new System.EventHandler(this.mnuEmoji_Click);
             // 
             // mnuCCodes
             // 
             this.mnuCCodes.Name = "mnuCCodes";
-            this.mnuCCodes.Size = new System.Drawing.Size(153, 22);
+            this.mnuCCodes.Size = new System.Drawing.Size(180, 22);
             this.mnuCCodes.Text = "Country Codes";
             this.mnuCCodes.Click += new System.EventHandler(this.mnuCCodes_Click);
             // 
@@ -1962,6 +1964,13 @@
             this.timer2.Interval = 5000;
             this.timer2.Tick += new System.EventHandler(this.timer2_Tick);
             // 
+            // tsmLoadTR
+            // 
+            this.tsmLoadTR.Name = "tsmLoadTR";
+            this.tsmLoadTR.Size = new System.Drawing.Size(208, 22);
+            this.tsmLoadTR.Text = "Load Transfer TR macs";
+            this.tsmLoadTR.Click += new System.EventHandler(this.LoadTSMmenu);
+            // 
             // main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -2189,6 +2198,7 @@
         private System.Windows.Forms.ToolStripMenuItem tsmAssociate;
         private System.Windows.Forms.CheckBox cbShowCleaned;
         private System.Windows.Forms.TextBox tbCleanedURL;
+        private System.Windows.Forms.ToolStripMenuItem tsmLoadTR;
     }
 }
 

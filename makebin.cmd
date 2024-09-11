@@ -12,8 +12,11 @@ if %IS_64% == x64 (
 rem
 rem the release has the latest as that is where editing is to be done
 rem there might be new document files in sources that need to be pushed out
+mkdir %2DataFiles
+echo Adding new .docx and .html to %2DataFiles from the source folder
 replace /A %1sources\*.docx %2DataFiles
 replace /A %1sources\*.html %2DataFiles
+echo Updating .docx and .html files in source folder from newer ones in %2DataFiles
 replace /U /S %2DataFiles\*.docx %1sources
 replace /U /S %2DataFiles\*.html %1sources
 rem
@@ -22,8 +25,8 @@ xcopy %2*agil*.dll %1temp
 rem
 rem copy entire folder after deleteing the one in debug
 rmdir /s /q %2..\Debug\DataFiles
-xcopy /E  /I /Q /Y %2DataFiles %2..\Debug\DataFiles
-xcopy /E  /I /Q /Y %2DataFiles %1temp\DataFiles
+xcopy /E  /I /Y %2DataFiles %2..\Debug\DataFiles
+xcopy /E  /I /Y %2DataFiles %1temp\DataFiles
 rem
 xcopy %4 %1temp
 xcopy %userprofile%\Downloads\macros.html %1temp\DataFiles

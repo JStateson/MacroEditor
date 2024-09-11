@@ -361,16 +361,16 @@
     <None Include="app.config" />
     <None Include="packages.config" />
     <None Include="sources\excel_to_html.vba" />
-    <None Include="sources\mnu-edit-link.rtf" />
-    <None Include="sources\mnu-file.rtf" />
-    <None Include="sources\mnu-imag-sig.rtf" />
-    <None Include="sources\mnu-main-edit.rtf" />
-    <None Include="sources\mnu-manage-img.rtf" />
-    <None Include="sources\mnu-new-printer.rtf" />
-    <None Include="sources\mnu-paste-sig.rtf" />
-    <None Include="sources\mnu-util.rtf" />
-    <None Include="sources\mnu-web-search.rtf" />
-    <None Include="sources\mnu-word-search.rtf" />
+    <None Include="sources\mnu-edit-link.docx" />
+    <None Include="sources\mnu-file.docx" />
+    <None Include="sources\mnu-imag-sig.docx" />
+    <None Include="sources\mnu-main-edit.docx" />
+    <None Include="sources\mnu-manage-img.docx" />
+    <None Include="sources\mnu-new-printer.docx" />
+    <None Include="sources\mnu-paste-sig.docx" />
+    <None Include="sources\mnu-util.docx" />
+    <None Include="sources\mnu-web-search.docx" />
+    <None Include="sources\mnu-word-search.docx" />
     <None Include="sources\packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

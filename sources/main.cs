@@ -155,7 +155,7 @@ namespace MacroEditor
             Utils.nLongestExpectedURL = Properties.Settings.Default.LongestExpectedURL;
             string strFilename = Properties.Settings.Default.HTTP_HP;
             this.Text = " HP Macro Editor";
-            settingsToolStripMenuItem.ForeColor = (Utils.CountImages() > 20) ? Color.Red : Color.Black;
+            settingsToolStripMenuItem.ForeColor = Color.Black;
             xMacroChanges = new cMacroChanges();
             xMacroChanges.Init("MacroChanges.txt");
             xMacroViews = new cMacroChanges();
@@ -212,7 +212,8 @@ namespace MacroEditor
 
         private void LoadInitialFiles(object sender, EventArgs e)
         {
-            printerDB.InitDB();  // paths are set here so come before loadallfiles
+            printerDB.InitDB();
+            settingsToolStripMenuItem.ForeColor = (Utils.CountImages() > 20) ? Color.Red : Color.Black;
             Utils.TotalNumberMacros = LoadAllFiles();
             CheckPWE(); // see if password and email are enabled for using
             mnuCmpHTTP.Enabled = File.Exists(Properties.Settings.Default.HTTP_HP);
@@ -608,48 +609,46 @@ namespace MacroEditor
             RunBrowser(false);
         }
 
-        private void mHPload_Click(object sender, EventArgs e)
+
+        private void EnableLoadTSMitem(string sPrefix, bool b)
         {
-            SelectFileItem("HP");
+            foreach (ToolStripItem item in fileToolStripMenuItem.DropDownItems)
+            {
+                if (item is ToolStripMenuItem menuItem)
+                {
+                    if (sPrefix == FindPrefixFromText(item.Text))
+                    {
+                        item.Enabled = b;
+                        return;
+                    }
+                }
+            }
         }
 
-        private void mAIOload_Click(object sender, EventArgs e)
+        private string FindPrefixFromText(string sText)
         {
-            SelectFileItem("AIO");
+            foreach (string s in Utils.LocalMacroPrefix)
+            {
+                string t = " " + s + " ";
+                if (sText.Contains(t)) return s;
+            }
+            return "";
         }
 
-        private void mDJload_Click(object sender, EventArgs e)
-        {
-            SelectFileItem("DJ");
-        }
 
-        private void mLJload_Click(object sender, EventArgs e)
-        {
-            SelectFileItem("LJ");
-        }
 
-        private void mINload(object sender, EventArgs e)
+        private void LoadTSMmenu(object sender, EventArgs e)
         {
-            SelectFileItem("IN");
-        }
-
-        private void mOJload(object sender, EventArgs e)
-        {
-            SelectFileItem("OJ");
-        }
-        private void mPCload_Click(object sender, EventArgs e)
-        {
-            SelectFileItem("PC");
-        }
-
-        private void mOSload_Click(object sender, EventArgs e)
-        {
-            SelectFileItem("OS");
-        }
-
-        private void mnuNet_Click(object sender, EventArgs e)
-        {
-            SelectFileItem("NET");
+            ToolStripMenuItem item = sender as ToolStripMenuItem;
+            if (item != null)
+            {
+                string s = FindPrefixFromText(item.Text);
+                if (s == "")
+                {
+                    Debug.Assert(false);
+                }
+                SelectFileItem(s);
+            }
         }
 
         /*
@@ -1074,7 +1073,8 @@ namespace MacroEditor
             if (bHaveHTML)
             {
                 if (bHaveHP) return;
-                ReSaveAsTXT("HP");
+                SaveHTTPasTXT("HP");
+                LoadFromTXT("HP");
                 ShowUneditedRow(0);
                 AllowMacroMove(true);
             }
@@ -1239,6 +1239,7 @@ namespace MacroEditor
             SaveAsTXT(TXTName);
 #endif
             EnableClipProcessing();
+            EnableLoadTSMitem(strFN, i > 0);
             return i;
         }
 
@@ -2244,7 +2245,6 @@ namespace MacroEditor
                 NumCheckedMacros = 0;
                 LastViewedFN = strType;
             }
-            //AllowTBbody(true);
             btnSaveM.Enabled = true;
             lbRCcopy.Visible = false;
             mMoveMacro.Visible = true;
@@ -2279,8 +2279,6 @@ namespace MacroEditor
             ShowErrors MySE = new ShowErrors(ref DataTable);
             MySE.Show();
         }
-
-
 
         private int LoadAllFiles()
         {
@@ -2383,6 +2381,7 @@ namespace MacroEditor
                             else mnuCmpHpTr.Enabled = false;
                         }
                     }
+                    EnableLoadTSMitem(strFN, i > 0);
                 }
             }
 
@@ -2990,11 +2989,6 @@ namespace MacroEditor
             Utils.ShellHTML("SiteMap.html", true);
         }
 
-        private void loadHardwareMacsToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            SelectFileItem("HW");
-        }
-
         private void main_FormClosing(object sender, FormClosingEventArgs e)
         {
             
@@ -3025,15 +3019,6 @@ namespace MacroEditor
 
         }
 
-        private void mnuRef_Click(object sender, EventArgs e)
-        {
-            SelectFileItem("RF");
-        }
-
-        private void mnuNote_Click(object sender, EventArgs e)
-        {
-            SelectFileItem("NO");
-        }
 
         private void btnSwapBR_Click(object sender, EventArgs e)
         {
@@ -3656,7 +3641,11 @@ namespace MacroEditor
             {
                 string[] RTFs = Directory.GetFiles(Utils.WhereExe, "*.docx");
                 foreach (string s in RTFs)
+                {
+                    if (s == Utils.ScratchSpellFile) continue;
                     WantedZip.Add(Path.GetFileName(s));
+                }
+
             }
             CreateZipFromFolder(DBfolder, WantedZip, sPathZip);
         }

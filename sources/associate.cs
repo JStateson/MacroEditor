@@ -29,6 +29,7 @@ namespace MacroEditor.sources
         public List<cMacroEach> RFlist = new List<cMacroEach>();
         private bool bSwapNL = true;
         private int CurrentValidInx = -1;
+        private bool bTableExists = false;
         public class cEachTbMn
         {
             public int nLoc { get; set; }
@@ -86,7 +87,10 @@ namespace MacroEditor.sources
         {
             InitializeComponent();
             int n = Utils.ReadFile("RF", ref RFlist);
-            if (n == 0) return;
+            bTableExists = n > 0;
+            if (!bTableExists) return;
+            bTableExists = File.Exists(Utils.FNtoPath("Ass"));
+            if(!bTableExists) return;
             LoadTable();
             foreach (DataGridViewColumn column in dgv.Columns)
             {
