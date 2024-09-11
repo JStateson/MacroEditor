@@ -1,0 +1,85 @@
+lbPrinterLayout
+{
+@Reset Printer@
+@Network Connect@
+@Software@
+@Documents@
+@YouTube@
+@Reference@
+}
+
+lbUrls
+{
+Reset Video,,@Reset Printer@
+Reset Steps,,@Reset Printer@
+Router Video,,@Network Connect@
+Direct Video,,@Network Connect@
+Direct Page,Direct Doc,@Network Connect@
+WPS Page,WPS Doc,@Network Connect@
+Driver,,@Software@
+Scanner,,@Software@
+Software,,@Software@
+All Docs,,@Documents@
+Parts,,@YouTube@
+Assembly,,@YouTube@
+YouTube,,@YouTube@
+Reference,,@Reference@
+}
+
+lbButtons
+{
+Reset Video
+Reset Steps
+Router Video
+Direct Video
+Direct Page
+Direct Doc
+WPS Page
+WPS Doc
+Driver
+Scanner
+Software
+All Docs
+Parts
+Assembly
+YouTube
+Reference
+}
+
+lbTips
+{
+Video showing show to reset the printer
+Paste steps used to reset
+Video showing network connect to modem
+Video showing how to do Wi-Fi direct
+Page in user manual for Wi-Fi direct
+User manual for Wi-Fi direct help
+Page the WPS setup is described on
+User manual for WPS setup information
+Full function driver download
+Full function scanning download
+All software is here
+All documents are here
+Reference and specification page
+Lookup parts here
+Disassembly video is here
+HP support YouTube videos are here
+}
+
+lbPhrases
+{
+Watch this video to see how to reset your printer: @Reset Video@ 
+<br>These steps might allow you to reset the printer:<br>@Reset Steps@
+<br>This video shows how to connect to the router: @Router Video@ 
+<br>Wi-Fi Direct can be used to avoid configuring the router.  Watch this: @Direct Video@
+<br>Wi-Fi Direct is explained on page @Direct Page@ of the @Direct Doc@, this Wi-Fi setup avoids configuring the modem.
+<br>A simple connection to the modem can be done by using the WPS pushbutton method.  This is explained on page @WPS Page@ in this @WPS Doc@.
+<br>Full function printer drivers can be downloaded here: @Driver@
+<br>Full function software for scanning can be downloaded here: @Scanner@
+<br>You can find all of the software here: @Software@.  You should select the OS and then look for the phrase "Open All" and click that.  Drivers from Windows 7 and up are usually compatible with the latest Windows OS.
+<br>All HP manuals are here: @All Docs@
+<br>Parts, if any available, can be found here @Parts@.  Use your serial number for more extensive information.
+<br>Disassembly is shown in this video: @Assembly@ 
+<br>Printer problems could be cleared by one or more of these HP YouTube videos @YouTube@
+<br>Specifications for your system: @Reference@
+}

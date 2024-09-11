@@ -1,0 +1,78 @@
+This file is used by MacroViewer
+
+Number Countries:68
+
+Columns wanted:3
+
+Number Rows:23
+
+Number slots:69
+
+#A2M - Iceland - English 
+#A2N - Saudi Arabia - Arabic'English 
+#A2Q - Ukraine - Ukrainian 
+#AB0 Taiwan
+#AB1 Korea
+#AB2 China
+#AB4 Singapore Malaysia
+#AB5 Hong Kong
+#AB6 Arabia (French)
+#AB7 Greece
+#AB8 Turkey
+#AB9 Portugal
+#ABA US (English)
+#ABB Europe (English)
+#ABC Canada (French)
+#ABD Germany
+#ABE Spain
+#ABF France
+#ABG Australia
+#ABH Netherlands
+#ABJ Japan
+#ABL Canada english/french
+#ABM L A (Spanish)
+#ABN Norway
+#ABP Swiss (German)
+#ABQ Swiss (French)
+#ABS Sweden
+#ABT Hebrew
+#ABU UK (English)
+#ABV Arabia (English)
+#ABW Belgium (Flemish)
+#ABX Finland
+#ABY Denmark
+#ABZ Italy
+#AC4 Brazil
+#AC8 Argentina (Spanish)
+#ACB Russia
+#ACJ India
+#ACQ South Africa
+#ACY Sweden (English)
+#AH3 - Palestine - Arabic/English 
+#AK8 - Sweden/Finland - se/fi/en 
+#AKB Czech
+#AKC Hungary
+#AKD Poland
+#AKE - Romania - Romanian 
+#AKG Eastern Europe
+#AKJ Hebrew (English)
+#AKL Thailand
+#AKN Slovenia
+#AKQ - Serbia - Serbian 
+#AKR Slovakia
+#AKS - Bulgaria - English 
+#AKV South America (Spanish)
+#ARE Malaysia English
+#ARL Baltic
+#B10 - Africa - Portuguese 
+#B16 LA Spanish
+#B1R - Baltics Estonia - en/lt/lv/ee 
+#BCM Ukraine
+#BED - Adriatics - en/sl/hr/sr 
+#BH4 - Africa - fr/ar/en  - FR KB
+#BH5 kenya
+#BJA- Kazakhstan - Russian 
+#UUF Asia Pacific English
+#UUG Belgium french
+#UUW Skandinavien
+#UUZ Switzerland

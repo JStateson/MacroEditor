@@ -1,0 +1,187 @@
+Folder with files
+the files have tokens to indicate the data that follows
+
+key  (type:name)
+number tags,
+tag1
+tag1 name
+number entries tag 1
+entry 1
+entry 2
+...
+tag2
+tag2 name
+number entries tag 2
+entry 1
+...
+tag16
+
+The lbprinterlayout has 6 entries that that corresponds to the printer templett
+Printer Reset is a destination for Reset Video and Reset Steps
+
+the key is used in the LJ DJ IJ OJ files to to allow combining the technical items (printer info) with notes
+such as how to do things and other comments unique to the user
+
+moveing a macro only rnames the id if the destinaion is a different printer type
+
+<!-- @MACRO@:(JYS:TEST) TimeStamp=20240901_193430 -->
+JYS:TEST
+16
+0
+Reset Video
+2
+ZZZAAAAAAA
+RESET VIDEO
+ZZZAAAAAAA
+RESET VIDEO
+1
+Reset Steps
+2
+Step 1: of 1 variation ZZZBBBBBBB<br>Step 2: QQQAAAAAAA<br>Step 3: QQQBBBBBBB<br>Step 4: QQQCCCCCCC<br>Step 5: QQQDDDDDDD<br>
+RESET STEPS
+Step 1: of 1 variation ZZZBBBBBBB<br>Step 2: QQQAAAAAAA<br>Step 3: QQQBBBBBBB<br>Step 4: QQQCCCCCCC<br>Step 5: QQQDDDDDDD<br>
+RESET STEPS
+2
+Router Video
+2
+ZZZCCCCCCC
+ROUTER VIDEO
+ZZZCCCCCCC
+ROUTER VIDEO
+3
+Direct Video
+2
+ZZZDDDDDDD
+DIRECT VIDEO
+ZZZDDDDDDD
+DIRECT VIDEO
+4
+Direct Page
+2
+0
+DIRECT PAGE
+0
+DIRECT PAGE
+5
+Direct Doc
+2
+ZZZFFFFFFF
+DIRECT DOC
+ZZZFFFFFFF
+DIRECT DOC
+6
+WPS Page
+2
+0
+WPS PAGE
+0
+WPS PAGE
+7
+WPS Doc
+2
+ZZZHHHHHHH
+WPS DOC
+ZZZHHHHHHH
+WPS DOC
+8
+Driver
+2
+ZZZIIIIIII
+DRIVER
+ZZZIIIIIII
+DRIVER
+9
+Scanner
+2
+ZZZJJJJJJJ
+SCANNER
+ZZZJJJJJJJ
+SCANNER
+10
+Software
+2
+ZZZKKKKKKK
+SOFTWARE
+ZZZKKKKKKK
+SOFTWARE
+11
+All Docs
+2
+ZZZLLLLLLL
+ALL DOCS
+ZZZLLLLLLL
+ALL DOCS
+12
+Reference
+2
+ZZZMMMMMMM
+REFERENCE
+ZZZMMMMMMM
+REFERENCE
+13
+Parts
+2
+ZZZNNNNNNN
+PARTS
+ZZZNNNNNNN
+PARTS
+14
+Assembly
+2
+ZZZOOOOOOO
+ASSEMBLY
+ZZZOOOOOOO
+ASSEMBLY
+15
+YouTube
+2
+ZZZPPPPPPP
+YOUTUBE
+ZZZPPPPPPP
+YOUTUBE
+
+code could have been used to find duplicated urls
+        public string AddPhrase(string sID, string sText)
+        {
+            int i = iLookup(sID);
+            csIDs cid = MyPrinterInfo[i];
+            string sDups = "";
+            foreach(csIDs ExistingID in MyPrinterInfo)
+            {
+                foreach(string sPhrase in ExistingID.sPhrase)
+                {
+                    if(sPhrase == sText)
+                    {
+                        sDups += "NewID:" + sID + " ExistingID:" + ExistingID.sID +",";
+                        // dups are in the url of the phrase, not the sText itself!
+                    }
+                }
+            }
+            cid.sPhrase.Add(sText);
+          
+following was used to parse text and then lookup the record to get the IDs in updateurls
+          mU = new cMyUrls();
+            if(bhasMacroID)
+            {
+                FirstAfter =  mU.Init(sBeforeID);
+                NumAfter = mU.Add(sWithID);
+                rDB = pDB.ParseRecord(ref DataFileRecord);
+                rDB.InitSearch();
+                for(int i = 0; i < FirstAfter; i++)
+                {
+                    string sUrl = mU.UrlInfo[i].sOrigHref;
+                    string sTok = "";
+                    if(rDB.FindNext(sUrl,ref sTok))
+                    {
+                        if (sTok.Contains(" Doc"))
+                        {
+                            sTok += "[@page@]";
+                        }
+                        MacTagNames.Add(sTok);
+                    }
+                    else
+                    {
+                        MacTagNames.Add("missing");
+                    }
+                }
+            }
