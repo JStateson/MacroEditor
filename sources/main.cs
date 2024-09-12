@@ -3308,10 +3308,34 @@ namespace MacroEditor
 
                 case "tsmTable":
                     iLen = tbBody.SelectionLength;
-                    if (iLen == 0) return;
-                    sPara = Utils.Form1CellTable(tbBody.Text.Substring(selectionStart, iLen),"");
+                    if (iLen == 0)
+                    {
+                        string t = Clipboard.GetText();
+                        iLen = t.Length;
+                        if (iLen == 0) return;
+                        sPara = Utils.Form1CellTable(t,"");
+                        iLen = sPara.Length;
+                    }
+                    else 
+                        sPara = Utils.Form1CellTable(tbBody.Text.Substring(selectionStart, iLen),"");
                     ReplaceText(selectionStart, iLen, sPara);
                     break;
+
+                case "tsmNumList":
+                    iLen = tbBody.SelectionLength;
+                    if (iLen == 0)
+                    {
+                        string t = Clipboard.GetText();
+                        iLen = t.Length;
+                        if (iLen == 0) return;
+                        sPara = Utils.FormNumList(t);
+                        iLen = sPara.Length;
+                    }
+                    else
+                        sPara = Utils.FormNumList(tbBody.Text.Substring(selectionStart, iLen));
+                    ReplaceText(selectionStart, iLen, sPara);
+                    break;
+
 
                 case "tsmResetVideo":
                     tbBody.Text = tbBody.Text.Insert(i,Utils.sDefaultINK[0]);

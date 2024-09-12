@@ -67,6 +67,7 @@ namespace MacroEditor.sources
             DataRecordOut = "";
             cbMacroList.Items.Clear();
             bhasMacroID = DataFileRecord.Length > 0;
+            gpMissing.Enabled = bhasMacroID;
             sImgOpt = Utils.sDifSiz.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
             for (int i = 0; i < sImgOpt.Length; i++)
             {

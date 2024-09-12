@@ -2175,7 +2175,7 @@ namespace MacroEditor
         public string sProposedT;
         public string sOrigResult;
         public string sChangedResult;
-        public string sButtonName;
+        public string sButtonName = "";
         public string OriginalPageNumber;
         public string ProposedPageNumber;
         public int iOfst;
