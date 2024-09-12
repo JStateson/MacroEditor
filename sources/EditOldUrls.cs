@@ -118,7 +118,9 @@ namespace MacroEditor.sources
             }
             else
             {
+                StartMacOld = 0;
                 mU.Init(rText);
+                EndMacOld = mU.UrlInfo.Count;
             }
 
 
@@ -437,17 +439,16 @@ namespace MacroEditor.sources
         private void SaveChange()
         {
             cUrls cu = mU.UrlInfo[nSelectedM];
-            //mU.UrlInfo[nSelectedM].sProposedH = tbH.Text.Trim();
-            //mU.UrlInfo[nSelectedM].sProposedT = tbT.Text.Trim();
-            //mU.UrlInfo[nSelectedM].sChangedResult = tbResult.Text.Replace("<br>", Environment.NewLine);
 
-            string sTH = mU.UrlInfo[nSelectedM].sProposedH;
-            string sTT = mU.UrlInfo[nSelectedM].sProposedT;
 
-            sTT = sTT.Replace(Environment.NewLine, "<br>");
 
-            if (nSelectedM >= EndMacOld)
+            if (nSelectedM >= EndMacOld && cu.bIsMacIDrecord)
             {
+                string sTH = mU.UrlInfo[nSelectedM].sProposedH;
+                string sTT = mU.UrlInfo[nSelectedM].sProposedT;
+
+                sTT = sTT.Replace(Environment.NewLine, "<br>");
+
                 string sTagName = tbTagName.Text;
                 int i = FindOldEA(sTagName);
                 if(i == -1)
@@ -469,20 +470,12 @@ namespace MacroEditor.sources
                     cbMacroList.Items[nSelectedM] = FormName(n, ea.TagName);
                 }
             }
-
-            /*
-            if(bhasMacroID && cu.bIsMacIDrecord)
+            else
             {
-                string sTagName = tbTagName.Text;
-                switch(sTagName)
-                {
-                    case "Direct Page":
-                    case "WPS Page":
-                        string PageNumber = tbPageN.Text;
-                        break;
-                }
+                mU.UrlInfo[nSelectedM].sProposedH = tbH.Text.Trim();
+                mU.UrlInfo[nSelectedM].sProposedT = tbT.Text.Trim();
+                mU.UrlInfo[nSelectedM].sChangedResult = tbResult.Text.Replace("<br>", Environment.NewLine);
             }
-            */
 
             ShowChange();
         }
