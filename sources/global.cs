@@ -632,8 +632,8 @@ namespace MacroEditor
                     if (sClip.IndexOf(Environment.NewLine) >= 0) ErrCod = 2;
                     break;
                 case "Reset Steps":
-                    i = sClip.IndexOf(Environment.NewLine);
-                    if (i == 0 || i > Utils.MaxLinesInSteps) ErrCod = 6;
+                    i = sClip.Count(c => c == '\n');
+                    if (i > Utils.MaxLinesInSteps) ErrCod = 6;
                     break;
             }
             if (ErrCod > 0)
@@ -915,6 +915,18 @@ namespace MacroEditor
             //strTemp = strTemp.Replace("<br>",Environment.NewLine);
             ShellHTML(strTemp, false);
             return strTemp;
+        }
+
+        public static string FormNumList(string sIn)
+        {
+            string[] sSin = sIn.Split(new[] { "\r\n", "\n" }, StringSplitOptions.None);
+            string sOut = "<table border='2'><tr><td><ol><br>";
+            foreach (string s in sSin)
+            {
+                sOut += "<li>" + s + "</li>";
+            }
+            sOut += "</ol></td></tr></table>";
+            return sOut;
         }
 
         public static string JustifiedText(string t)
@@ -2166,6 +2178,8 @@ namespace MacroEditor
         public string sButtonName;
         public string OriginalPageNumber;
         public string ProposedPageNumber;
+        public int iOfst;
+        public int iNxt;
         public bool bIsImage = false;
         public bool bIsSteps = false;
         public bool bIsPage = false;

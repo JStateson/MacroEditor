@@ -101,36 +101,6 @@ namespace MacroEditor.sources
             }
         }
 
-        private string FormatField(string sID, string sText)
-        {
-            string sOut = "";
-            switch(sID)
-            {
-                case "@Reset Printer@":
-                    if(sText.Contains(" steps "))
-                    {
-                        sOut = "<br>" + sText;
-                    }
-                    else
-                    {
-                        sOut = sText + " ";
-                    }
-                    break;
-                case "@Network Connect@":
-
-                case "@Software@":
-
-                case "@Documents@":
-
-                case "@YouTube@":
-
-                case "@Reference@":
-                    sOut = " " + sText;
-                    break;
-            }
-            return sOut;
-        }
-
 
         //sID might be @Reset Printer@
         public void AddPhrase(string sID, string sText)
@@ -422,8 +392,9 @@ namespace MacroEditor.sources
         {
             int i = TagToPhrase(iWorkingTab);
             string sH = PrinterListH[iWorkingTab][0];
-            string sU = Utils.Form1CellTable(sH, "");
-            string sO = s.Replace("<br>@arg@", sU);
+            string t = sH.Replace("<br>", Environment.NewLine);
+            string sU = Utils.FormNumList(t); //Utils.Form1CellTable(sH, "");
+            string sO = s.Replace("@arg@", sU);
             PrinterHttp[i].Add(sO);
         }
         private void RouterVideo(string s, int iWorkingTab, string sT)

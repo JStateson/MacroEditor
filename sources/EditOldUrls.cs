@@ -1,4 +1,5 @@
 ﻿using Microsoft.Office.Interop.Word;
+using Microsoft.Office.Interop.Word;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -8,6 +9,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Net.NetworkInformation;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -27,6 +29,7 @@ namespace MacroEditor.sources
         public string DataRecordOut { get; set; }
         public string FormattedDataOut { get; set; }
         private cMyUrls mU;
+        private string rText;
         private int nSelectedM = -1;
         private string sLBatext;
         private Color lbFC;
@@ -46,31 +49,41 @@ namespace MacroEditor.sources
         private int StartMacOld = 0;
         private int EndMacOld = 0;
         private List<string> lbButtons;
+        private string DataFileRecord;
 
-        public EditOldUrls(string rText, string DataFileRecord, ref PrinterDB RpDB)
+        public EditOldUrls(string rRText, string rDataFileRecord, ref PrinterDB RpDB)
         {
             InitializeComponent();
+            pDB = RpDB;
+            rText = rRText;
+            sLBatext = gbText.Text;
+            DataFileRecord = rDataFileRecord;
+            UpdateAllURLs();
+        }
+
+
+        private void UpdateAllURLs()
+        {
             DataRecordOut = "";
             cbMacroList.Items.Clear();
-            pDB = RpDB;
-            bhasMacroID = DataFileRecord.Length > 0; 
+            bhasMacroID = DataFileRecord.Length > 0;
             sImgOpt = Utils.sDifSiz.Split(new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
-            for(int i = 0; i < sImgOpt.Length; i++)
+            for (int i = 0; i < sImgOpt.Length; i++)
             {
                 sImgOpt[i] = Utils.sHasSize + sImgOpt[i];
             }
             mU = new cMyUrls();
-            if(bhasMacroID)
+            if (bhasMacroID)
             {
                 cEachTag et, LastET;
                 CountMissingItems(ref DataFileRecord);
                 rDB = pDB.ParseRecord(ref DataFileRecord);
                 int iOfst = 0;   // offset into the rDB list of http and text
                 int iNxt = 0;   // the index into HTML or TEXT 
-                while(iOfst < rDB.RecordSet.Count)
+                while (iOfst < rDB.RecordSet.Count)
                 {
                     et = rDB.RecordSet[iOfst];
-                    if(et.TagName == "Direct Page" || et.TagName == "WPS Page")
+                    if (et.TagName == "Direct Page" || et.TagName == "WPS Page")
                     {
                         LastET = et;
                         iOfst++;
@@ -81,7 +94,7 @@ namespace MacroEditor.sources
                     }
                     else
                     {
-                        while(iNxt < et.SourceHREF.Count)
+                        while (iNxt < et.SourceHREF.Count)
                         {
                             AddTokenRecord(et, iOfst, iNxt);
                             iNxt++;
@@ -108,7 +121,7 @@ namespace MacroEditor.sources
             }
 
 
-            for(int i = 0; i < mU.UrlInfo.Count; i++)
+            for (int i = 0; i < mU.UrlInfo.Count; i++)
             {
                 cbMacroList.Items.Add("Macro " + (i + 1).ToString().PadLeft(2));
             }
@@ -116,6 +129,7 @@ namespace MacroEditor.sources
             nSelectedM = cbMacroList.SelectedIndex;
             sLBatext = gbText.Text;
             lbFC = lbChanged.ForeColor;
+
         }
 
         private void CountMissingItems(ref string sRec)
@@ -190,6 +204,8 @@ namespace MacroEditor.sources
             MacTagNames.Add(sName);
             cbMacroList.Items.Add(sName);
             cUrls cu = new  cUrls();
+            cu.iOfst = iOfst;
+            cu.iNxt = iNxt;
             cu.sButtonName = et.TagName;
             cu.bIsMacIDrecord = true;
             cu.bIsUrl = true;
@@ -199,7 +215,7 @@ namespace MacroEditor.sources
             cu.sOrigHref = cu.sProposedH;
             if(et.TagName.Contains("Steps"))
             {
-                cu.sOrigResult = Utils.Form1CellTable(cu.sOrigHref,"");
+                cu.sOrigResult = Utils.FormNumList(cu.sOrigHref); //Utils.Form1CellTable(cu.sOrigHref,"");
                 cu.sChangedResult = cu.sOrigResult;
                 cu.bIsSteps = true;
                 cu.bIsUrl = false;
@@ -232,7 +248,7 @@ namespace MacroEditor.sources
             {
                 gpTag.Visible = true;
                 tbTagName.Text = mU.UrlInfo[i].sButtonName;
-                
+                gbText.Visible = !mU.UrlInfo[i].bIsSteps;
             }
             else gpTag.Visible = false;
             btnDelSelected.Visible = gpTag.Visible;
@@ -261,11 +277,17 @@ namespace MacroEditor.sources
 
         private void cbMacroList_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if (cbMacroList.SelectedIndex < 0) return;
             nSelectedM = cbMacroList.SelectedIndex;
             if (nSelectedM >= 0)
             {
                 tbT.Text = mU.UrlInfo[nSelectedM].sProposedT;
-                tbH.Text = mU.UrlInfo[nSelectedM].sProposedH;
+                if (mU.UrlInfo[nSelectedM].sButtonName.Contains("Steps"))
+                {
+                    tbH.Text = mU.UrlInfo[nSelectedM].sProposedH.Replace("<br>", Environment.NewLine);
+                }
+                else 
+                    tbH.Text = mU.UrlInfo[nSelectedM].sProposedH;
                 tbResult.Text = mU.UrlInfo[nSelectedM].sChangedResult;
                 tbT.ReadOnly = mU.UrlInfo[nSelectedM].bIsImage;
                 if(mU.UrlInfo[nSelectedM].bIsImage)
@@ -324,6 +346,9 @@ namespace MacroEditor.sources
             return true;
         }
 
+
+        // sIn has newlines
+
         private void FormChange()
         {
             string t = "";
@@ -352,7 +377,7 @@ namespace MacroEditor.sources
                         if(IsBadItem(sH, sTagName)) return;
                         cu.sProposedH = sH;
                         cu.sProposedT = ""; // this is table width
-                        tbResult.Text = Utils.Form1CellTable(sH, cu.sProposedT);
+                        tbResult.Text = Utils.FormNumList(sH).Replace(Environment.NewLine,"<br>");
                         cu.sChangedResult = tbResult.Text;
                         break;
                     default:
@@ -397,9 +422,54 @@ namespace MacroEditor.sources
             ShowChange();
         }
 
+        private int FindOldEA(string TagName)
+        {
+            int i = 0;
+            foreach(cEachTag ea in rDB.RecordSet)
+            {
+                if (ea.TagName == TagName) return i;
+                i++;
+            }
+            return -1;
+        }
+
         private void SaveChange()
         {
             cUrls cu = mU.UrlInfo[nSelectedM];
+            //mU.UrlInfo[nSelectedM].sProposedH = tbH.Text.Trim();
+            //mU.UrlInfo[nSelectedM].sProposedT = tbT.Text.Trim();
+            //mU.UrlInfo[nSelectedM].sChangedResult = tbResult.Text.Replace("<br>", Environment.NewLine);
+
+            string sTH = mU.UrlInfo[nSelectedM].sProposedH;
+            string sTT = mU.UrlInfo[nSelectedM].sProposedT;
+
+            sTT = sTT.Replace(Environment.NewLine, "<br>");
+
+            if (nSelectedM >= EndMacOld)
+            {
+                string sTagName = tbTagName.Text;
+                int i = FindOldEA(sTagName);
+                if(i == -1)
+                {
+                    cEachTag ea = new cEachTag();
+                    ea.TagName = sTagName;
+                    ea.iTag = lbButtons.IndexOf(sTagName);
+                    ea.SourceHREF.Add(sTH);
+                    ea.SourceTEXT.Add(sTT);
+                    rDB.RecordSet.Add(ea);
+                    cbMacroList.Items[nSelectedM] = FormName(0, ea.TagName);
+                }
+                else
+                {
+                    cEachTag ea = rDB.RecordSet[i];
+                    int n = ea.SourceTEXT.Count;
+                    ea.SourceHREF.Add(sTH);
+                    ea.SourceTEXT.Add(sTT);
+                    cbMacroList.Items[nSelectedM] = FormName(n, ea.TagName);
+                }
+            }
+
+            /*
             if(bhasMacroID && cu.bIsMacIDrecord)
             {
                 string sTagName = tbTagName.Text;
@@ -411,22 +481,31 @@ namespace MacroEditor.sources
                         break;
                 }
             }
-            mU.UrlInfo[nSelectedM].sProposedH = tbH.Text.Trim();
-            mU.UrlInfo[nSelectedM].sProposedT = tbT.Text.Trim();
-            mU.UrlInfo[nSelectedM].sChangedResult = tbResult.Text.Replace("<br>",Environment.NewLine);
+            */
+
             ShowChange();
         }
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            if(bInMacroRecAddMode)
-            {
-                string TagName = tbTagName.Text;    
-                
-
-            }
-            else
                 SaveChange();
+        }
+
+
+        private string FormRecord()
+        {
+            int nTotalTags = rDB.RecordSet.Count;
+            CopyBackRec();  // this create the Href and the Text
+            bool b = pDB.CreateRecord(nTotalTags);
+            foreach (cEachTag et in rDB.RecordSet)
+            {
+                int iTag = et.iTag;
+                for (int i = 0; i < et.SourceTEXT.Count; i++)
+                {
+                    pDB.AddNextRecord(iTag, et.TagName, et.SourceHREF[i], et.SourceTEXT[i]);
+                }
+            }
+            return pDB.FormRecord();
         }
 
         private void ApplyExit()
@@ -435,19 +514,8 @@ namespace MacroEditor.sources
 
             sBodyOut = mU.GetUpdated(StartMacOld, EndMacOld);
             if (bhasMacroID)
-            {
-                int nTotalTags = rDB.RecordSet.Count;
-                CopyBackRec();  // this create the Href and the Text
-                bool b = pDB.CreateRecord(nTotalTags);
-                foreach(cEachTag et in rDB.RecordSet)
-                {
-                    int iTag = et.iTag;
-                    for(int i = 0; i < et.SourceTEXT.Count; i++)
-                    {
-                        pDB.AddNextRecord(iTag, et.TagName, et.SourceHREF[i], et.SourceTEXT[i]);
-                    }
-                }
-                DataRecordOut = pDB.FormRecord();
+            {                
+                DataRecordOut = FormRecord();
                 if (pDB.FormatParsedRecord(ref rDB, ref FmtOut))
                 {
                     FormattedDataOut = FmtOut;
@@ -478,8 +546,8 @@ namespace MacroEditor.sources
                 {
                     cu = mU.UrlInfo[iCU];
                     // need to add not as there could be several
-                    rDB.RecordSet[iOfst].SourceHREF[i] = cu.sProposedH;
-                    rDB.RecordSet[iOfst].SourceTEXT[i] = cu.sProposedT;
+                    rDB.RecordSet[iOfst].SourceHREF[i] = cu.sProposedH.Replace(Environment.NewLine, "<br>");
+                    rDB.RecordSet[iOfst].SourceTEXT[i] = cu.sProposedT; //.Replace(Environment.NewLine, "<br>");
                     if (cu.bIsPage)
                     {
                         rDB.RecordSet[iOfst - 1].SourceHREF[0] = cu.ProposedPageNumber;
@@ -505,13 +573,18 @@ namespace MacroEditor.sources
 
         private void btnCanH_Click(object sender, EventArgs e)
         {
+            /*
             if (bInMacroRecAddMode)
             {
                 string s = tbTagName.Text;
                 AddNR(s);
             }
             else
-                tbH.Text = mU.UrlInfo[nSelectedM].sOrigHref;          
+                */
+            if (tbTagName.Text.Contains("Steps"))
+                tbH.Text = mU.UrlInfo[nSelectedM].sOrigHref.Replace("<br>", Environment.NewLine);
+            else
+                tbH.Text = mU.UrlInfo[nSelectedM].sOrigHref;
         }
 
         private void btnClrT_Click(object sender, EventArgs e)
@@ -521,13 +594,14 @@ namespace MacroEditor.sources
 
         private void btnCanT_Click(object sender, EventArgs e)
         {
+            /*
             if (bInMacroRecAddMode)
             {
                 string s = tbTagName.Text;
                 AddNR(s);
             }
             else
-
+            */
             {
                 tbT.Text = mU.UrlInfo[nSelectedM].sOrigText;
                 tbPageN.Text = mU.UrlInfo[nSelectedM].OriginalPageNumber;
@@ -574,7 +648,7 @@ namespace MacroEditor.sources
             tbT.Enabled = true;
             //btnCancelChg.Enabled = false;
             //btnCancelExit.Enabled = false;
-            btnClrT.Enabled = false;    
+            //btnClrT.Enabled = false;    
             if (s.Contains("Page"))
             {
                 int i = s.IndexOf(',');
@@ -615,6 +689,8 @@ namespace MacroEditor.sources
                         break;
                     case "Reset Steps":
                         tbT.Enabled = false;
+                        tbH.Text = "";
+                        tbT.Text = "";
                         tbInfo.Text = "Enter the steps to reset the printer at location HREF";
                         break;
                 }
@@ -628,6 +704,7 @@ namespace MacroEditor.sources
             sAddModeItem = s;
             AddNR(s);
             AddItem(s);
+            cbMacroList.SelectedIndex  = cbMacroList.Items.Count - 1; 
         }
 
         private void AddItem(string TagName)
@@ -641,6 +718,7 @@ namespace MacroEditor.sources
             cu.sProposedT = Utils.UnNamedMacro;
             cu.sChangedResult = Utils.UnNamedMacro;
             cu.sOrigResult = Utils.UnNamedMacro;
+            cu.bIsSteps = TagName.Contains("Steps");
             mU.UrlInfo.Add(cu);
             cbMacroList.Items.Add(TagName);
         }
@@ -657,8 +735,31 @@ namespace MacroEditor.sources
 
         private void btnDelSelected_Click(object sender, EventArgs e)
         {
-            cbMacroList.Items.Remove(cbMacroList.SelectedIndex);
-            mU.UrlInfo.RemoveAt(cbMacroList.SelectedIndex);
+            int iOfst = mU.UrlInfo[nSelectedM].iOfst;
+            int iNxt = mU.UrlInfo[nSelectedM].iNxt;
+            //mU.UrlInfo.RemoveAt(nSelectedM);
+            cEachTag et = rDB.RecordSet[iOfst];
+            et.SourceTEXT[iNxt] = "";
+            et.SourceHREF[iNxt] = "";
+            //cbMacroList.Items.RemoveAt(nSelectedM);
+            int n = et.SourceHREF.Count;
+            if (iNxt == (n - 1))
+            {
+                et.SourceHREF.RemoveAt(n - 1);
+                et.SourceTEXT.RemoveAt(n - 1);
+            }
+            else
+            {
+                while (iNxt < (n))
+                {
+                    et.SourceTEXT[iNxt] = et.SourceTEXT[iNxt + 1];
+                    et.SourceHREF[iNxt] = et.SourceHREF[iNxt + 1];
+                    iNxt++;
+                }
+            }
+            rDB.RecordSet.RemoveAt(iOfst);
+            DataFileRecord = FormRecord();
+            UpdateAllURLs();
         }
     }
 }

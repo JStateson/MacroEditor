@@ -5,7 +5,7 @@ printer in the wired mode. Connecting an ethernet cable may
 still leave the printer in Wi-Fi mode.  The Wi-Fi reset shown 
 below is used to put Wi-Fi printers into setup mode.  Note that
 the reset video may show a slightly different model than yours.</p>
-<table border='1'><tr><td>@Reset Printer@</td></tr></table>
+<table border='2'><tr><td>@Reset Printer@</td></tr></table>
 
 <!-- @IDNetwork Connect@ TimeStamp=DDDDDDDD_TTTTTT -->
 <b>Wi-Fi connection</b><p>
@@ -16,7 +16,7 @@ modem needs to provide the same IP address on every connection.
 This rarely happens with random connects.  An alternate Wi-Fi
 connection is Wi-Fi direct.  Your laptop or smartphone prints
 directly to the printer and does not go through the modem.</p>
-<table border='1'><tr><td>@Network Connect@</td></tr></table>
+<table border='2'><tr><td>@Network Connect@</td></tr></table>
 
 <!-- @IDSoftware@ TimeStamp=DDDDDDDD_TTTTTT -->
 <b>Software</b><p>
@@ -28,7 +28,7 @@ use 10.  You can go as far back as Windows 7, 64bit to get
 missing drivers. After selecting the OS click the blue
 <b><font color="#0000FF">Open all</font></b> button to view
 all downloads.</p>
-<table border='1'><tr><td>@Software@</td></tr></table>
+<table border='2'><tr><td>@Software@</td></tr></table>
 
 <!-- @IDDocuments@ TimeStamp=DDDDDDDD_TTTTTT -->
 <b>Documents</b><p>
@@ -36,7 +36,7 @@ All documents are available at the below HP site.
 The user and reference manuals show how to get status
 reports and analyze error indicators on printer that have
 no control panel.</p>
-<table border='1'><tr><td>@Documents@</td></tr></table>
+<table border='2'><tr><td>@Documents@</td></tr></table>
 
 <!-- @IDYouTube@ TimeStamp=DDDDDDDD_TTTTTT -->
 <b>Support Videos - Parts - Disassembly</b>
@@ -44,21 +44,21 @@ no control panel.</p>
 English and other languages. Typically unboxing, clearing
 paper jams, and cartridge problems.  You may also find
 instructional disassembly videos from other users.</p>
-<table border='1'><tr><td>@YouTube@</td></tr></table>
+<table border='2'><tr><td>@YouTube@</td></tr></table>
 
 <!-- @IDReference@ TimeStamp=DDDDDDDD_TTTTTT -->
 <b>Printer Reference</b><p>
 One or more printer reference is listed below.  Typically
 your printer may be part of a series and use the same
 software and manual.  The exact spec may be different.</p>
-<table border='1'><tr><td>@Reference@</td></tr></table>
+<table border='2'><tr><td>@Reference@</td></tr></table>
 
 <!-- @IDParts@ TimeStamp=DDDDDDDD_TTTTTT -->
 <b>Support Videos - Parts List </b>
 <p>HP has a site where you can look 
 parts using your product ID. If you use your serial number you 
 can get more detailed information.</p>
-<table border='1'><tr><td>@Parts@</td></tr></table>
+<table border='2'><tr><td>@Parts@</td></tr></table>
 
 <!-- @IDAssemblyPC@ TimeStamp=DDDDDDDD_TTTTTT -->
 <b>Support Videos -  Disassembly</b>
@@ -66,7 +66,7 @@ can get more detailed information.</p>
 systems have created videos showing upgrades and repairs.
 These disassembly videos might be useful.  Feel free to 
 comment on any of these YouTube videos.</p>
-<table border='1'><tr><td>@AssemblyPC@</td></tr></table>
+<table border='2'><tr><td>@AssemblyPC@</td></tr></table>
 
 <!-- @IDAssemblyPR@ TimeStamp=DDDDDDDD_TTTTTT -->
 <b>Support Videos -  Disassembly</b>
@@ -75,7 +75,7 @@ printers have created videos showing repairs.
 These disassembly videos might be useful to resolve 
 paper feed and cartridge problems.  Feel free to 
 comment on any of these YouTube videos.</p>
-<table border='1'><tr><td>@AssemblyPR@</td></tr></table>
+<table border='2'><tr><td>@AssemblyPR@</td></tr></table>
 
 <!-- @IDWiFi Connect@ TimeStamp=DDDDDDDD_TTTTTT -->
 <b>Wi-Fi connection</b><p>
@@ -84,4 +84,4 @@ An alternate type of connection is Wi-Fi direct.  Your
 laptop or smartphone prints directly to the printer and 
 does not go through the modem.  This is convenient if there 
 is no modem or you cannot get access to the modem.</p>
-<table border='1'><tr><td>@WiFi Connect@</td></tr></table>
+<table border='2'><tr><td>@WiFi Connect@</td></tr></table>

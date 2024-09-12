@@ -1243,6 +1243,7 @@ namespace MacroEditor
             return i;
         }
 
+        // if a checkbox check then the clipboard is looked at to obtain argument for site to handle
         private void EnableClipProcessing()
         {
             bool b = (strType == "RF");
@@ -1255,7 +1256,7 @@ namespace MacroEditor
                     string sMacName = (string) lbName.Rows[i].Cells[3].Value;
                     if(ClipboardMacros.Contains(sMacName))
                     {
-                        lbName.Rows[i].Cells[2].Value  = "\u2713";
+                        lbName.Rows[i].Cells[2].Value  = "\u2713"; // checkbox check (large)
                     }
                 }
             }
@@ -1766,7 +1767,6 @@ namespace MacroEditor
                         if (DataFileRecord != "")
                         {
                             bDataFileUnsaved = true;
-                            //MustFinishEdit(false);
                             tbBody.Text = Utils.FormHeader(sName, strType);
                         }
                     }
@@ -1775,7 +1775,6 @@ namespace MacroEditor
                 else
                 {
                     AddNew(Utils.UnNamedMacro, GetReference());
-                    //btnNewPrinter.Enabled = true;
                 }
 
                 nSavedCount++;
@@ -2795,15 +2794,18 @@ namespace MacroEditor
         private void btnCleanUrl_Click(object sender, EventArgs e)
         {
             int i, j;
+            string sCleanedClip;
             string sOut = "";
             string s,sDirty = Utils.ClipboardGetText();
             if (sDirty == null) return;
+            if (sDirty == "") return;
             s = sDirty.ToUpper();
             if (!(s.Contains("HTTPS:") || s.Contains("HTTP:"))) return;
             i = sDirty.Length;
             sOut = AppendDash("Before cleaning", 40) + Environment.NewLine + sDirty + Environment.NewLine;
             s = sDirty;
             Utils.ReplaceUrls(ref s, false);
+            sCleanedClip = s;
             Clipboard.SetText(s);
             j = sDirty.Length;
             sOut += AppendDash(Environment.NewLine + "After cleaning", 40) + Environment.NewLine + s + Environment.NewLine;
@@ -2813,6 +2815,7 @@ namespace MacroEditor
             {
                 PutOnNotepad(sOut);
             }
+            Clipboard.SetText(sCleanedClip);
         }
 
 
@@ -3157,11 +3160,12 @@ namespace MacroEditor
                 int i = DataFileRecord.IndexOf(" -->") + 4;
                 int j = HasNewDataRecord.IndexOf(" -->") + 4;
                 bUnChanged = (DataFileRecord.Substring(i) == HasNewDataRecord.Substring(j));
-                if (bUnChanged) HasNewDataRecord = "";  // do not want to write out a record with a new timestamp.
-                bUnChanged &= (HasNewFormattedData == UDurl.FormattedDataOut);
-                bUnChanged &= (tbBody.Text == strBody);
+                if (bUnChanged) HasNewDataRecord = DataFileRecord;  // use the old timestamp
+                bDataFileUnsaved = !bUnChanged;
+                DataFileRecord = HasNewDataRecord;
+                DataFileFormatted = HasNewDataRecord;
                 tbBody.Text = strBody;  
-                //if HasNewDataRecord is not empty then need to show the formatted and also write the new record 
+
             }
             else
             {
@@ -3648,6 +3652,11 @@ namespace MacroEditor
 
             }
             CreateZipFromFolder(DBfolder, WantedZip, sPathZip);
+        }
+
+        private void cbShowCleaned_CheckedChanged(object sender, EventArgs e)
+        {
+            tbCleanedURL.Text = "";
         }
     }
 }

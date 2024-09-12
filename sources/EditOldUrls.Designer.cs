@@ -36,6 +36,7 @@
             this.btnTest = new System.Windows.Forms.Button();
             this.btnCancelChg = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.btnDelSelected = new System.Windows.Forms.Button();
             this.btnShowNotes = new System.Windows.Forms.Button();
             this.cbMacroList = new System.Windows.Forms.ListBox();
             this.btnForm = new System.Windows.Forms.Button();
@@ -56,7 +57,6 @@
             this.btnAddNR = new System.Windows.Forms.Button();
             this.btnCreateNR = new System.Windows.Forms.Button();
             this.cbMissing = new System.Windows.Forms.ComboBox();
-            this.btnDelSelected = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.gbText.SuspendLayout();
             this.gpPage.SuspendLayout();
@@ -109,10 +109,12 @@
             // 
             // tbResult
             // 
+            this.tbResult.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.tbResult.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tbResult.Location = new System.Drawing.Point(707, 490);
             this.tbResult.Multiline = true;
             this.tbResult.Name = "tbResult";
+            this.tbResult.ReadOnly = true;
             this.tbResult.Size = new System.Drawing.Size(421, 142);
             this.tbResult.TabIndex = 6;
             // 
@@ -155,6 +157,17 @@
             this.groupBox1.TabIndex = 9;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Select Macro to change";
+            // 
+            // btnDelSelected
+            // 
+            this.btnDelSelected.Location = new System.Drawing.Point(299, 345);
+            this.btnDelSelected.Name = "btnDelSelected";
+            this.btnDelSelected.Size = new System.Drawing.Size(87, 49);
+            this.btnDelSelected.TabIndex = 4;
+            this.btnDelSelected.Text = "Delete\r\nSelected";
+            this.btnDelSelected.UseVisualStyleBackColor = true;
+            this.btnDelSelected.Visible = false;
+            this.btnDelSelected.Click += new System.EventHandler(this.btnDelSelected_Click);
             // 
             // btnShowNotes
             // 
@@ -372,17 +385,6 @@
             this.cbMissing.Size = new System.Drawing.Size(121, 21);
             this.cbMissing.TabIndex = 0;
             this.cbMissing.SelectedIndexChanged += new System.EventHandler(this.cbMissing_SelectedIndexChanged);
-            // 
-            // btnDelSelected
-            // 
-            this.btnDelSelected.Location = new System.Drawing.Point(299, 345);
-            this.btnDelSelected.Name = "btnDelSelected";
-            this.btnDelSelected.Size = new System.Drawing.Size(87, 49);
-            this.btnDelSelected.TabIndex = 4;
-            this.btnDelSelected.Text = "Delete\r\nSelected";
-            this.btnDelSelected.UseVisualStyleBackColor = true;
-            this.btnDelSelected.Visible = false;
-            this.btnDelSelected.Click += new System.EventHandler(this.btnDelSelected_Click);
             // 
             // EditOldUrls
             // 
