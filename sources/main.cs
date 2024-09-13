@@ -317,7 +317,7 @@ namespace MacroEditor
             }
         }
 
-#endif
+
 
         private void HighlightDIF()
         {
@@ -330,7 +330,7 @@ namespace MacroEditor
                 i++;
             }
         }
-
+#endif
         private static string GetDownloadsPath()
         {
             if (Environment.OSVersion.Version.Major < 6) throw new NotSupportedException();
@@ -896,8 +896,7 @@ namespace MacroEditor
             lbName.ClearSelection();
             lbName.Rows[CurrentRowSelected].Selected = true;
             CheckForLanguageOption(bChanged);
-            lbNew.Visible = (tbBody.Text.IndexOf("TimeStamp") >= 0);
-            btnEditNew.Enabled = lbNew.Visible;
+            btnEditNew.Enabled = (tbBody.Text.IndexOf("TimeStamp") >= 0);
             btnShowURLs.Enabled = AnyHyper(tbBody.Text.ToLower());
             MustFinishEdit(true);
         }
@@ -3183,8 +3182,8 @@ namespace MacroEditor
 
         private void timer2_Tick(object sender, EventArgs e)
         {
-            //ShowHighlights();
-            HighlightDIF();
+            //HighlightDIF();
+            tbShowClip.Text = "";
             timer2.Enabled = false;
         }
 
@@ -3314,7 +3313,6 @@ namespace MacroEditor
                         iLen = t.Length;
                         if (iLen == 0) return;
                         sPara = Utils.Form1CellTable(t,"");
-                        iLen = sPara.Length;
                     }
                     else 
                         sPara = Utils.Form1CellTable(tbBody.Text.Substring(selectionStart, iLen),"");
@@ -3329,7 +3327,6 @@ namespace MacroEditor
                         iLen = t.Length;
                         if (iLen == 0) return;
                         sPara = Utils.FormNumList(t);
-                        iLen = sPara.Length;
                     }
                     else
                         sPara = Utils.FormNumList(tbBody.Text.Substring(selectionStart, iLen));
@@ -3457,14 +3454,6 @@ namespace MacroEditor
             return true;
         }
 
-        private void btnOldToNew_Click(object sender, EventArgs e)
-        {
-            //EditOldUrls UDurl = new EditOldUrls(tbBody.Text);
-            //UDurl.Show();
-            //cPrinter MyPrinter = new cPrinter(ref printerDB, tbMacName.Text,strType, tbBody.Text);
-            //MyPrinter.Show();
-            //MyPrinter.Dispose();
-        }
 
         // button clicked from the new printer tool area so  not a real printer
 /*
@@ -3542,13 +3531,6 @@ namespace MacroEditor
                 return;
             }
             return;
-        }
-
-        private void lbHoverClip_MouseHover(object sender, EventArgs e)
-        {
-            string s = Clipboard.GetText();
-            if (s.Length > 256) s = "";
-            tbShowClip.Text = s;
         }
 
         private void tsmRunArchive_Click(object sender, EventArgs e)
@@ -3681,6 +3663,17 @@ namespace MacroEditor
         private void cbShowCleaned_CheckedChanged(object sender, EventArgs e)
         {
             tbCleanedURL.Text = "";
+        }
+
+        private void btnNew_MouseHover(object sender, EventArgs e)
+        {
+            string s = Clipboard.GetText();
+            if (s.Length > 32) s = "";
+            if (s == "")
+                s = Utils.UnNamedMacro;
+            Clipboard.SetText(s);
+            tbShowClip.Text = s;
+            timer2.Enabled = true;
         }
     }
 }

@@ -2,10 +2,20 @@
 <b>You may need to reset your printer</b>.  
 <p>Disconnecting the USB or ethernet cable may still leave the 
 printer in the wired mode. Connecting an ethernet cable may
-still leave the printer in Wi-Fi mode.  The Wi-Fi reset shown 
-below is used to put Wi-Fi printers into setup mode.  Note that
-the reset video may show a slightly different model than yours.</p>
-<table border='2'><tr><td>@Reset Printer@</td></tr></table>
+still leave the printer in Wi-Fi mode.  The Wi-Fi reset is
+used to put Wi-Fi printers into setup mode.  Some printers
+have a semi-reset, a full reset and a factory reset.  Please
+refer to the user manual to find the difference. Some resets
+are simple and others require a video to understand.  Factory
+resets cannot be revealed in this forum. To do a factory reset
+of your printer, you must contact HP.
+<table border='1'><tr><td><a href="https://www.hp.com/us-en/contact-hp/ww-contact-us.html" target="_blank">Click here for world-wide contact info</a></td></tr></table>
+Wifi reset instructions and vidoes are shown below.  Generally
+you have 2 hours to connect your printer after performing the
+Wi-Fi reset.  Note that a reset video may show a slightly
+different model than yours.</p> 
+<table border='1'><tr><td>@Reset Printer@</td></tr></table>
+
 
 <!-- @IDNetwork Connect@ TimeStamp=DDDDDDDD_TTTTTT -->
 <b>Wi-Fi connection</b><p>
