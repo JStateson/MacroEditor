@@ -3308,7 +3308,7 @@ namespace MacroEditor
             int selectionStart = tbBody.SelectionStart;
             int rowNumber = tbBody.GetLineFromCharIndex(selectionStart);
             int i = tbBody.GetFirstCharIndexFromLine(rowNumber);
-            int iLen;
+            int iLen, iLenSelect;
             string sPara;
             switch (sName)
             {
@@ -3338,8 +3338,8 @@ namespace MacroEditor
                     break;
 
                 case "tsmTable":
-                    iLen = tbBody.SelectionLength;
-                    if (iLen == 0)
+                    iLenSelect = tbBody.SelectionLength;
+                    if (iLenSelect == 0)
                     {
                         string t = Clipboard.GetText();
                         iLen = t.Length;
@@ -3347,13 +3347,13 @@ namespace MacroEditor
                         sPara = Utils.Form1CellTable(t,"");
                     }
                     else 
-                        sPara = Utils.Form1CellTable(tbBody.Text.Substring(selectionStart, iLen),"");
-                    ReplaceText(selectionStart, iLen, sPara);
+                        sPara = Utils.Form1CellTable(tbBody.Text.Substring(selectionStart, iLenSelect),"");
+                    ReplaceText(selectionStart, iLenSelect, sPara);
                     break;
 
                 case "tsmNumList":
-                    iLen = tbBody.SelectionLength;
-                    if (iLen == 0)
+                    iLenSelect = tbBody.SelectionLength;
+                    if (iLenSelect == 0)
                     {
                         string t = Clipboard.GetText();
                         iLen = t.Length;
@@ -3361,8 +3361,8 @@ namespace MacroEditor
                         sPara = Utils.FormNumList(t);
                     }
                     else
-                        sPara = Utils.FormNumList(tbBody.Text.Substring(selectionStart, iLen));
-                    ReplaceText(selectionStart, iLen, sPara);
+                        sPara = Utils.FormNumList(tbBody.Text.Substring(selectionStart, iLenSelect));
+                    ReplaceText(selectionStart, iLenSelect, sPara);
                     break;
 
 

@@ -32,10 +32,15 @@ namespace MacroEditor
                 pbImage.ImageLocation = tbRawUrl.Text;
                 tbUrlText.Enabled = false; // not used for images
             }
-            else
+            else if(rbNotImage.Checked)
             {
                 pbImage.ImageLocation = "";
                 tbUrlText.Enabled = true;
+            }
+            else
+            {
+                tbUrlText.Enabled = false;
+                tbRawUrl.Enabled = true;
             }
             tbResult.Text = "";
         }
@@ -49,6 +54,7 @@ namespace MacroEditor
             tbRawUrl.Text = rstrIn;
             RBsetContext();
             sLoc = Utils.WhereExe;
+
         }
 
         private void btnApply_Click(object sender, EventArgs e)
@@ -73,12 +79,16 @@ namespace MacroEditor
                 strImgUrl = Utils.AssembleIMG(sTB, false);
                 strResult = strImgUrl;
             }
-            else
+            else if(rbNotImage.Checked)
             {
                 string strTmp = tbUrlText.Text;
                 string strUrl = Utils.dRef(sTB);
                 if (strTmp == "") strTmp = strUrl;
                 strResult = Utils.FormUrl(strUrl, strTmp);
+            }
+            else
+            {
+                strResult = tbRawUrl.Text;
             }
             if (rbNoBox.Checked) tbResult.Text = strResult;
             else
