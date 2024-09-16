@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Windows.Forms.Design;
 
 
 namespace MacroEditor
@@ -79,6 +80,8 @@ namespace MacroEditor
                 rb.Name = s;
                 rb.Location = new System.Drawing.Point(x, y + (i) * 30);
                 rb.Enabled = (cms.strType != s);
+                if(s == "HP") rb.Enabled = false;
+                // for now do not move into any HP table
                 rb.CheckedChanged += RadioButton_CheckedChanged;
                 gb.Controls.Add(rb);
             }

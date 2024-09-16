@@ -208,6 +208,7 @@
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.timer2 = new System.Windows.Forms.Timer(this.components);
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
             ((System.ComponentModel.ISupportInitialize)(this.lbName)).BeginInit();
             this.groupBox6.SuspendLayout();
             this.gbManageImages.SuspendLayout();
@@ -218,6 +219,7 @@
             this.gbSupp.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox2.SuspendLayout();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel2
@@ -316,11 +318,11 @@
             this.cbLaunchPage.AutoSize = true;
             this.cbLaunchPage.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbLaunchPage.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.cbLaunchPage.Location = new System.Drawing.Point(23, 21);
+            this.cbLaunchPage.Location = new System.Drawing.Point(18, 101);
             this.cbLaunchPage.Name = "cbLaunchPage";
-            this.cbLaunchPage.Size = new System.Drawing.Size(141, 20);
+            this.cbLaunchPage.Size = new System.Drawing.Size(182, 20);
             this.cbLaunchPage.TabIndex = 5;
-            this.cbLaunchPage.Text = "Spell Page on click";
+            this.cbLaunchPage.Text = "Spell Page on macro click";
             this.toolTip1.SetToolTip(this.cbLaunchPage, "If checked, then every macro\r\nyou click on gets spell checked");
             this.cbLaunchPage.UseVisualStyleBackColor = true;
             // 
@@ -343,7 +345,7 @@
             // 
             this.btnCancelEdits.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCancelEdits.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.btnCancelEdits.Location = new System.Drawing.Point(358, 265);
+            this.btnCancelEdits.Location = new System.Drawing.Point(358, 248);
             this.btnCancelEdits.Name = "btnCancelEdits";
             this.btnCancelEdits.Size = new System.Drawing.Size(121, 32);
             this.btnCancelEdits.TabIndex = 21;
@@ -410,7 +412,7 @@
             // 
             this.btnCopyFrom.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCopyFrom.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.btnCopyFrom.Location = new System.Drawing.Point(261, 329);
+            this.btnCopyFrom.Location = new System.Drawing.Point(261, 295);
             this.btnCopyFrom.Name = "btnCopyFrom";
             this.btnCopyFrom.Size = new System.Drawing.Size(218, 27);
             this.btnCopyFrom.TabIndex = 10;
@@ -885,7 +887,7 @@
             // 
             this.btnClearEM.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnClearEM.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.btnClearEM.Location = new System.Drawing.Point(400, 212);
+            this.btnClearEM.Location = new System.Drawing.Point(400, 197);
             this.btnClearEM.Name = "btnClearEM";
             this.btnClearEM.Size = new System.Drawing.Size(79, 32);
             this.btnClearEM.TabIndex = 8;
@@ -898,7 +900,7 @@
             // 
             this.btnSwapBR.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSwapBR.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.btnSwapBR.Location = new System.Drawing.Point(301, 404);
+            this.btnSwapBR.Location = new System.Drawing.Point(301, 381);
             this.btnSwapBR.Name = "btnSwapBR";
             this.btnSwapBR.Size = new System.Drawing.Size(178, 32);
             this.btnSwapBR.TabIndex = 33;
@@ -926,7 +928,7 @@
             // 
             this.btnFromHP.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnFromHP.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.btnFromHP.Location = new System.Drawing.Point(261, 366);
+            this.btnFromHP.Location = new System.Drawing.Point(261, 332);
             this.btnFromHP.Name = "btnFromHP";
             this.btnFromHP.Size = new System.Drawing.Size(218, 27);
             this.btnFromHP.TabIndex = 33;
@@ -940,11 +942,11 @@
             // 
             this.btnShowURLs.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnShowURLs.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.btnShowURLs.Location = new System.Drawing.Point(322, 454);
+            this.btnShowURLs.Location = new System.Drawing.Point(322, 446);
             this.btnShowURLs.Name = "btnShowURLs";
             this.btnShowURLs.Size = new System.Drawing.Size(152, 32);
             this.btnShowURLs.TabIndex = 37;
-            this.btnShowURLs.Text = "Update old URLs";
+            this.btnShowURLs.Text = "EditURLs";
             this.toolTip1.SetToolTip(this.btnShowURLs, "If URL links to old driver then\r\nselect the URL and click EDIT\r\nSoftware download" +
         " URLS can\r\npoint to old downloads.");
             this.btnShowURLs.UseVisualStyleBackColor = true;
@@ -1740,12 +1742,11 @@
             // 
             // gpMainEdit
             // 
+            this.gpMainEdit.Controls.Add(this.groupBox1);
             this.gpMainEdit.Controls.Add(this.btnEditNew);
             this.gpMainEdit.Controls.Add(this.tbShowClip);
             this.gpMainEdit.Controls.Add(this.groupBox6);
             this.gpMainEdit.Controls.Add(this.lbHoverClip);
-            this.gpMainEdit.Controls.Add(this.btnNextChk);
-            this.gpMainEdit.Controls.Add(this.btnSpellChk);
             this.gpMainEdit.Controls.Add(this.btnShowURLs);
             this.gpMainEdit.Controls.Add(this.btnFromHP);
             this.gpMainEdit.Controls.Add(this.btnSwapBR);
@@ -1790,7 +1791,7 @@
             // 
             this.btnNextChk.Enabled = false;
             this.btnNextChk.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.btnNextChk.Location = new System.Drawing.Point(146, 381);
+            this.btnNextChk.Location = new System.Drawing.Point(140, 32);
             this.btnNextChk.Name = "btnNextChk";
             this.btnNextChk.Size = new System.Drawing.Size(73, 42);
             this.btnNextChk.TabIndex = 40;
@@ -1801,7 +1802,7 @@
             // btnSpellChk
             // 
             this.btnSpellChk.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.btnSpellChk.Location = new System.Drawing.Point(48, 381);
+            this.btnSpellChk.Location = new System.Drawing.Point(25, 32);
             this.btnSpellChk.Name = "btnSpellChk";
             this.btnSpellChk.Size = new System.Drawing.Size(73, 42);
             this.btnSpellChk.TabIndex = 39;
@@ -1911,7 +1912,6 @@
             this.groupBox2.Controls.Add(this.btnPrev);
             this.groupBox2.Controls.Add(this.btnNextTable);
             this.groupBox2.Controls.Add(this.lbRCcopy);
-            this.groupBox2.Controls.Add(this.cbLaunchPage);
             this.groupBox2.Controls.Add(this.cbShowLang);
             this.groupBox2.Controls.Add(this.lbName);
             this.groupBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -1931,6 +1931,19 @@
             // 
             this.timer2.Interval = 1000;
             this.timer2.Tick += new System.EventHandler(this.timer2_Tick);
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.btnNextChk);
+            this.groupBox1.Controls.Add(this.btnSpellChk);
+            this.groupBox1.Controls.Add(this.cbLaunchPage);
+            this.groupBox1.Location = new System.Drawing.Point(24, 404);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(237, 134);
+            this.groupBox1.TabIndex = 36;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Spell Checker";
+            this.toolTip1.SetToolTip(this.groupBox1, "You must have enabled\r\nspelling using setting ->\r\nconfigure -> spell check");
             // 
             // main
             // 
@@ -1971,6 +1984,8 @@
             this.groupBox3.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -2155,6 +2170,7 @@
         private System.Windows.Forms.TextBox tbCleanedURL;
         private System.Windows.Forms.ToolStripMenuItem tsmLoadTR;
         private System.Windows.Forms.ToolStripMenuItem tsmNumList;
+        private System.Windows.Forms.GroupBox groupBox1;
     }
 }
 

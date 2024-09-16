@@ -832,7 +832,8 @@ namespace MacroEditor
             }
             btnDelM.Enabled = b;
             btnSaveM.Enabled = b;
-            btnDelChecked.Enabled = b;
+            //NumCheckedMacros = CountChecks(); // cannot do this from inside loading the file
+            btnDelChecked.Enabled = NumCheckedMacros > 0 && b;
         }
 
         private void CheckForLanguageOption(bool bRowChanged)
@@ -1740,6 +1741,36 @@ namespace MacroEditor
             return sRtn;
         }
 
+
+        // edit wizard for new style macros
+        private void btnEditNew_Click(object sender, EventArgs e)
+        {
+
+            DataFileRecord = rBodyFromTable();
+            if (DataFileRecord != "")
+            {
+                cPrinter MyPrinter = new cPrinter(ref printerDB, ref MySpellCheck, tbMacName.Text, strType);
+                MyPrinter.EditNewRecord(DataFileRecord, tbBody.Text);
+                MyPrinter.ShowDialog();
+                DataFileRecord = MyPrinter.strRecord;
+                DataFileFormatted = MyPrinter.strResults;
+                if (DataFileRecord != null)
+                {
+                    if (DataFileRecord != "")
+                    {
+                        bDataFileUnsaved = true;
+                        nSavedCount++;
+                        tbBodyChecksumB = false;
+                        MustFinishEdit(false);
+                    }
+                }
+                MyPrinter.Dispose();
+                return;
+            }
+            return;
+        }
+
+
         private void btnNew_Click(object sender, EventArgs e)
         {
             bool bIgnore = false;
@@ -2582,7 +2613,7 @@ namespace MacroEditor
                 if (bWantSelect)
                 {
                     CNewMac newMac = new CNewMac();
-                    newMac.AddNB(row.Cells[3].Value.ToString(), DataTable[i].sBody);   // no newlines as added later
+                    newMac.AddNB(row.Cells[3].Value.ToString(), DataTable[i].sBody, DataTable[i].rBody);   // no newlines as added later
                     row.Cells[1].Value = true;
                     cb.Add(newMac);
                 }
@@ -2668,6 +2699,7 @@ namespace MacroEditor
                 {
                     strAdded += row.Cells[3].Value.ToString() + Environment.NewLine;
                     strAdded += DataTable[i].sBody + Environment.NewLine;
+                    strAdded += DataTable[i].rBody + Environment.NewLine;
                 }
                 else
                 {
@@ -3513,25 +3545,8 @@ namespace MacroEditor
             }   
         }
 
+                
 
-        
-        // edit wizard for new style macros
-        private void btnEditNew_Click(object sender, EventArgs e)
-        {
-
-            string sRtn;
-            DataFileRecord = rBodyFromTable();
-            if (DataFileRecord != "")
-            {
-                cPrinter MyPrinter = new cPrinter(ref printerDB, ref MySpellCheck, tbMacName.Text, strType);
-                MyPrinter.EditNewRecord(DataFileRecord,tbBody.Text);
-                MyPrinter.ShowDialog();
-                sRtn = MyPrinter.strResults;
-                MyPrinter.Dispose();
-                return;
-            }
-            return;
-        }
 
         private void tsmRunArchive_Click(object sender, EventArgs e)
         {

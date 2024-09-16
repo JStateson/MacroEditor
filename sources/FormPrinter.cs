@@ -371,21 +371,21 @@ namespace MacroEditor.sources
         {
             int i = TagToPhrase(iWorkingTab);
             if (PrinterHttp[i].Count > 0) s = " @arg@";
-            PrinterHttp[i].Add(s.Replace("@arg@", Utils.FormUrl(PrinterListH[iWorkingTab][0], sT)));
+            PrinterHttp[i].Add(s.Replace("@arg@", Utils.FormUrl(PrinterListH[iWorkingTab].Last(), sT)));
         }
 
         private void YouTube(string s, int iWorkingTab, string sT)
         {
             int i = TagToPhrase(iWorkingTab);
             if (PrinterHttp[i].Count > 0) s = " @arg@";
-            PrinterHttp[i].Add(s.Replace("@arg@", Utils.FormUrl(PrinterListH[iWorkingTab][0], sT)));
+            PrinterHttp[i].Add(s.Replace("@arg@", Utils.FormUrl(PrinterListH[iWorkingTab].Last(), sT)));
         }
 
         private void Assembly(string s, int iWorkingTab, string sT)
         {
             int i = TagToPhrase(iWorkingTab);
             if (PrinterHttp[i].Count > 0) s = " @arg@";
-            PrinterHttp[i].Add(s.Replace("@arg@", Utils.FormUrl(PrinterListH[iWorkingTab][0], sT)));
+            PrinterHttp[i].Add(s.Replace("@arg@", Utils.FormUrl(PrinterListH[iWorkingTab].Last(), sT)));
         }
 
         private void ResetSteps(string s, int iWorkingTab, string sT)
@@ -401,13 +401,13 @@ namespace MacroEditor.sources
         {
             int i = TagToPhrase(iWorkingTab);
             if (PrinterHttp[i].Count > 0) s = " @arg@";
-            PrinterHttp[i].Add(s.Replace("@arg@", Utils.FormUrl(PrinterListH[iWorkingTab][0], sT)));
+            PrinterHttp[i].Add(s.Replace("@arg@", Utils.FormUrl(PrinterListH[iWorkingTab].Last(), sT)));
         }
         private void DirectVideo(string s, int iWorkingTab, string sT)
         {
             int i = TagToPhrase(iWorkingTab);
             if (PrinterHttp[i].Count > 0) s = " @arg@";
-            PrinterHttp[i].Add(s.Replace("@arg@", Utils.FormUrl(PrinterListH[iWorkingTab][0], sT)));
+            PrinterHttp[i].Add(s.Replace("@arg@", Utils.FormUrl(PrinterListH[iWorkingTab].Last(), sT)));
         }
         private void DirectPage(string s, int iWorkingTab, string sT)
         {
@@ -469,37 +469,37 @@ namespace MacroEditor.sources
         {
             int i = TagToPhrase(iWorkingTab);
             if (PrinterHttp[i].Count > 0) s = " @arg@";
-            PrinterHttp[i].Add(s.Replace("@arg@", Utils.FormUrl(PrinterListH[iWorkingTab][0], sT)));
+            PrinterHttp[i].Add(s.Replace("@arg@", Utils.FormUrl(PrinterListH[iWorkingTab].Last(), sT)));
         }
         private void Scanner(string s, int iWorkingTab, string sT)
         {
             int i = TagToPhrase(iWorkingTab);
             if (PrinterHttp[i].Count > 0) s = " @arg@";
-            PrinterHttp[i].Add(s.Replace("@arg@", Utils.FormUrl(PrinterListH[iWorkingTab][0], sT)));
+            PrinterHttp[i].Add(s.Replace("@arg@", Utils.FormUrl(PrinterListH[iWorkingTab].Last(), sT)));
         }
         private void Software(string s, int iWorkingTab, string sT)
         {
             int i = TagToPhrase(iWorkingTab);
             if (PrinterHttp[i].Count > 0) s = "  @arg@";
-            PrinterHttp[i].Add(s.Replace("@arg@", Utils.FormUrl(PrinterListH[iWorkingTab][0], sT)));
+            PrinterHttp[i].Add(s.Replace("@arg@", Utils.FormUrl(PrinterListH[iWorkingTab].Last(), sT)));
         }
         private void AllDocs(string s, int iWorkingTab, string sT)
         {
             int i = TagToPhrase(iWorkingTab);
             if (PrinterHttp[i].Count > 0) s = "  @arg@";
-            PrinterHttp[i].Add(s.Replace("@arg@", Utils.FormUrl(PrinterListH[iWorkingTab][0], sT)));
+            PrinterHttp[i].Add(s.Replace("@arg@", Utils.FormUrl(PrinterListH[iWorkingTab].Last(), sT)));
         }
         private void Reference(string s, int iWorkingTab, string sT)
         {
             int i = TagToPhrase(iWorkingTab);
             if (PrinterHttp[i].Count > 0) s = "  @arg@";
-            PrinterHttp[i].Add(s.Replace("@arg@", Utils.FormUrl(PrinterListH[iWorkingTab][0], sT)));
+            PrinterHttp[i].Add(s.Replace("@arg@", Utils.FormUrl(PrinterListH[iWorkingTab].Last(), sT)));
         }
         private void Parts(string s, int iWorkingTab, string sT)
         {
             int i = TagToPhrase(iWorkingTab);
             if (PrinterHttp[i].Count > 0) s = "  @arg@";
-            PrinterHttp[i].Add(s.Replace("@arg@", Utils.FormUrl(PrinterListH[iWorkingTab][0], sT)));
+            PrinterHttp[i].Add(s.Replace("@arg@", Utils.FormUrl(PrinterListH[iWorkingTab].Last(), sT)));
         }
 
         public bool ApplyFormat(ref string FmtOut)

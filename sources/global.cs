@@ -2017,10 +2017,12 @@ namespace MacroEditor
     {
         public string sName;
         public string sBody;
-        public void AddNB (string sn, string sb)
+        public string rBody;
+        public void AddNB (string sn, string sb, string rb)
         {
             sName = sn;
             sBody = sb;
+            rBody = rb;
         }
     }
 
