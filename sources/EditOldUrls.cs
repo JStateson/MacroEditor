@@ -731,7 +731,7 @@ namespace MacroEditor.sources
         {
             int iOfst = mU.UrlInfo[nSelectedM].iOfst;
             int iNxt = mU.UrlInfo[nSelectedM].iNxt;
-            //mU.UrlInfo.RemoveAt(nSelectedM);
+            mU.UrlInfo.RemoveAt(nSelectedM);    // 9/16/2024 had to uncomment as reset steps were changed to reset video url
             cEachTag et = rDB.RecordSet[iOfst];
             et.SourceTEXT[iNxt] = "";
             et.SourceHREF[iNxt] = "";
