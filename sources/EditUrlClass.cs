@@ -13,7 +13,7 @@ namespace MacroEditor.sources
     public class cMyUrls
     {
 
-        private int n = 0;
+        private int nTemplet = 0;
 
         public List<cUrls> UrlInfo = new List<cUrls>();
         public string sText;
@@ -72,8 +72,8 @@ namespace MacroEditor.sources
                     cu.sOrigResult = t;
                     cu.sChangedResult = t;
                     i = sText.IndexOf(t);
-                    sText = Utils.ReplaceStringAtLoc(sText, n, i, t.Length);
-                    n++;
+                    sText = Utils.ReplaceStringAtLoc(sText, nTemplet, i, t.Length);
+                    nTemplet++;
                     cu.sProposedT = sT;
                     cu.sOrigText = sT;
                     cu.sProposedH = sH;
@@ -126,8 +126,8 @@ namespace MacroEditor.sources
                     cu.sOrigResult = t;
                     cu.sChangedResult = t;
                     i = sText.IndexOf(t);
-                    sText = Utils.ReplaceStringAtLoc(sText, n, i, t.Length);
-                    n++;
+                    sText = Utils.ReplaceStringAtLoc(sText, nTemplet, i, t.Length);
+                    nTemplet++;
                     cu.sProposedT = sT;
                     cu.sOrigText = sT;
                     cu.sProposedH = sH;
@@ -143,6 +143,7 @@ namespace MacroEditor.sources
         public int Init(string s)
         {
             sText = s;
+            nTemplet = 0;   // a..z for replacement of original url
             ProcessA(sText.ToLower());
             ProcessI(sText.ToLower());
             return UrlInfo.Count;
@@ -151,6 +152,7 @@ namespace MacroEditor.sources
         public int Add(string s)
         {
             sText = s;
+            nTemplet = 0;   // a..z for replacement of original url
             int n = UrlInfo.Count;
             ProcessA(sText.ToLower());
             ProcessI(sText.ToLower());

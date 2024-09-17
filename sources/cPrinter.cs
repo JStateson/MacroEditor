@@ -663,7 +663,7 @@ namespace MacroEditor.sources
         {
             int n = (int)button.Tag;
             iWorkingTab = n;
-            string sClip = Clipboard.GetText();
+            string sClip = CurrentClip; //Clipboard.GetText();
             foreach (Control control in gbVid.Controls)
             {
                 if (control is Button bt)

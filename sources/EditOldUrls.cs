@@ -104,26 +104,17 @@ namespace MacroEditor.sources
                         iNxt = 0;
                     }
                 }
-                StartMacOld = mU.Add(rText);
-                EndMacOld = mU.UrlInfo.Count;
-                for (int i = StartMacOld; i < EndMacOld; i++)
-                {
-                    cbMacroList.Items.Add("Macro " + (i + 1).ToString().PadLeft(2));
-                }
+                AddBodyUrls();
                 cbMacroList.SelectedIndex = mU.UrlInfo.Count > 0 ? 0 : -1;
                 nSelectedM = cbMacroList.SelectedIndex;
                 sLBatext = gbText.Text;
                 lbFC = lbChanged.ForeColor;
                 return;
             }
-            else
-            {
-                StartMacOld = 0;
-                mU.Init(rText);
-                EndMacOld = mU.UrlInfo.Count;
-            }
 
-
+            StartMacOld = 0;
+            mU.Init(rText);
+            EndMacOld = mU.UrlInfo.Count;
             for (int i = 0; i < mU.UrlInfo.Count; i++)
             {
                 cbMacroList.Items.Add("Macro " + (i + 1).ToString().PadLeft(2));
@@ -133,6 +124,28 @@ namespace MacroEditor.sources
             sLBatext = gbText.Text;
             lbFC = lbChanged.ForeColor;
 
+        }
+
+        private void AddBodyUrls()
+        {
+            StartMacOld = mU.Add(rText);
+            EndMacOld = mU.UrlInfo.Count;
+            for (int i = StartMacOld; i < EndMacOld; i++)
+            {
+                cbMacroList.Items.Add("Macro " + (i + 1).ToString().PadLeft(2));
+            }
+
+        }
+
+        private void RemoveBodyUrls()
+        {
+            if (StartMacOld == EndMacOld) return;   // nothing to remove
+            while(StartMacOld < EndMacOld)
+            {
+                EndMacOld--;
+                cbMacroList.Items.RemoveAt(EndMacOld);
+                mU.UrlInfo.RemoveAt(EndMacOld);
+            }
         }
 
         private void CountMissingItems(ref string sRec)
@@ -441,8 +454,8 @@ namespace MacroEditor.sources
             cUrls cu = mU.UrlInfo[nSelectedM];
 
 
-
-            if (nSelectedM >= EndMacOld && cu.bIsMacIDrecord)
+            //  if (nSelectedM >= EndMacOld && cu.bIsMacIDrecord)
+            if (nSelectedM >= rDB.RecordSet.Count && cu.bIsMacIDrecord)
             {
                 string sTH = mU.UrlInfo[nSelectedM].sProposedH;
                 string sTT = mU.UrlInfo[nSelectedM].sProposedT;
@@ -696,12 +709,14 @@ namespace MacroEditor.sources
         {
             string s = cbMissing.SelectedItem as string;
             sAddModeItem = s;
+            RemoveBodyUrls();
             AddNR(s);
-            AddItem(s);
-            cbMacroList.SelectedIndex  = cbMacroList.Items.Count - 1; 
+            int n = AddItem(s);
+            AddBodyUrls();
+            cbMacroList.SelectedIndex = n; 
         }
 
-        private void AddItem(string TagName)
+        private int AddItem(string TagName)
         {
             cUrls cu = new cUrls();
             cu.bIsMacIDrecord = true;
@@ -715,6 +730,7 @@ namespace MacroEditor.sources
             cu.bIsSteps = TagName.Contains("Steps");
             mU.UrlInfo.Add(cu);
             cbMacroList.Items.Add(TagName);
+            return mU.UrlInfo.Count - 1;
         }
 
         private void cbMissing_SelectedIndexChanged(object sender, EventArgs e)
