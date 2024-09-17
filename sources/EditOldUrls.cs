@@ -453,9 +453,17 @@ namespace MacroEditor.sources
         {
             cUrls cu = mU.UrlInfo[nSelectedM];
 
+            if(!cu.bIsMacIDrecord)
+            {
+                mU.UrlInfo[nSelectedM].sProposedH = tbH.Text.Trim();
+                mU.UrlInfo[nSelectedM].sProposedT = tbT.Text.Trim();
+                mU.UrlInfo[nSelectedM].sChangedResult = tbResult.Text.Replace("<br>", Environment.NewLine);
+                ShowChange();
+                return;
+            }
 
             //  if (nSelectedM >= EndMacOld && cu.bIsMacIDrecord)
-            if (nSelectedM >= rDB.RecordSet.Count && cu.bIsMacIDrecord)
+            if (nSelectedM >= rDB.RecordSet.Count)
             {
                 string sTH = mU.UrlInfo[nSelectedM].sProposedH;
                 string sTT = mU.UrlInfo[nSelectedM].sProposedT;
