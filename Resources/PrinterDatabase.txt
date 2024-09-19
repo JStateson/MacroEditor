@@ -140,48 +140,41 @@ YOUTUBE
 ZZZPPPPPPP
 YOUTUBE
 
-code could have been used to find duplicated urls
-        public string AddPhrase(string sID, string sText)
-        {
-            int i = iLookup(sID);
-            csIDs cid = MyPrinterInfo[i];
-            string sDups = "";
-            foreach(csIDs ExistingID in MyPrinterInfo)
-            {
-                foreach(string sPhrase in ExistingID.sPhrase)
-                {
-                    if(sPhrase == sText)
-                    {
-                        sDups += "NewID:" + sID + " ExistingID:" + ExistingID.sID +",";
-                        // dups are in the url of the phrase, not the sText itself!
-                    }
-                }
-            }
-            cid.sPhrase.Add(sText);
-          
-following was used to parse text and then lookup the record to get the IDs in updateurls
-          mU = new cMyUrls();
-            if(bhasMacroID)
-            {
-                FirstAfter =  mU.Init(sBeforeID);
-                NumAfter = mU.Add(sWithID);
-                rDB = pDB.ParseRecord(ref DataFileRecord);
-                rDB.InitSearch();
-                for(int i = 0; i < FirstAfter; i++)
-                {
-                    string sUrl = mU.UrlInfo[i].sOrigHref;
-                    string sTok = "";
-                    if(rDB.FindNext(sUrl,ref sTok))
-                    {
-                        if (sTok.Contains(" Doc"))
-                        {
-                            sTok += "[@page@]";
-                        }
-                        MacTagNames.Add(sTok);
-                    }
-                    else
-                    {
-                        MacTagNames.Add("missing");
-                    }
-                }
-            }
+
+Special app macro flags building with visual studio
+SPECIAL application macro
+SPECIAL are flags to compile the app for the purpose of retro-fixing macros or creating a unique table or list.
+
+SPECIAL 1 is defined in utils.cs
+It was used to create the color tables that
+are in the signatures file.
+The input to create the color tables is the commented text at the bottom of utils.cs
+Note that background color is no longer allowed in either the HP macros source editor 
+or the HP reply editor.  To get background color you need to save the HTML as an
+ image and upload the image.
+
+SPECIAL 2 and 3 are in main.cs
+and were used to correct existing table and list macros.  The corrections are only
+ needed for those macros that are to be used in the HP macro settings page. The HTML
+ works correctly in any browser but is detected as an error in the HP settings.  
+This is only needed for existing macros that were coded using normal HTML rules. 
+ The code in this app (MacroViewer) is currently coded for HP rules so (hopefully) 
+no non-HP HTML code is being generated.
+
+SPECIAL 2 handles border sizes that are not allowed in HP macros.  You can set the
+ border of a table to any size but it needs to be '1' if used in the HP macro settings.
+ Otherwise just copy the web page text into a reply. It is only when the source is
+ copied into the macro settings that HP site refuses to allow the size.
+
+SPECIAL 3 handles missing <tr> and a few other stange problems
+&lt;tr&gt;&lt;/tr&gt; needs a space to become
+&lt;tr&gt;&nbsp;&lt;/tr&gt; and a missing &lt;tr&gt; is supplied where needed.
+
+SPECIAL 4 was supposed to identify any %50 that need to be %100 width.  
+Images can fit in %50 but URLS and text usually need %100.  This is not used.
+
+Building with Visual Studio 2022.
+When buildig the release application, the post build command will copy all the
+ macros in the release folder into the debug folder and also a temp folder. 
+ The temp folder will be compressed using tar along with the executable.
+Note that any macros in the debug folder will be overwritten with the release macros.

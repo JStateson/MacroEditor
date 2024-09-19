@@ -14,7 +14,7 @@ namespace MacroEditor
     {
 
         LinkLabel dynamicLinkLabel = new LinkLabel();
-        string sUrl = "https://github.com/JStateson/MacroViewer/issues";
+        string sUrl = "https://github.com/JStateson/MacroEditor/issues";
         public AboutBox()
         {
             //dynamicLinkLabel.BackColor = Color.Red;

@@ -10,7 +10,7 @@ are simple and others require a video to understand.  Factory
 resets cannot be revealed in this forum. To do a factory reset
 of your printer, you must contact HP.
 <center><table border='1'><tr><td><a href="https://www.hp.com/us-en/contact-hp/ww-contact-us.html" target="_blank">Click here for world-wide contact info</a></td></tr></table></center>
-<br>Wifi reset instructions and videos (if any) are shown below.
+<br>Wi-Fi reset instructions and videos (if any) are shown below.
 Generally you have 2 hours to connect your printer after
 performing the Wi-Fi reset.  Note that a reset video may show
 a slightly different model than yours.</p> 
@@ -22,10 +22,10 @@ a slightly different model than yours.</p>
 Ideally, your Wi-Fi printer should connect to the modem or router.
 If your network has multiple boosters / repeaters, it is possible
 the printer may connect randomly to any of the units.  The
-modem needs to provide the same IP address on every connection.
+router needs to provide the same IP address on every connection.
 This rarely happens with random connects.  An alternate Wi-Fi
 connection is Wi-Fi direct.  Your laptop or smartphone prints
-directly to the printer and does not go through the modem.</p>
+directly to the printer and does not go through the router.</p>
 <table border='2'><tr><td>@Network Connect@</td></tr></table>
 
 <!-- @IDSoftware@ TimeStamp=DDDDDDDD_TTTTTT -->
@@ -92,6 +92,6 @@ comment on any of these YouTube videos.</p>
 Ideally, your Wi-Fi printer should connect to the modem or router.
 An alternate type of connection is Wi-Fi direct.  Your 
 laptop or smartphone prints directly to the printer and 
-does not go through the modem.  This is convenient if there 
-is no modem or you cannot get access to the modem.</p>
+does not go through the router.  This is convenient if there 
+is no router or you cannot get access to the router.</p>
 <table border='2'><tr><td>@WiFi Connect@</td></tr></table>

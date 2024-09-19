@@ -121,7 +121,7 @@
     <value>
 This app is only useful for HP Community Volunteers and a dual monitor 2K system is recommended.  App is designed for Windows 10/11 64 bit and Microsoft Edge.  You must also have Microsoft Word.  It was built using Visual Studio 2022 community.
 
-This app was not created by HP and the latest version can be obtained at https://github.com/JStateson/MacroViewer.  Feel free to use the ISSUE tool for suggestions or to report bugs. The project "HP Search" is another tool useful for HP forum volunteers.
+This app was not created by HP and the latest version can be obtained at https://github.com/JStateson/MacroEditor.  Feel free to use the ISSUE tool for suggestions or to report bugs. The project "HP Search" is another tool useful for HP forum volunteers.
 
 As a volunteer you are allowed 30 or 40 macro. This app can provide several thousand and a search mechanism to find the proper response or to create the response.  You can create macros, signatures, and hyperlinks, assemble images, search extensively thorough the macro collection and easily paste replies to users from the collection.
 
@@ -130,7 +130,7 @@ This app expects to make backups periodically.  Please use setting to specify th
 
 If you wish to use your own macros you must:
 (1)	log in and access your macros page. If using chrome then right click, "view page source", and save as "macros.html" with "Webpage, complete" to replace the default file
-(2)	) Run MacroViewer, open "macros.html", and the local HP file will be created. You can also select the option to save as a local file (HP) to update it.  All supplemental demo files are unchanged and are loaded immediately.
+(2)	) Run MacroEditor, open "macros.html", and the local HP file will be created. You can also select the option to save as a local file (HP) to update it.  All supplemental demo files are unchanged and are loaded immediately.
 
 WARNING:  Many macros here have references and HP can change the reference thus invaliding the URL to the item.  This mainly applies to ftp URLs that download HP drivers.   As new drivers are provided the URLs in this macro collection will be outdated.  I have dated many references.  If you see an old date you should check periodically to see if there is a newer drivers release. </value>
   </data>
