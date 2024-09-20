@@ -988,8 +988,9 @@ namespace MacroEditor
             }
             else
             {
-                if(strType != "")
+                if (strType != "")
                     sOut = s + "<br><br>" + sPS;
+                else sOut = s;
             }
             ShellHTML(sOut, false);
             return sOut;

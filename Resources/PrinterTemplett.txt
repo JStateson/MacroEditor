@@ -1,7 +1,7 @@
 <!-- @IDReset Printer@ TimeStamp=DDDDDDDD_TTTTTT -->
 <b>You may need to reset your printer</b>.  
-<p>Disconnecting the USB or ethernet cable may still leave the 
-printer in the wired mode. Connecting an ethernet cable may
+<p>Disconnecting the USB cable may still leave the printer
+in the wired or Wi-Fi mode. Connecting an ethernet cable may
 still leave the printer in Wi-Fi mode.  The Wi-Fi reset is
 used to put Wi-Fi printers into setup mode.  Some printers
 have a semi-reset, a full reset and a factory reset.  Please

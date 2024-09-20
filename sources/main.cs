@@ -2124,7 +2124,7 @@ namespace MacroEditor
 
         private void btnLinkAll_Click(object sender, EventArgs e)
         {
-            string sBody = tbBody.Text.ToLower();
+            string sBody = tbBody.Text;
             int i = tbBody.SelectionStart;
             int j = tbBody.SelectionLength;
             string strRaw = Utils.AdjustNoTrim(ref i, ref j, ref sBody);
@@ -3539,7 +3539,7 @@ namespace MacroEditor
                     string sUrl = MyLookup.GetSearchUrl(sID, sWanted);
                     sUrl = Utils.FormUrl(sUrl, sWanted);
                     string sOut = GetID(sID, sUrl);
-                    Utils.ShowRawBrowser(sOut, strType);
+                    Utils.ShowRawBrowser(sOut, "");
                 }
                 MyLookup = null;
             }   
