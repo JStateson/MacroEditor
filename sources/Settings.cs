@@ -354,6 +354,7 @@ namespace MacroEditor
                 Properties.Settings.Default.sMSuffix = tbMSuffix.Text;
             else
                 Properties.Settings.Default.NotPrnSuffix = tbMSuffix.Text;
+            Properties.Settings.Default.Save();
         }
 
         private void Settings_FormClosing(object sender, FormClosingEventArgs e)

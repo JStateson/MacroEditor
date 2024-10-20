@@ -30,6 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.btnClnTxt = new System.Windows.Forms.Button();
             this.btnPClean = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
             this.cbSelText = new System.Windows.Forms.ComboBox();
@@ -73,7 +74,7 @@
             this.btnExport = new System.Windows.Forms.Button();
             this.dgvBIOS = new System.Windows.Forms.DataGridView();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.btnClnTxt = new System.Windows.Forms.Button();
+            this.label5 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -83,6 +84,7 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.label5);
             this.groupBox1.Controls.Add(this.btnClnTxt);
             this.groupBox1.Controls.Add(this.btnPClean);
             this.groupBox1.Controls.Add(this.label4);
@@ -113,6 +115,17 @@
             this.groupBox1.TabIndex = 7;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Paste From Clipboard";
+            // 
+            // btnClnTxt
+            // 
+            this.btnClnTxt.Location = new System.Drawing.Point(157, 144);
+            this.btnClnTxt.Name = "btnClnTxt";
+            this.btnClnTxt.Size = new System.Drawing.Size(137, 23);
+            this.btnClnTxt.TabIndex = 28;
+            this.btnClnTxt.Text = "Paste Clean Text";
+            this.toolTip1.SetToolTip(this.btnClnTxt, "Newlines are removed");
+            this.btnClnTxt.UseVisualStyleBackColor = true;
+            this.btnClnTxt.Click += new System.EventHandler(this.btnClnTxt_Click);
             // 
             // btnPClean
             // 
@@ -621,6 +634,7 @@
             this.btnExport.Size = new System.Drawing.Size(105, 32);
             this.btnExport.TabIndex = 6;
             this.btnExport.Text = "Export";
+            this.toolTip1.SetToolTip(this.btnExport, "Be sure to save changes, exit the\r\nprogram and restart before exporting.");
             this.btnExport.UseVisualStyleBackColor = true;
             this.btnExport.Click += new System.EventHandler(this.btnExport_Click);
             // 
@@ -643,16 +657,17 @@
             this.dgvBIOS.UserDeletedRow += new System.Windows.Forms.DataGridViewRowEventHandler(this.dgvBIOS_UserDeletedRow);
             this.dgvBIOS.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.dgvBIOS_MouseDoubleClick);
             // 
-            // btnClnTxt
+            // label5
             // 
-            this.btnClnTxt.Location = new System.Drawing.Point(157, 144);
-            this.btnClnTxt.Name = "btnClnTxt";
-            this.btnClnTxt.Size = new System.Drawing.Size(137, 23);
-            this.btnClnTxt.TabIndex = 28;
-            this.btnClnTxt.Text = "Paste Clean Text";
-            this.toolTip1.SetToolTip(this.btnClnTxt, "Newlines are removed");
-            this.btnClnTxt.UseVisualStyleBackColor = true;
-            this.btnClnTxt.Click += new System.EventHandler(this.btnClnTxt_Click);
+            this.label5.AutoSize = true;
+            this.label5.BackColor = System.Drawing.SystemColors.Info;
+            this.label5.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.label5.Location = new System.Drawing.Point(17, 278);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(287, 32);
+            this.label5.TabIndex = 29;
+            this.label5.Text = "Be sure to add the name of the notebook to the\r\nright of \"Interactive BIOS simula" +
+    "tor\" in TEXT box";
             // 
             // BiosEmuSim
             // 
@@ -730,5 +745,6 @@
         private System.Windows.Forms.ComboBox cbSelText;
         private System.Windows.Forms.Button btnPClean;
         private System.Windows.Forms.Button btnClnTxt;
+        private System.Windows.Forms.Label label5;
     }
 }

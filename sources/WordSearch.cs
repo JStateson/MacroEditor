@@ -817,7 +817,7 @@ namespace MacroEditor
                     cRefURLs cr = new cRefURLs();
                     cr.init(cb.File, cb.Name, cb.Number);
                     RefUrls.Add(cr);
-                    sPrN = "";  // RF does not need to have the name searched unlike all other macro information.
+                    //sPrN = "";  // RF does not need to have the name searched unlike all other macro information.
                 }
                 string sKeys = PerformSearch(iBody, sPrN, cb.sBody,cb.File);  // eg: do not include "support" for RF
                 iBody++;
