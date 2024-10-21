@@ -1038,7 +1038,9 @@ namespace MacroEditor
 
         public static void WordpadEdit(string sHelp)
         {
-            Process.Start("wordpad.exe", WhereExe + "/" + GetHelpFile(sHelp));
+            string sFilePath = WhereExe + "/" + GetHelpFile(sHelp);
+            //Process.Start("wordpad.exe",  sFilePath);
+            Process.Start(sFilePath);
         }
 
         public static int HasSupSig(ref string s, ref int i, ref int j)

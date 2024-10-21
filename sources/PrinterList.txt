@@ -68,7 +68,7 @@ HP support YouTube videos are here
 
 lbPhrases
 {
-Watch this video to see how to reset your printer: @Reset Video@.<br>Microsoft's Copilot may  have more recent videos.
+Microsoft's Copilot may have more recent videos.<br>Watch this video to see how to reset your printer: @Reset Video@.
 <br>The steps below are Wi-Fi only and do not perform a factory reset.<br>Microsoft's <b>Copilot</b> may provide alternate solutions.<br>@Reset Steps@
 <br>This video shows how to connect to the router: @Router Video@ 
 <br>Wi-Fi Direct can be used to avoid configuring the router.  Watch this: @Direct Video@

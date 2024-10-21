@@ -1014,9 +1014,9 @@ namespace MacroEditor.sources
 
         private void EditHelp(string s)
         {            
-            if (Utils.bSpellingEnabled)
+           if (Utils.bSpellingEnabled)
                 SpellCheck.EditHelpDocs(s);
-            else Utils.WordpadEdit(s);
+           else Utils.WordpadEdit(s);
         }
 
         private void cPrinter_HelpButtonClicked(object sender, CancelEventArgs e)
