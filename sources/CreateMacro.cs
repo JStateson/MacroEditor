@@ -343,9 +343,11 @@ namespace MacroEditor
             bHaveVideoSize = SetVideoSize();
         }
 
+        // this is used only for video, not photo!!!  Oct 22, 2024
         private void SetDefaultSlider(double v)
         {
             double x = minPix * (v - minPix) / ((maxPix / wImageAspect) - minPix);
+            if (x < 0) x = minPix;// Oct 22, 2024
             trackBar1.Value = Convert.ToInt32(x);
         }
 
