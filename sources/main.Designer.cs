@@ -104,6 +104,9 @@
             this.btnToNotepad = new System.Windows.Forms.Button();
             this.tbCleanedURL = new System.Windows.Forms.TextBox();
             this.cbShowCleaned = new System.Windows.Forms.CheckBox();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.btnNextChk = new System.Windows.Forms.Button();
+            this.btnSpellChk = new System.Windows.Forms.Button();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpWithFILEToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -194,8 +197,6 @@
             this.gpMainEdit = new System.Windows.Forms.GroupBox();
             this.tbShowClip = new System.Windows.Forms.TextBox();
             this.lbHoverClip = new System.Windows.Forms.Label();
-            this.btnNextChk = new System.Windows.Forms.Button();
-            this.btnSpellChk = new System.Windows.Forms.Button();
             this.btnSaveM = new System.Windows.Forms.Button();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.gbSupp = new System.Windows.Forms.GroupBox();
@@ -208,18 +209,17 @@
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.timer2 = new System.Windows.Forms.Timer(this.components);
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
             ((System.ComponentModel.ISupportInitialize)(this.lbName)).BeginInit();
             this.groupBox6.SuspendLayout();
             this.gbManageImages.SuspendLayout();
             this.contextMenuStrip1.SuspendLayout();
+            this.groupBox1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.gpMainEdit.SuspendLayout();
             this.groupBox5.SuspendLayout();
             this.gbSupp.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox2.SuspendLayout();
-            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel2
@@ -1025,6 +1025,42 @@
             this.cbShowCleaned.UseVisualStyleBackColor = true;
             this.cbShowCleaned.CheckedChanged += new System.EventHandler(this.cbShowCleaned_CheckedChanged);
             // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.btnNextChk);
+            this.groupBox1.Controls.Add(this.btnSpellChk);
+            this.groupBox1.Controls.Add(this.cbLaunchPage);
+            this.groupBox1.Location = new System.Drawing.Point(24, 404);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(237, 134);
+            this.groupBox1.TabIndex = 36;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Spell Checker";
+            this.toolTip1.SetToolTip(this.groupBox1, "You must have enabled\r\nspelling using setting ->\r\nconfigure -> spell check");
+            // 
+            // btnNextChk
+            // 
+            this.btnNextChk.Enabled = false;
+            this.btnNextChk.ForeColor = System.Drawing.SystemColors.Highlight;
+            this.btnNextChk.Location = new System.Drawing.Point(140, 32);
+            this.btnNextChk.Name = "btnNextChk";
+            this.btnNextChk.Size = new System.Drawing.Size(73, 42);
+            this.btnNextChk.TabIndex = 40;
+            this.btnNextChk.Text = "Next \nCheck";
+            this.btnNextChk.UseVisualStyleBackColor = true;
+            this.btnNextChk.Click += new System.EventHandler(this.btnNextChk_Click);
+            // 
+            // btnSpellChk
+            // 
+            this.btnSpellChk.ForeColor = System.Drawing.SystemColors.Highlight;
+            this.btnSpellChk.Location = new System.Drawing.Point(25, 32);
+            this.btnSpellChk.Name = "btnSpellChk";
+            this.btnSpellChk.Size = new System.Drawing.Size(73, 42);
+            this.btnSpellChk.TabIndex = 39;
+            this.btnSpellChk.Text = "Spell\r\nCheck";
+            this.btnSpellChk.UseVisualStyleBackColor = true;
+            this.btnSpellChk.Click += new System.EventHandler(this.btnSpellChk_Click);
+            // 
             // menuStrip1
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -1787,29 +1823,6 @@
             this.lbHoverClip.TabIndex = 25;
             this.lbHoverClip.Text = "Hover over the\r\nnew button to\r\nsee the clipboard";
             // 
-            // btnNextChk
-            // 
-            this.btnNextChk.Enabled = false;
-            this.btnNextChk.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.btnNextChk.Location = new System.Drawing.Point(140, 32);
-            this.btnNextChk.Name = "btnNextChk";
-            this.btnNextChk.Size = new System.Drawing.Size(73, 42);
-            this.btnNextChk.TabIndex = 40;
-            this.btnNextChk.Text = "Next \nCheck";
-            this.btnNextChk.UseVisualStyleBackColor = true;
-            this.btnNextChk.Click += new System.EventHandler(this.btnNextChk_Click);
-            // 
-            // btnSpellChk
-            // 
-            this.btnSpellChk.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.btnSpellChk.Location = new System.Drawing.Point(25, 32);
-            this.btnSpellChk.Name = "btnSpellChk";
-            this.btnSpellChk.Size = new System.Drawing.Size(73, 42);
-            this.btnSpellChk.TabIndex = 39;
-            this.btnSpellChk.Text = "Spell\r\nCheck";
-            this.btnSpellChk.UseVisualStyleBackColor = true;
-            this.btnSpellChk.Click += new System.EventHandler(this.btnSpellChk_Click);
-            // 
             // btnSaveM
             // 
             this.btnSaveM.Enabled = false;
@@ -1932,19 +1945,6 @@
             this.timer2.Interval = 1000;
             this.timer2.Tick += new System.EventHandler(this.timer2_Tick);
             // 
-            // groupBox1
-            // 
-            this.groupBox1.Controls.Add(this.btnNextChk);
-            this.groupBox1.Controls.Add(this.btnSpellChk);
-            this.groupBox1.Controls.Add(this.cbLaunchPage);
-            this.groupBox1.Location = new System.Drawing.Point(24, 404);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(237, 134);
-            this.groupBox1.TabIndex = 36;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Spell Checker";
-            this.toolTip1.SetToolTip(this.groupBox1, "You must have enabled\r\nspelling using setting ->\r\nconfigure -> spell check");
-            // 
             // main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1972,6 +1972,8 @@
             this.gbManageImages.ResumeLayout(false);
             this.gbManageImages.PerformLayout();
             this.contextMenuStrip1.ResumeLayout(false);
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.gpMainEdit.ResumeLayout(false);
@@ -1984,8 +1986,6 @@
             this.groupBox3.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
