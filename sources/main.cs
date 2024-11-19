@@ -690,6 +690,21 @@ namespace MacroEditor
             {
                 FormQueryKB(menuItem.Text);
             }
+        }// the - sign does not have to be url encoded
+        //https://www.google.com/search?q=OMEN+by+HP+880-181nf+Desktop+PC+Product+Specifications
+        private void mnuOmen_Click(object sender, EventArgs e)
+        {
+            string sModel = Utils.ClipboardGetText().Trim();
+            string s = "https://www.google.com/search?q=OMEN+by+HP+" + sModel  + "+Desktop+PC+Product+Specifications";
+            Utils.LocalBrowser(s);
+        }
+
+
+        private void mbyDesktop_Click(object sender, EventArgs e)
+        {
+            string sModel = Utils.ClipboardGetText().Trim();
+            string s = "https://www.google.com/search?q=HP+%22" + sModel + "%22+Desktop+PC";
+            Utils.LocalBrowser(s);
         }
 
         private void hPYouTubeToolStripMenuItem_Click(object sender, EventArgs e)
@@ -3689,6 +3704,12 @@ namespace MacroEditor
             Clipboard.SetText(s);
             tbShowClip.Text = s;
             timer2.Enabled = true;
+        }
+
+        private void mnuCloudRec_Click(object sender, EventArgs e)
+        {
+            string s = "HP is removing cloud recovery for many systems over 5 years old.\r\nYou may want to <a href=\"https://d34z73bbtpzgej.cloudfront.net/\" target=\"_blank\">go here and get a copy</a> of your cloud recovery before it is too late.";
+            Utils.CopyHTML(s);          
         }
     }
 }

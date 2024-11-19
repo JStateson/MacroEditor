@@ -391,10 +391,19 @@ namespace MacroEditor.sources
         private void ResetSteps(string s, int iWorkingTab, string sT)
         {
             int i = TagToPhrase(iWorkingTab);
-            string sH = PrinterListH[iWorkingTab][0];
+            string sU = "", sO = "", sH = PrinterListH[iWorkingTab][0];
             string t = sH.Replace("<br>", Environment.NewLine);
-            string sU = Utils.FormNumList(t); //Utils.Form1CellTable(sH, "");
-            string sO = s.Replace("@arg@", sU);
+            if(t == sH)
+            {
+                if (sT == "") sT = "read this post for help";
+                sT = "Steps: " + sT;
+                sU = Utils.Form1CellTable(Utils.FormUrl(t, sT), "");
+            }
+            else
+            {
+                sU = Utils.FormNumList(t); //Utils.Form1CellTable(sH, "");
+            }
+            sO = s.Replace("@arg@", sU);
             PrinterHttp[i].Add(sO);
         }
         private void RouterVideo(string s, int iWorkingTab, string sT)

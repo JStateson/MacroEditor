@@ -160,6 +160,8 @@
             this.mnuSearchComm = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuDrvGoog = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuDevCol = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuOmen = new System.Windows.Forms.ToolStripMenuItem();
+            this.mbyDesktop = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuHuntDev = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.mnuLapKey = new System.Windows.Forms.ToolStripMenuItem();
@@ -209,6 +211,8 @@
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.timer2 = new System.Windows.Forms.Timer(this.components);
+            this.quickWarningsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuCloudRec = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.lbName)).BeginInit();
             this.groupBox6.SuspendLayout();
             this.gbManageImages.SuspendLayout();
@@ -1074,7 +1078,8 @@
             this.mnRecDis,
             this.mShowErr,
             this.hPWebSitesToolStripMenuItem,
-            this.mnuTexting});
+            this.mnuTexting,
+            this.quickWarningsToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(1516, 24);
@@ -1460,6 +1465,8 @@
             this.mnuSearchComm,
             this.mnuDrvGoog,
             this.mnuDevCol,
+            this.mnuOmen,
+            this.mbyDesktop,
             this.mnuHuntDev,
             this.toolStripSeparator5,
             this.mnuLapKey,
@@ -1507,6 +1514,22 @@
             this.mnuDevCol.Text = "Drivers Collection";
             this.mnuDevCol.ToolTipText = "Old driver collection search";
             this.mnuDevCol.Click += new System.EventHandler(this.mnuDevCol_Click);
+            // 
+            // mnuOmen
+            // 
+            this.mnuOmen.Name = "mnuOmen";
+            this.mnuOmen.Size = new System.Drawing.Size(187, 22);
+            this.mnuOmen.Text = "Omen Spec";
+            this.mnuOmen.ToolTipText = "product specifications lookup";
+            this.mnuOmen.Click += new System.EventHandler(this.mnuOmen_Click);
+            // 
+            // mbyDesktop
+            // 
+            this.mbyDesktop.Name = "mbyDesktop";
+            this.mbyDesktop.Size = new System.Drawing.Size(187, 22);
+            this.mbyDesktop.Text = "Desktop Spec";
+            this.mbyDesktop.ToolTipText = "product specifications lookup";
+            this.mbyDesktop.Click += new System.EventHandler(this.mbyDesktop_Click);
             // 
             // mnuHuntDev
             // 
@@ -1945,6 +1968,21 @@
             this.timer2.Interval = 1000;
             this.timer2.Tick += new System.EventHandler(this.timer2_Tick);
             // 
+            // quickWarningsToolStripMenuItem
+            // 
+            this.quickWarningsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.mnuCloudRec});
+            this.quickWarningsToolStripMenuItem.Name = "quickWarningsToolStripMenuItem";
+            this.quickWarningsToolStripMenuItem.Size = new System.Drawing.Size(103, 20);
+            this.quickWarningsToolStripMenuItem.Text = "Quick Warnings";
+            // 
+            // mnuCloudRec
+            // 
+            this.mnuCloudRec.Name = "mnuCloudRec";
+            this.mnuCloudRec.Size = new System.Drawing.Size(180, 22);
+            this.mnuCloudRec.Text = "Cloud Recovery";
+            this.mnuCloudRec.Click += new System.EventHandler(this.mnuCloudRec_Click);
+            // 
             // main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -2171,6 +2209,10 @@
         private System.Windows.Forms.ToolStripMenuItem tsmLoadTR;
         private System.Windows.Forms.ToolStripMenuItem tsmNumList;
         private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.ToolStripMenuItem mnuOmen;
+        private System.Windows.Forms.ToolStripMenuItem mbyDesktop;
+        private System.Windows.Forms.ToolStripMenuItem quickWarningsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem mnuCloudRec;
     }
 }
 
