@@ -71,6 +71,7 @@
             this.tbKeywords = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.cbOnlyRefs = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.gbMakeNew.SuspendLayout();
@@ -484,6 +485,7 @@
             // 
             // gbFound
             // 
+            this.gbFound.Controls.Add(this.cbOnlyRefs);
             this.gbFound.Controls.Add(this.tbMissing);
             this.gbFound.Controls.Add(this.label3);
             this.gbFound.Controls.Add(this.cbSelKey);
@@ -497,7 +499,7 @@
             // 
             // tbMissing
             // 
-            this.tbMissing.Location = new System.Drawing.Point(199, 224);
+            this.tbMissing.Location = new System.Drawing.Point(199, 212);
             this.tbMissing.Multiline = true;
             this.tbMissing.Name = "tbMissing";
             this.tbMissing.Size = new System.Drawing.Size(128, 86);
@@ -507,11 +509,12 @@
             // 
             this.label3.AutoSize = true;
             this.label3.BackColor = System.Drawing.SystemColors.Info;
-            this.label3.Location = new System.Drawing.Point(17, 258);
+            this.label3.Location = new System.Drawing.Point(30, 234);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(134, 40);
             this.label3.TabIndex = 8;
             this.label3.Text = "Keywords missing\r\nor (i)gnored";
+            this.toolTip1.SetToolTip(this.label3, "Only list URLS that alow\r\nchanging the languages");
             // 
             // cbSelKey
             // 
@@ -585,6 +588,17 @@
             this.label1.Size = new System.Drawing.Size(124, 40);
             this.label1.TabIndex = 1;
             this.label1.Text = "Keywords: press\r\nenter to search";
+            // 
+            // cbOnlyRefs
+            // 
+            this.cbOnlyRefs.AutoSize = true;
+            this.cbOnlyRefs.Location = new System.Drawing.Point(21, 321);
+            this.cbOnlyRefs.Name = "cbOnlyRefs";
+            this.cbOnlyRefs.Size = new System.Drawing.Size(187, 24);
+            this.cbOnlyRefs.TabIndex = 10;
+            this.cbOnlyRefs.Text = "Show Languages Only";
+            this.cbOnlyRefs.TextAlign = System.Drawing.ContentAlignment.TopLeft;
+            this.cbOnlyRefs.UseVisualStyleBackColor = true;
             // 
             // WordSearch
             // 
@@ -661,5 +675,6 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.ListBox lbTitleSearch;
         private System.Windows.Forms.Button btnExitTitle;
+        private System.Windows.Forms.CheckBox cbOnlyRefs;
     }
 }

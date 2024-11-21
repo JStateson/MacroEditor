@@ -452,7 +452,7 @@ namespace MacroEditor
             if (strTemp == "") return;
             string MacName = dgvSearched.Rows[e.RowIndex].Cells[3].Value.ToString();
             nUseLastViewed = n;
-            if (dgvSearched.Rows[e.RowIndex].Cells[0].Value.ToString() == "RF")
+            if (dgvSearched.Rows[e.RowIndex].Cells[0].Value.ToString() == "RF" && cbOnlyRefs.Checked)
             {
 
                 strTemp = GetRefUrl(MacName);
@@ -636,7 +636,7 @@ namespace MacroEditor
                     // ignore any text that is in the http part such as .hp.
                     if (InHTTP(m.Value.ToLower(), m.Index, text.ToLower())) continue;
                     sTmp = m.Value.ToLower();
-                    if(sMacID == "RF")
+                    if(sMacID == "RF" ) // && false
                     {
                         cRefURLs cr = RefUrls.Last();
                         bool b = cr.LookForUrl(m.Index, ref text);
@@ -812,7 +812,7 @@ namespace MacroEditor
             foreach (CBody cb in cAll)
             {
                 string sPrN = cb.Name + " ";
-                if (cb.File == "RF")
+                if (cb.File == "RF") // && false
                 {
                     cRefURLs cr = new cRefURLs();
                     cr.init(cb.File, cb.Name, cb.Number);

@@ -132,7 +132,7 @@ namespace MacroEditor
         private List<int> SpellIndex = new List<int>();
         private int nSavedCount = 0;
         private PrinterDB printerDB = new PrinterDB();
-        private string[] ClipboardMacros;
+        private List<cQCmacros> AssociateMacros = new List<cQCmacros>();
         private string DataFileRecord = "";   // the tbody.text equivalent for the macroid record that is written to datafile and
         private bool bDataFileUnsaved;        // this is read in (if it exists) each time tbody.text is filled in.  bool true if unsaved
         private string DataFileFormatted = ""; // the displayable html from the raw datarecord
@@ -186,9 +186,7 @@ namespace MacroEditor
             {
                 lblVurl.Text = vWarning;
             }
-            associate MyAssociate = new associate();
-            ClipboardMacros = MyAssociate.ClipboardMacros;
-            MyAssociate.Dispose();
+            ConfigureAssociation();
             this.Shown += LoadInitialFiles;
         }
 
@@ -586,7 +584,7 @@ namespace MacroEditor
             string sMacroName = tbMacName.Text;
             xMacroViews.AddView(strType, sMacroName);
 
-            if (DataTable[CurrentRowSelected].rBody.Length == 4)
+            if (DataTable[CurrentRowSelected].rBody.Length <= 4)
             {
                 if (cbShowLang.Checked)
                 {
@@ -690,7 +688,9 @@ namespace MacroEditor
             {
                 FormQueryKB(menuItem.Text);
             }
-        }// the - sign does not have to be url encoded
+        }
+        
+        // the - sign does not have to be url encoded
         //https://www.google.com/search?q=OMEN+by+HP+880-181nf+Desktop+PC+Product+Specifications
         private void mnuOmen_Click(object sender, EventArgs e)
         {
@@ -948,7 +948,7 @@ namespace MacroEditor
                 tbBody.Text = DataTable[CurrentRowSelected].sBody.Replace("<br>", Environment.NewLine);
                 DataFileRecord = rBodyFromTable();
                 DataFileFormatted = "";
-                if (DataFileRecord != "")
+                if (DataFileRecord != "" && strType != "" && Utils.sPrinterTypes.Contains(strType + " "))
                 {
                     bool bRtn = printerDB.FormatRecord(DataFileRecord, ref DataFileFormatted);
                     if (!bRtn)
@@ -965,7 +965,7 @@ namespace MacroEditor
             btnChangeUrls.Enabled = !Utils.IsPostableImage(tbBody.Text);
         }
 
-        private void ShowSelectedRow(int e)
+        private bool ShowSelectedRow(int e)
         {
             bool bIgnore = false;
             string sMacName = "";
@@ -975,13 +975,14 @@ namespace MacroEditor
             {
                 ShowUneditedRow(e);
                 MustFinishEdit(false);
-                return;
+                return false;
             }
             if (bPageSaved(ref bIgnore))
             {
                 ShowUneditedRow(e);
             }
             else lbName.Rows[CurrentRowSelected].Selected = true;
+            return true;
         }
 
         private void lbName_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
@@ -989,14 +990,15 @@ namespace MacroEditor
             if (e.RowIndex < 0 || e.ColumnIndex < 0) return;
             if(e.ColumnIndex == 2)
             {
-                if (lbName.Rows[e.RowIndex].Cells[2].Value.ToString() != "")
+                if (lbName.Rows[e.RowIndex].Cells[2].Value != null)
                 {
                     string sTemp = tbBody.Text;
                     string sClip = Clipboard.GetText();
                     tbShowClip.Text = sClip;
                     if (sClip.Length < 32)
                     {
-                        sTemp = sTemp.Replace("@clipboard@", sClip).Replace(Environment.NewLine, "<br>");
+                        sTemp = sTemp.Replace("@clipboard@", sClip);
+                        sTemp = sTemp.Replace(Environment.NewLine, "<br>");
                         Utils.ShowRawBrowser(sTemp, strType);
                     }
                     else tbShowClip.Text += Environment.NewLine + "String over 32 long!";
@@ -1265,14 +1267,9 @@ namespace MacroEditor
             lbName.Columns[2].Visible = b;
             if(b)
             {
-                if (ClipboardMacros == null) return;
-                for(int i = 0; i < lbName.Rows.Count; i++)
+               foreach(cQCmacros m in AssociateMacros)
                 {
-                    string sMacName = (string) lbName.Rows[i].Cells[3].Value;
-                    if(ClipboardMacros.Contains(sMacName))
-                    {
-                        lbName.Rows[i].Cells[2].Value  = "\u2713"; // checkbox check (large)
-                    }
+                    lbName.Rows[m.LocInRF].Cells[2].Value = m.sType;
                 }
             }
         }
@@ -3612,7 +3609,7 @@ namespace MacroEditor
 
         private void tsmAssociate_Click(object sender, EventArgs e)
         {
-            associate MyAssociate = new associate();
+            associate MyAssociate = new associate(ref AssociateMacros);
             MyAssociate.ShowDialog();
             bool bChanged = MyAssociate.bChanged;
             if (bChanged && strType == "RF")
@@ -3621,6 +3618,7 @@ namespace MacroEditor
                 ShowBodyFromSelected();
             }
             MyAssociate.Dispose();
+            UpdateMyAssoc();
         }
 
 
@@ -3706,10 +3704,158 @@ namespace MacroEditor
             timer2.Enabled = true;
         }
 
-        private void mnuCloudRec_Click(object sender, EventArgs e)
+       
+  
+
+        private void lbName_CellMouseDown(object sender, DataGridViewCellMouseEventArgs e)
         {
-            string s = "HP is removing cloud recovery for many systems over 5 years old.\r\nYou may want to <a href=\"https://d34z73bbtpzgej.cloudfront.net/\" target=\"_blank\">go here and get a copy</a> of your cloud recovery before it is too late.";
-            Utils.CopyHTML(s);          
+            bool bAllowMenu = true;
+            if (strType != "RF") return;
+            if (e.RowIndex < 0 || e.ColumnIndex != 2) return;
+            if (e.Button == MouseButtons.Right)
+            {
+                // Get the row index where the click occurred
+                //var hitTestInfo = lbName.HitTest(e.X, e.Y);
+                //if (hitTestInfo.RowIndex >= 0) // Check if a row was clicked
+                //{}
+                bool bHasCheck = lbName.Rows[e.RowIndex].Cells[2].Value != null;
+                cMS2_Row = e.RowIndex;
+                if(e.RowIndex != CurrentRowSelected)
+                    bAllowMenu = ShowSelectedRow(e.RowIndex);
+                if(bAllowMenu)
+                    contextMenuStrip2.Show(Cursor.Position);            
+            }
         }
+
+        int cMS2_Row = -1;
+        int cMS2_obj = -1;
+        private void contextMenuStrip2_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+            string sItem = e.ClickedItem.ToString();
+            switch (sItem)
+            {
+                case "Add QuickWatch":
+                    cMS2_obj = 0;
+                    lbName.Rows[cMS2_Row].Cells[2].Value = "Q";
+                    break;
+                case "Add Clipboard macro":
+                    cMS2_obj = 1;
+                    lbName.Rows[cMS2_Row].Cells[2].Value = "C";
+                    break;
+                case "Remove":
+                    cMS2_obj = 2;
+                    lbName.Rows[cMS2_Row].Cells[2].Value = "";
+                    break;
+            }
+            if(cMS2_obj != -1)
+            {
+                Debug.Assert(CurrentRowSelected == cMS2_Row);
+                DataTable[CurrentRowSelected].rBody = (string)lbName.Rows[cMS2_Row].Cells[2].Value;
+                SaveAsTXT(TXTName);
+                ConfigureAssociation();                
+            }
+        }
+
+        private void Qwclick(object sender, EventArgs e)
+        {           
+            ToolStripMenuItem  t = sender as ToolStripMenuItem;
+            string s = AssociateMacros[(int)t.Tag].sBody;
+            s = s.Replace(Environment.NewLine, "<br>");
+            Utils.CopyHTML(s);
+        }
+
+        private void UpdateQWarnings()
+        {
+            ToolStripMenuItem tmQW = quickWarningsToolStripMenuItem;
+            tmQW.DropDownItems.Clear();
+            int i = 0;
+            foreach (cQCmacros m in AssociateMacros)
+            {
+                if (m.sType == "Q")
+                {
+                    ToolStripMenuItem submenuItem = new ToolStripMenuItem(m.sName);
+                    submenuItem.Tag = i;
+                    submenuItem.Click += (s, e) => Qwclick(s, e);
+                    tmQW.DropDownItems.Add(submenuItem);
+                }
+                i++;
+            }
+            ToolStripMenuItem parentMenu = new ToolStripMenuItem("Parent Menu");
+        }
+
+        private void ClipClick(object sender, EventArgs e)
+        {
+            ToolStripMenuItem t = sender as ToolStripMenuItem;
+            string s = AssociateMacros[(int)t.Tag].sBody;
+            string c = Utils.ClipboardGetText().Trim();
+            string sObj = s.Replace("@clipboard@", c);
+            if(sObj.Contains("@clip-board@"))
+            {
+                int i = c.IndexOf("-");
+                if (i < 0)
+                {
+                    sObj = s.Replace("@clip-board@", c);
+                }
+                else
+                {
+                    i++;
+                    string sPrefix = c.Substring(0, i);
+                    string st = "";
+                    char[] cC = c.Substring(i).ToCharArray();
+                    for(i = 0; i < 2; i++)
+                    {
+                        if (cC[i] >= 'a' && cC[i] <= 'z')
+                        {
+                            st += cC[i];
+                        }
+                    }
+                    if (st == "") st += cC[0] + "xxx";
+                    sPrefix += st;
+                    sObj = s.Replace("@clip-board@", sPrefix);
+                }
+            }
+            sObj = sObj.Replace(Environment.NewLine, "<br>");
+            Utils.ShowRawBrowser(sObj, "");
+            //Utils.LocalBrowser(sObj);
+        }
+
+        private void UpdateClips()
+        {
+            int i,j;
+            int sepStart = mnRecDis.DropDownItems.IndexOf(toolStripSepSTART);
+            int sepEnd = mnRecDis.DropDownItems.IndexOf(toolStripSepEND);
+            for (i = sepEnd -1; i > sepStart; i--)
+            {
+                mnRecDis.DropDownItems.RemoveAt(i);
+            }
+            i = 0;
+            j = 1;
+            foreach (cQCmacros m in AssociateMacros)
+            {
+                if (m.sType == "C")
+                {
+                    ToolStripMenuItem submenuItem = new ToolStripMenuItem(m.sName);
+                    submenuItem.Tag = i;
+                    submenuItem.Click += (s, e) => ClipClick(s, e);
+                    mnRecDis.DropDownItems.Insert(sepStart + j, submenuItem);
+                    j++;
+                }
+                i++;
+            }
+        }
+
+        private void UpdateMyAssoc()
+        {
+            //menuStrip1.Items.Remove(quickWarningsToolStripMenuItem);
+            UpdateQWarnings();
+            UpdateClips();
+        }
+        private void ConfigureAssociation()
+        {
+            associate MyAssociate = new associate(ref AssociateMacros);
+            MyAssociate.Dispose();
+            UpdateMyAssoc();
+        }
+
     }
 }

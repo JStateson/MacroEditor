@@ -35,8 +35,6 @@
             this.btnSave = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.btnSwap = new System.Windows.Forms.Button();
-            this.btnAdd = new System.Windows.Forms.Button();
-            this.btnDel = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.tbClip = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgv)).BeginInit();
@@ -84,7 +82,7 @@
             this.btnSave.Enabled = false;
             this.btnSave.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSave.ForeColor = System.Drawing.SystemColors.MenuHighlight;
-            this.btnSave.Location = new System.Drawing.Point(34, 465);
+            this.btnSave.Location = new System.Drawing.Point(12, 455);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(75, 35);
             this.btnSave.TabIndex = 3;
@@ -116,30 +114,6 @@
             this.btnSwap.UseVisualStyleBackColor = true;
             this.btnSwap.Click += new System.EventHandler(this.btnSwap_Click);
             // 
-            // btnAdd
-            // 
-            this.btnAdd.Enabled = false;
-            this.btnAdd.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAdd.ForeColor = System.Drawing.SystemColors.MenuHighlight;
-            this.btnAdd.Location = new System.Drawing.Point(34, 339);
-            this.btnAdd.Name = "btnAdd";
-            this.btnAdd.Size = new System.Drawing.Size(75, 35);
-            this.btnAdd.TabIndex = 6;
-            this.btnAdd.Text = " Add";
-            this.btnAdd.UseVisualStyleBackColor = true;
-            // 
-            // btnDel
-            // 
-            this.btnDel.Enabled = false;
-            this.btnDel.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnDel.ForeColor = System.Drawing.SystemColors.MenuHighlight;
-            this.btnDel.Location = new System.Drawing.Point(34, 400);
-            this.btnDel.Name = "btnDel";
-            this.btnDel.Size = new System.Drawing.Size(75, 35);
-            this.btnDel.TabIndex = 7;
-            this.btnDel.Text = "Delete";
-            this.btnDel.UseVisualStyleBackColor = true;
-            // 
             // label2
             // 
             this.label2.AutoSize = true;
@@ -165,8 +139,6 @@
             this.ClientSize = new System.Drawing.Size(1213, 534);
             this.Controls.Add(this.tbClip);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.btnDel);
-            this.Controls.Add(this.btnAdd);
             this.Controls.Add(this.btnSwap);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.btnSave);
@@ -192,8 +164,6 @@
         private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button btnSwap;
-        private System.Windows.Forms.Button btnAdd;
-        private System.Windows.Forms.Button btnDel;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox tbClip;
     }

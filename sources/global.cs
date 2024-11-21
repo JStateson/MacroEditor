@@ -2029,6 +2029,14 @@ namespace MacroEditor
         }
     }
 
+    public class cQCmacros
+    {
+        public int LocInRF;
+        public string sType;  // Q for quick watch, C for clipboard context
+        public string sName;
+        public string sBody;
+    }
+
     public class cnDups
     {
         public string sFN_N;  // filename and number
@@ -2172,6 +2180,7 @@ namespace MacroEditor
         }
 
     }
+
     public class cUrls
     {
         public string sOrigHref;

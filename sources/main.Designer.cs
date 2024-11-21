@@ -163,7 +163,7 @@
             this.mnuOmen = new System.Windows.Forms.ToolStripMenuItem();
             this.mbyDesktop = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuHuntDev = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripSepSTART = new System.Windows.Forms.ToolStripSeparator();
             this.mnuLapKey = new System.Windows.Forms.ToolStripMenuItem();
             this.hPYouTubeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuToEnglish = new System.Windows.Forms.ToolStripMenuItem();
@@ -196,6 +196,7 @@
             this.tsmPartsLookup = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmAssembly = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmAssemblyPrinter = new System.Windows.Forms.ToolStripMenuItem();
+            this.quickWarningsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.gpMainEdit = new System.Windows.Forms.GroupBox();
             this.tbShowClip = new System.Windows.Forms.TextBox();
             this.lbHoverClip = new System.Windows.Forms.Label();
@@ -211,8 +212,11 @@
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.timer2 = new System.Windows.Forms.Timer(this.components);
-            this.quickWarningsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.mnuCloudRec = new System.Windows.Forms.ToolStripMenuItem();
+            this.contextMenuStrip2 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.tsmAddQWatch = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmAddClip = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmRemove = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSepEND = new System.Windows.Forms.ToolStripSeparator();
             ((System.ComponentModel.ISupportInitialize)(this.lbName)).BeginInit();
             this.groupBox6.SuspendLayout();
             this.gbManageImages.SuspendLayout();
@@ -224,6 +228,7 @@
             this.gbSupp.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox2.SuspendLayout();
+            this.contextMenuStrip2.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel2
@@ -254,6 +259,7 @@
             this.lbName.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.lbName_CellContentClick);
             this.lbName.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.lbName_CellDoubleClick);
             this.lbName.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.lbName_CellMouseClick);
+            this.lbName.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.lbName_CellMouseDown);
             this.lbName.RowEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.lbName_RowEnter);
             this.lbName.SelectionChanged += new System.EventHandler(this.lbName_SelectionChanged);
             // 
@@ -1468,9 +1474,10 @@
             this.mnuOmen,
             this.mbyDesktop,
             this.mnuHuntDev,
-            this.toolStripSeparator5,
+            this.toolStripSepSTART,
             this.mnuLapKey,
             this.hPYouTubeToolStripMenuItem,
+            this.toolStripSepEND,
             this.mnuToEnglish,
             this.toolStripSeparator6,
             this.allKBToolStripMenuItem,
@@ -1540,10 +1547,10 @@
     "rd\r\nPCI\\VEN_1B21&DEV_2142&\r\n-or-\r\nUSB\\VID_0BDA&PID_0129\\20100201396000000\r\n";
             this.mnuHuntDev.Click += new System.EventHandler(this.mnuHuntDev_Click);
             // 
-            // toolStripSeparator5
+            // toolStripSepSTART
             // 
-            this.toolStripSeparator5.Name = "toolStripSeparator5";
-            this.toolStripSeparator5.Size = new System.Drawing.Size(184, 6);
+            this.toolStripSepSTART.Name = "toolStripSepSTART";
+            this.toolStripSepSTART.Size = new System.Drawing.Size(184, 6);
             // 
             // mnuLapKey
             // 
@@ -1636,59 +1643,59 @@
             // printerKBToolStripMenuItem
             // 
             this.printerKBToolStripMenuItem.Name = "printerKBToolStripMenuItem";
-            this.printerKBToolStripMenuItem.Size = new System.Drawing.Size(145, 22);
+            this.printerKBToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.printerKBToolStripMenuItem.Text = "Printer KB";
             this.printerKBToolStripMenuItem.Click += new System.EventHandler(this.HPWS_click);
             // 
             // desktopKBToolStripMenuItem1
             // 
             this.desktopKBToolStripMenuItem1.Name = "desktopKBToolStripMenuItem1";
-            this.desktopKBToolStripMenuItem1.Size = new System.Drawing.Size(145, 22);
+            this.desktopKBToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
             this.desktopKBToolStripMenuItem1.Text = "Notebook KB";
             this.desktopKBToolStripMenuItem1.Click += new System.EventHandler(this.HPWS_click);
             // 
             // desktopKBToolStripMenuItem2
             // 
             this.desktopKBToolStripMenuItem2.Name = "desktopKBToolStripMenuItem2";
-            this.desktopKBToolStripMenuItem2.Size = new System.Drawing.Size(145, 22);
+            this.desktopKBToolStripMenuItem2.Size = new System.Drawing.Size(180, 22);
             this.desktopKBToolStripMenuItem2.Text = "Desktop KB";
             this.desktopKBToolStripMenuItem2.Click += new System.EventHandler(this.HPWS_click);
             // 
             // gaminToolStripMenuItem
             // 
             this.gaminToolStripMenuItem.Name = "gaminToolStripMenuItem";
-            this.gaminToolStripMenuItem.Size = new System.Drawing.Size(145, 22);
+            this.gaminToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.gaminToolStripMenuItem.Text = "Gaming KB";
             this.gaminToolStripMenuItem.Click += new System.EventHandler(this.HPWS_click);
             // 
             // mnPhAlbum
             // 
             this.mnPhAlbum.Name = "mnPhAlbum";
-            this.mnPhAlbum.Size = new System.Drawing.Size(145, 22);
+            this.mnPhAlbum.Size = new System.Drawing.Size(180, 22);
             this.mnPhAlbum.Text = "Photo Album";
             this.mnPhAlbum.Click += new System.EventHandler(this.mnPhAlbum_Click);
             // 
             // toolStripSeparator3
             // 
             this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(142, 6);
+            this.toolStripSeparator3.Size = new System.Drawing.Size(177, 6);
             // 
             // allToolStripMenuItem
             // 
             this.allToolStripMenuItem.Name = "allToolStripMenuItem";
-            this.allToolStripMenuItem.Size = new System.Drawing.Size(145, 22);
+            this.allToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.allToolStripMenuItem.Text = "All recent";
             this.allToolStripMenuItem.Click += new System.EventHandler(this.HPWS_click);
             // 
             // toolStripSeparator4
             // 
             this.toolStripSeparator4.Name = "toolStripSeparator4";
-            this.toolStripSeparator4.Size = new System.Drawing.Size(142, 6);
+            this.toolStripSeparator4.Size = new System.Drawing.Size(177, 6);
             // 
             // mnuAskQ
             // 
             this.mnuAskQ.Name = "mnuAskQ";
-            this.mnuAskQ.Size = new System.Drawing.Size(145, 22);
+            this.mnuAskQ.Size = new System.Drawing.Size(180, 22);
             this.mnuAskQ.Text = "Ask Question";
             this.mnuAskQ.Click += new System.EventHandler(this.mnuAskQ_Click);
             // 
@@ -1798,6 +1805,12 @@
             this.tsmAssemblyPrinter.Tag = "@IDAssemblyPR@";
             this.tsmAssemblyPrinter.Text = "User disassembly printer";
             this.tsmAssemblyPrinter.Click += new System.EventHandler(this.tsmInteractive_Click);
+            // 
+            // quickWarningsToolStripMenuItem
+            // 
+            this.quickWarningsToolStripMenuItem.Name = "quickWarningsToolStripMenuItem";
+            this.quickWarningsToolStripMenuItem.Size = new System.Drawing.Size(103, 20);
+            this.quickWarningsToolStripMenuItem.Text = "Quick Warnings";
             // 
             // gpMainEdit
             // 
@@ -1968,20 +1981,38 @@
             this.timer2.Interval = 1000;
             this.timer2.Tick += new System.EventHandler(this.timer2_Tick);
             // 
-            // quickWarningsToolStripMenuItem
+            // contextMenuStrip2
             // 
-            this.quickWarningsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.mnuCloudRec});
-            this.quickWarningsToolStripMenuItem.Name = "quickWarningsToolStripMenuItem";
-            this.quickWarningsToolStripMenuItem.Size = new System.Drawing.Size(103, 20);
-            this.quickWarningsToolStripMenuItem.Text = "Quick Warnings";
+            this.contextMenuStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tsmAddQWatch,
+            this.tsmAddClip,
+            this.tsmRemove});
+            this.contextMenuStrip2.Name = "contextMenuStrip2";
+            this.contextMenuStrip2.Size = new System.Drawing.Size(189, 70);
+            this.contextMenuStrip2.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.contextMenuStrip2_ItemClicked);
             // 
-            // mnuCloudRec
+            // tsmAddQWatch
             // 
-            this.mnuCloudRec.Name = "mnuCloudRec";
-            this.mnuCloudRec.Size = new System.Drawing.Size(180, 22);
-            this.mnuCloudRec.Text = "Cloud Recovery";
-            this.mnuCloudRec.Click += new System.EventHandler(this.mnuCloudRec_Click);
+            this.tsmAddQWatch.Name = "tsmAddQWatch";
+            this.tsmAddQWatch.Size = new System.Drawing.Size(188, 22);
+            this.tsmAddQWatch.Text = "Add QuickWatch";
+            // 
+            // tsmAddClip
+            // 
+            this.tsmAddClip.Name = "tsmAddClip";
+            this.tsmAddClip.Size = new System.Drawing.Size(188, 22);
+            this.tsmAddClip.Text = "Add Clipboard macro";
+            // 
+            // tsmRemove
+            // 
+            this.tsmRemove.Name = "tsmRemove";
+            this.tsmRemove.Size = new System.Drawing.Size(188, 22);
+            this.tsmRemove.Text = "Remove";
+            // 
+            // toolStripSepEND
+            // 
+            this.toolStripSepEND.Name = "toolStripSepEND";
+            this.toolStripSepEND.Size = new System.Drawing.Size(184, 6);
             // 
             // main
             // 
@@ -2024,6 +2055,7 @@
             this.groupBox3.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
+            this.contextMenuStrip2.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -2164,7 +2196,7 @@
         private System.Windows.Forms.Button btnSpellChk;
         private System.Windows.Forms.Button btnNextChk;
         private System.Windows.Forms.ToolStripMenuItem tsmID;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
+        private System.Windows.Forms.ToolStripSeparator toolStripSepSTART;
         private System.Windows.Forms.ToolStripMenuItem mnuLapKey;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator6;
         private System.Windows.Forms.ToolStripMenuItem mnuCmpHpTr;
@@ -2212,7 +2244,11 @@
         private System.Windows.Forms.ToolStripMenuItem mnuOmen;
         private System.Windows.Forms.ToolStripMenuItem mbyDesktop;
         private System.Windows.Forms.ToolStripMenuItem quickWarningsToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem mnuCloudRec;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStrip2;
+        private System.Windows.Forms.ToolStripMenuItem tsmAddQWatch;
+        private System.Windows.Forms.ToolStripMenuItem tsmAddClip;
+        private System.Windows.Forms.ToolStripMenuItem tsmRemove;
+        private System.Windows.Forms.ToolStripSeparator toolStripSepEND;
     }
 }
 

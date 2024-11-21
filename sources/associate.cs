@@ -33,64 +33,59 @@ namespace MacroEditor.sources
         public class cEachTbMn
         {
             public int nLoc { get; set; }
-            public bool bFound { get; set; }
+            public string sType { get; set; }
             public string sName { get; set; }    // macro name
-            public string sCode { get; set; }    // macro substitution code
         }
         public List<cEachTbMn> mHaveTable = new List<cEachTbMn>();
-        public bool bChanged { get; set; }
+        public bool bChanged { get; set; }       
 
-        public string[] ClipboardMacros { get; set; }
-        private int LookupName(string s)
-        {
-            int n = 0;
-            foreach(cMacroEach me in RFlist)
-            {
-                if (me.sName == s) return n;
-                n++;
-            }
-            return -1;
-        }
         private void LoadTable()
         {
             int n = 0;
             cEachTbMn et;
-            foreach (string line in File.ReadLines(Utils.FNtoPath("Ass")))
+            foreach(cQCmacros m in MyQCM)
             {
-                string[] sS = line.Split(',');
                 et = new cEachTbMn();
-                et.sName = sS[0].Trim();
-                et.sCode = sS[1].Trim();
-                et.nLoc = LookupName(et.sName);
-                et.bFound = et.nLoc != -1;
-                if (et.bFound) n++;
+                et.sName = m.sName;
+                et.nLoc = m.LocInRF + 1;
+                et.sType = m.sType;
                 mHaveTable.Add(et);
             }
-            ClipboardMacros = new string[n];
-            n = 0;
-            foreach(cEachTbMn et1 in mHaveTable)
-            {
-                if(et1.bFound)ClipboardMacros[n] = et1.sName;
-                n++;
-            }
+
             dgv.DataSource = mHaveTable;
             dgv.Columns[0].HeaderText = "Loc";
-            dgv.Columns[1].HeaderText = "Found";
+            dgv.Columns[1].HeaderText = "Type";
             dgv.Columns[2].HeaderText = "Macro Name";
-            dgv.Columns[3].HeaderText = "Sub Code";
             dgv.Columns[0].FillWeight = 16;
-            dgv.Columns[1].FillWeight = 20;
-            dgv.Columns[3].FillWeight = 40;
+            dgv.Columns[1].FillWeight = 16;
         }
 
-        public associate()
+        private List<cQCmacros> MyQCM;
+
+        public associate(ref List<cQCmacros> rQCM)
         {
             InitializeComponent();
+            MyQCM = rQCM;
+            if(MyQCM != null)MyQCM.Clear();
             int n = Utils.ReadFile("RF", ref RFlist);
             bTableExists = n > 0;
             if (!bTableExists) return;
-            bTableExists = File.Exists(Utils.FNtoPath("Ass"));
-            if(!bTableExists) return;
+            int i = 0;
+            foreach(cMacroEach cme in RFlist)
+            {
+                if(cme.rBody != "<nl>")
+                {
+                    cQCmacros m = new cQCmacros();
+                    m.sBody = cme.sBody;
+                    m.sName = cme.sName;
+                    m.sType = cme.rBody;
+                    m.LocInRF = i;
+                    MyQCM.Add(m);
+                }
+                i++;
+            }
+            //bTableExists = File.Exists(Utils.FNtoPath("Ass"));
+            //if(!bTableExists) return;
             LoadTable();
             foreach (DataGridViewColumn column in dgv.Columns)
             {
@@ -102,6 +97,7 @@ namespace MacroEditor.sources
         {
             if (e.RowIndex < 0) return;
             int n = (int) dgv.Rows[e.RowIndex].Cells[0].Value;
+            n--;
             AllowButtons(n >= 0);
             if (n < 0)
             {
@@ -139,6 +135,7 @@ namespace MacroEditor.sources
             {
                 strOut += me.sName + Environment.NewLine;
                 strOut += me.sBody + Environment.NewLine;
+                strOut += me.rBody + Environment.NewLine;
             }
             Utils.WriteAllText(Utils.FNtoPath("RF"), strOut);
             bChanged = true;
@@ -163,5 +160,6 @@ namespace MacroEditor.sources
         {
             tbClip.Text = Clipboard.GetText();
         }
+
     }
 }
