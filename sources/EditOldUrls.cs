@@ -50,7 +50,6 @@ namespace MacroEditor.sources
         private int EndMacOld = 0;
         private List<string> lbButtons;
         private string DataFileRecord;
-
         public EditOldUrls(string rRText, string rDataFileRecord, ref PrinterDB RpDB)
         {
             InitializeComponent();

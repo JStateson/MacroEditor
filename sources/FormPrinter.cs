@@ -539,12 +539,6 @@ namespace MacroEditor.sources
             }
             return true;
         }
-    
-        public bool CreateFormData(ref string FmtOut)
-        {
-            return ApplyFormat(ref FmtOut);
-        }
-
     }
 }
 

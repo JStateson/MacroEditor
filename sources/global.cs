@@ -28,7 +28,6 @@ using System.Runtime.Remoting.Lifetime;
 using System.Windows.Documents;
 using System.Windows.Input;
 
-
 namespace MacroEditor
 {
     public class CMoveSpace
@@ -886,6 +885,11 @@ namespace MacroEditor
             }
         }
 
+        public static bool HasWiFiDirect(ref string s)
+        {
+            int i = s.IndexOf("Wi-Fi Direct");
+            return (i >= 0);
+        }
         public static void CopyHTML(string html)
         {
             var dataObject = new DataObject();

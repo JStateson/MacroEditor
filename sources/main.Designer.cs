@@ -166,6 +166,7 @@
             this.toolStripSepSTART = new System.Windows.Forms.ToolStripSeparator();
             this.mnuLapKey = new System.Windows.Forms.ToolStripMenuItem();
             this.hPYouTubeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSepEND = new System.Windows.Forms.ToolStripSeparator();
             this.mnuToEnglish = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
             this.allKBToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -216,7 +217,7 @@
             this.tsmAddQWatch = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmAddClip = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmRemove = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSepEND = new System.Windows.Forms.ToolStripSeparator();
+            this.lbNoDirect = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.lbName)).BeginInit();
             this.groupBox6.SuspendLayout();
             this.gbManageImages.SuspendLayout();
@@ -451,6 +452,7 @@
             // groupBox6
             // 
             this.groupBox6.BackColor = System.Drawing.SystemColors.Control;
+            this.groupBox6.Controls.Add(this.lbNoDirect);
             this.groupBox6.Controls.Add(this.tbClipboard);
             this.groupBox6.Controls.Add(this.label8);
             this.groupBox6.Controls.Add(this.lblVurl);
@@ -1568,6 +1570,11 @@
             this.hPYouTubeToolStripMenuItem.ToolTipText = "Finds official HP\r\nYouTube vdeos";
             this.hPYouTubeToolStripMenuItem.Click += new System.EventHandler(this.hPYouTubeToolStripMenuItem_Click);
             // 
+            // toolStripSepEND
+            // 
+            this.toolStripSepEND.Name = "toolStripSepEND";
+            this.toolStripSepEND.Size = new System.Drawing.Size(184, 6);
+            // 
             // mnuToEnglish
             // 
             this.mnuToEnglish.Name = "mnuToEnglish";
@@ -1643,59 +1650,59 @@
             // printerKBToolStripMenuItem
             // 
             this.printerKBToolStripMenuItem.Name = "printerKBToolStripMenuItem";
-            this.printerKBToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.printerKBToolStripMenuItem.Size = new System.Drawing.Size(145, 22);
             this.printerKBToolStripMenuItem.Text = "Printer KB";
             this.printerKBToolStripMenuItem.Click += new System.EventHandler(this.HPWS_click);
             // 
             // desktopKBToolStripMenuItem1
             // 
             this.desktopKBToolStripMenuItem1.Name = "desktopKBToolStripMenuItem1";
-            this.desktopKBToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
+            this.desktopKBToolStripMenuItem1.Size = new System.Drawing.Size(145, 22);
             this.desktopKBToolStripMenuItem1.Text = "Notebook KB";
             this.desktopKBToolStripMenuItem1.Click += new System.EventHandler(this.HPWS_click);
             // 
             // desktopKBToolStripMenuItem2
             // 
             this.desktopKBToolStripMenuItem2.Name = "desktopKBToolStripMenuItem2";
-            this.desktopKBToolStripMenuItem2.Size = new System.Drawing.Size(180, 22);
+            this.desktopKBToolStripMenuItem2.Size = new System.Drawing.Size(145, 22);
             this.desktopKBToolStripMenuItem2.Text = "Desktop KB";
             this.desktopKBToolStripMenuItem2.Click += new System.EventHandler(this.HPWS_click);
             // 
             // gaminToolStripMenuItem
             // 
             this.gaminToolStripMenuItem.Name = "gaminToolStripMenuItem";
-            this.gaminToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.gaminToolStripMenuItem.Size = new System.Drawing.Size(145, 22);
             this.gaminToolStripMenuItem.Text = "Gaming KB";
             this.gaminToolStripMenuItem.Click += new System.EventHandler(this.HPWS_click);
             // 
             // mnPhAlbum
             // 
             this.mnPhAlbum.Name = "mnPhAlbum";
-            this.mnPhAlbum.Size = new System.Drawing.Size(180, 22);
+            this.mnPhAlbum.Size = new System.Drawing.Size(145, 22);
             this.mnPhAlbum.Text = "Photo Album";
             this.mnPhAlbum.Click += new System.EventHandler(this.mnPhAlbum_Click);
             // 
             // toolStripSeparator3
             // 
             this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(177, 6);
+            this.toolStripSeparator3.Size = new System.Drawing.Size(142, 6);
             // 
             // allToolStripMenuItem
             // 
             this.allToolStripMenuItem.Name = "allToolStripMenuItem";
-            this.allToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.allToolStripMenuItem.Size = new System.Drawing.Size(145, 22);
             this.allToolStripMenuItem.Text = "All recent";
             this.allToolStripMenuItem.Click += new System.EventHandler(this.HPWS_click);
             // 
             // toolStripSeparator4
             // 
             this.toolStripSeparator4.Name = "toolStripSeparator4";
-            this.toolStripSeparator4.Size = new System.Drawing.Size(177, 6);
+            this.toolStripSeparator4.Size = new System.Drawing.Size(142, 6);
             // 
             // mnuAskQ
             // 
             this.mnuAskQ.Name = "mnuAskQ";
-            this.mnuAskQ.Size = new System.Drawing.Size(180, 22);
+            this.mnuAskQ.Size = new System.Drawing.Size(145, 22);
             this.mnuAskQ.Text = "Ask Question";
             this.mnuAskQ.Click += new System.EventHandler(this.mnuAskQ_Click);
             // 
@@ -2009,10 +2016,16 @@
             this.tsmRemove.Size = new System.Drawing.Size(188, 22);
             this.tsmRemove.Text = "Remove";
             // 
-            // toolStripSepEND
+            // lbNoDirect
             // 
-            this.toolStripSepEND.Name = "toolStripSepEND";
-            this.toolStripSepEND.Size = new System.Drawing.Size(184, 6);
+            this.lbNoDirect.AutoSize = true;
+            this.lbNoDirect.ForeColor = System.Drawing.Color.Red;
+            this.lbNoDirect.Location = new System.Drawing.Point(123, 104);
+            this.lbNoDirect.Name = "lbNoDirect";
+            this.lbNoDirect.Size = new System.Drawing.Size(232, 16);
+            this.lbNoDirect.TabIndex = 39;
+            this.lbNoDirect.Text = "Print may not support WiFi Direct";
+            this.lbNoDirect.Visible = false;
             // 
             // main
             // 
@@ -2249,6 +2262,7 @@
         private System.Windows.Forms.ToolStripMenuItem tsmAddClip;
         private System.Windows.Forms.ToolStripMenuItem tsmRemove;
         private System.Windows.Forms.ToolStripSeparator toolStripSepEND;
+        private System.Windows.Forms.Label lbNoDirect;
     }
 }
 

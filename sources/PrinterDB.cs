@@ -29,6 +29,7 @@ namespace MacroEditor.sources
         public string sysType;
         public string sTimeStamp;
         public bool IsPrinter;
+        public bool HasWiFiDirect;
         public int TotalTags;
         public List<cEachTag> RecordSet = new List<cEachTag>();
     }
@@ -129,6 +130,7 @@ namespace MacroEditor.sources
             cDBresult dBresult = new cDBresult();
             dBresult.sysType = "";
             dBresult.sName = "";
+            dBresult.HasWiFiDirect = false;
             if (CurrentRecord == "") return null;
 
             //b = DBParse(ref CurrentRecord, ref sComment, ref jTraverse);
@@ -151,6 +153,7 @@ namespace MacroEditor.sources
                 a = DBParse(ref CurrentRecord, ref sTag, ref jTraverse);
                 a &= int.TryParse(sTag, out et.iTag);
                 a &= DBParse(ref CurrentRecord, ref et.TagName, ref jTraverse);
+                dBresult.HasWiFiDirect |= (et.TagName.Contains("Direct "));
                 int n = 0;
                 a &= DBParse(ref CurrentRecord, ref sTag, ref jTraverse);
                 a &= int.TryParse(sTag, out n);
@@ -239,6 +242,7 @@ namespace MacroEditor.sources
         public bool FormatRecord(string sRawIn, ref string FmtOut)
         { 
             LastDBresult = ParseRecord(ref sRawIn);
+            bool b = Utils.HasWiFiDirect(ref sRawIn);
             if (LastDBresult == null) return false;
             return FormatParsedRecord(ref LastDBresult, ref FmtOut);
         }
@@ -267,7 +271,7 @@ namespace MacroEditor.sources
                     fpNew.Reduce(s, iTag, et.SourceTEXT[i]);
                 }
             }
-            return fpNew.CreateFormData(ref FmtOut);
+            return fpNew.ApplyFormat(ref FmtOut);
         }
 
     }

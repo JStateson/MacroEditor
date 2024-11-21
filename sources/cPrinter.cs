@@ -729,7 +729,7 @@ namespace MacroEditor.sources
         private void btnShowPage_Click(object sender, EventArgs e)
         {
             string FmtOut = "";
-            if(RunApply(ref FmtOut))
+            if(fpNew.ApplyFormat(ref FmtOut))
             {
                 tbEdit.Text = FmtOut;
                 tabC.SelectTab(1);
@@ -744,16 +744,10 @@ namespace MacroEditor.sources
         }
 
 
-
-        private bool RunApply(ref string FmtOut)
-        {
-            return fpNew.ApplyFormat(ref FmtOut);
-        }
-
         private void btnApply_Click(object sender, EventArgs e)
         {
             string FmtOut = "";
-            if (RunApply(ref FmtOut))
+            if (fpNew.ApplyFormat(ref FmtOut))
             {
                 tbEdit.Text = FmtOut;
             }
@@ -836,7 +830,7 @@ namespace MacroEditor.sources
         private void btnApplyExit_Click(object sender, EventArgs e)
         {
             string FmtOut = "";
-            if (RunApply(ref FmtOut))
+            if (fpNew.ApplyFormat(ref FmtOut))
             {
                 strResults = FmtOut;
                 tbEdit.Text = FmtOut;

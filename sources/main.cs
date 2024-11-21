@@ -887,6 +887,7 @@ namespace MacroEditor
         {
             bool bChanged = (CurrentRowSelected != e);
             CurrentRowSelected = e;
+            lbNoDirect.Visible = false;
             if (lbName.Rows.Count == 0 || e >= lbName.Rows.Count)
             {
                 tbBody.Text = "Please create a new macro by clicking 'NEW'";
@@ -956,6 +957,8 @@ namespace MacroEditor
                         MessageBox.Show("ERROR: failed to parse record ", "Critical");
                         return;
                     }
+                    bRtn = Utils.HasWiFiDirect(ref DataFileFormatted);
+                    lbNoDirect.Visible = !bRtn;
                 }
             }
 
