@@ -48,6 +48,7 @@
             this.btnCopyFrom = new System.Windows.Forms.Button();
             this.btnSearch = new System.Windows.Forms.Button();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
+            this.lbNoDirect = new System.Windows.Forms.Label();
             this.tbClipboard = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
             this.lblVurl = new System.Windows.Forms.Label();
@@ -217,7 +218,7 @@
             this.tsmAddQWatch = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmAddClip = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmRemove = new System.Windows.Forms.ToolStripMenuItem();
-            this.lbNoDirect = new System.Windows.Forms.Label();
+            this.mnuAIOSpec = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.lbName)).BeginInit();
             this.groupBox6.SuspendLayout();
             this.gbManageImages.SuspendLayout();
@@ -476,6 +477,17 @@
             this.groupBox6.Text = "EDIT BOX:  Enter text or html and click to Show As Page";
             this.toolTip1.SetToolTip(this.groupBox6, "Switch to markup substitutes <BR> for newliens\r\nAvoid using CTRL-V to paste from " +
         "forum\r\nUse \"Pase from clipboard\" instead");
+            // 
+            // lbNoDirect
+            // 
+            this.lbNoDirect.AutoSize = true;
+            this.lbNoDirect.ForeColor = System.Drawing.Color.Red;
+            this.lbNoDirect.Location = new System.Drawing.Point(123, 104);
+            this.lbNoDirect.Name = "lbNoDirect";
+            this.lbNoDirect.Size = new System.Drawing.Size(232, 16);
+            this.lbNoDirect.TabIndex = 39;
+            this.lbNoDirect.Text = "Print may not support WiFi Direct";
+            this.lbNoDirect.Visible = false;
             // 
             // tbClipboard
             // 
@@ -1474,6 +1486,7 @@
             this.mnuDrvGoog,
             this.mnuDevCol,
             this.mnuOmen,
+            this.mnuAIOSpec,
             this.mbyDesktop,
             this.mnuHuntDev,
             this.toolStripSepSTART,
@@ -2016,16 +2029,12 @@
             this.tsmRemove.Size = new System.Drawing.Size(188, 22);
             this.tsmRemove.Text = "Remove";
             // 
-            // lbNoDirect
+            // mnuAIOSpec
             // 
-            this.lbNoDirect.AutoSize = true;
-            this.lbNoDirect.ForeColor = System.Drawing.Color.Red;
-            this.lbNoDirect.Location = new System.Drawing.Point(123, 104);
-            this.lbNoDirect.Name = "lbNoDirect";
-            this.lbNoDirect.Size = new System.Drawing.Size(232, 16);
-            this.lbNoDirect.TabIndex = 39;
-            this.lbNoDirect.Text = "Print may not support WiFi Direct";
-            this.lbNoDirect.Visible = false;
+            this.mnuAIOSpec.Name = "mnuAIOSpec";
+            this.mnuAIOSpec.Size = new System.Drawing.Size(187, 22);
+            this.mnuAIOSpec.Text = "AIO spec";
+            this.mnuAIOSpec.Click += new System.EventHandler(this.mnuAIOSpec_Click);
             // 
             // main
             // 
@@ -2263,6 +2272,7 @@
         private System.Windows.Forms.ToolStripMenuItem tsmRemove;
         private System.Windows.Forms.ToolStripSeparator toolStripSepEND;
         private System.Windows.Forms.Label lbNoDirect;
+        private System.Windows.Forms.ToolStripMenuItem mnuAIOSpec;
     }
 }
 

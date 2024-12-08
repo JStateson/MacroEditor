@@ -62,6 +62,7 @@
             this.cbIgnCase = new System.Windows.Forms.CheckBox();
             this.btnSearch = new System.Windows.Forms.Button();
             this.gbFound = new System.Windows.Forms.GroupBox();
+            this.cbOnlyRefs = new System.Windows.Forms.CheckBox();
             this.tbMissing = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.cbSelKey = new System.Windows.Forms.ComboBox();
@@ -71,7 +72,6 @@
             this.tbKeywords = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.cbOnlyRefs = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.gbMakeNew.SuspendLayout();
@@ -497,6 +497,18 @@
             this.gbFound.TabStop = false;
             this.gbFound.Text = "Keywords found";
             // 
+            // cbOnlyRefs
+            // 
+            this.cbOnlyRefs.AutoSize = true;
+            this.cbOnlyRefs.Location = new System.Drawing.Point(21, 321);
+            this.cbOnlyRefs.Name = "cbOnlyRefs";
+            this.cbOnlyRefs.Size = new System.Drawing.Size(147, 24);
+            this.cbOnlyRefs.TabIndex = 10;
+            this.cbOnlyRefs.Text = "search inside RF";
+            this.cbOnlyRefs.TextAlign = System.Drawing.ContentAlignment.TopLeft;
+            this.toolTip1.SetToolTip(this.cbOnlyRefs, "Report just the unique\r\nURL in references");
+            this.cbOnlyRefs.UseVisualStyleBackColor = true;
+            // 
             // tbMissing
             // 
             this.tbMissing.Location = new System.Drawing.Point(199, 212);
@@ -588,17 +600,6 @@
             this.label1.Size = new System.Drawing.Size(124, 40);
             this.label1.TabIndex = 1;
             this.label1.Text = "Keywords: press\r\nenter to search";
-            // 
-            // cbOnlyRefs
-            // 
-            this.cbOnlyRefs.AutoSize = true;
-            this.cbOnlyRefs.Location = new System.Drawing.Point(21, 321);
-            this.cbOnlyRefs.Name = "cbOnlyRefs";
-            this.cbOnlyRefs.Size = new System.Drawing.Size(187, 24);
-            this.cbOnlyRefs.TabIndex = 10;
-            this.cbOnlyRefs.Text = "Show Languages Only";
-            this.cbOnlyRefs.TextAlign = System.Drawing.ContentAlignment.TopLeft;
-            this.cbOnlyRefs.UseVisualStyleBackColor = true;
             // 
             // WordSearch
             // 

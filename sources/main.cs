@@ -699,6 +699,12 @@ namespace MacroEditor
             Utils.LocalBrowser(s);
         }
 
+        private void mnuAIOSpec_Click(object sender, EventArgs e)
+        {
+            string sModel = Utils.ClipboardGetText().Trim();
+            string s = "https://www.google.com/search?q=HP+All-in-One+-+" + sModel + "+Product+Specifications";
+            Utils.LocalBrowser(s);
+        }
 
         private void mbyDesktop_Click(object sender, EventArgs e)
         {
@@ -3859,6 +3865,5 @@ namespace MacroEditor
             MyAssociate.Dispose();
             UpdateMyAssoc();
         }
-
     }
 }
