@@ -3702,10 +3702,30 @@ namespace MacroEditor
             tbCleanedURL.Text = "";
         }
 
+
+        private string wasHtml = "";
+        private void bWasHTML_Click(object sender, EventArgs e)
+        {
+            if(wasHtml.Length > 0)
+            {
+                Clipboard.SetText(wasHtml);
+                wasHtml = "";
+                bWasHTML.Visible = false;
+            }
+        }
         private void btnNew_MouseHover(object sender, EventArgs e)
         {
             string s = Clipboard.GetText();
-            if (s.Length > 32) s = "";
+            if (s.Length > 32)
+            {
+                int i = s.IndexOf("http");
+                if(i == 0)
+                {
+                    wasHtml = s;                    
+                    bWasHTML.Visible = true;
+                }
+                s = "";
+            }
             if (s == "")
                 s = Utils.UnNamedMacro;
             Clipboard.SetText(s);
@@ -3865,5 +3885,6 @@ namespace MacroEditor
             MyAssociate.Dispose();
             UpdateMyAssoc();
         }
+
     }
 }

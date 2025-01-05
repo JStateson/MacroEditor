@@ -60,6 +60,7 @@
             this.tabObjects = new System.Windows.Forms.TabPage();
             this.tabVisual = new System.Windows.Forms.TabPage();
             this.label4 = new System.Windows.Forms.Label();
+            this.tbInfoUrls = new System.Windows.Forms.RichTextBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.tabC.SuspendLayout();
@@ -346,6 +347,7 @@
             this.lbHover.Size = new System.Drawing.Size(60, 32);
             this.lbHover.TabIndex = 4;
             this.lbHover.Text = "HOVER\r\n HERE";
+            this.lbHover.MouseLeave += new System.EventHandler(this.lbHover_MouseLeave);
             this.lbHover.MouseHover += new System.EventHandler(this.lbHover_MouseHover);
             // 
             // tbShowClip
@@ -391,16 +393,17 @@
             this.tabC.Location = new System.Drawing.Point(16, 163);
             this.tabC.Name = "tabC";
             this.tabC.SelectedIndex = 0;
-            this.tabC.Size = new System.Drawing.Size(1135, 605);
+            this.tabC.Size = new System.Drawing.Size(1135, 695);
             this.tabC.TabIndex = 14;
             // 
             // tabObjects
             // 
+            this.tabObjects.Controls.Add(this.tbInfoUrls);
             this.tabObjects.Controls.Add(this.gbVid);
             this.tabObjects.Location = new System.Drawing.Point(4, 25);
             this.tabObjects.Name = "tabObjects";
             this.tabObjects.Padding = new System.Windows.Forms.Padding(3);
-            this.tabObjects.Size = new System.Drawing.Size(1127, 576);
+            this.tabObjects.Size = new System.Drawing.Size(1127, 666);
             this.tabObjects.TabIndex = 0;
             this.tabObjects.Text = "Add Objects";
             this.tabObjects.UseVisualStyleBackColor = true;
@@ -435,11 +438,21 @@
             this.label4.TabIndex = 16;
             this.label4.Text = "A model must be entered.\r\nClick UPDATE after you \r\nenter  name and product.";
             // 
+            // tbInfoUrls
+            // 
+            this.tbInfoUrls.Location = new System.Drawing.Point(13, 573);
+            this.tbInfoUrls.Name = "tbInfoUrls";
+            this.tbInfoUrls.ReadOnly = true;
+            this.tbInfoUrls.Size = new System.Drawing.Size(1084, 87);
+            this.tbInfoUrls.TabIndex = 3;
+            this.tbInfoUrls.Text = "";
+            this.tbInfoUrls.LinkClicked += new System.Windows.Forms.LinkClickedEventHandler(this.tbInfoUrls_LinkClicked);
+            // 
             // cPrinter
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1176, 787);
+            this.ClientSize = new System.Drawing.Size(1176, 870);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.tabC);
@@ -501,5 +514,6 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox tbSys;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.RichTextBox tbInfoUrls;
     }
 }

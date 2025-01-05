@@ -162,6 +162,7 @@
             this.mnuDrvGoog = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuDevCol = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuOmen = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuAIOSpec = new System.Windows.Forms.ToolStripMenuItem();
             this.mbyDesktop = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuHuntDev = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSepSTART = new System.Windows.Forms.ToolStripSeparator();
@@ -218,7 +219,7 @@
             this.tsmAddQWatch = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmAddClip = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmRemove = new System.Windows.Forms.ToolStripMenuItem();
-            this.mnuAIOSpec = new System.Windows.Forms.ToolStripMenuItem();
+            this.bWasHTML = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.lbName)).BeginInit();
             this.groupBox6.SuspendLayout();
             this.gbManageImages.SuspendLayout();
@@ -1545,6 +1546,13 @@
             this.mnuOmen.ToolTipText = "product specifications lookup";
             this.mnuOmen.Click += new System.EventHandler(this.mnuOmen_Click);
             // 
+            // mnuAIOSpec
+            // 
+            this.mnuAIOSpec.Name = "mnuAIOSpec";
+            this.mnuAIOSpec.Size = new System.Drawing.Size(187, 22);
+            this.mnuAIOSpec.Text = "AIO spec";
+            this.mnuAIOSpec.Click += new System.EventHandler(this.mnuAIOSpec_Click);
+            // 
             // mbyDesktop
             // 
             this.mbyDesktop.Name = "mbyDesktop";
@@ -1834,6 +1842,7 @@
             // 
             // gpMainEdit
             // 
+            this.gpMainEdit.Controls.Add(this.bWasHTML);
             this.gpMainEdit.Controls.Add(this.groupBox1);
             this.gpMainEdit.Controls.Add(this.btnEditNew);
             this.gpMainEdit.Controls.Add(this.tbShowClip);
@@ -2029,12 +2038,19 @@
             this.tsmRemove.Size = new System.Drawing.Size(188, 22);
             this.tsmRemove.Text = "Remove";
             // 
-            // mnuAIOSpec
+            // bWasHTML
             // 
-            this.mnuAIOSpec.Name = "mnuAIOSpec";
-            this.mnuAIOSpec.Size = new System.Drawing.Size(187, 22);
-            this.mnuAIOSpec.Text = "AIO spec";
-            this.mnuAIOSpec.Click += new System.EventHandler(this.mnuAIOSpec_Click);
+            this.bWasHTML.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.bWasHTML.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.bWasHTML.Location = new System.Drawing.Point(260, 21);
+            this.bWasHTML.Name = "bWasHTML";
+            this.bWasHTML.Size = new System.Drawing.Size(59, 46);
+            this.bWasHTML.TabIndex = 38;
+            this.bWasHTML.Text = "Was\r\nhtml";
+            this.toolTip1.SetToolTip(this.bWasHTML, "restores clipboard if HTML");
+            this.bWasHTML.UseVisualStyleBackColor = true;
+            this.bWasHTML.Visible = false;
+            this.bWasHTML.Click += new System.EventHandler(this.bWasHTML_Click);
             // 
             // main
             // 
@@ -2273,6 +2289,7 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSepEND;
         private System.Windows.Forms.Label lbNoDirect;
         private System.Windows.Forms.ToolStripMenuItem mnuAIOSpec;
+        private System.Windows.Forms.Button bWasHTML;
     }
 }
 

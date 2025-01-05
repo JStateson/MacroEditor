@@ -334,7 +334,9 @@ namespace MacroEditor.sources
                 gb.Controls.Add(tbx);
 #endif                
                 btn.Click += Btn_Click;
+                lbl2.MouseHover += Btn_MouseHover;
                 lbl.Click += lbl_clr_Click;
+                lbl.MouseHover += Btn_MouseHover;
                 lbl2.Click += lbl2_add_Click;
                 i++;
                 if (i == 3)
@@ -348,7 +350,19 @@ namespace MacroEditor.sources
             gb.Controls.Add(oInfo);
         }
 
-
+        private void Btn_MouseHover(object sender, EventArgs e)
+        {
+            if (sender is Button button)
+            {
+                int n = (int)button.Tag;
+                int c = PrinterListH[n].Count;
+                if (c == 0) return;
+                string s = "";
+                foreach (string t in PrinterListH[n])
+                    s += t + Environment.NewLine;
+                tbInfoUrls.Text = s;
+            }
+        }
         private void MainButtonClicked(Button button)
         {
             string s = SBc(button.Text);
@@ -847,6 +861,10 @@ namespace MacroEditor.sources
             tbShowClip.Text = s;
         }
 
+        private void lbHover_MouseLeave(object sender, EventArgs e)
+        {
+            tbShowClip.Text = "";
+        }
         private void SetTestString( int iTag, string s)
         {
             foreach (Control control in gbVid.Controls)
@@ -1016,6 +1034,15 @@ namespace MacroEditor.sources
         private void cPrinter_HelpButtonClicked(object sender, CancelEventArgs e)
         {
             EditHelp("NEW-PRINTER");
+        }
+
+        private void tbInfoUrls_LinkClicked(object sender, LinkClickedEventArgs e)
+        {
+            System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo
+            {
+                FileName = e.LinkText,
+                UseShellExecute = true
+            });
         }
     }
 }
