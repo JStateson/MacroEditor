@@ -1308,7 +1308,11 @@ namespace MacroEditor
         {
             btnExitToMac.Enabled = false;
             btnExitTitle.Enabled = true;
-            int n = cTI.nSorted[lbTitleSearch.SelectedIndex];
+            int i = lbTitleSearch.SelectedIndex;
+            if (i < 0) return;
+            if (cTI.nSorted.Length <= i) return;
+            int n = cTI.nSorted[i];
+            if(cTI.ctd.Count <= n)return;
             mUseLastViewed = cTI.ctd[n].LocInCBody;
         }
 
