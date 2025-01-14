@@ -18,6 +18,7 @@ using System.Security;
 using System.Threading;
 using System.Reflection;
 using System.Xml.Linq;
+using System.Net.Http;
 
 namespace MacroEditor.sources
 {
@@ -928,6 +929,12 @@ namespace MacroEditor.sources
             string s = Utils.ClipboardGetText().Replace(Environment.NewLine," ").Trim();
             string t = s.Replace("  ", " ");
             tbText.Text = sLastSelectedItem + s;
+        }
+
+        private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            string s = "https://h30434.www3.hp.com/t5/Notebooks-Knowledge-Base/Interactive-BIOS-simulator-emulator/ta-p/9145598";
+            Clipboard.SetText(s);            
         }
     }
 }

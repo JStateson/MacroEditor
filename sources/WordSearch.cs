@@ -1277,6 +1277,7 @@ namespace MacroEditor
         private void lbKeyFound_DoubleClick(object sender, EventArgs e)
         {
             int index = lbKeyFound.SelectedIndex;
+            if (index < 0) return;
             string sCode = lbKeyFound.Items[index].ToString();
             if (btnShowCC.Visible)
             {

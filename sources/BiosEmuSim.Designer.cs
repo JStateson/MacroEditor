@@ -30,6 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label5 = new System.Windows.Forms.Label();
             this.btnClnTxt = new System.Windows.Forms.Button();
             this.btnPClean = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
@@ -74,7 +75,7 @@
             this.btnExport = new System.Windows.Forms.Button();
             this.dgvBIOS = new System.Windows.Forms.DataGridView();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.label5 = new System.Windows.Forms.Label();
+            this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             this.groupBox1.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -115,6 +116,18 @@
             this.groupBox1.TabIndex = 7;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Paste From Clipboard";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.BackColor = System.Drawing.SystemColors.Info;
+            this.label5.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.label5.Location = new System.Drawing.Point(17, 278);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(287, 32);
+            this.label5.TabIndex = 29;
+            this.label5.Text = "Be sure to add the name of the notebook to the\r\nright of \"Interactive BIOS simula" +
+    "tor\" in TEXT box";
             // 
             // btnClnTxt
             // 
@@ -387,6 +400,7 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.linkLabel1);
             this.groupBox2.Controls.Add(this.btnNotSim);
             this.groupBox2.Controls.Add(this.btnMarkBad);
             this.groupBox2.Controls.Add(this.groupBox4);
@@ -657,17 +671,16 @@
             this.dgvBIOS.UserDeletedRow += new System.Windows.Forms.DataGridViewRowEventHandler(this.dgvBIOS_UserDeletedRow);
             this.dgvBIOS.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.dgvBIOS_MouseDoubleClick);
             // 
-            // label5
+            // linkLabel1
             // 
-            this.label5.AutoSize = true;
-            this.label5.BackColor = System.Drawing.SystemColors.Info;
-            this.label5.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.label5.Location = new System.Drawing.Point(17, 278);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(287, 32);
-            this.label5.TabIndex = 29;
-            this.label5.Text = "Be sure to add the name of the notebook to the\r\nright of \"Interactive BIOS simula" +
-    "tor\" in TEXT box";
+            this.linkLabel1.AutoSize = true;
+            this.linkLabel1.Location = new System.Drawing.Point(632, 181);
+            this.linkLabel1.Name = "linkLabel1";
+            this.linkLabel1.Size = new System.Drawing.Size(106, 16);
+            this.linkLabel1.TabIndex = 33;
+            this.linkLabel1.TabStop = true;
+            this.linkLabel1.Text = "Link to HP article";
+            this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
             // 
             // BiosEmuSim
             // 
@@ -746,5 +759,6 @@
         private System.Windows.Forms.Button btnPClean;
         private System.Windows.Forms.Button btnClnTxt;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.LinkLabel linkLabel1;
     }
 }

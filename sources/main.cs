@@ -78,6 +78,8 @@ using System.Xml.Linq;
 using System.Windows.Shapes;
 using Path = System.IO.Path;
 using static System.Windows.Forms.AxHost;
+using static System.Net.WebRequestMethods;
+using File = System.IO.File;
 
 
 namespace MacroEditor
@@ -813,20 +815,28 @@ namespace MacroEditor
         // devicehunt.com/search/type/usb/vendor/2EF4/device/5842
         private void mnuHuntDev_Click(object sender, EventArgs e)
         {
+            string s = RunDeviceHunt();
+            if(s == "")            
+                s = "https://devicehunt.com";            
+            Utils.LocalBrowser(s);
+        }
+
+        private string RunDeviceHunt()
+        {
             string s = Utils.ClipboardGetText().ToUpper();
             string sType = "";
             if (s.Contains("USB")) sType = "/USB";
             if (s.Contains("PCI")) sType = "/PCI";
             //if (s.Contains("HID")) sType = "/HID";
-            if (sType == "") return;
+            if (sType == "") return "";
             string sVid = sExtract(s, "\\VID_");
             if (sVid == "") sVid = sExtract(s, "\\VEN_");
-            if (sVid == "") return;
+            if (sVid == "") return "";
             string sPid = sExtract(s, "&PID_");
             if (sPid == "") sPid = sExtract(s, "&DEV_");
-            if (sPid == "") return;
+            if (sPid == "") return "";
             s = "https://devicehunt.com/view/type/" + sType + "/vendor/" + sVid + "/device/" + sPid;
-            Utils.LocalBrowser(s);
+            return s;
         }
 
         private void mnRecDis_Click(object sender, EventArgs e)
@@ -1762,6 +1772,31 @@ namespace MacroEditor
             return sRtn;
         }
 
+        private bool AddBody(ref string sOut, string sModels)
+        {
+            string t;
+            if (sOut.Contains(sModels))return false;
+            int i = sOut.IndexOf(Utils.NewPrnComment);
+            if (i < 0) return false;
+            int j = sOut.IndexOf("-->", i+Utils.NewPrnComment.Length);
+
+            i = j + 3;
+            j = sOut.IndexOf(Utils.ModelsID,i);
+            if(j < 0)
+            {
+                t = sOut.Insert(i, sModels);
+                sOut = t;
+                return true;
+            }
+            i = j + Utils.ModelsID.Length;
+            int k = sOut.IndexOf("-->", i);
+            Debug.Assert(k >= 0);
+            k += 3;
+            t = sOut.Remove(j, k - j);
+            sOut = t.Insert(j,sModels);
+            return true;
+        }
+
 
         // edit wizard for new style macros
         private void btnEditNew_Click(object sender, EventArgs e)
@@ -1779,10 +1814,22 @@ namespace MacroEditor
                 {
                     if (DataFileRecord != "")
                     {
-                        bDataFileUnsaved = true;
+                        string sTB = tbBody.Text.Replace(Environment.NewLine,"<br>");
+                        bool bMustAdd = AddBody(ref sTB, MyPrinter.strModels);
                         nSavedCount++;
                         tbBodyChecksumB = false;
-                        MustFinishEdit(false);
+                        if (bMustAdd)
+                        {
+                            tbBody.Text = sTB;
+                            SaveCurrentMacros(true);
+                            bDataFileUnsaved = false;
+                            MustFinishEdit(true);
+                        }
+                        else
+                        {
+                            bDataFileUnsaved = true;
+                            MustFinishEdit(false);
+                        }
                     }
                 }
                 MyPrinter.Dispose();
@@ -1818,7 +1865,7 @@ namespace MacroEditor
                         if (DataFileRecord != "")
                         {
                             bDataFileUnsaved = true;
-                            tbBody.Text = Utils.FormHeader(sName, strType);
+                            tbBody.Text = Utils.FormHeader(sName, strType) + MyPrinter.strModels;
                         }
                     }
                     MyPrinter.Dispose();

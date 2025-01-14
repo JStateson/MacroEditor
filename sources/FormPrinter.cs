@@ -5,8 +5,10 @@ using System.CodeDom;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 using System.Windows.Forms;
 using static System.Net.Mime.MediaTypeNames;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
@@ -511,7 +513,53 @@ namespace MacroEditor.sources
             PrinterHttp[i].Add(s.Replace("@arg@", Utils.FormUrl(PrinterListH[iWorkingTab].Last(), sT)));
         }
 
-        public bool ApplyFormat(ref string FmtOut)
+        private List<string> DeviceCollection = new List<string>();
+
+        private bool IsAlphabetic(string input)
+        {
+            return !string.IsNullOrEmpty(input) && input.All(char.IsLetter);
+        }
+
+        private void TryAdd(string sLine)
+        {
+            string[] sS = sLine.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+            foreach(string s in sS)
+            {
+                if (IsAlphabetic(s)) continue;
+                if(DeviceCollection.Contains(s)) continue;  
+                DeviceCollection.Add(s);
+            }
+        }
+        private string FormCollection()
+        {
+            int i = 0;
+            DeviceCollection.Clear();
+            foreach (List<string> plt in PrinterListT)
+            {
+                if (i < 4 || i > 7)
+                {
+                    if (plt.Count > 0)
+                    {
+                        foreach (string s in plt)
+                        {
+                            TryAdd(s);
+                        }
+                    }
+                }
+                i++;
+            }
+            if (DeviceCollection.Count == 0) return "";
+            string t = Utils.ModelsID;
+            foreach (string u in DeviceCollection)
+            {
+                t += u + " ";
+            }
+            t += "-->";
+            return t;
+        }
+
+
+        public bool ApplyFormat(ref string FmtOut, ref string sModels)
         {
             List<int> DataLoc = new List<int>();
             ClearPrinterPhrases();
@@ -530,7 +578,8 @@ namespace MacroEditor.sources
                     }
                 }
             }
-            FmtOut= GetMacro();
+            FmtOut = GetMacro();
+            sModels = FormCollection();
             string m = AnyMissing(FmtOut);
             if (m != "")
             {

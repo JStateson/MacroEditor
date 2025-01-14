@@ -242,7 +242,7 @@ namespace MacroEditor.sources
         public bool FormatRecord(string sRawIn, ref string FmtOut)
         { 
             LastDBresult = ParseRecord(ref sRawIn);
-            bool b = Utils.HasWiFiDirect(ref sRawIn);
+            //bool b = Utils.HasWiFiDirect(ref sRawIn);
             if (LastDBresult == null) return false;
             return FormatParsedRecord(ref LastDBresult, ref FmtOut);
         }
@@ -252,7 +252,7 @@ namespace MacroEditor.sources
             int i, n;
             FormPrinter fpNew = new FormPrinter();
             fpNew.Init();
-
+            string strIgnore = "";
             foreach (cEachTag et in dbResult.RecordSet)
             {
                 string e = Utils.sTOe(et.TagName);
@@ -270,8 +270,8 @@ namespace MacroEditor.sources
                     string s = et.TagName;
                     fpNew.Reduce(s, iTag, et.SourceTEXT[i]);
                 }
-            }
-            return fpNew.ApplyFormat(ref FmtOut);
+            }            
+            return fpNew.ApplyFormat(ref FmtOut, ref strIgnore);
         }
 
     }

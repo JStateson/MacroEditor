@@ -25,7 +25,9 @@ the printer may connect randomly to any of the units.  The
 router needs to provide the same IP address on every connection.
 This rarely happens with random connects.  An alternate Wi-Fi
 connection is Wi-Fi direct.  Your laptop or smartphone prints
-directly to the printer and does not go through the router.</p>
+directly to the printer and does not go through the router.
+Note that <b>if you signed up for instant ink or internet
+printing your printer must also be online through the router</b>.</p>
 <table border='2'><tr><td>@Network Connect@</td></tr></table>
 
 <!-- @IDSoftware@ TimeStamp=DDDDDDDD_TTTTTT -->

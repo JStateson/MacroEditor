@@ -60,7 +60,7 @@ namespace MacroEditor.sources
         private bool bSwapBW = true;
         public string strResults {get; set;}
         public string strRecord { get; set; } // data base record
-
+        public string strModels { get; set; } // number of model names
         private PrinterDB pDB;
 
         List<List<string>> PrinterListH; // the clip which is HTML or a bunch of steps or a page number
@@ -85,15 +85,18 @@ namespace MacroEditor.sources
         private cCheckSpell SpellCheck;
 
 
+        // do not record Page, Doc for direct or wps as no devices are listed
+
+
         //LJ:234 is sample of key
         public cPrinter(ref PrinterDB printerDB, ref cCheckSpell MySpellCheck, string rMacname, string rMactype)
         {
             InitializeComponent();
             strRecord = "";
             strResults = "";
+            strModels = "";
             tbModel.Text = rMacname;
             tbSys.Text = rMactype;
-
             SpellCheck = MySpellCheck;
             fpNew.Init();
             lbButtons = fpNew.lbButtons;            
@@ -110,6 +113,7 @@ namespace MacroEditor.sources
 
             pDB = printerDB;
             strResults = "";
+            strModels = "";
             AddSelButtons(ref gbVid, 1);            
         }
 
@@ -562,7 +566,9 @@ namespace MacroEditor.sources
                 {
                     if (ll.Tag == null) continue;
                     if (n == (int)ll.Tag)
+                    {
                         ll.Text = "0";
+                    }
                 }
                 if (control is TextBox tb)
                 {
@@ -743,7 +749,8 @@ namespace MacroEditor.sources
         private void btnShowPage_Click(object sender, EventArgs e)
         {
             string FmtOut = "";
-            if(fpNew.ApplyFormat(ref FmtOut))
+            string sIgnore = "";
+            if(fpNew.ApplyFormat(ref FmtOut, ref sIgnore))
             {
                 tbEdit.Text = FmtOut;
                 tabC.SelectTab(1);
@@ -761,12 +768,12 @@ namespace MacroEditor.sources
         private void btnApply_Click(object sender, EventArgs e)
         {
             string FmtOut = "";
-            if (fpNew.ApplyFormat(ref FmtOut))
+            string sIgnore = "";
+            if (fpNew.ApplyFormat(ref FmtOut, ref sIgnore))
             {
                 tbEdit.Text = FmtOut;
             }
             else tbEdit.Text = "";
-
         }
 
         private void btnCopyNote_Click(object sender, EventArgs e)
@@ -826,6 +833,7 @@ namespace MacroEditor.sources
         private void btnExit_Click(object sender, EventArgs e)
         {
             strResults = "";
+            strModels = "";
             this.Close();
         }
 
@@ -844,10 +852,12 @@ namespace MacroEditor.sources
         private void btnApplyExit_Click(object sender, EventArgs e)
         {
             string FmtOut = "";
-            if (fpNew.ApplyFormat(ref FmtOut))
+            string strM = "";
+            if (fpNew.ApplyFormat(ref FmtOut, ref strM))
             {
                 strResults = FmtOut;
                 tbEdit.Text = FmtOut;
+                strModels = strM;
                 strRecord = FormPrinterRecord();
                 this.Close();
             }
@@ -1017,11 +1027,6 @@ namespace MacroEditor.sources
             }
 
             return true;
-        }
-
-        private void btnCRkey_Click(object sender, EventArgs e)
-        {
-
         }
 
         private void EditHelp(string s)

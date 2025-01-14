@@ -422,6 +422,8 @@ namespace MacroEditor
                     "Full feature SCANNER software DEVICE MONTH YEAR",
                     "Printer Reference ID" };
 
+        public static string ModelsID = "<br><!-- @MODELS@ ";
+
         public static bool IsNewPRN (string sT)
         {
             if (sT == "") return false;
