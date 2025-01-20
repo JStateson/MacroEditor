@@ -1818,6 +1818,7 @@ namespace MacroEditor
                         bool bMustAdd = AddBody(ref sTB, MyPrinter.strModels);
                         nSavedCount++;
                         tbBodyChecksumB = false;
+                        bDataFileUnsaved = true;
                         if (bMustAdd)
                         {
                             tbBody.Text = sTB;

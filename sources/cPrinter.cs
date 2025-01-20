@@ -267,7 +267,7 @@ namespace MacroEditor.sources
                 tbx.Tag = n;
 
                 int k = SourceDestination.ExclusionList.IndexOf(s);
-                if (k >= 0)
+                if (k >= 0)  // these are page and doc and do not have an id
                 {
                     int l = SourceDestination.ExclusionList[k].LastIndexOf(" ");
                     Debug.Assert(l >= 0);
@@ -926,7 +926,7 @@ namespace MacroEditor.sources
         {
             int i, n;
             string e, sTok;
-            ClearAll();
+            //ClearAll();   // removed 1/20/2025 as do not want blank model names
             foreach (cEachTag et in pDB.LastDBresult.RecordSet)
             {
                 e = sTOe(et.TagName);
@@ -936,7 +936,11 @@ namespace MacroEditor.sources
                 {
                     int nTag = ButtonNameToTag(et.TagName);
                     et.iTag = nTag;
-                    SetTextbox(et.iTag,et.SourceTEXT[i]);
+                    string s1 = et.SourceTEXT[i];
+                    if (s1 != "")
+                    {
+                        SetTextbox(et.iTag, s1);
+                    }
                     if(i == 0)
                     {
                         ClickButton(nTag, sTok, et.SourceHREF[i]);

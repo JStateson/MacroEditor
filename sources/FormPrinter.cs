@@ -522,13 +522,15 @@ namespace MacroEditor.sources
 
         private void TryAdd(string sLine)
         {
-            string[] sS = sLine.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
-            foreach(string s in sS)
-            {
-                if (IsAlphabetic(s)) continue;
-                if(DeviceCollection.Contains(s)) continue;  
-                DeviceCollection.Add(s);
-            }
+            if (DeviceCollection.Contains(sLine)) return;
+            DeviceCollection.Add(sLine);
+            //string[] sS = sLine.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+            //foreach(string s in sS)
+            //{
+            //    if (IsAlphabetic(s)) continue;
+            //    if(DeviceCollection.Contains(s)) continue;  
+            //    DeviceCollection.Add(s);
+            //}
         }
         private string FormCollection()
         {
