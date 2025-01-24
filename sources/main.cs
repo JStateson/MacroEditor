@@ -252,7 +252,7 @@ namespace MacroEditor
                     {
                         b = true;
                         bHPcorrected[i] = true;
-                        SetErrorBlue(i);
+                        SetColorBlue(i);
                         OriginalColor[i] = 2;
                     }
                 }
@@ -281,7 +281,7 @@ namespace MacroEditor
                         break;
                     case 1: SetErrorRed(i);
                         break;
-                    case 2: SetErrorBlue(i);
+                    case 2: SetColorBlue(i);
                         break;
                 }
 
@@ -377,7 +377,13 @@ namespace MacroEditor
             lbName.Rows[r].Cells[0].Style.ForeColor = Color.Red;
         }
 
-        private void SetErrorBlue(int r)
+        private void SetColorGreen(int r)
+        {
+            lbName.Rows[r].Cells[0].Style.Font = new Font("Arial", 10, FontStyle.Bold);
+            lbName.Rows[r].Cells[0].Style.ForeColor = Color.DarkGreen;
+        }
+
+        private void SetColorBlue(int r)
         {
             lbName.Rows[r].Cells[0].Style.Font = new Font("Arial", 10, FontStyle.Bold);
             lbName.Rows[r].Cells[0].Style.ForeColor = Color.Blue;
@@ -1193,6 +1199,7 @@ namespace MacroEditor
                     }
                     sErr += Utils.BBCparse(sBody);
                     dgv.HPerr = (sErr != "");
+                    dgv.HPimage = Utils.IsUrlImage(sBody) || Utils.IsUrlImage(rBody);
                     dgv.sErr = sErr;
                     if (bAnyHPdiff)
                     {
@@ -2430,6 +2437,7 @@ namespace MacroEditor
                             cb.File = strFN;
                             cb.Number = (i + 1).ToString();
                             cb.Name = strMN;
+                            cb.bHasImages = Utils.IsUrlImage(rBody) || Utils.IsUrlImage(sBody);
 #if SPECIAL2
                         bDebug |= RunBorderFix(strFN, i+1, cb.Name, ref sBody);
 #endif
@@ -3934,5 +3942,17 @@ namespace MacroEditor
             UpdateMyAssoc();
         }
 
+        private void btnShowImage_Click(object sender, EventArgs e)
+        {
+            int r = 0;
+            foreach (dgvStruct row in DataTable)
+            {
+                if(row.HPimage)
+                {
+                    lbName.Rows[r].Cells[1].Style.BackColor = Color.Blue;
+                }
+                r++;
+            }
+        }
     }
 }

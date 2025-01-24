@@ -108,6 +108,7 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.btnNextChk = new System.Windows.Forms.Button();
             this.btnSpellChk = new System.Windows.Forms.Button();
+            this.bWasHTML = new System.Windows.Forms.Button();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpWithFILEToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -219,7 +220,7 @@
             this.tsmAddQWatch = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmAddClip = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmRemove = new System.Windows.Forms.ToolStripMenuItem();
-            this.bWasHTML = new System.Windows.Forms.Button();
+            this.btnShowImage = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.lbName)).BeginInit();
             this.groupBox6.SuspendLayout();
             this.gbManageImages.SuspendLayout();
@@ -1085,6 +1086,20 @@
             this.btnSpellChk.Text = "Spell\r\nCheck";
             this.btnSpellChk.UseVisualStyleBackColor = true;
             this.btnSpellChk.Click += new System.EventHandler(this.btnSpellChk_Click);
+            // 
+            // bWasHTML
+            // 
+            this.bWasHTML.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.bWasHTML.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.bWasHTML.Location = new System.Drawing.Point(260, 21);
+            this.bWasHTML.Name = "bWasHTML";
+            this.bWasHTML.Size = new System.Drawing.Size(59, 46);
+            this.bWasHTML.TabIndex = 38;
+            this.bWasHTML.Text = "Was\r\nhtml";
+            this.toolTip1.SetToolTip(this.bWasHTML, "restores clipboard if HTML");
+            this.bWasHTML.UseVisualStyleBackColor = true;
+            this.bWasHTML.Visible = false;
+            this.bWasHTML.Click += new System.EventHandler(this.bWasHTML_Click);
             // 
             // menuStrip1
             // 
@@ -1985,6 +2000,7 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.btnShowImage);
             this.groupBox2.Controls.Add(this.btnCopyEmail);
             this.groupBox2.Controls.Add(this.btnSpecialWord);
             this.groupBox2.Controls.Add(this.btnPrev);
@@ -2038,19 +2054,17 @@
             this.tsmRemove.Size = new System.Drawing.Size(188, 22);
             this.tsmRemove.Text = "Remove";
             // 
-            // bWasHTML
+            // btnShowImage
             // 
-            this.bWasHTML.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.bWasHTML.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.bWasHTML.Location = new System.Drawing.Point(260, 21);
-            this.bWasHTML.Name = "bWasHTML";
-            this.bWasHTML.Size = new System.Drawing.Size(59, 46);
-            this.bWasHTML.TabIndex = 38;
-            this.bWasHTML.Text = "Was\r\nhtml";
-            this.toolTip1.SetToolTip(this.bWasHTML, "restores clipboard if HTML");
-            this.bWasHTML.UseVisualStyleBackColor = true;
-            this.bWasHTML.Visible = false;
-            this.bWasHTML.Click += new System.EventHandler(this.bWasHTML_Click);
+            this.btnShowImage.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnShowImage.ForeColor = System.Drawing.SystemColors.MenuHighlight;
+            this.btnShowImage.Location = new System.Drawing.Point(41, 21);
+            this.btnShowImage.Name = "btnShowImage";
+            this.btnShowImage.Size = new System.Drawing.Size(87, 20);
+            this.btnShowImage.TabIndex = 36;
+            this.btnShowImage.Text = "Show Images";
+            this.btnShowImage.UseVisualStyleBackColor = true;
+            this.btnShowImage.Click += new System.EventHandler(this.btnShowImage_Click);
             // 
             // main
             // 
@@ -2290,6 +2304,7 @@
         private System.Windows.Forms.Label lbNoDirect;
         private System.Windows.Forms.ToolStripMenuItem mnuAIOSpec;
         private System.Windows.Forms.Button bWasHTML;
+        private System.Windows.Forms.Button btnShowImage;
     }
 }
 

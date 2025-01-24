@@ -1996,6 +1996,7 @@ namespace MacroEditor
         public string rBody;    //data record or none
         public string fKeys;    //keywords found separated by a space
         public int nWdsfKey;    //number of words in fKeys is the number of unique hits
+        public bool bHasImages; //if true then have one or more images
     }
 
     public class dgvStruct
@@ -2004,6 +2005,7 @@ namespace MacroEditor
         public int HP_HTML_DIF_LOC { get; set; }
         public bool MoveM { get; set; }
         public bool HPerr { get; set; }
+        public bool HPimage { get; set; }
         public bool HP_HTML_NO_DIFF { get; set; }
         public string MacName { get; set; }
         public string sErr { get; set; }
