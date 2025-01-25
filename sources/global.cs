@@ -1414,6 +1414,10 @@ namespace MacroEditor
         private static string[] ImgExt = new string[11]
 {".bmp",".dib",".rle",".jpg",".jpeg",".jpe",".jfif",".gif",".tif",".tiff",".png" };
 
+        public static bool bHasImgMarkup(string s)
+        {
+            return s.Contains("<img ");
+        }
         public static bool IsUrlImage(string aLCase)
         {
             if (aLCase.Contains("image/serverpage"))

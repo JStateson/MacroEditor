@@ -1199,7 +1199,7 @@ namespace MacroEditor
                     }
                     sErr += Utils.BBCparse(sBody);
                     dgv.HPerr = (sErr != "");
-                    dgv.HPimage = Utils.IsUrlImage(sBody) || Utils.IsUrlImage(rBody);
+                    dgv.HPimage = Utils.bHasImgMarkup(sBody) || Utils.bHasImgMarkup(rBody);
                     dgv.sErr = sErr;
                     if (bAnyHPdiff)
                     {
@@ -2437,7 +2437,8 @@ namespace MacroEditor
                             cb.File = strFN;
                             cb.Number = (i + 1).ToString();
                             cb.Name = strMN;
-                            cb.bHasImages = Utils.IsUrlImage(rBody) || Utils.IsUrlImage(sBody);
+                            cb.bHasImages =
+                                Utils.bHasImgMarkup(rBody) || Utils.bHasImgMarkup(sBody);                       cb.bHasImages = Utils.bHasImgMarkup(rBody) || Utils.IsUrlImage(sBody);
 #if SPECIAL2
                         bDebug |= RunBorderFix(strFN, i+1, cb.Name, ref sBody);
 #endif
@@ -3697,6 +3698,7 @@ namespace MacroEditor
                     foreach (string file in WantedZips)
                     {
                         string sPath = Utils.WhereExe + "/" + file;
+                        if (!File.Exists(sPath)) continue;
                         archive.CreateEntryFromFile(sPath, file);
                     }
                     string folderName = Path.GetFileName(sourceFolderPath.TrimEnd(Path.DirectorySeparatorChar));
