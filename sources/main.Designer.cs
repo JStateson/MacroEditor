@@ -1854,8 +1854,9 @@
             this.quickWarningsToolStripMenuItem.Name = "quickWarningsToolStripMenuItem";
             this.quickWarningsToolStripMenuItem.Size = new System.Drawing.Size(105, 20);
             this.quickWarningsToolStripMenuItem.Text = "Quick Reference";
-            this.quickWarningsToolStripMenuItem.ToolTipText = "Copies content into clipboard for\r\nitem marked Q in the References\r\nRight click i" +
-    "tem to add a Q";
+            this.quickWarningsToolStripMenuItem.ToolTipText = "Copies content into clipboard for\r\nitem marked Q in the Reference RF\r\nRight click" +
+    " item in RF to add a Q\r\nThis is designed for pasting directly\r\ninto a web page s" +
+    "uch as a response.";
             // 
             // gpMainEdit
             // 

@@ -3850,8 +3850,8 @@ namespace MacroEditor
             ToolStripMenuItem  t = sender as ToolStripMenuItem;
             string s = AssociateMacros[(int)t.Tag].sBody;
             s = s.Replace(Environment.NewLine, "<br>");
-            //Utils.CopyHTML(s);
-            Clipboard.SetText(s);
+            Utils.CopyHTML(s);
+            //Clipboard.SetText(s);
         }
 
         private void UpdateQWarnings()
