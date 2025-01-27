@@ -218,6 +218,8 @@ namespace MacroEditor
             CheckPWE(); // see if password and email are enabled for using
             mnuCmpHTTP.Enabled = File.Exists(Properties.Settings.Default.HTTP_HP);
             GetRecentArchive(); // this includes all files so files must be closed
+            string i = Properties.Settings.Default.cSplash;
+            string j = Properties.Settings.Default.sSplash;
             if (Properties.Settings.Default.cSplash == Properties.Settings.Default.sSplash) return;
             splash MySplash = new splash();
             MySplash.Show();
@@ -3848,7 +3850,8 @@ namespace MacroEditor
             ToolStripMenuItem  t = sender as ToolStripMenuItem;
             string s = AssociateMacros[(int)t.Tag].sBody;
             s = s.Replace(Environment.NewLine, "<br>");
-            Utils.CopyHTML(s);
+            //Utils.CopyHTML(s);
+            Clipboard.SetText(s);
         }
 
         private void UpdateQWarnings()

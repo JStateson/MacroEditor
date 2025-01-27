@@ -213,6 +213,7 @@
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.btnDelM = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.btnShowImage = new System.Windows.Forms.Button();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.timer2 = new System.Windows.Forms.Timer(this.components);
@@ -220,7 +221,6 @@
             this.tsmAddQWatch = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmAddClip = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmRemove = new System.Windows.Forms.ToolStripMenuItem();
-            this.btnShowImage = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.lbName)).BeginInit();
             this.groupBox6.SuspendLayout();
             this.gbManageImages.SuspendLayout();
@@ -1852,8 +1852,10 @@
             // quickWarningsToolStripMenuItem
             // 
             this.quickWarningsToolStripMenuItem.Name = "quickWarningsToolStripMenuItem";
-            this.quickWarningsToolStripMenuItem.Size = new System.Drawing.Size(103, 20);
-            this.quickWarningsToolStripMenuItem.Text = "Quick Warnings";
+            this.quickWarningsToolStripMenuItem.Size = new System.Drawing.Size(105, 20);
+            this.quickWarningsToolStripMenuItem.Text = "Quick Reference";
+            this.quickWarningsToolStripMenuItem.ToolTipText = "Copies content into clipboard for\r\nitem marked Q in the References\r\nRight click i" +
+    "tem to add a Q";
             // 
             // gpMainEdit
             // 
@@ -2016,6 +2018,18 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Macro List: Click any row to transfer to editor";
             // 
+            // btnShowImage
+            // 
+            this.btnShowImage.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnShowImage.ForeColor = System.Drawing.SystemColors.MenuHighlight;
+            this.btnShowImage.Location = new System.Drawing.Point(41, 21);
+            this.btnShowImage.Name = "btnShowImage";
+            this.btnShowImage.Size = new System.Drawing.Size(87, 20);
+            this.btnShowImage.TabIndex = 36;
+            this.btnShowImage.Text = "Show Images";
+            this.btnShowImage.UseVisualStyleBackColor = true;
+            this.btnShowImage.Click += new System.EventHandler(this.btnShowImage_Click);
+            // 
             // timer1
             // 
             this.timer1.Interval = 10000;
@@ -2053,18 +2067,6 @@
             this.tsmRemove.Name = "tsmRemove";
             this.tsmRemove.Size = new System.Drawing.Size(188, 22);
             this.tsmRemove.Text = "Remove";
-            // 
-            // btnShowImage
-            // 
-            this.btnShowImage.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnShowImage.ForeColor = System.Drawing.SystemColors.MenuHighlight;
-            this.btnShowImage.Location = new System.Drawing.Point(41, 21);
-            this.btnShowImage.Name = "btnShowImage";
-            this.btnShowImage.Size = new System.Drawing.Size(87, 20);
-            this.btnShowImage.TabIndex = 36;
-            this.btnShowImage.Text = "Show Images";
-            this.btnShowImage.UseVisualStyleBackColor = true;
-            this.btnShowImage.Click += new System.EventHandler(this.btnShowImage_Click);
             // 
             // main
             // 

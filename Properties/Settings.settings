@@ -1,5 +1,5 @@
 ﻿<?xml version='1.0' encoding='utf-8'?>
-<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="MacroViewer.Properties" GeneratedClassName="Settings">
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="MacroEditor.Properties" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
     <Setting Name="LastFolder" Type="System.String" Scope="User">
@@ -60,7 +60,7 @@
       <Value Profile="(Default)">Let me know if you need more help</Value>
     </Setting>
     <Setting Name="sSplash" Type="System.String" Scope="User">
-      <Value Profile="(Default)">121212</Value>
+      <Value Profile="(Default)">12345678</Value>
     </Setting>
     <Setting Name="cSplash" Type="System.String" Scope="User">
       <Value Profile="(Default)" />

@@ -98,8 +98,9 @@
             // 
             this.tbSplashCode.Location = new System.Drawing.Point(65, 105);
             this.tbSplashCode.Name = "tbSplashCode";
-            this.tbSplashCode.Size = new System.Drawing.Size(73, 20);
+            this.tbSplashCode.Size = new System.Drawing.Size(87, 20);
             this.tbSplashCode.TabIndex = 0;
+            this.tbSplashCode.Text = "12345678";
             // 
             // splash
             // 

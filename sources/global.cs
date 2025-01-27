@@ -915,7 +915,7 @@ namespace MacroEditor
                     "<br><br>" + Properties.Settings.Default.sMSuffix;
             }
             else 
-            if(strType != "")
+            if(strType != "" && strType != "RF")
                 strTemp += "<br><br>" + Properties.Settings.Default.NotPrnSuffix;
             // <br> causes problems with justification need to keep br except in justificaton
             //strTemp = strTemp.Replace("<br>",Environment.NewLine);
@@ -994,7 +994,7 @@ namespace MacroEditor
             }
             else
             {
-                if (strType != "")
+                if (strType != "" && strType != "RF")
                     sOut = s + "<br><br>" + sPS;
                 else sOut = s;
             }
