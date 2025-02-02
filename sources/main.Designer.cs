@@ -109,6 +109,7 @@
             this.btnNextChk = new System.Windows.Forms.Button();
             this.btnSpellChk = new System.Windows.Forms.Button();
             this.bWasHTML = new System.Windows.Forms.Button();
+            this.btnNoMarks = new System.Windows.Forms.Button();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpWithFILEToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -183,6 +184,7 @@
             this.desktopKBToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.desktopKBToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.gaminToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.DriverPackTSM = new System.Windows.Forms.ToolStripMenuItem();
             this.mnPhAlbum = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.allToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -221,6 +223,7 @@
             this.tsmAddQWatch = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmAddClip = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmRemove = new System.Windows.Forms.ToolStripMenuItem();
+            this.TSMprinterUsesAnyInk = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.lbName)).BeginInit();
             this.groupBox6.SuspendLayout();
             this.gbManageImages.SuspendLayout();
@@ -317,7 +320,7 @@
             // btnCopyTo
             // 
             this.btnCopyTo.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCopyTo.Location = new System.Drawing.Point(24, 70);
+            this.btnCopyTo.Location = new System.Drawing.Point(24, 60);
             this.btnCopyTo.Name = "btnCopyTo";
             this.btnCopyTo.Size = new System.Drawing.Size(161, 29);
             this.btnCopyTo.TabIndex = 9;
@@ -399,7 +402,7 @@
             // 
             this.btnCleanUrl.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCleanUrl.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.btnCleanUrl.Location = new System.Drawing.Point(208, 30);
+            this.btnCleanUrl.Location = new System.Drawing.Point(208, 20);
             this.btnCleanUrl.Name = "btnCleanUrl";
             this.btnCleanUrl.Size = new System.Drawing.Size(194, 32);
             this.btnCleanUrl.TabIndex = 22;
@@ -1020,7 +1023,7 @@
             // btnToNotepad
             // 
             this.btnToNotepad.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnToNotepad.Location = new System.Drawing.Point(23, 30);
+            this.btnToNotepad.Location = new System.Drawing.Point(23, 20);
             this.btnToNotepad.Name = "btnToNotepad";
             this.btnToNotepad.Size = new System.Drawing.Size(161, 29);
             this.btnToNotepad.TabIndex = 12;
@@ -1031,7 +1034,7 @@
             // 
             // tbCleanedURL
             // 
-            this.tbCleanedURL.Location = new System.Drawing.Point(24, 105);
+            this.tbCleanedURL.Location = new System.Drawing.Point(24, 118);
             this.tbCleanedURL.Multiline = true;
             this.tbCleanedURL.Name = "tbCleanedURL";
             this.tbCleanedURL.Size = new System.Drawing.Size(378, 58);
@@ -1042,7 +1045,7 @@
             // 
             this.cbShowCleaned.AutoSize = true;
             this.cbShowCleaned.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.cbShowCleaned.Location = new System.Drawing.Point(236, 75);
+            this.cbShowCleaned.Location = new System.Drawing.Point(208, 92);
             this.cbShowCleaned.Name = "cbShowCleaned";
             this.cbShowCleaned.Size = new System.Drawing.Size(137, 20);
             this.cbShowCleaned.TabIndex = 31;
@@ -1100,6 +1103,19 @@
             this.bWasHTML.UseVisualStyleBackColor = true;
             this.bWasHTML.Visible = false;
             this.bWasHTML.Click += new System.EventHandler(this.bWasHTML_Click);
+            // 
+            // btnNoMarks
+            // 
+            this.btnNoMarks.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnNoMarks.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.btnNoMarks.Location = new System.Drawing.Point(208, 54);
+            this.btnNoMarks.Name = "btnNoMarks";
+            this.btnNoMarks.Size = new System.Drawing.Size(194, 32);
+            this.btnNoMarks.TabIndex = 33;
+            this.btnNoMarks.Text = "Remove Google Markup";
+            this.toolTip1.SetToolTip(this.btnNoMarks, "Extract text from the AI\r\nof a Google search ");
+            this.btnNoMarks.UseVisualStyleBackColor = true;
+            this.btnNoMarks.Click += new System.EventHandler(this.btnNoMarks_Click);
             // 
             // menuStrip1
             // 
@@ -1674,6 +1690,7 @@
             this.desktopKBToolStripMenuItem1,
             this.desktopKBToolStripMenuItem2,
             this.gaminToolStripMenuItem,
+            this.DriverPackTSM,
             this.mnPhAlbum,
             this.toolStripSeparator3,
             this.allToolStripMenuItem,
@@ -1710,6 +1727,13 @@
             this.gaminToolStripMenuItem.Size = new System.Drawing.Size(145, 22);
             this.gaminToolStripMenuItem.Text = "Gaming KB";
             this.gaminToolStripMenuItem.Click += new System.EventHandler(this.HPWS_click);
+            // 
+            // DriverPackTSM
+            // 
+            this.DriverPackTSM.Name = "DriverPackTSM";
+            this.DriverPackTSM.Size = new System.Drawing.Size(145, 22);
+            this.DriverPackTSM.Text = "Driver Pack";
+            this.DriverPackTSM.Click += new System.EventHandler(this.DriverPackTSM_Click);
             // 
             // mnPhAlbum
             // 
@@ -1755,7 +1779,8 @@
             this.tsmSoftware,
             this.tsmPartsLookup,
             this.tsmAssembly,
-            this.tsmAssemblyPrinter});
+            this.tsmAssemblyPrinter,
+            this.TSMprinterUsesAnyInk});
             this.mnuTexting.Name = "mnuTexting";
             this.mnuTexting.Size = new System.Drawing.Size(161, 20);
             this.mnuTexting.Text = "Interactive (uses clipboard)";
@@ -1921,6 +1946,7 @@
             // 
             // groupBox5
             // 
+            this.groupBox5.Controls.Add(this.btnNoMarks);
             this.groupBox5.Controls.Add(this.tbCleanedURL);
             this.groupBox5.Controls.Add(this.cbShowCleaned);
             this.groupBox5.Controls.Add(this.btnCleanUrl);
@@ -2069,6 +2095,13 @@
             this.tsmRemove.Size = new System.Drawing.Size(188, 22);
             this.tsmRemove.Text = "Remove";
             // 
+            // TSMprinterUsesAnyInk
+            // 
+            this.TSMprinterUsesAnyInk.Name = "TSMprinterUsesAnyInk";
+            this.TSMprinterUsesAnyInk.Size = new System.Drawing.Size(202, 22);
+            this.TSMprinterUsesAnyInk.Text = "Printer uses any ink";
+            this.TSMprinterUsesAnyInk.Click += new System.EventHandler(this.TSMprinterUsesAnyInk_Click);
+            // 
             // main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -2209,7 +2242,6 @@
         private System.Windows.Forms.ToolStripMenuItem desktopKBToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem desktopKBToolStripMenuItem2;
         private System.Windows.Forms.ToolStripMenuItem gaminToolStripMenuItem;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
         private System.Windows.Forms.ToolStripMenuItem allToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
         private System.Windows.Forms.Button bltnHR;
@@ -2308,6 +2340,10 @@
         private System.Windows.Forms.ToolStripMenuItem mnuAIOSpec;
         private System.Windows.Forms.Button bWasHTML;
         private System.Windows.Forms.Button btnShowImage;
+        private System.Windows.Forms.Button btnNoMarks;
+        private System.Windows.Forms.ToolStripMenuItem DriverPackTSM;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
+        private System.Windows.Forms.ToolStripMenuItem TSMprinterUsesAnyInk;
     }
 }
 

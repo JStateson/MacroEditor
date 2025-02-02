@@ -2113,20 +2113,6 @@ namespace MacroEditor
             return false;
         }
 
-        private void FullSpellCheck()
-        {
-            if (!Utils.bSpellingEnabled) return;
-            tbBody.Text = tbBody.Text.Replace("<br>", Environment.NewLine);
-            BadSpell = MySpellCheck.RunSpellList(tbBody.Text);
-            if (BadSpell.Length > 0)
-            {
-                CreateCandidateList();
-                iBadSpellIndex = 0;
-                SetNextMissed();
-            }
-            btnNextChk.Enabled = BadSpell.Length > 0;
-        }
-
 
         private void lbName_RowEnter(object sender, DataGridViewCellEventArgs e)
         {
@@ -2141,42 +2127,6 @@ namespace MacroEditor
             if (cbLaunchPage.Checked)
             {
                 FullSpellCheck();
-            }
-        }
-
-        private List<int> FindWordIndices(string input, string wordToFind)
-        {
-            List<int> indices = new List<int>();
-            int startIndex = 0;
-
-            while ((startIndex = input.IndexOf(wordToFind, startIndex)) != -1)
-            {
-                indices.Add(startIndex);
-                startIndex += wordToFind.Length;
-            }
-
-            return indices;
-        }
-
-        private void CreateCandidateList()
-        {
-            SpellCandidates.Clear();
-            SpellIndex.Clear();
-            string t="";
-            int i = 0;
-            string s = tbBody.Text;
-            foreach(string w in BadSpell)
-            {
-                if (w == "i")
-                    t = "i ";
-                else t = w;
-                List<int> inx = FindWordIndices(s, t);
-                foreach(int j in inx)
-                {
-                    SpellCandidates.Add(j);
-                    SpellIndex.Add(i);
-                }
-                i++;
             }
         }
 
@@ -2901,6 +2851,22 @@ namespace MacroEditor
             }
         }
 
+        /*
+         * <span data-huuid="5403617974287908766" >Permissions in networking are <mark >
+         * the level of access that users or groups have to network resources</mark>. 
+         * </span><span data-huuid="5403617974287905309" >They can also be called rights or privileges</span>         * 
+        */
+
+        private void btnNoMarks_Click(object sender, EventArgs e)
+        {
+            int i, j;
+            string sCleanedClip;
+            string sOut = "";
+            string s, sDirty = Utils.ClipboardGetText();
+            s = Regex.Replace(sDirty, "<.*?>",String.Empty);
+            tbCleanedURL.Text = s;
+            Clipboard.SetText(s);
+        }
 
         private void btnCleanUrl_Click(object sender, EventArgs e)
         {
@@ -2925,8 +2891,7 @@ namespace MacroEditor
             if (cbShowCleaned.Checked)
             {
                 PutOnNotepad(sOut);
-            }
-            Clipboard.SetText(sCleanedClip);
+            }            
         }
 
 
@@ -3479,6 +3444,57 @@ namespace MacroEditor
         {
             FullSpellCheck();
         }
+        private void FullSpellCheck()
+        {
+            if (!Utils.bSpellingEnabled) return;
+            tbBody.Text = tbBody.Text.Replace("<br>", Environment.NewLine);
+            BadSpell = MySpellCheck.RunSpellList(tbBody.Text);
+            if (BadSpell.Length > 0)
+            {
+                CreateCandidateList();
+                iBadSpellIndex = 0;
+                SetNextMissed();
+            }
+            btnNextChk.Enabled = BadSpell.Length > 0;
+        }
+
+
+        private List<int> FindWordIndices(string input, string wordToFind)
+        {
+            List<int> indices = new List<int>();
+            int startIndex = 0;
+
+            while ((startIndex = input.IndexOf(wordToFind, startIndex)) != -1)
+            {
+                indices.Add(startIndex);
+                startIndex += wordToFind.Length;
+            }
+
+            return indices;
+        }
+
+        private void CreateCandidateList()
+        {
+            SpellCandidates.Clear();
+            SpellIndex.Clear();
+            string t = "";
+            int i = 0;
+            string s = tbBody.Text;
+            foreach (string w in BadSpell)
+            {
+                if (w == "i")
+                    t = "i ";
+                else t = w;
+                List<int> inx = FindWordIndices(s, t);
+                foreach (int j in inx)
+                {
+                    SpellCandidates.Add(j);
+                    SpellIndex.Add(i);
+                }
+                i++;
+            }
+        }
+
 
         private void SetNextMissed()
         {
@@ -3957,6 +3973,42 @@ namespace MacroEditor
                     lbName.Rows[r].Cells[1].Style.BackColor = Color.Blue;
                 }
                 r++;
+            }
+        }
+
+        /*
+            spXXXXX.exe /s /e /f "C:\Drivers"
+            cmd /c "cd C:\Drivers && C:\Windows\Setup\Files\InstallHPSA.exe /S /v /qn"
+        */
+        private void DriverPackTSM_Click(object sender, EventArgs e)
+        {
+            Utils.LocalBrowser("https://hpia.hpcloud.hp.com/downloads/driverpackcatalog/HP_Driverpack_Matrix_x64.html");
+        }
+
+        private string UseOEMink(string sID)
+        {
+            string s = sID.Trim();
+            if (!Utils.IsInteger(s)) return "";
+            if (s.Length > 4) return "";
+            string sBlessed = "6950,6230,6810,6820,6830,6970,7740,8210,8610,8620,8630,8640,8660,8700,x451,x476,x551,x576,300,400,500";
+            string sUrl = "https://support.hp.com/us-en/document/ish_11469335-11469393-16";
+            string[] sS = sBlessed.Split(',');
+            
+            foreach(string t in sS)
+            {
+                if (t == s) return sUrl;
+            }
+            return "";
+        }
+
+        private void TSMprinterUsesAnyInk_Click(object sender, EventArgs e)
+        {
+            string sClip = Clipboard.GetText();
+            if (sClip == null) return;
+            string sUrl = UseOEMink(sClip);
+            if(sUrl != "")
+            {
+                Utils.LocalBrowser(sUrl);
             }
         }
     }

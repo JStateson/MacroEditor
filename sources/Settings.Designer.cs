@@ -314,7 +314,8 @@
             this.cbDoSpell.Size = new System.Drawing.Size(137, 17);
             this.cbDoSpell.TabIndex = 11;
             this.cbDoSpell.Text = "Spell check every save";
-            this.toolTip1.SetToolTip(this.cbDoSpell, "Do a quick spell check \r\nevery time the macro is saved");
+            this.toolTip1.SetToolTip(this.cbDoSpell, "Do a quick spell check every\r\ntime the macro is saved. This\r\nallows you to add to" +
+        " the list\r\nof accepted words.");
             this.cbDoSpell.UseVisualStyleBackColor = true;
             // 
             // btnSave
@@ -540,7 +541,8 @@
             this.cbEnabSpell.Size = new System.Drawing.Size(127, 17);
             this.cbEnabSpell.TabIndex = 20;
             this.cbEnabSpell.Text = "Enable Spell checker";
-            this.toolTip1.SetToolTip(this.cbEnabSpell, "You must have Microsoft Office");
+            this.toolTip1.SetToolTip(this.cbEnabSpell, "You must have Microsoft Office\r\nThis must be enabled before the\r\nsave spell check" +
+        " will work.");
             this.cbEnabSpell.UseVisualStyleBackColor = true;
             // 
             // label16

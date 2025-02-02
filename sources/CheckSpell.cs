@@ -32,51 +32,6 @@ namespace MacroEditor
             return false;
         }
 
-
-        // imdisk needs to be installed !!
-        /*
-                private static void CreateRamDisk(string driveLetter, int sizeInMB)
-                {
-                    // Create the RAM disk using ImDisk
-                    ProcessStartInfo processInfo = new ProcessStartInfo();
-                    processInfo.FileName = "imdisk";
-                    processInfo.Arguments = $"-a -s {sizeInMB}M -m {driveLetter}: -p /fs:ntfs /q /y";
-                    processInfo.CreateNoWindow = true;
-                    processInfo.UseShellExecute = false;
-
-                    using (Process process = Process.Start(processInfo))
-                    {
-                        process.WaitForExit();
-                    }
-                }
-
-                private static void RemoveRamDisk(string driveLetter)
-                {
-                    // Remove the RAM disk
-                    ProcessStartInfo processInfo = new ProcessStartInfo();
-                    processInfo.FileName = "imdisk";
-                    processInfo.Arguments = $"-d -m {driveLetter}:";
-                    processInfo.CreateNoWindow = true;
-                    processInfo.UseShellExecute = false;
-
-                    using (Process process = Process.Start(processInfo))
-                    {
-                        process.WaitForExit();
-                    }
-                }
-                private string LocalDrive = "";
-                public bool GetRamDisk(string driveLetter)
-                {
-                    try
-                    {
-                        CreateRamDisk(driveLetter, 128);
-                        LocalDrive = driveLetter;
-                    }
-                    catch { return false; } 
-                    return true;
-                }
-        */
-
         private bool IsDocumentOpen(Word.Application wordApp, string filePath)
         {
             foreach (Word.Document doc in wordApp.Documents)

@@ -63,6 +63,8 @@ namespace MacroEditor
                 i++;
             }
         }
+
+
         public int GetMacCount(string ID)
         {
             int i = 0;
@@ -430,6 +432,10 @@ namespace MacroEditor
             return (sPrinterTypes.Contains(" " + sT + " "));
         }
 
+        public static bool IsInteger(string input)
+        {
+            return int.TryParse(input, out _);
+        }
         public static string nBR(int n)
         {
             string s = "";
