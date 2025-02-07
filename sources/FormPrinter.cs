@@ -395,7 +395,7 @@ namespace MacroEditor.sources
             int i = TagToPhrase(iWorkingTab);
             string sU = "", sO = "", sH = PrinterListH[iWorkingTab][0];
             string t = sH.Replace("<br>", Environment.NewLine);
-            if(t == sH)
+            if(t == sH && t.Contains("http"))
             {
                 if (sT == "") sT = "read this post for help";
                 sT = "Steps: " + sT;

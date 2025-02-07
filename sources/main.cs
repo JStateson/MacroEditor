@@ -3990,7 +3990,7 @@ namespace MacroEditor
             string s = sID.Trim();
             if (!Utils.IsInteger(s)) return "";
             if (s.Length > 4) return "";
-            string sBlessed = "6950,6230,6810,6820,6830,6970,7740,8210,8610,8620,8630,8640,8660,8700,x451,x476,x551,x576,300,400,500";
+            string sBlessed = "6950,6230,6810,6820,6830,6970,7740,8210,8610,8620,8630,8640,8660,8700,8715,8720,451,476,551,576,300,400,500";
             string sUrl = "https://support.hp.com/us-en/document/ish_11469335-11469393-16";
             string[] sS = sBlessed.Split(',');
             
