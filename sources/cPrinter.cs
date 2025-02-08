@@ -309,7 +309,7 @@ namespace MacroEditor.sources
 
                 lbl2.Width = iS;
                 lbl2.Height = iS;
-                lbl1.Width = 16;
+                lbl1.Width = 32; // was 16
                 lbl1.Height = 16;
                 lbl.Width = iS;
                 lbl.Height = iS;

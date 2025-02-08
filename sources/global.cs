@@ -622,11 +622,13 @@ namespace MacroEditor
                 case "Reference":
                 case "Parts":
                 case "Assembly":
+                case "Doc": // 2/8/2025
                     if (sClip.IndexOf("http") == -1) ErrCod = 1;
                     if (sClip.IndexOf(Environment.NewLine) >= 0) ErrCod = 2;
                     break;
                 case "Direct Page":
                 case "WPS Page":
+                case "Page": // 2/8/2025
                     ErrCod = int.TryParse(sClip, out i) ? 0 : 3;
                     break;
                 case "Driver":

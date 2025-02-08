@@ -377,10 +377,12 @@ namespace MacroEditor.sources
                 string sTagName = tbTagName.Text;
                 switch (sTagName)
                 {
-                    case "Direct Page":
-                    case "WPS Page":
+                    case "Direct Doc":
+                    case "WPS Doc":
+                    //case "Direct Page": // 2/8/2025
+                    //case "WPS Page":
                         string PageNumber = tbPageN.Text;
-                        if (IsBadItem(PageNumber, sTagName)) return;
+                        if (IsBadItem(PageNumber, "Page")) return;
                         if (IsBadItem(sH, "Doc")) return;
                         cu.sProposedH = sH;
                         cu.sProposedT = "User Manual";
@@ -485,8 +487,8 @@ namespace MacroEditor.sources
                 {
                     cEachTag ea = rDB.RecordSet[i];
                     int n = ea.SourceTEXT.Count;
-                    ea.SourceHREF.Add(sTH);
-                    ea.SourceTEXT.Add(sTT);
+                    //ea.SourceHREF.Add(sTH);
+                    //ea.SourceTEXT.Add(sTT); // 2/8/2025
                     cbMacroList.Items[nSelectedM] = FormName(n, ea.TagName);
                 }
             }
@@ -767,14 +769,17 @@ namespace MacroEditor.sources
             }
             else
             {
-                while (iNxt < (n))
+                while (iNxt < (n-1))
                 {
                     et.SourceTEXT[iNxt] = et.SourceTEXT[iNxt + 1];
                     et.SourceHREF[iNxt] = et.SourceHREF[iNxt + 1];
                     iNxt++;
                 }
+                et.SourceTEXT.RemoveAt(n-1);
+                et.SourceHREF.RemoveAt(n-1);
             }
-            rDB.RecordSet.RemoveAt(iOfst);
+            if(n == 1)
+                rDB.RecordSet.RemoveAt(iOfst);
             DataFileRecord = FormRecord();
             UpdateAllURLs();
         }
