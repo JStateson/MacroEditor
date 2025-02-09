@@ -98,5 +98,8 @@
     <Setting Name="bUseSuffix" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
+    <Setting Name="NotPrnPrefix" Type="System.String" Scope="User">
+      <Value Profile="(Default)">&lt;style&gt;table  th, td { border: 1px solid black; padding: 10px; text-align: justify;}&lt;/style&gt;</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

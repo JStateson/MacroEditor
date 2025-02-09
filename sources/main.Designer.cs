@@ -202,6 +202,7 @@
             this.tsmPartsLookup = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmAssembly = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmAssemblyPrinter = new System.Windows.Forms.ToolStripMenuItem();
+            this.TSMprinterUsesAnyInk = new System.Windows.Forms.ToolStripMenuItem();
             this.quickWarningsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.gpMainEdit = new System.Windows.Forms.GroupBox();
             this.tbShowClip = new System.Windows.Forms.TextBox();
@@ -223,7 +224,6 @@
             this.tsmAddQWatch = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmAddClip = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmRemove = new System.Windows.Forms.ToolStripMenuItem();
-            this.TSMprinterUsesAnyInk = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.lbName)).BeginInit();
             this.groupBox6.SuspendLayout();
             this.gbManageImages.SuspendLayout();
@@ -694,38 +694,38 @@
             this.toolStripMenuItem1,
             this.toolStripMenuItem2});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(167, 202);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(181, 224);
             this.contextMenuStrip1.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStrip1_Opening);
             this.contextMenuStrip1.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.contextMenuStrip1_ItemClicked);
             // 
             // tsmCUT
             // 
             this.tsmCUT.Name = "tsmCUT";
-            this.tsmCUT.Size = new System.Drawing.Size(166, 22);
+            this.tsmCUT.Size = new System.Drawing.Size(180, 22);
             this.tsmCUT.Text = "Cut";
             // 
             // tsmCOPY
             // 
             this.tsmCOPY.Name = "tsmCOPY";
-            this.tsmCOPY.Size = new System.Drawing.Size(166, 22);
+            this.tsmCOPY.Size = new System.Drawing.Size(180, 22);
             this.tsmCOPY.Text = "Copy";
             // 
             // tsmPASTE
             // 
             this.tsmPASTE.Name = "tsmPASTE";
-            this.tsmPASTE.Size = new System.Drawing.Size(166, 22);
+            this.tsmPASTE.Size = new System.Drawing.Size(180, 22);
             this.tsmPASTE.Text = "Paste";
             // 
             // tsmDEL
             // 
             this.tsmDEL.Name = "tsmDEL";
-            this.tsmDEL.Size = new System.Drawing.Size(166, 22);
+            this.tsmDEL.Size = new System.Drawing.Size(180, 22);
             this.tsmDEL.Text = "Delete";
             // 
             // tsmJustify
             // 
             this.tsmJustify.Name = "tsmJustify";
-            this.tsmJustify.Size = new System.Drawing.Size(166, 22);
+            this.tsmJustify.Size = new System.Drawing.Size(180, 22);
             this.tsmJustify.Text = "Justfiy Text";
             this.tsmJustify.Visible = false;
             this.tsmJustify.Click += new System.EventHandler(this.PrinterItemClicked);
@@ -733,14 +733,14 @@
             // tsmTable
             // 
             this.tsmTable.Name = "tsmTable";
-            this.tsmTable.Size = new System.Drawing.Size(166, 22);
+            this.tsmTable.Size = new System.Drawing.Size(180, 22);
             this.tsmTable.Text = "Table It";
             this.tsmTable.Click += new System.EventHandler(this.PrinterItemClicked);
             // 
             // tsmNumList
             // 
             this.tsmNumList.Name = "tsmNumList";
-            this.tsmNumList.Size = new System.Drawing.Size(166, 22);
+            this.tsmNumList.Size = new System.Drawing.Size(180, 22);
             this.tsmNumList.Text = "Number List";
             this.tsmNumList.Click += new System.EventHandler(this.PrinterItemClicked);
             // 
@@ -755,7 +755,7 @@
             this.tsmScan,
             this.tsmID});
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(166, 22);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
             this.toolStripMenuItem1.Text = "Add Printer Items";
             this.toolStripMenuItem1.Click += new System.EventHandler(this.PrinterItemClicked);
             // 
@@ -822,7 +822,7 @@
             this.tsm9s,
             this.tsm10x});
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(166, 22);
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(180, 22);
             this.toolStripMenuItem2.Text = "Change Font";
             // 
             // tsm1s
@@ -1874,6 +1874,13 @@
             this.tsmAssemblyPrinter.Text = "User disassembly printer";
             this.tsmAssemblyPrinter.Click += new System.EventHandler(this.tsmInteractive_Click);
             // 
+            // TSMprinterUsesAnyInk
+            // 
+            this.TSMprinterUsesAnyInk.Name = "TSMprinterUsesAnyInk";
+            this.TSMprinterUsesAnyInk.Size = new System.Drawing.Size(202, 22);
+            this.TSMprinterUsesAnyInk.Text = "Printer uses any ink";
+            this.TSMprinterUsesAnyInk.Click += new System.EventHandler(this.TSMprinterUsesAnyInk_Click);
+            // 
             // quickWarningsToolStripMenuItem
             // 
             this.quickWarningsToolStripMenuItem.Name = "quickWarningsToolStripMenuItem";
@@ -2094,13 +2101,6 @@
             this.tsmRemove.Name = "tsmRemove";
             this.tsmRemove.Size = new System.Drawing.Size(188, 22);
             this.tsmRemove.Text = "Remove";
-            // 
-            // TSMprinterUsesAnyInk
-            // 
-            this.TSMprinterUsesAnyInk.Name = "TSMprinterUsesAnyInk";
-            this.TSMprinterUsesAnyInk.Size = new System.Drawing.Size(202, 22);
-            this.TSMprinterUsesAnyInk.Text = "Printer uses any ink";
-            this.TSMprinterUsesAnyInk.Click += new System.EventHandler(this.TSMprinterUsesAnyInk_Click);
             // 
             // main
             // 

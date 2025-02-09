@@ -52,6 +52,14 @@ namespace MacroEditor
                 case eBrowserType.eEdge: rbEdge.Checked = true; break;
             }
 
+            /*
+            On initial startup copy the source code text fields into
+            the default settings otherwise display and use the defaults.
+            Primary defaults for prefix and suffix are shown in code.
+            The secondary defaults (the "not") are coded in the settings
+            and must be brought up to be seen
+            */
+
             if (Properties.Settings.Default.sPPrefix != "init")
                 tbPP.Text = Properties.Settings.Default.sPPrefix;
             else
@@ -347,7 +355,14 @@ namespace MacroEditor
                 cbViewed.Refresh();
             }
         }
-
+        private void btnSaveMP_Click(object sender, EventArgs e)
+        {
+            if (cbMPisPrinter.Checked)
+                Properties.Settings.Default.sPPrefix = tbPP.Text;
+            else
+                Properties.Settings.Default.NotPrnPrefix = tbPP.Text;
+            Properties.Settings.Default.Save();
+        }
         private void btnSavMS_Click(object sender, EventArgs e)
         {
             if (cbisPrinter.Checked)
@@ -356,16 +371,22 @@ namespace MacroEditor
                 Properties.Settings.Default.NotPrnSuffix = tbMSuffix.Text;
             Properties.Settings.Default.Save();
         }
+        private void cbMPisPrinter_CheckedChanged(object sender, EventArgs e)
+        {
+            string s = Properties.Settings.Default.sPPrefix;
+            string t = Properties.Settings.Default.NotPrnPrefix;
+            tbPP.Text = cbMPisPrinter.Checked ? Properties.Settings.Default.sPPrefix : Properties.Settings.Default.NotPrnPrefix;
+        }
+        private void cbisPrinter_CheckedChanged(object sender, EventArgs e)
+        {
+            tbMSuffix.Text = cbisPrinter.Checked ? Properties.Settings.Default.sMSuffix : Properties.Settings.Default.NotPrnSuffix;
+        }
+
 
         private void Settings_FormClosing(object sender, FormClosingEventArgs e)
         {
             xMV.SaveChanges();
             xMC.SaveChanges();
-        }
-
-        private void cbisPrinter_CheckedChanged(object sender, EventArgs e)
-        {
-            tbMSuffix.Text = cbisPrinter.Checked ? Properties.Settings.Default.sMSuffix : Properties.Settings.Default.NotPrnSuffix;
         }
 
         private void blnTestS_Click(object sender, EventArgs e)
@@ -498,5 +519,6 @@ namespace MacroEditor
         {
             DeleteZips();
         }
+
     }
 }

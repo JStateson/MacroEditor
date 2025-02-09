@@ -318,7 +318,7 @@ namespace MacroEditor.sources
 
         private void btnTest_Click(object sender, EventArgs e)
         {
-            Utils.ShowPageInBrowser("",tbResult.Text);
+            Utils.ShowPageInBrowser("", tbResult.Text);
         }
 
         private void ShowChange()

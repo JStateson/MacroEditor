@@ -154,7 +154,7 @@ namespace MacroEditor.sources
         {
             if (s == "") return;
             
-            Utils.ShowPageInBrowser("", h + s );
+            Utils.ShowPageInBrowser("",h + s );
         }
 
         private int FindFirstDiff(ref string s1, ref string s2)

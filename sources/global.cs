@@ -984,6 +984,7 @@ namespace MacroEditor
             string sPP = Properties.Settings.Default.sPPrefix.Replace(Environment.NewLine, " ");
             string sPS = Properties.Settings.Default.NotPrnSuffix.Replace(Environment.NewLine, " ");
             string sMS = Properties.Settings.Default.sMSuffix.Replace(Environment.NewLine, " ");
+            string sMP = Properties.Settings.Default.NotPrnPrefix.Replace(Environment.NewLine, " ");
             if (sPP != "init" && strType != "" && Utils.sPrinterTypes.Contains(strType + " "))
             {
                 if (Properties.Settings.Default.bUsePrefix && Properties.Settings.Default.bUsePrefix)
@@ -1003,7 +1004,7 @@ namespace MacroEditor
             else
             {
                 if (strType != "" && strType != "RF")
-                    sOut = s + "<br><br>" + sPS;
+                    sOut = sMP + s + "<br><br>" + sPS;
                 else sOut = s;
             }
             ShellHTML(sOut, false);
@@ -1336,6 +1337,7 @@ namespace MacroEditor
             }
             return sS + sFs + s + sFe + sE;
         }
+
 
         public static string Form1CellTable(string strIn, string sWidth)
         {

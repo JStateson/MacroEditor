@@ -406,5 +406,18 @@ namespace MacroEditor.Properties {
                 this["bUseSuffix"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("<style>table  th, td { border: 1px solid black; padding: 10px; text-align: justif" +
+            "y;}</style>")]
+        public string NotPrnPrefix {
+            get {
+                return ((string)(this["NotPrnPrefix"]));
+            }
+            set {
+                this["NotPrnPrefix"] = value;
+            }
+        }
     }
 }
