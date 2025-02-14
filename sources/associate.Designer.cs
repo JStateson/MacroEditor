@@ -97,9 +97,9 @@
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(203, 365);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(175, 32);
+            this.label1.Size = new System.Drawing.Size(167, 32);
             this.label1.TabIndex = 4;
-            this.label1.Text = "Hover the mouse here to\r\nsee what is in the cliopboard";
+            this.label1.Text = "Hover the mouse here to\r\nsee what is in the clipboard";
             this.label1.MouseHover += new System.EventHandler(this.label1_MouseHover);
             // 
             // btnSwap

@@ -54,6 +54,8 @@
             this.btnShowURL = new System.Windows.Forms.Button();
             this.btnDelURL = new System.Windows.Forms.Button();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.btnSaveMP = new System.Windows.Forms.Button();
+            this.cbMPisPrinter = new System.Windows.Forms.CheckBox();
             this.cbUsePrefix = new System.Windows.Forms.CheckBox();
             this.btnTestPP = new System.Windows.Forms.Button();
             this.tbPP = new System.Windows.Forms.TextBox();
@@ -109,8 +111,6 @@
             this.label3 = new System.Windows.Forms.Label();
             this.tbPathBU = new System.Windows.Forms.TextBox();
             this.btnSetBUpath = new System.Windows.Forms.Button();
-            this.btnSaveMP = new System.Windows.Forms.Button();
-            this.cbMPisPrinter = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox4.SuspendLayout();
@@ -386,6 +386,34 @@
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Macro Prefix";
             this.toolTip1.SetToolTip(this.groupBox4, "Is put in first line of\r\neach printer macro");
+            // 
+            // btnSaveMP
+            // 
+            this.btnSaveMP.ForeColor = System.Drawing.SystemColors.Highlight;
+            this.btnSaveMP.Location = new System.Drawing.Point(81, 19);
+            this.btnSaveMP.Name = "btnSaveMP";
+            this.btnSaveMP.Size = new System.Drawing.Size(51, 23);
+            this.btnSaveMP.TabIndex = 8;
+            this.btnSaveMP.Text = "Save";
+            this.btnSaveMP.UseVisualStyleBackColor = true;
+            this.btnSaveMP.Click += new System.EventHandler(this.btnSaveMP_Click);
+            // 
+            // cbMPisPrinter
+            // 
+            this.cbMPisPrinter.AutoSize = true;
+            this.cbMPisPrinter.CheckAlign = System.Drawing.ContentAlignment.BottomRight;
+            this.cbMPisPrinter.Checked = true;
+            this.cbMPisPrinter.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.cbMPisPrinter.ForeColor = System.Drawing.SystemColors.Highlight;
+            this.cbMPisPrinter.Location = new System.Drawing.Point(15, 61);
+            this.cbMPisPrinter.Name = "cbMPisPrinter";
+            this.cbMPisPrinter.Size = new System.Drawing.Size(82, 17);
+            this.cbMPisPrinter.TabIndex = 7;
+            this.cbMPisPrinter.Text = "For a printer";
+            this.toolTip1.SetToolTip(this.cbMPisPrinter, "This response phrase (prefix)\r\nis for a printer if checked and\r\nwill be added to " +
+        "every post");
+            this.cbMPisPrinter.UseVisualStyleBackColor = true;
+            this.cbMPisPrinter.CheckedChanged += new System.EventHandler(this.cbMPisPrinter_CheckedChanged);
             // 
             // cbUsePrefix
             // 
@@ -1048,34 +1076,6 @@
             this.btnSetBUpath.Text = "Set backup\r\nLocation";
             this.btnSetBUpath.UseVisualStyleBackColor = true;
             this.btnSetBUpath.Click += new System.EventHandler(this.btnSetBUpath_Click);
-            // 
-            // btnSaveMP
-            // 
-            this.btnSaveMP.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.btnSaveMP.Location = new System.Drawing.Point(81, 19);
-            this.btnSaveMP.Name = "btnSaveMP";
-            this.btnSaveMP.Size = new System.Drawing.Size(51, 23);
-            this.btnSaveMP.TabIndex = 8;
-            this.btnSaveMP.Text = "Save";
-            this.btnSaveMP.UseVisualStyleBackColor = true;
-            this.btnSaveMP.Click += new System.EventHandler(this.btnSaveMP_Click);
-            // 
-            // cbMPisPrinter
-            // 
-            this.cbMPisPrinter.AutoSize = true;
-            this.cbMPisPrinter.CheckAlign = System.Drawing.ContentAlignment.BottomRight;
-            this.cbMPisPrinter.Checked = true;
-            this.cbMPisPrinter.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.cbMPisPrinter.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.cbMPisPrinter.Location = new System.Drawing.Point(15, 61);
-            this.cbMPisPrinter.Name = "cbMPisPrinter";
-            this.cbMPisPrinter.Size = new System.Drawing.Size(82, 17);
-            this.cbMPisPrinter.TabIndex = 7;
-            this.cbMPisPrinter.Text = "For a printer";
-            this.toolTip1.SetToolTip(this.cbMPisPrinter, "This response phrase (prefix)\r\nis for a printer if checked and\r\nwill be added to " +
-        "every post");
-            this.cbMPisPrinter.UseVisualStyleBackColor = true;
-            this.cbMPisPrinter.CheckedChanged += new System.EventHandler(this.cbMPisPrinter_CheckedChanged);
             // 
             // Settings
             // 

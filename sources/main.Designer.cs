@@ -168,8 +168,6 @@
             this.mbyDesktop = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuHuntDev = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSepSTART = new System.Windows.Forms.ToolStripSeparator();
-            this.mnuLapKey = new System.Windows.Forms.ToolStripMenuItem();
-            this.hPYouTubeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSepEND = new System.Windows.Forms.ToolStripSeparator();
             this.mnuToEnglish = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
@@ -694,38 +692,38 @@
             this.toolStripMenuItem1,
             this.toolStripMenuItem2});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(181, 224);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(167, 202);
             this.contextMenuStrip1.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStrip1_Opening);
             this.contextMenuStrip1.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.contextMenuStrip1_ItemClicked);
             // 
             // tsmCUT
             // 
             this.tsmCUT.Name = "tsmCUT";
-            this.tsmCUT.Size = new System.Drawing.Size(180, 22);
+            this.tsmCUT.Size = new System.Drawing.Size(166, 22);
             this.tsmCUT.Text = "Cut";
             // 
             // tsmCOPY
             // 
             this.tsmCOPY.Name = "tsmCOPY";
-            this.tsmCOPY.Size = new System.Drawing.Size(180, 22);
+            this.tsmCOPY.Size = new System.Drawing.Size(166, 22);
             this.tsmCOPY.Text = "Copy";
             // 
             // tsmPASTE
             // 
             this.tsmPASTE.Name = "tsmPASTE";
-            this.tsmPASTE.Size = new System.Drawing.Size(180, 22);
+            this.tsmPASTE.Size = new System.Drawing.Size(166, 22);
             this.tsmPASTE.Text = "Paste";
             // 
             // tsmDEL
             // 
             this.tsmDEL.Name = "tsmDEL";
-            this.tsmDEL.Size = new System.Drawing.Size(180, 22);
+            this.tsmDEL.Size = new System.Drawing.Size(166, 22);
             this.tsmDEL.Text = "Delete";
             // 
             // tsmJustify
             // 
             this.tsmJustify.Name = "tsmJustify";
-            this.tsmJustify.Size = new System.Drawing.Size(180, 22);
+            this.tsmJustify.Size = new System.Drawing.Size(166, 22);
             this.tsmJustify.Text = "Justfiy Text";
             this.tsmJustify.Visible = false;
             this.tsmJustify.Click += new System.EventHandler(this.PrinterItemClicked);
@@ -733,14 +731,14 @@
             // tsmTable
             // 
             this.tsmTable.Name = "tsmTable";
-            this.tsmTable.Size = new System.Drawing.Size(180, 22);
+            this.tsmTable.Size = new System.Drawing.Size(166, 22);
             this.tsmTable.Text = "Table It";
             this.tsmTable.Click += new System.EventHandler(this.PrinterItemClicked);
             // 
             // tsmNumList
             // 
             this.tsmNumList.Name = "tsmNumList";
-            this.tsmNumList.Size = new System.Drawing.Size(180, 22);
+            this.tsmNumList.Size = new System.Drawing.Size(166, 22);
             this.tsmNumList.Text = "Number List";
             this.tsmNumList.Click += new System.EventHandler(this.PrinterItemClicked);
             // 
@@ -755,7 +753,7 @@
             this.tsmScan,
             this.tsmID});
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(166, 22);
             this.toolStripMenuItem1.Text = "Add Printer Items";
             this.toolStripMenuItem1.Click += new System.EventHandler(this.PrinterItemClicked);
             // 
@@ -822,7 +820,7 @@
             this.tsm9s,
             this.tsm10x});
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(180, 22);
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(166, 22);
             this.toolStripMenuItem2.Text = "Change Font";
             // 
             // tsm1s
@@ -1522,8 +1520,6 @@
             this.mbyDesktop,
             this.mnuHuntDev,
             this.toolStripSepSTART,
-            this.mnuLapKey,
-            this.hPYouTubeToolStripMenuItem,
             this.toolStripSepEND,
             this.mnuToEnglish,
             this.toolStripSeparator6,
@@ -1605,22 +1601,6 @@
             // 
             this.toolStripSepSTART.Name = "toolStripSepSTART";
             this.toolStripSepSTART.Size = new System.Drawing.Size(184, 6);
-            // 
-            // mnuLapKey
-            // 
-            this.mnuLapKey.Name = "mnuLapKey";
-            this.mnuLapKey.Size = new System.Drawing.Size(187, 22);
-            this.mnuLapKey.Text = "Laptop Key";
-            this.mnuLapKey.ToolTipText = "Looks up the model to find\r\nthe replacement key";
-            this.mnuLapKey.Click += new System.EventHandler(this.mnuLapKey_Click);
-            // 
-            // hPYouTubeToolStripMenuItem
-            // 
-            this.hPYouTubeToolStripMenuItem.Name = "hPYouTubeToolStripMenuItem";
-            this.hPYouTubeToolStripMenuItem.Size = new System.Drawing.Size(187, 22);
-            this.hPYouTubeToolStripMenuItem.Text = "HP YouTube";
-            this.hPYouTubeToolStripMenuItem.ToolTipText = "Finds official HP\r\nYouTube vdeos";
-            this.hPYouTubeToolStripMenuItem.Click += new System.EventHandler(this.hPYouTubeToolStripMenuItem_Click);
             // 
             // toolStripSepEND
             // 
@@ -2228,7 +2208,6 @@
         private System.Windows.Forms.ToolStripMenuItem mnuHuntDev;
         private System.Windows.Forms.ToolStripMenuItem mnuSearchComm;
         private System.Windows.Forms.ToolStripMenuItem helpWithWebSearchToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem hPYouTubeToolStripMenuItem;
         private System.Windows.Forms.Button btnRed;
         private System.Windows.Forms.TextBox tbColorCode;
         private System.Windows.Forms.Button btnColors;
@@ -2284,7 +2263,6 @@
         private System.Windows.Forms.Button btnNextChk;
         private System.Windows.Forms.ToolStripMenuItem tsmID;
         private System.Windows.Forms.ToolStripSeparator toolStripSepSTART;
-        private System.Windows.Forms.ToolStripMenuItem mnuLapKey;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator6;
         private System.Windows.Forms.ToolStripMenuItem mnuCmpHpTr;
         private System.Windows.Forms.ToolStripMenuItem mnuCmpHTTP;

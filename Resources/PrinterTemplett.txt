@@ -13,7 +13,8 @@ of your printer, you must contact HP.
 <br>Wi-Fi reset instructions and videos (if any) are shown below.
 Generally you have 2 hours to connect your printer after
 performing the Wi-Fi reset.  Note that a reset video may show
-a slightly different model than yours.</p> 
+a slightly different model than yours.  <b>Do not</b> call any phone
+numbers shown in any of the videos unless an HP video or site.</p> 
 <table border='1'><tr><td>@Reset Printer@</td></tr></table>
 
 
@@ -26,8 +27,11 @@ router needs to provide the same IP address on every connection.
 This rarely happens with random connects.  An alternate Wi-Fi
 connection is Wi-Fi direct.  Your laptop or smartphone prints
 directly to the printer and does not go through the router.
-Note that <b>if you signed up for instant ink or internet
-printing your printer must also be online through the router</b>.</p>
+Note that if you signed up for instant ink or internet
+printing your printer must also be online through the router.
+<b>Do not</b> call any phone numbers shown in any of the videos
+unless an HP video or site.
+</p>
 <table border='2'><tr><td>@Network Connect@</td></tr></table>
 
 <!-- @IDSoftware@ TimeStamp=DDDDDDDD_TTTTTT -->

@@ -3159,7 +3159,6 @@ namespace MacroEditor
             bTextFromClipboardMNUs = !(n <= 1 || n > 128);
             mnuDrvGoog.Enabled = bTextFromClipboardMNUs;
             mnuDevCol.Enabled = bTextFromClipboardMNUs;
-            hPYouTubeToolStripMenuItem.Enabled = bTextFromClipboardMNUs;
             mnuHuntDev.Enabled = sL.Contains("dev") && sL.Contains("ven");
             mnuHuntDev.Enabled |= sL.Contains("vid") && sL.Contains("pid");
         }
@@ -3900,7 +3899,7 @@ namespace MacroEditor
                 int i = c.IndexOf("-");
                 if (i < 0)
                 {
-                    sObj = s.Replace("@clip-board@", c);
+                    sObj = sObj.Replace("@clip-board@", c);
                 }
                 else
                 {
@@ -3996,7 +3995,10 @@ namespace MacroEditor
             
             foreach(string t in sS)
             {
-                if (t == s) return sUrl;
+                if (t == s)
+                {
+                    return sUrl;
+                }
             }
             return "";
         }

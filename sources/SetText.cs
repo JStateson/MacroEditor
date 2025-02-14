@@ -105,7 +105,13 @@ namespace MacroEditor
                     strOut += " " + strTmp;
                 }
             }
-            else strOut = tbSelectedItem.Text.Trim();
+            else
+            {
+                // assume document type
+                string sP = "<a href=\"file:///" + sFmtRaw.Trim();
+                string sE = "\">" + tbSelectedItem.Text.Trim() + "</a>";
+                strOut = sP + sE;
+            }
 
             strResult = strOut.Trim();
             if(rbNoBox.Checked) tbResult.Text = strResult;
