@@ -140,6 +140,7 @@ namespace MacroEditor
         private string DataFileFormatted = ""; // the displayable html from the raw datarecord
         private string HasNewDataRecord = "";   // if value then may need to update the datarecord. applies to update urls only
         private string HasNewFormattedData = "";
+        private List<cBSFview> BSFlocal;
 
         public main()
         {
@@ -218,6 +219,9 @@ namespace MacroEditor
             CheckPWE(); // see if password and email are enabled for using
             mnuCmpHTTP.Enabled = File.Exists(Properties.Settings.Default.HTTP_HP);
             GetRecentArchive(); // this includes all files so files must be closed
+            BiosEmuSim bes = new BiosEmuSim(true);
+            BSFlocal = bes.BSFsources;
+            bes.Dispose();
             string i = Properties.Settings.Default.cSplash;
             string j = Properties.Settings.Default.sSplash;
             if (Properties.Settings.Default.cSplash == Properties.Settings.Default.sSplash) return;
@@ -827,6 +831,34 @@ namespace MacroEditor
             if(s == "")            
                 s = "https://devicehunt.com";            
             Utils.LocalBrowser(s);
+        }
+        private void mnuBiosSimLKUP_Click(object sender, EventArgs e)
+        {
+            string s = Utils.ClipboardGetText();
+            if (s.Length > 32 || s.Length < 2) return;
+            if (s.Contains("http")) return;
+            string sPossible = "";
+            string x = "";
+            int n = 0;
+            foreach(cBSFview cBS in BSFlocal)
+            {
+                if(cBS.sTEXT.Contains(s))
+                {
+                    x = cBS.sHREF;
+                    string t = Utils.FormUrl(x, cBS.sTEXT);
+                    sPossible += t + Environment.NewLine;
+                    n++;
+                }
+            }
+            if (n == 1)
+            {
+                System.Diagnostics.Process.Start(new System.Diagnostics.ProcessStartInfo
+                {
+                    FileName = x,
+                    UseShellExecute = true
+                });
+            }
+            else if(n > 1) Utils.ShowPageInBrowser("",sPossible);
         }
 
         private string RunDeviceHunt()
@@ -3301,10 +3333,11 @@ namespace MacroEditor
             }
         }
 
-  
+        
         private void mnuBIOSemu_Click(object sender, EventArgs e)
         {
-            BiosEmuSim bes = new BiosEmuSim();
+            BiosEmuSim bes = new BiosEmuSim(false);
+            BSFlocal = bes.BSFsources;
             bes.ShowDialog();
             bes.Dispose();
         }

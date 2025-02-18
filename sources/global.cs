@@ -2202,7 +2202,12 @@ namespace MacroEditor
         }
 
     }
-
+    public class cBSFview
+    {
+        public int nInx { get; set; }
+        public string sTEXT { get; set; }
+        public string sHREF { get; set; }
+    }
     public class cUrls
     {
         public string sOrigHref;

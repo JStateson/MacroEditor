@@ -222,6 +222,7 @@
             this.tsmAddQWatch = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmAddClip = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmRemove = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuBiosSimLKUP = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.lbName)).BeginInit();
             this.groupBox6.SuspendLayout();
             this.gbManageImages.SuspendLayout();
@@ -1527,7 +1528,8 @@
             this.prrinterKBToolStripMenuItem,
             this.notebookKBToolStripMenuItem,
             this.desktopKBToolStripMenuItem,
-            this.gamingKBToolStripMenuItem});
+            this.gamingKBToolStripMenuItem,
+            this.mnuBiosSimLKUP});
             this.mnRecDis.Name = "mnRecDis";
             this.mnRecDis.Size = new System.Drawing.Size(168, 20);
             this.mnRecDis.Text = "Web Search (uses clipboard)";
@@ -2082,6 +2084,13 @@
             this.tsmRemove.Size = new System.Drawing.Size(188, 22);
             this.tsmRemove.Text = "Remove";
             // 
+            // mnuBiosSimLKUP
+            // 
+            this.mnuBiosSimLKUP.Name = "mnuBiosSimLKUP";
+            this.mnuBiosSimLKUP.Size = new System.Drawing.Size(187, 22);
+            this.mnuBiosSimLKUP.Text = "BIOS sim lookup";
+            this.mnuBiosSimLKUP.Click += new System.EventHandler(this.mnuBiosSimLKUP_Click);
+            // 
             // main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -2322,6 +2331,7 @@
         private System.Windows.Forms.ToolStripMenuItem DriverPackTSM;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
         private System.Windows.Forms.ToolStripMenuItem TSMprinterUsesAnyInk;
+        private System.Windows.Forms.ToolStripMenuItem mnuBiosSimLKUP;
     }
 }
 

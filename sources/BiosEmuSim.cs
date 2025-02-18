@@ -35,14 +35,8 @@ namespace MacroEditor.sources
 
     public partial class BiosEmuSim : Form
     {
-        public class cBSFview
-        {
-            public int nInx { get; set; }
-            public string sTEXT { get; set; }
-            public string sHREF { get; set; }
-        }
 
-        private List<cBSFview> BSFsources = new List<cBSFview>();
+        public List<cBSFview> BSFsources = new List<cBSFview>();
         private string srcData = "BiosSimulators.txt";
         private string expHTML = "BiosSimulators.html";
         private string LsrcData = "";
@@ -74,21 +68,21 @@ namespace MacroEditor.sources
         private int iOnce = 2;
         private string sDupID = "";
         private bool bNotSorted = false;
-        public BiosEmuSim()
+        public BiosEmuSim(bool GetTable)
         {
             InitializeComponent();
             Blue = btnSave.ForeColor;
             LsrcData = Utils.WhereExe + "/" + srcData;
             LexpHTML = Utils.WhereExe + "/" + expHTML;
             cbSelText.DataSource = sPossible;
-            LoadSimFiles();
+            LoadSimFiles(GetTable);
             foreach (DataGridViewColumn column in dgvBIOS.Columns)
             {
                 column.SortMode = DataGridViewColumnSortMode.NotSortable;
             }
         }
 
-        private void LoadSimFiles() // (object sender, EventArgs e)
+        private void LoadSimFiles(bool GetTable)
         {
             string sDefault = "<a href=\"https://pranx.com/bios\" target=\"_blank\">Phoenix CMOS Setup Utility</a>";
             int i = 0;
@@ -146,6 +140,7 @@ namespace MacroEditor.sources
                 BSFsources.Add(cBSF);
             }
             sr.Close();
+            if (GetTable) return;   // just wanted the table
             bs.DataSource = BSFsources;
             dgvBIOS.DataSource = bs;
             dgvBIOS.Columns[2].Visible = false;
@@ -732,7 +727,7 @@ namespace MacroEditor.sources
 
         private void btnCanChg_Click(object sender, EventArgs e)
         {
-            LoadSimFiles();
+            LoadSimFiles(false);
             MustSave(false);
         }
 
