@@ -48,6 +48,7 @@
             this.btnCopyFrom = new System.Windows.Forms.Button();
             this.btnSearch = new System.Windows.Forms.Button();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
+            this.lbNotDeletable = new System.Windows.Forms.Label();
             this.lbNoDirect = new System.Windows.Forms.Label();
             this.tbClipboard = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
@@ -176,6 +177,7 @@
             this.notebookKBToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.desktopKBToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.gamingKBToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.mnuBiosSimLKUP = new System.Windows.Forms.ToolStripMenuItem();
             this.mShowErr = new System.Windows.Forms.ToolStripMenuItem();
             this.hPWebSitesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.printerKBToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -222,7 +224,8 @@
             this.tsmAddQWatch = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmAddClip = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmRemove = new System.Windows.Forms.ToolStripMenuItem();
-            this.mnuBiosSimLKUP = new System.Windows.Forms.ToolStripMenuItem();
+            this.lbSpelling = new System.Windows.Forms.Label();
+            this.SpellTimer = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.lbName)).BeginInit();
             this.groupBox6.SuspendLayout();
             this.gbManageImages.SuspendLayout();
@@ -334,7 +337,7 @@
             this.cbLaunchPage.AutoSize = true;
             this.cbLaunchPage.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbLaunchPage.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.cbLaunchPage.Location = new System.Drawing.Point(18, 101);
+            this.cbLaunchPage.Location = new System.Drawing.Point(17, 123);
             this.cbLaunchPage.Name = "cbLaunchPage";
             this.cbLaunchPage.Size = new System.Drawing.Size(182, 20);
             this.cbLaunchPage.TabIndex = 5;
@@ -457,6 +460,7 @@
             // groupBox6
             // 
             this.groupBox6.BackColor = System.Drawing.SystemColors.Control;
+            this.groupBox6.Controls.Add(this.lbNotDeletable);
             this.groupBox6.Controls.Add(this.lbNoDirect);
             this.groupBox6.Controls.Add(this.tbClipboard);
             this.groupBox6.Controls.Add(this.label8);
@@ -482,15 +486,25 @@
             this.toolTip1.SetToolTip(this.groupBox6, "Switch to markup substitutes <BR> for newliens\r\nAvoid using CTRL-V to paste from " +
         "forum\r\nUse \"Pase from clipboard\" instead");
             // 
+            // lbNotDeletable
+            // 
+            this.lbNotDeletable.AutoSize = true;
+            this.lbNotDeletable.ForeColor = System.Drawing.Color.Red;
+            this.lbNotDeletable.Location = new System.Drawing.Point(402, 104);
+            this.lbNotDeletable.Name = "lbNotDeletable";
+            this.lbNotDeletable.Size = new System.Drawing.Size(134, 16);
+            this.lbNotDeletable.TabIndex = 41;
+            this.lbNotDeletable.Text = "Cannot be deleted";
+            // 
             // lbNoDirect
             // 
             this.lbNoDirect.AutoSize = true;
             this.lbNoDirect.ForeColor = System.Drawing.Color.Red;
-            this.lbNoDirect.Location = new System.Drawing.Point(123, 104);
+            this.lbNoDirect.Location = new System.Drawing.Point(24, 104);
             this.lbNoDirect.Name = "lbNoDirect";
-            this.lbNoDirect.Size = new System.Drawing.Size(232, 16);
+            this.lbNoDirect.Size = new System.Drawing.Size(246, 16);
             this.lbNoDirect.TabIndex = 39;
-            this.lbNoDirect.Text = "Print may not support WiFi Direct";
+            this.lbNoDirect.Text = "Printer may not support WiFi Direct";
             this.lbNoDirect.Visible = false;
             // 
             // tbClipboard
@@ -1055,12 +1069,13 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.lbSpelling);
             this.groupBox1.Controls.Add(this.btnNextChk);
             this.groupBox1.Controls.Add(this.btnSpellChk);
             this.groupBox1.Controls.Add(this.cbLaunchPage);
-            this.groupBox1.Location = new System.Drawing.Point(24, 404);
+            this.groupBox1.Location = new System.Drawing.Point(24, 400);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(237, 134);
+            this.groupBox1.Size = new System.Drawing.Size(237, 156);
             this.groupBox1.TabIndex = 36;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Spell Checker";
@@ -1070,7 +1085,7 @@
             // 
             this.btnNextChk.Enabled = false;
             this.btnNextChk.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.btnNextChk.Location = new System.Drawing.Point(140, 32);
+            this.btnNextChk.Location = new System.Drawing.Point(139, 54);
             this.btnNextChk.Name = "btnNextChk";
             this.btnNextChk.Size = new System.Drawing.Size(73, 42);
             this.btnNextChk.TabIndex = 40;
@@ -1081,7 +1096,7 @@
             // btnSpellChk
             // 
             this.btnSpellChk.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.btnSpellChk.Location = new System.Drawing.Point(25, 32);
+            this.btnSpellChk.Location = new System.Drawing.Point(24, 54);
             this.btnSpellChk.Name = "btnSpellChk";
             this.btnSpellChk.Size = new System.Drawing.Size(73, 42);
             this.btnSpellChk.TabIndex = 39;
@@ -1656,6 +1671,13 @@
             this.gamingKBToolStripMenuItem.Text = "Gaming KB";
             this.gamingKBToolStripMenuItem.Click += new System.EventHandler(this.mnuKnow);
             // 
+            // mnuBiosSimLKUP
+            // 
+            this.mnuBiosSimLKUP.Name = "mnuBiosSimLKUP";
+            this.mnuBiosSimLKUP.Size = new System.Drawing.Size(187, 22);
+            this.mnuBiosSimLKUP.Text = "BIOS sim lookup";
+            this.mnuBiosSimLKUP.Click += new System.EventHandler(this.mnuBiosSimLKUP_Click);
+            // 
             // mShowErr
             // 
             this.mShowErr.ForeColor = System.Drawing.Color.Red;
@@ -2084,12 +2106,23 @@
             this.tsmRemove.Size = new System.Drawing.Size(188, 22);
             this.tsmRemove.Text = "Remove";
             // 
-            // mnuBiosSimLKUP
+            // lbSpelling
             // 
-            this.mnuBiosSimLKUP.Name = "mnuBiosSimLKUP";
-            this.mnuBiosSimLKUP.Size = new System.Drawing.Size(187, 22);
-            this.mnuBiosSimLKUP.Text = "BIOS sim lookup";
-            this.mnuBiosSimLKUP.Click += new System.EventHandler(this.mnuBiosSimLKUP_Click);
+            this.lbSpelling.AutoSize = true;
+            this.lbSpelling.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbSpelling.ForeColor = System.Drawing.Color.Black;
+            this.lbSpelling.Location = new System.Drawing.Point(77, 29);
+            this.lbSpelling.Name = "lbSpelling";
+            this.lbSpelling.Size = new System.Drawing.Size(86, 16);
+            this.lbSpelling.TabIndex = 41;
+            this.lbSpelling.Text = "Spelling XX";
+            this.lbSpelling.Visible = false;
+            // 
+            // SpellTimer
+            // 
+            this.SpellTimer.Interval = 1000;
+            this.SpellTimer.Tag = "";
+            this.SpellTimer.Tick += new System.EventHandler(this.SpellTimer_Tick);
             // 
             // main
             // 
@@ -2332,6 +2365,9 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
         private System.Windows.Forms.ToolStripMenuItem TSMprinterUsesAnyInk;
         private System.Windows.Forms.ToolStripMenuItem mnuBiosSimLKUP;
+        private System.Windows.Forms.Label lbNotDeletable;
+        private System.Windows.Forms.Label lbSpelling;
+        private System.Windows.Forms.Timer SpellTimer;
     }
 }
 

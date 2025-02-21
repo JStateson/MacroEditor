@@ -424,7 +424,7 @@ namespace MacroEditor
                     "Full feature SCANNER software DEVICE MONTH YEAR",
                     "Printer Reference ID" };
 
-        public static string ModelsID = "<br><!-- @MODELS@ ";
+
 
         public static bool IsNewPRN (string sT)
         {
@@ -543,7 +543,10 @@ namespace MacroEditor
                 "DeskJet(DJ)", "OfficeJet(OJ)", "Tank-Inkjet(IN)", "OS related", "Network related", "Hardware", "Reference", "Notes", "Transfer", "HP from HTML" };
         public static string[] LocalMacroRefs = new string[iNMacros] {"PC Reference","PC Reference","LaserJet Reference",
                 "DeskJet Reference","OfficeJet Reference","Tank-Ink Reference", "", "", "", "","","",""};
-
+        public static int IndexMacName(string s)
+        {
+            return Array.IndexOf(LocalMacroPrefix, s);
+        }
         // there is an "SI" type which is used for SIgnature images and an Al for AllowedSpelling
         public static List<string>ListAllTxt = new List<string>();
         public static void FormAllTxt()
@@ -576,7 +579,6 @@ namespace MacroEditor
         public static string ScratchSpellFile = "ScratchSpellFile.docx";
         public static int MaxLinesInSteps = 12; // no more than 16 lines in any steps of instructions.
         public static string AssociationList = "Associate.txt";
-        public static string NewPrnComment = "<!-- @MACRO@:(";
         public static string MacPrinterFolder = "DataFiles";
         public static string SupSigPrefix = "=+-=";   // these are used to identify the macro addition to make it eacy
         public static string SupSigSuffix = "=-+=";   // to delete or to change.
@@ -586,6 +588,55 @@ namespace MacroEditor
         public static string AllAlphas = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxya";
         public static string[] sPossibleLanguageOption = { "-16\" target=", "-16?openCLC=true\" target=" };
         public static List<string> uButtons;
+
+        public static string NewPrnComment = "<!-- @MACRO@:(";
+        public static string ModelsID = "<!-- @MODELS@ ";
+        public static string MacOptions = "<!-- @OPTIONS@ ";
+        public static string MacOP_CD = "CanDelete=";
+
+        // iID:0 defaulted,1(true), 2(false)
+        public static string ExtractMeta(ref string inBody, ref string outBody, ref int iID)
+        {
+            outBody = inBody.Replace("<br>", Environment.NewLine).Trim();
+            string t = "";
+            string[] sHasMeta = {NewPrnComment, ModelsID, MacOptions};
+            foreach(string s in sHasMeta)
+            {
+                int i = outBody.IndexOf(s);
+                if(i >= 0)
+                {
+                    int j = outBody.IndexOf("-->", i + s.Length);
+                    Debug.Assert(j >= 0);
+                    j += 3;
+                    string u = outBody.Substring(i, j - i);
+                    t += u;
+                    outBody = outBody.Replace(u, "").Trim();
+                    t += Environment.NewLine;
+                }
+            }
+            t = t.Trim();
+            if(!t.Contains(MacOptions)) // may want to add more eventually
+            {
+                if (t != "") t += Environment.NewLine;
+                t += "<!-- @OPTIONS@ CanDelete=Y -->";
+                iID = 0;                
+            }
+            else
+            {
+                iID = MetaYNCD_has_yes(ref t) ? 1 : 2;
+                // should look between <!-- and --> instead
+            }
+            return t;
+        }
+
+        private static bool MetaYNCD_has_yes(ref string sText)
+        {
+            int i = sText.IndexOf(Utils.MacOP_CD);
+            string sA = sText.Substring(i+Utils.MacOP_CD.Length, 1);
+            if(sA == "y" || sA == "Y")return true;
+            return false;
+        }
+
         public static int LocalMacroIndexOf(string s)
         {
             int n = 0;

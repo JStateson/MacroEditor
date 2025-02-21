@@ -111,6 +111,7 @@
             this.label3 = new System.Windows.Forms.Label();
             this.tbPathBU = new System.Windows.Forms.TextBox();
             this.btnSetBUpath = new System.Windows.Forms.Button();
+            this.btnSpellAll = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox4.SuspendLayout();
@@ -568,9 +569,11 @@
             // cbEnabSpell
             // 
             this.cbEnabSpell.AutoSize = true;
+            this.cbEnabSpell.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbEnabSpell.ForeColor = System.Drawing.Color.DarkGreen;
             this.cbEnabSpell.Location = new System.Drawing.Point(19, 126);
             this.cbEnabSpell.Name = "cbEnabSpell";
-            this.cbEnabSpell.Size = new System.Drawing.Size(127, 17);
+            this.cbEnabSpell.Size = new System.Drawing.Size(147, 17);
             this.cbEnabSpell.TabIndex = 20;
             this.cbEnabSpell.Text = "Enable Spell checker";
             this.toolTip1.SetToolTip(this.cbEnabSpell, "You must have Microsoft Office\r\nThis must be enabled before the\r\nsave spell check" +
@@ -1077,11 +1080,26 @@
             this.btnSetBUpath.UseVisualStyleBackColor = true;
             this.btnSetBUpath.Click += new System.EventHandler(this.btnSetBUpath_Click);
             // 
+            // btnSpellAll
+            // 
+            this.btnSpellAll.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSpellAll.ForeColor = System.Drawing.Color.DarkGreen;
+            this.btnSpellAll.Location = new System.Drawing.Point(1005, 673);
+            this.btnSpellAll.Name = "btnSpellAll";
+            this.btnSpellAll.Size = new System.Drawing.Size(130, 34);
+            this.btnSpellAll.TabIndex = 21;
+            this.btnSpellAll.Text = "Spell All Once";
+            this.toolTip1.SetToolTip(this.btnSpellAll, "On the next boot run the\r\nspell checker on each macro\r\nand use red color for erro" +
+        "rs");
+            this.btnSpellAll.UseVisualStyleBackColor = true;
+            this.btnSpellAll.Click += new System.EventHandler(this.btnSpellAll_Click);
+            // 
             // Settings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1166, 745);
+            this.Controls.Add(this.btnSpellAll);
             this.Controls.Add(this.groupBox7);
             this.Controls.Add(this.tbPathMacro);
             this.Controls.Add(this.label13);
@@ -1212,5 +1230,6 @@
         private System.Windows.Forms.CheckBox cbUseSuffix;
         private System.Windows.Forms.Button btnSaveMP;
         private System.Windows.Forms.CheckBox cbMPisPrinter;
+        private System.Windows.Forms.Button btnSpellAll;
     }
 }

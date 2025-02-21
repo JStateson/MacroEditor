@@ -137,6 +137,9 @@ login credentials. Otherwise you will have to
 log in.  This app does not use credentials: They
 are used by Chrome, Edge, or Firefox only.</value>
   </data>
+  <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 17</value>
+  </metadata>
   <data name="tbPP.Text" xml:space="preserve">
     <value>Watch the reset video or perform the steps. After resetting, you generally have 2 hours to complete the setup. Decide if you want to connect the printer to the router or to print directly to the printer and bypass the router.&lt;br&gt;&lt;br&gt;Many HP and other OEM printers have problems with the router when the router has two bands and &lt;font color="#FF6600"&gt;both bands have the same name (SSID)&lt;/font&gt;.  Log into the modem and rename one of the bands. Alternately, contact your ISP and have them rename a band.&lt;br&gt;&lt;br&gt;Or simply &lt;b&gt;use Wi-Fi direct&lt;/b&gt; (but read note below about Instant Ink).&lt;br&gt;&lt;br&gt;&lt;table border="2"&gt;&lt;tr&gt;&lt;td&gt;If English is not your native language or if you wish to get additional information not covered below, then use the HP and Microsoft support assistants.  The latest HPSA supports 36 languages &lt;a href="https://support.hp.com/us-en/help/hp-support-assistant" target="_blank"&gt; and can be downloaded here&lt;/a&gt;.  Microsoft's AI assistant is in the latest Windows 10 and 11 releases and there are &lt;a href="https://www.elevenforum.com/t/enable-or-disable-windows-copilot-in-windows-11.17045/" target="_blank"&gt;instructions here on how to enable&lt;/a&gt; the AI.  Microsoft's AI assistant (Copilot) has a microphone button and supports natural language processing.&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
 

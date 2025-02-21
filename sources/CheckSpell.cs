@@ -72,7 +72,12 @@ namespace MacroEditor
         public bool Init()
         {
             int n=0;
-            if (!Properties.Settings.Default.UseSpellChecker) return false;
+            if (!(Properties.Settings.Default.UseSpellChecker || Properties.Settings.Default.SpellOnBoot))
+            {                
+                return false;
+            }
+            Properties.Settings.Default.SpellOnBoot = false;
+            Properties.Settings.Default.Save();
             string rpath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
             string sPath = Path.Combine(rpath,"Microsoft\\word");
             string[] unsavedFiles = Directory.GetFiles(sPath, "*.asd");
@@ -200,7 +205,7 @@ namespace MacroEditor
             return true;
         }
 
-        public string[] RunSpellList(string sText)
+        public string[] RunSpellList(string sText, bool bShow)
         {
             string strOut = "";
             range.Text = PreFilter(sText);
@@ -222,7 +227,7 @@ namespace MacroEditor
                     strOut += w + " ";
                 }
             }
-            if(strOut != "")
+            if(strOut != "" && bShow)
             {
                 MessageBox.Show("Spell errors: " + strOut);
             }

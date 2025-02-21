@@ -520,5 +520,10 @@ namespace MacroEditor
             DeleteZips();
         }
 
+        private void btnSpellAll_Click(object sender, EventArgs e)
+        {
+            Properties.Settings.Default.SpellOnBoot = true;
+            Properties.Settings.Default.Save();
+        }
     }
 }

@@ -419,5 +419,17 @@ namespace MacroEditor.Properties {
                 this["NotPrnPrefix"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool SpellOnBoot {
+            get {
+                return ((bool)(this["SpellOnBoot"]));
+            }
+            set {
+                this["SpellOnBoot"] = value;
+            }
+        }
     }
 }

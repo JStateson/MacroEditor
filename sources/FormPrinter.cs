@@ -551,7 +551,7 @@ namespace MacroEditor.sources
                 i++;
             }
             if (DeviceCollection.Count == 0) return "";
-            string t = Utils.ModelsID;
+            string t = "<br>" + Utils.ModelsID;
             foreach (string u in DeviceCollection)
             {
                 t += u + " ";

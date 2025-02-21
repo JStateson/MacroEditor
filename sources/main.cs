@@ -80,6 +80,7 @@ using Path = System.IO.Path;
 using static System.Windows.Forms.AxHost;
 using static System.Net.WebRequestMethods;
 using File = System.IO.File;
+using System.Threading;
 
 
 namespace MacroEditor
@@ -141,7 +142,9 @@ namespace MacroEditor
         private string HasNewDataRecord = "";   // if value then may need to update the datarecord. applies to update urls only
         private string HasNewFormattedData = "";
         private List<cBSFview> BSFlocal;
-
+        private string sMetaData = "";
+        private List<List<bool>> SpellErrors = new List<List<bool>>();
+        private bool bSpellAll = false;
         public main()
         {
             InitializeComponent();
@@ -167,11 +170,22 @@ namespace MacroEditor
             HPDataTable = new List<dgvStruct>();
             cms = new CMoveSpace();
             Utils.bSpellingEnabled = MySpellCheck.Init();
+            bSpellAll = Utils.bSpellingEnabled;
             if (!Utils.bSpellingEnabled)
             {
                 btnSpellChk.Enabled = false;
                 btnNextChk.Enabled = false;
                 cbLaunchPage.Enabled = false;
+            }
+            else
+            {
+                for(int i = 0; i < Utils.iNMacros; i++)
+                {
+                    SpellErrors.Add(new List<bool>()); ;
+                }
+                SpellTimer.Enabled = true;
+                groupBox2.Enabled = false;
+                EnableAll(false);
             }
             NormalEditColor = btnCancelEdits.ForeColor;
             SetFGcolor("#FF6600");
@@ -889,20 +903,17 @@ namespace MacroEditor
             btnDelM.Enabled = bVal;
         }
 
-        private void MakeSticky(string s)
+        private void MakeSticky()
         {
             bool b = true;
             if (Properties.Settings.Default.AllowSTICKYedits == false)
             {
-                switch (s)
-                {
-                    case "RF":
-                        b = (CurrentRowSelected >= Utils.RequiredMacrosRF.Length);
-                        break;
-                }
+                b = !lbNotDeletable.Visible;
             }
+
             btnDelM.Enabled = b;
-            btnSaveM.Enabled = b;
+            btnDelChecked.Enabled = b;
+            btnSaveM.Enabled = true; // want to allow adding to the references
             //NumCheckedMacros = CountChecks(); // cannot do this from inside loading the file
             btnDelChecked.Enabled = NumCheckedMacros > 0 && b;
         }
@@ -958,12 +969,8 @@ namespace MacroEditor
             }
 
             tbMNum.Text = (1 + e).ToString();
-            if (strType == "RF")
-            {
-                MakeSticky(strType);
-            }
-            else HaveSelected(true);
             ShowBodyFromSelected();
+            MakeSticky();
             tbMacName.Text = lbName.Rows[CurrentRowSelected].Cells[3].Value.ToString();
             EnableNewTestPrinter();
             lbName.ClearSelection();
@@ -999,10 +1006,17 @@ namespace MacroEditor
                 DataTable[CurrentRowSelected].sBody = ""; // have named macro but not body so create empty one
                 tbBody.Text = "";
                 DataFileRecord = "";
+                sMetaData = "";
             }
             else
             {
-                tbBody.Text = DataTable[CurrentRowSelected].sBody.Replace("<br>", Environment.NewLine);
+                string sOut="", sBnl = DataTable[CurrentRowSelected].sBody.Replace("<br>", Environment.NewLine);
+                int iID = 0; 
+                sMetaData = Utils.ExtractMeta(ref sBnl, ref sOut, ref iID);
+                string sTemp = sMetaData + Environment.NewLine + sOut;
+                tbBody.Text =  sBnl; 
+                lbNotDeletable.Visible = (iID==2); // 0:default is allow delete and 2 is allow delete
+                
                 DataFileRecord = rBodyFromTable();
                 DataFileFormatted = "";
                 if (DataFileRecord != "" && strType != "" && Utils.sPrinterTypes.Contains(strType + " "))
@@ -1187,6 +1201,7 @@ namespace MacroEditor
         private int LoadFromTXT(string strFN)
         {
             int i = 0;
+            int IndexstrFN = Utils.IndexMacName(strFN);
             string rBody;
             bool bNoEmpty = !(strFN == "HP" || strFN == "" || strFN == "HTML");
             string sErr = "";
@@ -1286,11 +1301,20 @@ namespace MacroEditor
             tbNumMac.Text = i.ToString();
             for (i = 0; i < lbName.Rows.Count; i++)
             {
-                if (DataTable[i].HPerr)
+                if(bSpellAll)
                 {
-                    bMacroErrors = true;
-                    SetErrorRed(i);
+                    if (SpellErrors[IndexstrFN][i])
+                        SetErrorRed(i);
                 }
+                else
+                {
+                    if (DataTable[i].HPerr)
+                    {
+                        bMacroErrors = true;
+                        SetErrorRed(i);
+                    }
+                }
+
                 if (DataTable[i].rBody.Length > 4)
                 {
                     lbName.Rows[i].Cells[3].Style.ForeColor = Color.Blue;
@@ -1524,7 +1548,8 @@ namespace MacroEditor
             tbBody.Text = tbBody.Text.Trim();
             if (tbBody.Text == "")
             {
-                tbBody.Text = Utils.UnNamedMacro;
+                if(sMetaData == "")
+                    tbBody.Text = Utils.UnNamedMacro;
                 i++;
             }
             return i == 2;  // both items blank
@@ -1568,8 +1593,27 @@ namespace MacroEditor
                 }
 
                 lbName.Rows[CurrentRowSelected].Cells[3].Value = strName;
+
+                string sIn = tbBody.Text;
+                string sOut = "";
+                int iID = 0;
+                string sNewMeta = Utils.ExtractMeta(ref sIn, ref sOut, ref iID);
+                if(iID == 0 && sMetaData.Contains(Utils.MacOP_CD))
+                {
+                    // if option is missing but was in tbody originally then do not use the default
+                    // use what was original in the MetaData
+                    // we are not changing anything here
+                    iID = GetMeta(Utils.MacOP_CD);
+                }
+                else
+                {
+                    SetMeta("CanDelete=", iID == 2 ? "N" : "Y");
+                }
+                lbNotDeletable.Visible = iID == 2;
+                string sCleanBody = Utils.NoTrailingNL(sMetaData + Environment.NewLine + sOut).Trim();
+
                 DataTable[CurrentRowSelected].sBody =
-                              RemoveNewLine(ref bChanged, Utils.NoTrailingNL(tbBody.Text).Trim());
+                              RemoveNewLine(ref bChanged, sCleanBody);
                 if(bDataFileUnsaved)
                 {
                     DataTable[CurrentRowSelected].rBody = DataFileRecord.Replace(Environment.NewLine,"<nl>");
@@ -1621,6 +1665,18 @@ namespace MacroEditor
                     s = s.Remove(i, j - i);
                 }
             }
+            b = true;
+            while (b)
+            {
+                i = s.IndexOf("<!--");
+                b = i >= 0;
+                if(b)
+                {
+                    j = s.IndexOf("-->", i);
+                    j += 3;
+                    s = s.Remove(i, j - i);
+                }
+            }
         }
         private bool RefsOnly()
         {
@@ -1633,8 +1689,7 @@ namespace MacroEditor
         }
 
         private void btnSaveM_Click(object sender, EventArgs e)
-        {
-            
+        {            
             if (RefsOnly())
             {
                 MessageBox.Show("Macros must contain URLs only, no text");
@@ -2372,6 +2427,7 @@ namespace MacroEditor
         private int LoadAllFiles()
         {
             int nMacroCnt = 0;
+            int istrFN = -1;
             bool bNoEmpty;
             sBadMacroName = "";
             if (cBodies == null)
@@ -2388,9 +2444,13 @@ namespace MacroEditor
                     if (n > 0) return LoadFromTXT("RF");
                     return 0;
                 }
+                
                 foreach (string strFN in Utils.LocalMacroPrefix)
                 {
                     int i = 0;
+                    istrFN++;
+                    if(bSpellAll)
+                        lbSpelling.Text = "Spelling " + strFN;
                     bNoEmpty = !(strFN == "HP" || strFN == "" || strFN == "HTML");
                     string FNpath = Utils.FNtoPath(strFN);
 
@@ -2412,6 +2472,12 @@ namespace MacroEditor
                                 UnfinishedIndex = i;
                             }
                             sBody = sr.ReadLine();
+                            if(bSpellAll)
+                            {
+                                bool bSpERR = SpellThis(ref sBody);
+                                SpellErrors[istrFN].Add(bSpERR);
+                                System.Windows.Forms.Application.DoEvents();
+                            }
                             rBody = sr.ReadLine();
                             if (rBody == null)
                                 rBody = "<nl>";
@@ -2474,6 +2540,8 @@ namespace MacroEditor
                     }
                     EnableLoadTSMitem(strFN, i > 0);
                 }
+                StopAllSpelling();
+
             }
 
             bInitialLoad = false;
@@ -2515,6 +2583,13 @@ namespace MacroEditor
             return nMacroCnt;
         }
 
+        private void StopAllSpelling()
+        {
+            SpellTimer.Enabled = false;
+            lbSpelling.Visible = false;
+            groupBox2.Enabled = true;
+            EnableAll(true);
+        }
         private bool LoadStartupMacro()
         {
             string s = Properties.Settings.Default.StartupReturn;
@@ -2567,7 +2642,6 @@ namespace MacroEditor
             string NewName = ws.NewItemName;
             ws.Dispose();
             LastViewedFN = "";  // also sets checked macro count to 0 
-            LastViewedFN = "";  // also sets checked macro count to 0 
             if (n >= 0 && bFinishedEdits)
             {
                 CBody cb = cBodies[n];
@@ -2575,8 +2649,13 @@ namespace MacroEditor
                 sFN = cb.File;
                 i = Convert.ToInt32(cb.Number);
                 ShowUneditedRow(i - 1);
+                // the above bypasses some checks such as not allowing a delete on RF macs 1 and 2
+                CurrentRowSelected = i - 1;
+                MakeSticky();
+                return;
+                // jys 2/19/2025
             }
-            if (NewID != "" && bFinishedEdits)
+            if (NewID != "" && bFinishedEdits) // n is -1 here
             {
                 n = LoadFromTXT(NewID);
                 sFN = NewID;
@@ -2592,29 +2671,31 @@ namespace MacroEditor
             }
         }
 
-        private int CountChecks()
+
+        
+        private int CountChecks(bool bDeleting)
         {
             int n = 0;
             int i = 0;
             foreach (DataGridViewRow row in lbName.Rows)
             {
                 row.Cells[1].Value = row.Cells[1].EditedFormattedValue;
-                if (strType == "RF")
+                if(!bDeleting)
                 {
-                    if (i < Utils.RequiredMacrosRF.Length)
+                    n++;
+                    i++;
+                    continue;
+                }
+                if ((bool)row.Cells[1].Value)
+                {
+                    bool bDoNotDelete = DataTable[i].sBody.Contains(Utils.MacOP_CD + "N");
+                    if (bDoNotDelete)
                     {
                         row.Cells[1].Value = false;
                     }
-                    else
-                    {
-                        if ((bool)row.Cells[1].Value)
-                        {
-                            n++;
-                        }
-                    }
-                    i++;
+                    else n++;
                 }
-                else if ((bool)row.Cells[1].Value) n++;
+                i++;
             }
             return n;
         }
@@ -2791,7 +2872,7 @@ namespace MacroEditor
             cms.bRun = false;
             cms.bDelete = false;
 
-            cms.nChecked = CountChecks();
+            cms.nChecked = CountChecks(false);
             MoveMacro mm = new MoveMacro(ref cms);
             mm.ShowDialog();
             mm.Dispose();
@@ -2808,7 +2889,7 @@ namespace MacroEditor
 
         private void btnDelChecked_Click(object sender, EventArgs e)
         {
-            int n = CountChecks();  // is not always the number actually checked as some reserved
+            int n = CountChecks(true);  // is not always the number actually checked as some reserved
             if (n == 0) return;
             if (n > 1 && n == NumCheckedMacros)
             {
@@ -2819,7 +2900,7 @@ namespace MacroEditor
             cms.strType = strType;
             cms.bDelete = true;
             PerformMove(cms);
-            NumCheckedMacros = CountChecks();
+            NumCheckedMacros = CountChecks(false);
             btnDelChecked.Enabled = NumCheckedMacros > 0;
         }
 
@@ -3239,7 +3320,8 @@ namespace MacroEditor
                         NumCheckedMacros += isChecked ? 0 : 1; // not 1:0 
                     }
                 }
-                btnDelChecked.Enabled = NumCheckedMacros > 0;
+                if (NumCheckedMacros > 0) MakeSticky();
+                //btnDelChecked.Enabled = NumCheckedMacros > 0;
             }
         }
 
@@ -3480,7 +3562,7 @@ namespace MacroEditor
         {
             if (!Utils.bSpellingEnabled) return;
             tbBody.Text = tbBody.Text.Replace("<br>", Environment.NewLine);
-            BadSpell = MySpellCheck.RunSpellList(tbBody.Text);
+            BadSpell = MySpellCheck.RunSpellList(tbBody.Text,true);
             if (BadSpell.Length > 0)
             {
                 CreateCandidateList();
@@ -3490,7 +3572,11 @@ namespace MacroEditor
             btnNextChk.Enabled = BadSpell.Length > 0;
         }
 
-
+        private bool SpellThis(ref string sTbr)
+        {
+            string sTnl = sTbr.Replace("<br>", Environment.NewLine);
+            return (MySpellCheck.RunSpellList(sTnl,false).Length > 0);
+        }
         private List<int> FindWordIndices(string input, string wordToFind)
         {
             List<int> indices = new List<int>();
@@ -4036,6 +4122,25 @@ namespace MacroEditor
             return "";
         }
 
+        private string UseOEMtoner(string sID)
+        {
+            string s = sID.Trim().ToLower();
+            if (s.Length > 7 || s.Length < 5) return "";
+            string sBlessed = "m254dw,m180nw,m281fdw,m281cdw,m182nw,m183fw,m283cdw,m283fdw,m255dw,m479dw,m479fnw,m479fdn,m479fdw,m404n,m404dn,m404dw,m454dn,m454dw,m428dw,m428fdn,m428fdw";
+            string sUrl = "https://support.hp.com/us-en/document/ish_11775540-11775594-16";
+            string[] sS = sBlessed.Split(',');
+
+            foreach (string t in sS)
+            {
+                if (t == s)
+                {
+                    return sUrl;
+                }
+            }
+            return "";
+        }
+
+
         private void TSMprinterUsesAnyInk_Click(object sender, EventArgs e)
         {
             string sClip = Clipboard.GetText();
@@ -4044,6 +4149,54 @@ namespace MacroEditor
             if(sUrl != "")
             {
                 Utils.LocalBrowser(sUrl);
+                return;
+            }
+            sUrl = UseOEMtoner(sClip);
+            if (sUrl != "")
+            {
+                Utils.LocalBrowser(sUrl);
+                return;
+            }
+        }
+
+        private int GetMeta(string sID)
+        {
+            int i = sMetaData.IndexOf(sID);
+            if (i < 0) return 0;
+            if (sMetaData.Contains("CanDelete=N")) return 2;
+                    return 1;
+        }
+        private void SetMeta(string sID, string sValue)
+        {
+            int i = sMetaData.IndexOf(sID);
+            Debug.Assert(i >= 0);
+            int j = sMetaData.IndexOf(" ", i + sID.Length);
+            Debug.Assert(j>0);
+            string s = sMetaData.Substring(i, j-i);
+            string t = sMetaData.Substring(i, sID.Length) + sValue;
+            sMetaData = sMetaData.Replace(s, t);
+        }
+
+        private bool bToggle = true;
+        private void SpellTimer_Tick(object sender, EventArgs e)
+        {
+            lbSpelling.Visible = bToggle;
+            bToggle = !bToggle;
+        }
+        private void EnableAll(bool b)
+        {
+            foreach (System.Windows.Forms.Control ctrl in this.Controls)
+            {
+                //ctrl.Enabled = b;
+
+                if (ctrl is MenuStrip menuStrip)
+                {
+                    menuStrip.Enabled = b;
+                }
+                else if (ctrl is ToolStrip toolStrip)
+                {
+                    toolStrip.Enabled = b;
+                }
             }
         }
     }
