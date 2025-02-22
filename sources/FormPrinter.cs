@@ -393,7 +393,7 @@ namespace MacroEditor.sources
         private void ResetSteps(string s, int iWorkingTab, string sT)
         {
             int i = TagToPhrase(iWorkingTab);
-            string sU = "", sO = "", sH = PrinterListH[iWorkingTab][0];
+            string sU = "", sO = "", sH = PrinterListH[iWorkingTab].Last();
             string t = sH.Replace("<br>", Environment.NewLine);
             if(t == sH && t.Contains("http"))
             {
@@ -403,7 +403,7 @@ namespace MacroEditor.sources
             }
             else
             {
-                sU = Utils.FormNumList(t); //Utils.Form1CellTable(sH, "");
+                sU = Utils.FormNumList(t,sT); //Utils.Form1CellTable(sH, "");
             }
             sO = s.Replace("@arg@", sU);
             PrinterHttp[i].Add(sO);

@@ -994,6 +994,17 @@ namespace MacroEditor
             return sOut;
         }
 
+        public static string FormNumList(string sIn, string sCaption)
+        {
+            string[] sSin = sIn.Split(new[] { "\r\n", "\n" }, StringSplitOptions.None);
+            string sOut = "<table border='2' <caption>" + sCaption + "</caption><tr><td><ol><br>";
+            foreach (string s in sSin)
+            {
+                sOut += "<li>" + s + "</li>";
+            }
+            sOut += "</ol></td></tr></table>";
+            return sOut;
+        }
         public static string JustifiedText(string t)
         {
             string s = t.Replace("<br>", " ");

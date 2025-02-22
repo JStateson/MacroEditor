@@ -240,13 +240,13 @@ namespace MacroEditor.sources
             foreach (string s in lbButtons)
             {
 
-                Button btn = new Button();
+                Button btn = new Button();  // this is the main button and is disabled after clicked
                 btn.ForeColor = Color.Red;
                  
 
                 Label lbl1 = new Label();
-                Button lbl = new Button();
-                Button lbl2 = new Button();
+                Button lbl = new Button();  // this is the button with the -
+                Button lbl2 = new Button(); // this is the button with the +
                 toolTip1 = new ToolTip();
                 toolTip1.SetToolTip(btn, lbTips[n]);
                 btn.Text = SBs(s);
@@ -715,7 +715,7 @@ namespace MacroEditor.sources
 
             if (sender is Button button)
             {
-                CurrentClip = Clipboard.GetText().Trim();
+                CurrentClip = Clipboard.GetText().Trim().Replace(Environment.NewLine,"<br>");
                 AddButtonClicked(button);
             }            
         }
