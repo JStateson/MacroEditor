@@ -4125,14 +4125,14 @@ namespace MacroEditor
         private string UseOEMtoner(string sID)
         {
             string s = sID.Trim().ToLower();
-            if (s.Length > 7 || s.Length < 5) return "";
+            if (s.Length > 7 || s.Length < 3) return "";
             string sBlessed = "m254dw,m180nw,m281fdw,m281cdw,m182nw,m183fw,m283cdw,m283fdw,m255dw,m479dw,m479fnw,m479fdn,m479fdw,m404n,m404dn,m404dw,m454dn,m454dw,m428dw,m428fdn,m428fdw";
             string sUrl = "https://support.hp.com/us-en/document/ish_11775540-11775594-16";
             string[] sS = sBlessed.Split(',');
 
             foreach (string t in sS)
             {
-                if (t == s)
+                if (t.Contains(s))
                 {
                     return sUrl;
                 }

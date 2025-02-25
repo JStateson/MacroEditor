@@ -148,7 +148,8 @@ namespace MacroEditor.sources
                     sTemp = sTemp.Replace(cid.sID,t);
                     sTemp = sComment + sTemp;
                     sOut += sTemp;
-                    sOut += "<br><br>";
+                    //sOut += "<br><br>";   // two <br> are added in trailing metadata
+                    
                 }
             }
             return sOut;

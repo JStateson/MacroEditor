@@ -1049,7 +1049,7 @@ namespace MacroEditor
             string sMP = Properties.Settings.Default.NotPrnPrefix.Replace(Environment.NewLine, " ");
             if (sPP != "init" && strType != "" && Utils.sPrinterTypes.Contains(strType + " "))
             {
-                if (Properties.Settings.Default.bUsePrefix && Properties.Settings.Default.bUsePrefix)
+                if (Properties.Settings.Default.bUsePrefix && Properties.Settings.Default.bUseSuffix)
                 {
                     sOut = sPP + "<br><br>" + s + "<br><br>" + sMS;
                 }
