@@ -524,14 +524,19 @@ namespace MacroEditor.sources
         private void TryAdd(string sLine)
         {
             if (DeviceCollection.Contains(sLine)) return;
-            DeviceCollection.Add(sLine);
-            //string[] sS = sLine.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
-            //foreach(string s in sS)
-            //{
-            //    if (IsAlphabetic(s)) continue;
-            //    if(DeviceCollection.Contains(s)) continue;  
-            //    DeviceCollection.Add(s);
-            //}
+            //DeviceCollection.Add(sLine);
+            string[] sS = sLine.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+            foreach(string s in sS)
+            {
+                if (IsAlphabetic(s)) continue;
+                if(DeviceCollection.Contains(s)) continue; 
+                if(s.Any(char.IsPunctuation))
+                {
+                    if (!(s.Contains("-") || s.Contains("+")))
+                        continue;
+                }
+                DeviceCollection.Add(s);
+            }
         }
         private string FormCollection()
         {

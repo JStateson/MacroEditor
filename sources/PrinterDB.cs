@@ -239,20 +239,20 @@ namespace MacroEditor.sources
             fpNew.Init();
         }
 
-        public bool FormatRecord(string sRawIn, ref string FmtOut)
+        public bool FormatRecord(string sRawIn, ref string FmtOut, ref string sModels)
         { 
             LastDBresult = ParseRecord(ref sRawIn);
             //bool b = Utils.HasWiFiDirect(ref sRawIn);
             if (LastDBresult == null) return false;
-            return FormatParsedRecord(ref LastDBresult, ref FmtOut);
+            return FormatParsedRecord(ref LastDBresult, ref FmtOut, ref sModels);
         }
 
-        public bool FormatParsedRecord(ref cDBresult dbResult, ref string FmtOut)
+        public bool FormatParsedRecord(ref cDBresult dbResult, ref string FmtOut, ref string sModels)
         {
             int i, n;
             FormPrinter fpNew = new FormPrinter();
             fpNew.Init();
-            string strIgnore = "";
+//            string sModels = "";
             foreach (cEachTag et in dbResult.RecordSet)
             {
                 string e = Utils.sTOe(et.TagName);
@@ -271,7 +271,7 @@ namespace MacroEditor.sources
                     fpNew.Reduce(s, iTag, et.SourceTEXT[i]);
                 }
             }            
-            return fpNew.ApplyFormat(ref FmtOut, ref strIgnore);
+            return fpNew.ApplyFormat(ref FmtOut, ref sModels);
         }
 
     }

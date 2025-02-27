@@ -107,6 +107,7 @@
             this.tbCleanedURL = new System.Windows.Forms.TextBox();
             this.cbShowCleaned = new System.Windows.Forms.CheckBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.lbSpelling = new System.Windows.Forms.Label();
             this.btnNextChk = new System.Windows.Forms.Button();
             this.btnSpellChk = new System.Windows.Forms.Button();
             this.bWasHTML = new System.Windows.Forms.Button();
@@ -224,7 +225,6 @@
             this.tsmAddQWatch = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmAddClip = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmRemove = new System.Windows.Forms.ToolStripMenuItem();
-            this.lbSpelling = new System.Windows.Forms.Label();
             this.SpellTimer = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.lbName)).BeginInit();
             this.groupBox6.SuspendLayout();
@@ -265,7 +265,6 @@
             this.lbName.TabIndex = 4;
             this.toolTip1.SetToolTip(this.lbName, "you must double click a row to view page\r\nIf you click on a CheckMark then be sur" +
         "e\r\nto have valid clipboard data first");
-            this.lbName.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.lbName_CellContentClick);
             this.lbName.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.lbName_CellDoubleClick);
             this.lbName.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.lbName_CellMouseClick);
             this.lbName.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.lbName_CellMouseDown);
@@ -1080,6 +1079,18 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Spell Checker";
             this.toolTip1.SetToolTip(this.groupBox1, "You must have enabled\r\nspelling using setting ->\r\nconfigure -> spell check");
+            // 
+            // lbSpelling
+            // 
+            this.lbSpelling.AutoSize = true;
+            this.lbSpelling.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbSpelling.ForeColor = System.Drawing.Color.Black;
+            this.lbSpelling.Location = new System.Drawing.Point(77, 29);
+            this.lbSpelling.Name = "lbSpelling";
+            this.lbSpelling.Size = new System.Drawing.Size(86, 16);
+            this.lbSpelling.TabIndex = 41;
+            this.lbSpelling.Text = "Spelling XX";
+            this.lbSpelling.Visible = false;
             // 
             // btnNextChk
             // 
@@ -2105,18 +2116,6 @@
             this.tsmRemove.Name = "tsmRemove";
             this.tsmRemove.Size = new System.Drawing.Size(188, 22);
             this.tsmRemove.Text = "Remove";
-            // 
-            // lbSpelling
-            // 
-            this.lbSpelling.AutoSize = true;
-            this.lbSpelling.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbSpelling.ForeColor = System.Drawing.Color.Black;
-            this.lbSpelling.Location = new System.Drawing.Point(77, 29);
-            this.lbSpelling.Name = "lbSpelling";
-            this.lbSpelling.Size = new System.Drawing.Size(86, 16);
-            this.lbSpelling.TabIndex = 41;
-            this.lbSpelling.Text = "Spelling XX";
-            this.lbSpelling.Visible = false;
             // 
             // SpellTimer
             // 

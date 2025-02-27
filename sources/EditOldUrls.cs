@@ -527,12 +527,13 @@ namespace MacroEditor.sources
         private void ApplyExit()
         {
             string FmtOut = "";
+            string sModels = "";
 
             sBodyOut = mU.GetUpdated(StartMacOld, EndMacOld);
             if (bhasMacroID)
             {                
                 DataRecordOut = FormRecord();
-                if (pDB.FormatParsedRecord(ref rDB, ref FmtOut))
+                if (pDB.FormatParsedRecord(ref rDB, ref FmtOut, ref sModels))
                 {
                     FormattedDataOut = FmtOut;
                     this.Close();

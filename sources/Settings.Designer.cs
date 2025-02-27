@@ -89,6 +89,7 @@
             this.cbDays = new System.Windows.Forms.ComboBox();
             this.label13 = new System.Windows.Forms.Label();
             this.tbPathMacro = new System.Windows.Forms.TextBox();
+            this.btnSpellAll = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
             this.tbDateChg = new System.Windows.Forms.TextBox();
             this.cbFileN = new System.Windows.Forms.ComboBox();
@@ -111,7 +112,6 @@
             this.label3 = new System.Windows.Forms.Label();
             this.tbPathBU = new System.Windows.Forms.TextBox();
             this.btnSetBUpath = new System.Windows.Forms.Button();
-            this.btnSpellAll = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox4.SuspendLayout();
@@ -840,6 +840,20 @@
             this.toolTip1.SetToolTip(this.tbPathMacro, "Location and name of the original\r\nHP set of macros flrom lyour\r\nsetting if you d" +
         "ownloaded it.\r\n");
             // 
+            // btnSpellAll
+            // 
+            this.btnSpellAll.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSpellAll.ForeColor = System.Drawing.Color.DarkGreen;
+            this.btnSpellAll.Location = new System.Drawing.Point(1005, 673);
+            this.btnSpellAll.Name = "btnSpellAll";
+            this.btnSpellAll.Size = new System.Drawing.Size(130, 34);
+            this.btnSpellAll.TabIndex = 21;
+            this.btnSpellAll.Text = "Spell All Once";
+            this.toolTip1.SetToolTip(this.btnSpellAll, "On the next boot run the\r\nspell checker on each macro\r\nand use red color for erro" +
+        "rs");
+            this.btnSpellAll.UseVisualStyleBackColor = true;
+            this.btnSpellAll.Click += new System.EventHandler(this.btnSpellAll_Click);
+            // 
             // label4
             // 
             this.label4.AutoSize = true;
@@ -1079,20 +1093,6 @@
             this.btnSetBUpath.Text = "Set backup\r\nLocation";
             this.btnSetBUpath.UseVisualStyleBackColor = true;
             this.btnSetBUpath.Click += new System.EventHandler(this.btnSetBUpath_Click);
-            // 
-            // btnSpellAll
-            // 
-            this.btnSpellAll.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSpellAll.ForeColor = System.Drawing.Color.DarkGreen;
-            this.btnSpellAll.Location = new System.Drawing.Point(1005, 673);
-            this.btnSpellAll.Name = "btnSpellAll";
-            this.btnSpellAll.Size = new System.Drawing.Size(130, 34);
-            this.btnSpellAll.TabIndex = 21;
-            this.btnSpellAll.Text = "Spell All Once";
-            this.toolTip1.SetToolTip(this.btnSpellAll, "On the next boot run the\r\nspell checker on each macro\r\nand use red color for erro" +
-        "rs");
-            this.btnSpellAll.UseVisualStyleBackColor = true;
-            this.btnSpellAll.Click += new System.EventHandler(this.btnSpellAll_Click);
             // 
             // Settings
             // 

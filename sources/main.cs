@@ -1010,6 +1010,9 @@ namespace MacroEditor
             }
             else
             {
+                bool bMustSave = false;
+                string sModels = "";
+                string sNewBnl = "";
                 string sOut="", sBnl = DataTable[CurrentRowSelected].sBody.Replace("<br>", Environment.NewLine);
                 int iID = 0; 
                 sMetaData = Utils.ExtractMeta(ref sBnl, ref sOut, ref iID);
@@ -1021,19 +1024,61 @@ namespace MacroEditor
                 DataFileFormatted = "";
                 if (DataFileRecord != "" && strType != "" && Utils.sPrinterTypes.Contains(strType + " "))
                 {
-                    bool bRtn = printerDB.FormatRecord(DataFileRecord, ref DataFileFormatted);
+                    bool bRtn = printerDB.FormatRecord(DataFileRecord, ref DataFileFormatted, ref sModels);
+                    string tModels = sModels.Replace("<br>", "");
                     if (!bRtn)
                     {
                         MessageBox.Show("ERROR: failed to parse record ", "Critical");
                         return;
                     }
+                    if(!sMetaData.Contains(tModels))
+                    {
+                        if (sMetaData.Contains(Utils.ModelsID))
+                        {
+                            // has a definition but not the same so discard it
+                            sNewBnl = Utils.MetaReplace(Utils.ModelsID, tModels, sBnl);
+                        }
+                        else
+                        {
+                            sNewBnl = Utils.MetaAdd(Utils.ModelsID, tModels, sBnl);
+                        }
+                        sMetaData = Utils.ExtractMeta(ref sNewBnl, ref sOut, ref iID);
+                        tbBody.Text = sMetaData + Environment.NewLine + sOut;
+                        DataTable[CurrentRowSelected].sBody = Utils.RemoveNL(tbBody.Text);
+                        bMustSave = true;
+                    }
+                    if(iID == 0)
+                    {
+                        tbBody.Text = sMetaData + Environment.NewLine + sOut;
+                        DataTable[CurrentRowSelected].sBody = Utils.RemoveNL(tbBody.Text);
+                        bMustSave = true;
+                    }
+                    if(bMustSave)
+                    {
+                        tbBodyChecksumN = xMacroChanges.CalculateChecksum(tbBody.Text);
+                        tbBodyChecksumB = true;
+                        SaveAsTXT(strType);
+                        bMustSave = false;
+                    }
                     bRtn = Utils.HasWiFiDirect(ref DataFileFormatted);
                     lbNoDirect.Visible = !bRtn;
                 }
+                else if(strType != "HP")
+                {
+                    sMetaData = Utils.ExtractMeta(ref sBnl, ref sOut, ref iID);
+                    if(iID == 0)
+                    {
+                        tbBody.Text = sMetaData + Environment.NewLine + sOut;
+                        DataTable[CurrentRowSelected].sBody = Utils.RemoveNL(tbBody.Text);
+                        tbBodyChecksumN = xMacroChanges.CalculateChecksum(tbBody.Text);
+                        tbBodyChecksumB = true;
+                        SaveAsTXT(strType);
+                    }
+
+                }
             }
 
-            tbBodyChecksumN = xMacroChanges.CalculateChecksum(tbBody.Text);
-            tbBodyChecksumB = true;
+
             lbName.Rows[CurrentRowSelected].Selected = true;
             btnChangeUrls.Enabled = !Utils.IsPostableImage(tbBody.Text);
         }
@@ -1563,9 +1608,11 @@ namespace MacroEditor
         private int SaveCurrentMacros(bool UpdateSelected)
         {
             bool bChanged = false;
-            NoEmptyMacros();
             string strName = tbMacName.Text;
             string strOld = "";
+            string sCleanBody = "";
+
+            NoEmptyMacros();
             if (lbName.RowCount == 0) return 1; // must have wanted to add a row: sorry, cannot do this
 
             int r = FailsHTMLparse();
@@ -1593,24 +1640,28 @@ namespace MacroEditor
                 }
 
                 lbName.Rows[CurrentRowSelected].Cells[3].Value = strName;
-
-                string sIn = tbBody.Text;
-                string sOut = "";
-                int iID = 0;
-                string sNewMeta = Utils.ExtractMeta(ref sIn, ref sOut, ref iID);
-                if(iID == 0 && sMetaData.Contains(Utils.MacOP_CD))
+                if (strType != "HP")
                 {
-                    // if option is missing but was in tbody originally then do not use the default
-                    // use what was original in the MetaData
-                    // we are not changing anything here
-                    iID = GetMeta(Utils.MacOP_CD);
+                    string sIn = tbBody.Text;
+                    string sOut = "";
+                    int iID = 0;
+                    string sNewMeta = Utils.ExtractMeta(ref sIn, ref sOut, ref iID);
+                    if (iID == 0 && sMetaData.Contains(Utils.MacOP_CD))
+                    {
+                        // if option is missing but was in tbody originally then do not use the default
+                        // use what was original in the MetaData
+                        // we are not changing anything here
+                        iID = GetMeta(Utils.MacOP_CD);
+                    }
+                    else
+                    {
+                        SetMeta("CanDelete=", iID == 2 ? "N" : "Y");
+                        sNewMeta = sMetaData;
+                    }
+                    lbNotDeletable.Visible = iID == 2;
+                    sCleanBody = Utils.NoTrailingNL(sNewMeta + Environment.NewLine + sOut).Trim();
                 }
-                else
-                {
-                    SetMeta("CanDelete=", iID == 2 ? "N" : "Y");
-                }
-                lbNotDeletable.Visible = iID == 2;
-                string sCleanBody = Utils.NoTrailingNL(sMetaData + Environment.NewLine + sOut).Trim();
+                else sCleanBody = Utils.NoTrailingNL(tbBody.Text.Trim());
 
                 DataTable[CurrentRowSelected].sBody =
                               RemoveNewLine(ref bChanged, sCleanBody);
@@ -3974,6 +4025,16 @@ namespace MacroEditor
             {
                 Debug.Assert(CurrentRowSelected == cMS2_Row);
                 DataTable[CurrentRowSelected].rBody = (string)lbName.Rows[cMS2_Row].Cells[2].Value;
+                //                
+                string sBnl = DataTable[CurrentRowSelected].sBody.Replace("<br>", Environment.NewLine);
+                string sOut = "";
+                int iID = (cMS2_obj == 2) ? 1 : 2;
+                string sMetaData = Utils.ExtractMeta(ref sBnl, ref sOut, ref iID);
+                tbBody.Text = sMetaData + Environment.NewLine + sOut;
+                DataTable[CurrentRowSelected].sBody = Utils.RemoveNL(tbBody.Text);
+                tbBodyChecksumN = xMacroChanges.CalculateChecksum(tbBody.Text);
+                tbBodyChecksumB = true;
+                //
                 SaveAsTXT(TXTName);
                 ConfigureAssociation();                
             }
@@ -4040,7 +4101,6 @@ namespace MacroEditor
             }
             sObj = sObj.Replace(Environment.NewLine, "<br>");
             Utils.ShowRawBrowser(sObj, "");
-            //Utils.LocalBrowser(sObj);
         }
 
         private void UpdateClips()

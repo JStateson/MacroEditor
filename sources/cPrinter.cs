@@ -151,7 +151,8 @@ namespace MacroEditor.sources
         {
 
             string FmtOut = "";
-            if (pDB.FormatRecord(rBody, ref FmtOut))
+            string sModels = "";
+            if (pDB.FormatRecord(rBody, ref FmtOut, ref sModels))
             {
                 FillTableFromRecord();
                 gbVid.Enabled = true;

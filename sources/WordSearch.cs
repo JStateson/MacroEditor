@@ -471,10 +471,11 @@ namespace MacroEditor
         {
 
             string sOut = "";
+            string sModels = "";    // not used here
             bool bRet;
             if (sRec.Length > 4)
             {
-                bRet = printerDB.FormatRecord(sRec.Replace("<nl>",Environment.NewLine), ref sOut);
+                bRet = printerDB.FormatRecord(sRec.Replace("<nl>",Environment.NewLine), ref sOut, ref sModels);
                 if (!bRet) return;
             }
             sOut += strTemp;

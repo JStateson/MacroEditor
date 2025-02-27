@@ -594,6 +594,26 @@ namespace MacroEditor
         public static string MacOptions = "<!-- @OPTIONS@ ";
         public static string MacOP_CD = "CanDelete=";
 
+        public static string MetaReplace(string sKey, string sNew, string sOld)
+        {
+            int i = sOld.IndexOf(sKey);
+            int n = sOld.Length;
+            int m;
+            Debug.Assert(i >= 0);
+            int j = sOld.IndexOf("-->", i + sKey.Length);
+            Debug.Assert(j >= 0);
+            m = j + 3;            
+            if (i == 0) return sNew + ((m < n) ? sOld.Substring(m) : "");
+            return sOld.Substring(0, i) + sNew + ((m < n) ? sOld.Substring(m) : "");
+        }
+
+        public static string MetaAdd(string sKey, string sNew, string sOld)
+        {
+            int i = sOld.IndexOf(sKey);
+            if(i < 0) return sNew + Environment.NewLine + sOld;
+            return MetaReplace(sKey, sNew, sOld);
+        }
+
         // iID:0 defaulted,1(true), 2(false)
         public static string ExtractMeta(ref string inBody, ref string outBody, ref int iID)
         {
@@ -618,13 +638,29 @@ namespace MacroEditor
             if(!t.Contains(MacOptions)) // may want to add more eventually
             {
                 if (t != "") t += Environment.NewLine;
-                t += "<!-- @OPTIONS@ CanDelete=Y -->";
+                t += (iID != 2) ? "<!-- @OPTIONS@ CanDelete=Y -->" : "<!-- @OPTIONS@ CanDelete=N -->";
                 iID = 0;                
             }
             else
             {
-                iID = MetaYNCD_has_yes(ref t) ? 1 : 2;
+                int jID = MetaYNCD_has_yes(ref t) ? 1 : 2;
                 // should look between <!-- and --> instead
+                if(iID == 0)
+                {
+                    iID = jID;
+                    return t;
+                }
+                if (iID == jID) return t;
+                jID = t.IndexOf(MacOP_CD) + MacOP_CD.Length;
+                switch(t.Substring(jID,1))
+                {
+                    case "N":
+                        t = t.Replace("CanDelete=N", "CanDelete=Y");
+                        break;
+                    case "Y":
+                        t = t.Replace("CanDelete=Y", "CanDelete=N");
+                        break;
+                }
             }
             return t;
         }
@@ -1488,7 +1524,8 @@ namespace MacroEditor
 
         public static bool bHasImgMarkup(string s)
         {
-            return s.Contains("<img ");
+            // return s.Contains("<img ");
+            return IsUrlImage(s.ToLower());
         }
         public static bool IsUrlImage(string aLCase)
         {
