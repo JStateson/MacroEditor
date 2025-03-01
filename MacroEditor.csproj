@@ -378,6 +378,7 @@
     <None Include="app.config" />
     <None Include="packages.config" />
     <None Include="sources\excel_to_html.vba" />
+    <None Include="sources\LoadHPmacros.docx" />
     <None Include="sources\mnu-edit-link.docx" />
     <None Include="sources\mnu-file.docx" />
     <None Include="sources\mnu-imag-sig.docx" />

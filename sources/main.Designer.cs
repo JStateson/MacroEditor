@@ -226,6 +226,7 @@
             this.tsmAddClip = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmRemove = new System.Windows.Forms.ToolStripMenuItem();
             this.SpellTimer = new System.Windows.Forms.Timer(this.components);
+            this.HelpLoadMacros = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.lbName)).BeginInit();
             this.groupBox6.SuspendLayout();
             this.gbManageImages.SuspendLayout();
@@ -1174,7 +1175,8 @@
             this.managingImagesHelpToolStripMenuItem,
             this.helpWithErrorsToolStripMenuItem,
             this.helpWithSearchToolStripMenuItem,
-            this.helpWithWebSearchToolStripMenuItem});
+            this.helpWithWebSearchToolStripMenuItem,
+            this.HelpLoadMacros});
             this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
             this.helpToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
             this.helpToolStripMenuItem.Text = "Help";
@@ -1239,7 +1241,7 @@
             // 
             this.helpWithWebSearchToolStripMenuItem.Name = "helpWithWebSearchToolStripMenuItem";
             this.helpWithWebSearchToolStripMenuItem.Size = new System.Drawing.Size(195, 22);
-            this.helpWithWebSearchToolStripMenuItem.Text = "Hellp with Web Search";
+            this.helpWithWebSearchToolStripMenuItem.Text = "Help with Web Search";
             this.helpWithWebSearchToolStripMenuItem.Click += new System.EventHandler(this.helpWithWebSearchToolStripMenuItem_Click);
             // 
             // fileToolStripMenuItem
@@ -2123,6 +2125,13 @@
             this.SpellTimer.Tag = "";
             this.SpellTimer.Tick += new System.EventHandler(this.SpellTimer_Tick);
             // 
+            // HelpLoadMacros
+            // 
+            this.HelpLoadMacros.Name = "HelpLoadMacros";
+            this.HelpLoadMacros.Size = new System.Drawing.Size(195, 22);
+            this.HelpLoadMacros.Text = "Load your HP macros";
+            this.HelpLoadMacros.Click += new System.EventHandler(this.HelpLoadMacros_Click);
+            // 
             // main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -2367,6 +2376,7 @@
         private System.Windows.Forms.Label lbNotDeletable;
         private System.Windows.Forms.Label lbSpelling;
         private System.Windows.Forms.Timer SpellTimer;
+        private System.Windows.Forms.ToolStripMenuItem HelpLoadMacros;
     }
 }
 

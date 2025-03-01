@@ -2178,7 +2178,10 @@ namespace MacroEditor
         {
             ShowHelp("SEARCH");
         }
-
+        private void HelpLoadMacros_Click(object sender, EventArgs e)
+        {
+            ShowHelp("MACROS");
+        }
         private void ShowHelp(string sHelp)
         {
             EditHelp(sHelp);

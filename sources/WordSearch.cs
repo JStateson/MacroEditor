@@ -28,6 +28,8 @@ using System.Reflection;
 using System.Windows.Media.Animation;
 using System.Xml.Linq;
 using MacroEditor.sources;
+using Microsoft.Office.Interop.Word;
+using Font = System.Drawing.Font;
 
 
 namespace MacroEditor
@@ -1320,6 +1322,12 @@ namespace MacroEditor
 
         private void lbTitleSearch_MouseDoubleClick(object sender, MouseEventArgs e)
         {
+            if(mUseLastViewed < 0 || (mUseLastViewed >= cAll.Count-1))
+            {
+                string sOut = "bug trap: mUse" + mUseLastViewed.ToString() + " count " + cAll.Count.ToString();
+                MessageBox.Show(sOut, "error in Word Search lookup");
+                return;
+            }
             string strTemp = cAll[mUseLastViewed].sBody;
             string strType = cAll[mUseLastViewed].File;
             string MacName = cAll[mUseLastViewed].Name;
