@@ -123,6 +123,7 @@
             this.helpWithErrorsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpWithSearchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpWithWebSearchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.HelpLoadMacros = new System.Windows.Forms.ToolStripMenuItem();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mHPload = new System.Windows.Forms.ToolStripMenuItem();
             this.mPCload = new System.Windows.Forms.ToolStripMenuItem();
@@ -226,7 +227,6 @@
             this.tsmAddClip = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmRemove = new System.Windows.Forms.ToolStripMenuItem();
             this.SpellTimer = new System.Windows.Forms.Timer(this.components);
-            this.HelpLoadMacros = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.lbName)).BeginInit();
             this.groupBox6.SuspendLayout();
             this.gbManageImages.SuspendLayout();
@@ -266,6 +266,7 @@
             this.lbName.TabIndex = 4;
             this.toolTip1.SetToolTip(this.lbName, "you must double click a row to view page\r\nIf you click on a CheckMark then be sur" +
         "e\r\nto have valid clipboard data first");
+            this.lbName.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.lbName_CellContentClick);
             this.lbName.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.lbName_CellDoubleClick);
             this.lbName.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.lbName_CellMouseClick);
             this.lbName.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.lbName_CellMouseDown);
@@ -1244,6 +1245,13 @@
             this.helpWithWebSearchToolStripMenuItem.Text = "Help with Web Search";
             this.helpWithWebSearchToolStripMenuItem.Click += new System.EventHandler(this.helpWithWebSearchToolStripMenuItem_Click);
             // 
+            // HelpLoadMacros
+            // 
+            this.HelpLoadMacros.Name = "HelpLoadMacros";
+            this.HelpLoadMacros.Size = new System.Drawing.Size(195, 22);
+            this.HelpLoadMacros.Text = "Load your HP macros";
+            this.HelpLoadMacros.Click += new System.EventHandler(this.HelpLoadMacros_Click);
+            // 
             // fileToolStripMenuItem
             // 
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -2124,13 +2132,6 @@
             this.SpellTimer.Interval = 1000;
             this.SpellTimer.Tag = "";
             this.SpellTimer.Tick += new System.EventHandler(this.SpellTimer_Tick);
-            // 
-            // HelpLoadMacros
-            // 
-            this.HelpLoadMacros.Name = "HelpLoadMacros";
-            this.HelpLoadMacros.Size = new System.Drawing.Size(195, 22);
-            this.HelpLoadMacros.Text = "Load your HP macros";
-            this.HelpLoadMacros.Click += new System.EventHandler(this.HelpLoadMacros_Click);
             // 
             // main
             // 

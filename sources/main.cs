@@ -2736,9 +2736,11 @@ namespace MacroEditor
                 row.Cells[1].Value = row.Cells[1].EditedFormattedValue;
                 if(!bDeleting)
                 {
-                    n++;
-                    i++;
-                    continue;
+                    if ((bool)row.Cells[1].Value)
+                    {
+                        n++;
+                        continue;
+                    }
                 }
                 if ((bool)row.Cells[1].Value)
                 {
@@ -2927,12 +2929,13 @@ namespace MacroEditor
             cms.bDelete = false;
 
             cms.nChecked = CountChecks(false);
-            MoveMacro mm = new MoveMacro(ref cms);
-            mm.ShowDialog();
-            mm.Dispose();
-            if (cms.bRun && cms.nChecked > 0)
-            {
-                PerformMove(cms);
+            if (cms.nChecked > 0)
+            {                
+                MoveMacro mm = new MoveMacro(ref cms);
+                mm.ShowDialog();
+                mm.Dispose();
+                if(cms.bRun)
+                    PerformMove(cms);
             }
         }
 
