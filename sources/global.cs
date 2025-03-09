@@ -424,7 +424,16 @@ namespace MacroEditor
                     "Full feature SCANNER software DEVICE MONTH YEAR",
                     "Printer Reference ID" };
 
+        public static string RemoveHTML(string s)
+        {
+            return Regex.Replace(s, "<.*?>", String.Empty);
+        }
 
+        public static string RemoveStyles(string s)
+        {
+            string t = Regex.Replace(s, @"\s*style\s*=\s*""[^""]*""", "", RegexOptions.IgnoreCase);
+            return Regex.Replace(t, @"</?(b|strong|i|em|u|span)>", "", RegexOptions.IgnoreCase);
+        }
 
         public static bool IsNewPRN (string sT)
         {

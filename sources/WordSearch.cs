@@ -822,7 +822,8 @@ namespace MacroEditor
                     RefUrls.Add(cr);
                     //sPrN = "";  // RF does not need to have the name searched unlike all other macro information.
                 }
-                string sKeys = PerformSearch(iBody, sPrN, cb.sBody,cb.File);  // eg: do not include "support" for RF
+
+                string sKeys = PerformSearch(iBody, sPrN, cb.sBody, cb.File);  // eg: do not include "support" for RF
                 iBody++;
                 if (sKeys != "")
                 {
@@ -1213,7 +1214,8 @@ namespace MacroEditor
             btnShowCC.Visible = b;
             if (btnShowCC.Visible)
             {
-                CountryLookup(sLine.Substring(i + 8));
+                string sTemp = sLine.Replace("country", "");
+                CountryLookup(sTemp);
             }
             lbKeyFound.Items.Clear();
             lbKeyFound.Items.Add("Double click to capture code");

@@ -169,8 +169,9 @@ namespace MacroEditor
             DataTable = new List<dgvStruct>();
             HPDataTable = new List<dgvStruct>();
             cms = new CMoveSpace();
+            bSpellAll = Properties.Settings.Default.SpellOnBoot;
             Utils.bSpellingEnabled = MySpellCheck.Init();
-            bSpellAll = Utils.bSpellingEnabled;
+            
             if (!Utils.bSpellingEnabled)
             {
                 btnSpellChk.Enabled = false;
@@ -1001,6 +1002,11 @@ namespace MacroEditor
         private void ShowBodyFromSelected()
         {
             if (DataTable.Count == 0 || CurrentRowSelected >= DataTable.Count) return;
+            if(CurrentRowSelected < 0)
+            {
+                MessageBox.Show("possible SW bug:" + strType);
+                return;
+            }
             if (DataTable[CurrentRowSelected].sBody == null)
             {
                 DataTable[CurrentRowSelected].sBody = ""; // have named macro but not body so create empty one
@@ -1280,6 +1286,9 @@ namespace MacroEditor
                     sBody = sr.ReadLine();
                     if (sBody == null) sBody = "";
                     sBody = sBody.Replace("&quot;", "'"); // jys 8/20/2024
+#if SPECIAL4
+                    sBody = sBody.Replace(" bypass the router ", " avoid using the router ");
+#endif
                     dgv.sBody = sBody;
                     rBody = sr.ReadLine();
                     if (rBody == null) rBody = "";
@@ -1529,8 +1538,7 @@ namespace MacroEditor
 
 
         private void btnDelM_Click(object sender, EventArgs e)
-        {
-            
+        {            
             ClearCanceledDataFile();
             string strName = tbMacName.Text;
             int i = CurrentRowSelected + 1;
@@ -1546,6 +1554,11 @@ namespace MacroEditor
                     return;
                 }
                 CurrentRowSelected = RemoveMacro();
+                if(strType == "RF")
+                {
+                    SaveAsTXT("RF");
+                    ConfigureAssociation();
+                }
             }
             else
             {
@@ -2526,6 +2539,10 @@ namespace MacroEditor
                                 UnfinishedIndex = i;
                             }
                             sBody = sr.ReadLine();
+                            if (sBody == null)
+                                sBody = "";
+                            sBody = sBody.Replace("<br>", Environment.NewLine);
+                            sBody = Utils.RemoveStyles(sBody);
                             if(bSpellAll)
                             {
                                 bool bSpERR = SpellThis(ref sBody);
@@ -2550,7 +2567,7 @@ namespace MacroEditor
                         bDebug |= RunLookMissingTR(strFN, i + 1, cb.Name, ref sBody);
 #endif
 
-                            cb.sBody = (sBody == null) ? "" : sBody;
+                            cb.sBody = sBody;
                             cb.rBody = rBody;
                             cb.fKeys = "";
                             cBodies.Add(cb);                            
@@ -2908,6 +2925,10 @@ namespace MacroEditor
             if (strAdded != "")
             {
                 Utils.WriteAllText(strPath, strAdded);
+                if (strType == "RF") // need to update the association list as we deleted a macro
+                {
+                    ConfigureAssociation();
+                }
                 LoadFromTXT(strType);
                 NumInBody = i + 1;
             }
@@ -3029,11 +3050,8 @@ namespace MacroEditor
 
         private void btnNoMarks_Click(object sender, EventArgs e)
         {
-            int i, j;
-            string sCleanedClip;
-            string sOut = "";
             string s, sDirty = Utils.ClipboardGetText();
-            s = Regex.Replace(sDirty, "<.*?>",String.Empty);
+            s = Utils.RemoveHTML(sDirty);
             tbCleanedURL.Text = s;
             Clipboard.SetText(s);
         }
@@ -3631,8 +3649,8 @@ namespace MacroEditor
 
         private bool SpellThis(ref string sTbr)
         {
-            string sTnl = sTbr.Replace("<br>", Environment.NewLine);
-            return (MySpellCheck.RunSpellList(sTnl,false).Length > 0);
+            //string sTnl = sTbr.Replace("<br>", Environment.NewLine);
+            return (MySpellCheck.RunSpellList(sTbr,false).Length > 0);
         }
         private List<int> FindWordIndices(string input, string wordToFind)
         {
