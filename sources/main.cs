@@ -2541,7 +2541,7 @@ namespace MacroEditor
                             sBody = sr.ReadLine();
                             if (sBody == null)
                                 sBody = "";
-                            sBody = sBody.Replace("<br>", Environment.NewLine);
+                            //sBody = sBody.Replace("<br>", Environment.NewLine);
                             sBody = Utils.RemoveStyles(sBody);
                             if(bSpellAll)
                             {
@@ -3649,8 +3649,8 @@ namespace MacroEditor
 
         private bool SpellThis(ref string sTbr)
         {
-            //string sTnl = sTbr.Replace("<br>", Environment.NewLine);
-            return (MySpellCheck.RunSpellList(sTbr,false).Length > 0);
+            string sTnl = sTbr.Replace("<br>", Environment.NewLine);
+            return (MySpellCheck.RunSpellList(sTnl,false).Length > 0);
         }
         private List<int> FindWordIndices(string input, string wordToFind)
         {
