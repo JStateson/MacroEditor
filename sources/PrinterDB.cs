@@ -212,12 +212,12 @@ namespace MacroEditor.sources
 
         //key, num tags, tag1, number entries, entry 1, entry 2, ... tag2 newline is separator
         // an entry is a pair of string, the HREF and the TEXT also using newline
-        public string FormRecord()
+        public string FormRecord(int nRemovedTags)
         {
             //string sKey = DBresult.sKey.Trim();
             string sBody = "";
             sBody += LastDBresult.RecordSet.Count.ToString() + Environment.NewLine;
-            Debug.Assert(LastDBresult.TotalTags == LastDBresult.RecordSet.Count);
+            Debug.Assert((LastDBresult.TotalTags - nRemovedTags) == LastDBresult.RecordSet.Count);
             foreach (cEachTag et in LastDBresult.RecordSet)
             {
                 sBody += et.iTag.ToString() + Environment.NewLine;

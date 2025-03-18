@@ -6,6 +6,7 @@ lbPrinterLayout
 @Documents@
 @YouTube@
 @Reference@
+@USByesno@
 }
 
 lbUrls
@@ -24,6 +25,7 @@ Parts,,@YouTube@
 Assembly,,@YouTube@
 YouTube,,@YouTube@
 Reference,,@Reference@
+USB Only,USB Only,@USByesno@
 }
 
 lbButtons
@@ -44,6 +46,7 @@ Parts
 Assembly
 YouTube
 Reference
+USB Only
 }
 
 lbTips
@@ -64,6 +67,7 @@ Reference and specification page
 Lookup parts here
 Disassembly video is here
 HP support YouTube videos are here
+If USB only, click here
 }
 
 lbPhrases
@@ -82,4 +86,12 @@ Microsoft's Copilot may have more recent videos.<br>Watch this video to see how 
 <br>Disassembly is shown in this video: @Assembly@ 
 <br>Printer problems could be cleared by one or more of these HP YouTube videos @YouTube@
 <br>Specifications for your system: @Reference@
+@USB Only@
+}
+
+lbNoNet
+{
+@Reset Printer@
+@Network Connect@
+@USByesno@
 }

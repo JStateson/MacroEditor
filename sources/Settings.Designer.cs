@@ -446,7 +446,6 @@
             this.tbPP.Name = "tbPP";
             this.tbPP.Size = new System.Drawing.Size(244, 88);
             this.tbPP.TabIndex = 1;
-            this.tbPP.Text = resources.GetString("tbPP.Text");
             // 
             // tbLongAllowed
             // 

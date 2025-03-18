@@ -573,6 +573,7 @@ namespace MacroEditor
         public static int elbButtons = 2;
         public static int elbTips = 3;
         public static int elbPhrases = 4;
+        public static int elbNoNet = 5;
         public static string XMLprefix = "<!DOCTYPE html><html><head><meta http-equiv=\"Content-type\" content=\"text/html;charset=UTF-8\" /></head><body style=\"width: 800px; auto;\">";
         public static string XMLsuffix = "</body></html>";
         public static string sIsAlbum = "/image/serverpage/image-id";

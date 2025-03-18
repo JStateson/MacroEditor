@@ -1,4 +1,27 @@
 <!-- @IDReset Printer@ TimeStamp=DDDDDDDD_TTTTTT -->
+Watch the reset video or perform the steps. After resetting,
+you generally have 2 hours to complete the setup. Decide if
+you want to connect the printer to the router or to print
+directly to the printer and bypass the router.<br><br>Many
+HP and other OEM printers have problems with the router when
+the router has two bands and <font color="#FF6600">both bands
+have the same name (SSID)</font>.  Log into the modem and
+rename one of the bands. Alternately, contact your ISP and
+have them rename a band.<br><br>Or simply <b>use Wi-Fi direct</b>
+(but read note below about Instant Ink).<br><br><table border="2">
+<tr><td>If English is not your native language or if you wish to
+get additional information not covered below, then use the HP and
+Microsoft support assistants.  The latest HPSA supports 36 languages
+<a href="https://support.hp.com/us-en/help/hp-support-assistant"
+target="_blank"> and can be downloaded here</a>.  Microsoft's AI\
+assistant is in the latest Windows 10 and 11 releases and there
+are <a href="https://www.elevenforum.com/t/enable-or-disable-windows-copilot-in-windows-11.17045/"
+target="_blank">instructions here on how to enable</a> the AI.
+Microsoft's AI assistant (Copilot) has a microphone button and\
+supports natural language processing.</td></tr></table><br>
+Do <b>not call</b> any phone numbers shown in any of the videos or
+revealed by a Bing or Google search.
+
 <b>You may need to reset your printer</b>.  
 <p>Disconnecting the USB cable may still leave the printer
 in the wired or Wi-Fi mode. Connecting an ethernet cable may
@@ -57,6 +80,10 @@ English and other languages. Typically unboxing, clearing
 paper jams, and cartridge problems.  You may also find
 instructional disassembly videos from other users.</p>
 <table border='2'><tr><td>@YouTube@</td></tr></table>
+
+
+<!-- @IDUSByesno@ TimeStamp=DDDDDDDD_TTTTTT -->
+<br><b>This printer is USB only: @USByesno@</b><p>
 
 <!-- @IDReference@ TimeStamp=DDDDDDDD_TTTTTT -->
 <b>Printer Reference</b><p>

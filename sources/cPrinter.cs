@@ -76,6 +76,7 @@ namespace MacroEditor.sources
         List<string> lbTips;
         List<string> lbUrls;
         List<string> lbPhrases;
+        List<string> lbNoNet;
         List<string> lbPrinterLayout;
         List<List<string>> PrinterHttp;
 
@@ -104,6 +105,7 @@ namespace MacroEditor.sources
             lbUrls = fpNew.lbUrls;
             lbPrinterLayout = fpNew.lbPrinterLayout;
             lbPhrases = fpNew.lbPhrases;
+            lbNoNet = fpNew.lbNoNet;
             PrinterHttp = fpNew.PrinterHttp;
             fpNew.ClearHTTP();
             fpNew.ClearPrinterLists();
@@ -240,7 +242,6 @@ namespace MacroEditor.sources
 
             foreach (string s in lbButtons)
             {
-
                 Button btn = new Button();  // this is the main button and is disabled after clicked
                 btn.ForeColor = Color.Red;
                  
@@ -270,15 +271,24 @@ namespace MacroEditor.sources
                 int k = SourceDestination.ExclusionList.IndexOf(s);
                 if (k >= 0)  // these are page and doc and do not have an id
                 {
-                    int l = SourceDestination.ExclusionList[k].LastIndexOf(" ");
-                    Debug.Assert(l >= 0);
-                    tbx.Text = SourceDestination.ExclusionList[k].Substring(l + 1);
-                    tbx.ReadOnly = true;
-                    tbx.BackColor = Color.Khaki;
-
-                    ctbx.Items.Add(SourceDestination.ExclusionList[k].Substring(l + 1));
                     ctbx.Enabled = false;
                     ctbx.BackColor = Color.Khaki;
+                    tbx.ReadOnly = true;
+                    tbx.BackColor = Color.Khaki;
+                    if(n == 16) // USB Only
+                    {
+                        tbx.Text = "No";
+                        ctbx.Items.Add("No");
+                    }
+                    else
+                    {
+                        int l = SourceDestination.ExclusionList[k].LastIndexOf(" ");
+                        Debug.Assert(l >= 0);
+                        tbx.Text = SourceDestination.ExclusionList[k].Substring(l + 1);
+                        ctbx.Items.Add(SourceDestination.ExclusionList[k].Substring(l + 1));
+                    }
+
+
                 }   
                 else
                 {
@@ -394,11 +404,20 @@ namespace MacroEditor.sources
                     if (!success) CurrentClip = "0";
                 }
             }
-
-            fpNew.AddH_list(n,CurrentClip.Replace(Environment.NewLine, "<br>"));
             string ss = GetOperandText(n).Trim();
-            int i = fpNew.AddT_list(n, ss);
+            int i = 0;
+            if (n == 16) // USB Only
+            {    
+                fpNew.Reduce(s, n, "Yes");
+                SetWorkingText(n,"Yes");
+                i = fpNew.AddT_list(n, "Yes");
+                fpNew.AddH_list(n, "Yes");
+                SetLabel(n, i.ToString(), s);
+                return;
+            }
+            i = fpNew.AddT_list(n, ss);
             SetLabel(n, i.ToString(), s);
+            fpNew.AddH_list(n,CurrentClip.Replace(Environment.NewLine, "<br>"));
             fpNew.Reduce(s, iWorkingTab, GetWorkingText(iWorkingTab));
         }
 
@@ -425,10 +444,6 @@ namespace MacroEditor.sources
             if (sender is Button label)
             {
                 int n = (int)label.Tag;
-                PrinterListT[n].Clear();
-                PrinterListH[n].Clear();
-                int i = NToPhrase(n);
-                PrinterHttp[i].Clear();
                 foreach (Control control in gbVid.Controls)
                 {
                     if(control is Button bt)
@@ -489,6 +504,7 @@ namespace MacroEditor.sources
             }
         }
 
+
         private string GetWorkingText(int iWorkingTab)
         {
             foreach (Control control in gbVid.Controls)
@@ -502,6 +518,21 @@ namespace MacroEditor.sources
             return "";
         }
 
+        private void SetWorkingText(int iTab, string s)
+        {
+            foreach (Control control in gbVid.Controls)
+            {
+                if (control is TextBox tb)
+                {
+                    if (iTab == (int)tb.Tag)
+                    {
+                        tb.Text = s;
+                        return;
+                    }
+
+                }
+            }
+        }
 
         //look up the name and return the button
         //sNname must not have space in it
@@ -552,13 +583,20 @@ namespace MacroEditor.sources
                     {
                         if (n == (int)bt.Tag)
                         {
-                            PrinterListH[n].Clear();
-                            PrinterListT[n].Clear();
+
                             bt.ForeColor = Color.Red;
                             bt.Enabled = true;
                             sSrc = SBc(bt.Text);
                             int m = SourceDestination.InxSrcPhrase(sSrc);
-                            PrinterHttp[m].Clear(); ;
+                            PrinterHttp[m].Clear();
+                            PrinterListH[n].Clear();
+                            PrinterListT[n].Clear();
+                            if (n == 16) // this is yes or no type and not an ID and default is no
+                            {
+                                PrinterListH[n].Add("No");
+                                PrinterListT[n].Add("No");
+                                SetWorkingText(n, "No");
+                            }
                         }
                     }
 
@@ -1000,6 +1038,7 @@ namespace MacroEditor.sources
         private string FormPrinterRecord()
         {
             int nTotalTags = CountRecords();
+            int nRemoved = 0;
             int iTag;
             bool b = pDB.CreateRecord(nTotalTags);
             foreach (string s in lbButtons)
@@ -1007,16 +1046,25 @@ namespace MacroEditor.sources
                 string sButtonName = SBs(s);
                 Button bMain = FindMainButton(sButtonName);
                 iTag = (int)bMain.Tag;
-
                 int cH = PrinterListH[iTag].Count;
                 int cT = PrinterListT[iTag].Count;
                 Debug.Assert(cH == cT);
+                if (iTag == 16) // if no or false then do to report
+                {
+                    string t = PrinterListH[iTag][0];
+                    if (t == "No")
+                    {
+                        nRemoved++;
+                        continue;
+                    }
+                }
                 for (int cc = 0; cc < cH; cc++)
                 {
                     pDB.AddNextRecord(iTag, s, PrinterListH[iTag][cc], PrinterListT[iTag][cc]);
                 }
+
             }
-            return pDB.FormRecord();
+            return pDB.FormRecord(nRemoved);
         }
 
         private bool IsValidFileName(string fileName)

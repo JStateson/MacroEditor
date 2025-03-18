@@ -58,9 +58,9 @@
             this.btnCopyNote = new System.Windows.Forms.Button();
             this.tabC = new System.Windows.Forms.TabControl();
             this.tabObjects = new System.Windows.Forms.TabPage();
+            this.tbInfoUrls = new System.Windows.Forms.RichTextBox();
             this.tabVisual = new System.Windows.Forms.TabPage();
             this.label4 = new System.Windows.Forms.Label();
-            this.tbInfoUrls = new System.Windows.Forms.RichTextBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.tabC.SuspendLayout();
@@ -408,6 +408,16 @@
             this.tabObjects.Text = "Add Objects";
             this.tabObjects.UseVisualStyleBackColor = true;
             // 
+            // tbInfoUrls
+            // 
+            this.tbInfoUrls.Location = new System.Drawing.Point(13, 573);
+            this.tbInfoUrls.Name = "tbInfoUrls";
+            this.tbInfoUrls.ReadOnly = true;
+            this.tbInfoUrls.Size = new System.Drawing.Size(1084, 87);
+            this.tbInfoUrls.TabIndex = 3;
+            this.tbInfoUrls.Text = "";
+            this.tbInfoUrls.LinkClicked += new System.Windows.Forms.LinkClickedEventHandler(this.tbInfoUrls_LinkClicked);
+            // 
             // tabVisual
             // 
             this.tabVisual.Controls.Add(this.btnApplyExit);
@@ -422,7 +432,7 @@
             this.tabVisual.Location = new System.Drawing.Point(4, 25);
             this.tabVisual.Name = "tabVisual";
             this.tabVisual.Padding = new System.Windows.Forms.Padding(3);
-            this.tabVisual.Size = new System.Drawing.Size(1127, 576);
+            this.tabVisual.Size = new System.Drawing.Size(1127, 666);
             this.tabVisual.TabIndex = 1;
             this.tabVisual.Text = "Results";
             this.tabVisual.UseVisualStyleBackColor = true;
@@ -437,16 +447,6 @@
             this.label4.Size = new System.Drawing.Size(183, 48);
             this.label4.TabIndex = 16;
             this.label4.Text = "A model must be entered.\r\nClick UPDATE after you \r\nenter  name and product.";
-            // 
-            // tbInfoUrls
-            // 
-            this.tbInfoUrls.Location = new System.Drawing.Point(13, 573);
-            this.tbInfoUrls.Name = "tbInfoUrls";
-            this.tbInfoUrls.ReadOnly = true;
-            this.tbInfoUrls.Size = new System.Drawing.Size(1084, 87);
-            this.tbInfoUrls.TabIndex = 3;
-            this.tbInfoUrls.Text = "";
-            this.tbInfoUrls.LinkClicked += new System.Windows.Forms.LinkClickedEventHandler(this.tbInfoUrls_LinkClicked);
             // 
             // cPrinter
             // 

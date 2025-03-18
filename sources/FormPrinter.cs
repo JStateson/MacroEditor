@@ -10,6 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 using System.Windows.Forms;
+using System.Windows.Navigation;
 using static System.Net.Mime.MediaTypeNames;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
@@ -174,6 +175,7 @@ namespace MacroEditor.sources
         public List<string> lbButtons;
         public List<string> lbTips;
         public List<string> lbPhrases;
+        public List<string> lbNoNet;
         public List<List<string>> PrinterHttp = new List<List<string>>();
         public List<List<string>> PrinterListH = new List<List<string>>(); // the clip which is HTML or a bunch of steps or a page number
         public List<List<string>> PrinterListT = new List<List<string>>(); // the text to be clicked or the word Page or Document
@@ -197,12 +199,13 @@ namespace MacroEditor.sources
                 PrinterHttp[i].Clear();
         }
 
+        private int NumInTemplett = 6;
         public void MakeLBlists(string prPrinterList)
         {
             string input = prPrinterList;
 
             int j;
-            for (j = 0; j < 5; j++)
+            for (j = 0; j < NumInTemplett; j++)
             {
                 List<string> more = new List<string>();
                 ResList.Add(more);
@@ -212,7 +215,7 @@ namespace MacroEditor.sources
             lbButtons = ResList[Utils.elbButtons];
             lbTips = ResList[Utils.elbTips];
             lbPhrases = ResList[Utils.elbPhrases];
-
+            lbNoNet = ResList[Utils.elbNoNet];
 
             j = 0;
             int i = input.IndexOf("{");
@@ -226,7 +229,7 @@ namespace MacroEditor.sources
                     ResList[j].Add(s);
                 }
                 j++;
-                if (j == 5) break;
+                if (j == NumInTemplett) break;
                 i = k + 1;
                 i = input.IndexOf("{", i);
             }
@@ -270,6 +273,9 @@ namespace MacroEditor.sources
             string s = GetPhrase(u);
             switch (u)
             {
+                case "USB Only":
+                    SetTrueFalse(s, iW, sT=="Yes");
+                    break;
                 case "Reset Video":
                     ResetVideo(s, iW, sT);
                     break;
@@ -477,6 +483,20 @@ namespace MacroEditor.sources
                 PrinterHttp[i][0] = PrinterHttp[i][0].Replace("@WPS Doc@", sU);
             }
         }
+
+        private void SetTrueFalse(string s, int iworkingTab, bool b)
+        {
+            int i = TagToPhrase(iworkingTab);
+            PrinterHttp[i].Clear();
+            if (b)
+            {
+                PrinterHttp[i].Add(s.Replace("@arg@", "True"));
+            }
+            else
+            {
+                PrinterHttp[i].Add(s.Replace("@arg@", "False"));
+            }
+        }
         private void Driver(string s, int iWorkingTab, string sT)
         {
             int i = TagToPhrase(iWorkingTab);
@@ -566,13 +586,30 @@ namespace MacroEditor.sources
             return t;
         }
 
-
+        private bool IsUsbOnly(int i)
+        {
+            if(PrinterHttp[i].Count > 0)
+            {
+                return PrinterHttp[i][0].Contains("True");
+            }
+            return false;
+        }
         public bool ApplyFormat(ref string FmtOut, ref string sModels)
         {
+            string[] NoNetwork = {"" };
             List<int> DataLoc = new List<int>();
             ClearPrinterPhrases();
+            DataLoc = SourceDestination.PullFromSrc("@USByesno@");
+            bool IgnoreNet = IsUsbOnly(DataLoc[0]);
             foreach (string s in lbPrinterLayout)
             {
+                if(IgnoreNet)
+                {
+                    if(lbNoNet.Contains(s))
+                    {
+                        continue;
+                    }   
+                }
                 DataLoc = SourceDestination.PullFromSrc(s);
                 foreach (int i in DataLoc)
                 {

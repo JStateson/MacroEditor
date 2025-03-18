@@ -56,7 +56,7 @@ namespace MacroEditor.sources
 
         public string[] sTemplettID =
         {
-            "@IDReset Printer@","@IDNetwork Connect@","@IDSoftware@","@IDDocuments@","@IDYouTube@",
+            "@IDPrinterHeader@" ,"@IDReset Printer@","@IDNetwork Connect@","@IDSoftware@","@IDDocuments@","@IDYouTube@",
             "@IDReference@","@IDParts@" ,"@IDAssemblyPC@","@IDAssemblyPR@","@IDWiFi Connect@"
         };
 

@@ -377,6 +377,11 @@ namespace MacroEditor.sources
                 string sTagName = tbTagName.Text;
                 switch (sTagName)
                 {
+                    case "USB Answer":
+                        cu.sProposedH = "";
+                        cu.sProposedT = "No";
+                        tbResult.Text = "No";
+                        break;
                     case "Direct Doc":
                     case "WPS Doc":
                     //case "Direct Page": // 2/8/2025
@@ -521,7 +526,7 @@ namespace MacroEditor.sources
                     pDB.AddNextRecord(iTag, et.TagName, et.SourceHREF[i], et.SourceTEXT[i]);
                 }
             }
-            return pDB.FormRecord();
+            return pDB.FormRecord(0);
         }
 
         private void ApplyExit()
