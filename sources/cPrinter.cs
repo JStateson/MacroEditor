@@ -1051,6 +1051,12 @@ namespace MacroEditor.sources
                 Debug.Assert(cH == cT);
                 if (iTag == 16) // if no or false then do to report
                 {
+                    int iCnt = PrinterListH[iTag].Count;
+                    if (iCnt == 0)
+                    {
+                        nRemoved++;
+                        continue;
+                    }
                     string t = PrinterListH[iTag][0];
                     if (t == "No")
                     {
