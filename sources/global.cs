@@ -1086,8 +1086,12 @@ namespace MacroEditor
         }
         public static string ShowRawBrowser(string s, string strType)
         {
-            //string s = JustSpan(t);
             if (s == "") return "";
+            if(strType == "TR")
+            {
+                ShellHTML(s, false);
+                return s.Trim();
+            }
             string sOut = s;
             string sPP = Properties.Settings.Default.sPPrefix.Replace(Environment.NewLine, " ");
             string sPS = Properties.Settings.Default.NotPrnSuffix.Replace(Environment.NewLine, " ");
@@ -1116,7 +1120,7 @@ namespace MacroEditor
                 else sOut = s;
             }
             ShellHTML(sOut, false);
-            return sOut;
+            return sOut.Trim();
         }
 
         public static int SyntaxTest(string s)

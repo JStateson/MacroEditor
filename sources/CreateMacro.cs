@@ -348,6 +348,7 @@ namespace MacroEditor
         {
             double x = minPix * (v - minPix) / ((maxPix / wImageAspect) - minPix);
             if (x < 0) x = minPix;// Oct 22, 2024
+            if (x > 100) x = 100;
             trackBar1.Value = Convert.ToInt32(x);
         }
 

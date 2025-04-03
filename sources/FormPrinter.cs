@@ -541,13 +541,21 @@ namespace MacroEditor.sources
             return !string.IsNullOrEmpty(input) && input.All(char.IsLetter);
         }
 
+        private string RemoveE(string input)
+        {
+            if (input.EndsWith("e"))
+            {
+                input = input.Substring(0, input.Length - 1);
+            }
+            return input;
+        }
         private void TryAdd(string sLine)
         {
-            if (DeviceCollection.Contains(sLine)) return;
-            //DeviceCollection.Add(sLine);
+            //if (DeviceCollection.Contains(sLine)) return;
             string[] sS = sLine.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
-            foreach(string s in sS)
+            foreach(string t in sS)
             {
+                string s = RemoveE(t);
                 if (IsAlphabetic(s)) continue;
                 if(DeviceCollection.Contains(s)) continue; 
                 if(s.Any(char.IsPunctuation))
@@ -555,6 +563,7 @@ namespace MacroEditor.sources
                     if (!(s.Contains("-") || s.Contains("+")))
                         continue;
                 }
+                
                 DeviceCollection.Add(s);
             }
         }
@@ -623,6 +632,7 @@ namespace MacroEditor.sources
                     }
                 }
             }
+
             FmtOut = GetMacro();
             sModels = FormCollection();
             string m = AnyMissing(FmtOut);
