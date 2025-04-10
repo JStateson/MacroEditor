@@ -409,6 +409,7 @@
             this.rbEPhrase.TabIndex = 10;
             this.rbEPhrase.Text = "Exact Phrase (or use quotes)";
             this.rbEPhrase.UseVisualStyleBackColor = true;
+            this.rbEPhrase.CheckedChanged += new System.EventHandler(this.ChangeSearch);
             // 
             // rbAnyMatch
             // 
@@ -420,6 +421,7 @@
             this.rbAnyMatch.TabIndex = 1;
             this.rbAnyMatch.Text = "Any partial match";
             this.rbAnyMatch.UseVisualStyleBackColor = true;
+            this.rbAnyMatch.CheckedChanged += new System.EventHandler(this.ChangeSearch);
             // 
             // rbExactMatch
             // 
@@ -433,6 +435,7 @@
             this.rbExactMatch.TabStop = true;
             this.rbExactMatch.Text = "Any exact word";
             this.rbExactMatch.UseVisualStyleBackColor = true;
+            this.rbExactMatch.CheckedChanged += new System.EventHandler(this.ChangeSearch);
             // 
             // btnExitToMac
             // 

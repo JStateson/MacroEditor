@@ -1352,5 +1352,15 @@ namespace MacroEditor
                 lbTitleSearch.Items.Add(cTI.GetName(i));
             }
         }
+
+        private void ChangeSearch(object sender, EventArgs e)
+        {
+            RadioButton rb = sender as RadioButton;
+            if (rb != null && rb.Checked)
+            {
+                //string name = rb.Name;
+                RunSearch();
+            }
+        }
     }
 }

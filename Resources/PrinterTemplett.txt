@@ -13,13 +13,13 @@ have them rename a band.<br><br>Or simply <b>use Wi-Fi direct</b>
 get additional information not covered below, then use the HP and
 Microsoft support assistants.  The latest HPSA supports 36 languages
 <a href="https://support.hp.com/us-en/help/hp-support-assistant"
-target="_blank"> and can be downloaded here</a>.  Microsoft's AI\
+target="_blank"> and can be downloaded here</a>.  Microsoft's AI
 assistant is in the latest Windows 10 and 11 releases and there
 are <a href="https://www.elevenforum.com/t/enable-or-disable-windows-copilot-in-windows-11.17045/"
 target="_blank">instructions here on how to enable</a> the AI.
-Microsoft's AI assistant (Copilot) has a microphone button and\
+Microsoft's AI assistant <b>(Copilot) has a microphone button</b> and
 supports natural language processing.</td></tr></table><br>
-Do <b>not call</b> any phone numbers shown in any of the videos or
+Do <b>not call any phone numbers</b> shown in any of the videos or
 revealed by a Bing or Google search.
 
 <b>You may need to reset your printer</b>.  
