@@ -3051,6 +3051,7 @@ namespace MacroEditor
         private void btnNoMarks_Click(object sender, EventArgs e)
         {
             string s, sDirty = Utils.ClipboardGetText();
+            if(sDirty == null) return;
             s = Utils.RemoveHTML(sDirty);
             tbCleanedURL.Text = s;
             Clipboard.SetText(s);
