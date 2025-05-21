@@ -1903,6 +1903,12 @@ namespace MacroEditor
                         }
                     }
                 }
+                else
+                {
+                    //https://www.ebay.com/itm/387598692492?_skw=ProDesk+40
+                    i = sUrl.IndexOf("?");
+                    if(i>0)return sUrl.Substring(0, i);
+                }
 
             }
 
@@ -2341,3 +2347,69 @@ namespace MacroEditor
         public bool bIsValid;
     }
 }
+/*
+ * Here’s a simple example of a URL scraper in C# using HttpClient and HtmlAgilityPack. This code extracts all the URLs from a given webpage:
+
+using System;
+using System.Collections.Generic;
+using System.Net.Http;
+using System.Threading.Tasks;
+using HtmlAgilityPack;
+
+class Program
+{
+    static async Task Main(string[] args)
+    {
+        string url = "https://example.com"; // Replace with the target URL
+        List<string> urls = await ScrapeUrlsAsync(url);
+
+        foreach (var link in urls)
+        {
+            Console.WriteLine(link);
+        }
+    }
+
+    static async Task<List<string>> ScrapeUrlsAsync(string url)
+    {
+        var urls = new List<string>();
+        try
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                string html = await client.GetStringAsync(url);
+
+                HtmlDocument document = new HtmlDocument();
+                document.LoadHtml(html);
+
+                var links = document.DocumentNode.SelectNodes("//a[@href]");
+                if (links != null)
+                {
+                    foreach (var link in links)
+                    {
+                        string href = link.GetAttributeValue("href", string.Empty);
+                        if (!string.IsNullOrEmpty(href))
+                        {
+                            urls.Add(href);
+                        }
+                    }
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error: {ex.Message}");
+        }
+
+        return urls;
+    }
+}
+
+Key Points:
+Dependencies: Install the HtmlAgilityPack NuGet package:
+dotnet add package HtmlAgilityPack
+
+Error Handling: The code includes basic error handling to manage exceptions like network issues.
+Relative URLs: If the scraped URLs are relative, you may need to convert them to absolute URLs using Uri class.
+
+This is a basic implementation. For more advanced use cases, you might want to handle JavaScript-rendered content using tools like Selenium.
+*/

@@ -3073,7 +3073,7 @@ namespace MacroEditor
             Utils.ReplaceUrls(ref s, false);
             sCleanedClip = s;
             Clipboard.SetText(s);
-            j = sDirty.Length;
+            j = s.Length;
             sOut += AppendDash(Environment.NewLine + "After cleaning", 40) + Environment.NewLine + s + Environment.NewLine;
             sOut += (i == j) ? "No difference" : "\r\nShortened " + (i - j).ToString() + " characters";
             tbCleanedURL.Text = s;
