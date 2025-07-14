@@ -12,7 +12,7 @@ namespace MacroEditor.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "17.12.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "17.14.0.0")]
     internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
@@ -429,6 +429,31 @@ namespace MacroEditor.Properties {
             }
             set {
                 this["SpellOnBoot"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool UseHline {
+            get {
+                return ((bool)(this["UseHline"]));
+            }
+            set {
+                this["UseHline"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("<hr><p><strong><font color=\"#FF6600\">The below is all know about your @clipboard@" +
+            ".  Hope I am not oversharing!</font></strong></p><hr>")]
+        public string Hline {
+            get {
+                return ((string)(this["Hline"]));
+            }
+            set {
+                this["Hline"] = value;
             }
         }
     }

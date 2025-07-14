@@ -83,6 +83,7 @@ namespace MacroEditor
             cbRetMac.Checked = Properties.Settings.Default.bStartupReturn;
             cbUsePrefix.Checked = Properties.Settings.Default.bUsePrefix;
             cbUseSuffix.Checked = Properties.Settings.Default.bUseSuffix;
+            cbHlineWiz.Checked = Properties.Settings.Default.UseHline;
 
             lbSaveLoc.Text = Utils.WhereExe + "\\UrlDebug.txt";
             CountUnkUrls();
@@ -361,6 +362,7 @@ namespace MacroEditor
                 Properties.Settings.Default.sPPrefix = tbPP.Text;
             else
                 Properties.Settings.Default.NotPrnPrefix = tbPP.Text;
+            Properties.Settings.Default.UseHline = cbHlineWiz.Checked;
             Properties.Settings.Default.Save();
         }
         private void btnSavMS_Click(object sender, EventArgs e)

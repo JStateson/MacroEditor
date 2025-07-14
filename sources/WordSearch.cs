@@ -83,6 +83,8 @@ namespace MacroEditor
         private cCheckSpell SpellCheck;
         private PrinterDB printerDB;
         private string DataFileRecord;
+        private bool bAddHline = false;
+        private string sDefaultHline = "";
 
         public void EditHelp(string s)
         {
@@ -229,6 +231,8 @@ namespace MacroEditor
             MViews = rMViews;
             cTI = new cTitleInfo();
             CountryCodes = Properties.Resources.Sorted_Raw_List.Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.RemoveEmptyEntries);
+            bAddHline = Properties.Settings.Default.UseHline;
+            sDefaultHline = Properties.Settings.Default.Hline;
             InRepeatMode();
         }
 
@@ -479,6 +483,19 @@ namespace MacroEditor
             {
                 bRet = printerDB.FormatRecord(sRec.Replace("<nl>",Environment.NewLine), ref sOut, ref sModels);
                 if (!bRet) return;
+                if(bAddHline)
+                {
+                    string strSphrase = "";
+                    if (rbExactMatch.Checked && keywords.Count == 1)
+                        strSphrase = keywords[0];
+                    else
+                    {
+                        int n = sModels.IndexOf(" ");
+                        if (n != -1)
+                            strSphrase = sModels;
+                    }
+                    sOut = Utils.AddHline(sDefaultHline, strType, strSphrase) + sOut;
+                }
             }
             sOut += strTemp;
             Utils.CopyHTML(Utils.ShowRawBrowser(sOut, strType));

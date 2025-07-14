@@ -547,7 +547,9 @@ namespace MacroEditor
         }
         // do not change the order of below items and HP must be last!
         public static string sPrinterTypes = " LJ DJ OJ IN ";    // must have a space and match below
-        public static string[] LocalMacroPrefix = new string[iNMacros]  { "PC", "AIO", "LJ", "DJ", "OJ", "IN", "OS", "NET", "HW", "RF", "NO", "TR", "HP" };
+        public static string[] LocalMacroPrefix   = new string[iNMacros]  { "PC", "AIO", "LJ", "DJ", "OJ", "IN", "OS", "NET", "HW", "RF", "NO", "TR", "HP" };
+        public static string[] LocalMacroFullName = new string[iNMacros] {"Desktop", "Laptop", "LaserJet", "Deskjet", "OfficeJet", "InkJet",
+            "Operating System", "Network", "Hardware", "Reference", "Notes", "Transfer", "Original Macros" };
         public static string[] LocalMacroFullname = new string[iNMacros] { "Desktop(PC)", "AIO or Laptop", "LaserJet(LJ)",
                 "DeskJet(DJ)", "OfficeJet(OJ)", "Tank-Inkjet(IN)", "OS related", "Network related", "Hardware", "Reference", "Notes", "Transfer", "HP from HTML" };
         public static string[] LocalMacroRefs = new string[iNMacros] {"PC Reference","PC Reference","LaserJet Reference",
@@ -556,6 +558,18 @@ namespace MacroEditor
         {
             return Array.IndexOf(LocalMacroPrefix, s);
         }
+
+        public static string AddHline(string sHline, string sType, string sModel)
+        {
+            int inx = IndexMacName(sType);
+            string sNew = Utils.LocalMacroFullName[inx];
+            if (sModel != "")
+                sNew += ": " + sModel;
+            return sHline.Replace("@clipboard@", sNew);
+        }
+
+
+
         // there is an "SI" type which is used for SIgnature images and an Al for AllowedSpelling
         public static List<string>ListAllTxt = new List<string>();
         public static void FormAllTxt()

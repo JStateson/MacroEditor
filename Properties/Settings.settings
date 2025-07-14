@@ -104,5 +104,11 @@
     <Setting Name="SpellOnBoot" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
+    <Setting Name="UseHline" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="Hline" Type="System.String" Scope="User">
+      <Value Profile="(Default)">&lt;hr&gt;&lt;p&gt;&lt;strong&gt;&lt;font color="#FF6600"&gt;The below is all know about your @clipboard@.  Hope I am not oversharing!&lt;/font&gt;&lt;/strong&gt;&lt;/p&gt;&lt;hr&gt;</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

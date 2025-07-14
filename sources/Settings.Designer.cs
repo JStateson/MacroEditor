@@ -112,6 +112,7 @@
             this.label3 = new System.Windows.Forms.Label();
             this.tbPathBU = new System.Windows.Forms.TextBox();
             this.btnSetBUpath = new System.Windows.Forms.Button();
+            this.cbHlineWiz = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox4.SuspendLayout();
@@ -375,6 +376,7 @@
             // 
             // groupBox4
             // 
+            this.groupBox4.Controls.Add(this.cbHlineWiz);
             this.groupBox4.Controls.Add(this.btnSaveMP);
             this.groupBox4.Controls.Add(this.cbMPisPrinter);
             this.groupBox4.Controls.Add(this.cbUsePrefix);
@@ -382,7 +384,7 @@
             this.groupBox4.Controls.Add(this.tbPP);
             this.groupBox4.Location = new System.Drawing.Point(715, 203);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(420, 129);
+            this.groupBox4.Size = new System.Drawing.Size(420, 147);
             this.groupBox4.TabIndex = 9;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Macro Prefix";
@@ -478,7 +480,7 @@
             this.groupBox3.Controls.Add(this.cbisPrinter);
             this.groupBox3.Controls.Add(this.blnTestS);
             this.groupBox3.Controls.Add(this.tbMSuffix);
-            this.groupBox3.Location = new System.Drawing.Point(715, 346);
+            this.groupBox3.Location = new System.Drawing.Point(715, 356);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(420, 146);
             this.groupBox3.TabIndex = 10;
@@ -1093,6 +1095,17 @@
             this.btnSetBUpath.UseVisualStyleBackColor = true;
             this.btnSetBUpath.Click += new System.EventHandler(this.btnSetBUpath_Click);
             // 
+            // cbHlineWiz
+            // 
+            this.cbHlineWiz.AutoSize = true;
+            this.cbHlineWiz.Location = new System.Drawing.Point(18, 116);
+            this.cbHlineWiz.Name = "cbHlineWiz";
+            this.cbHlineWiz.Size = new System.Drawing.Size(143, 17);
+            this.cbHlineWiz.TabIndex = 9;
+            this.cbHlineWiz.Text = "Horizontal line on Wizard";
+            this.toolTip1.SetToolTip(this.cbHlineWiz, "Insert the horizantal working line when\r\nthe printer wizard response is used.");
+            this.cbHlineWiz.UseVisualStyleBackColor = true;
+            // 
             // Settings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1230,5 +1243,6 @@
         private System.Windows.Forms.Button btnSaveMP;
         private System.Windows.Forms.CheckBox cbMPisPrinter;
         private System.Windows.Forms.Button btnSpellAll;
+        private System.Windows.Forms.CheckBox cbHlineWiz;
     }
 }

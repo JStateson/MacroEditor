@@ -145,6 +145,8 @@ namespace MacroEditor
         private string sMetaData = "";
         private List<List<bool>> SpellErrors = new List<List<bool>>();
         private bool bSpellAll = false;
+        private bool bAddHline = false;
+        private string sDefaultHline = "";
         public main()
         {
             InitializeComponent();
@@ -237,8 +239,10 @@ namespace MacroEditor
             BiosEmuSim bes = new BiosEmuSim(true);
             BSFlocal = bes.BSFsources;
             bes.Dispose();
-            string i = Properties.Settings.Default.cSplash;
-            string j = Properties.Settings.Default.sSplash;
+            //string i = Properties.Settings.Default.cSplash;  // for debugging 
+            //string j = Properties.Settings.Default.sSplash;
+            bAddHline = Properties.Settings.Default.UseHline;
+            sDefaultHline = Properties.Settings.Default.Hline;
             if (Properties.Settings.Default.cSplash == Properties.Settings.Default.sSplash) return;
             splash MySplash = new splash();
             MySplash.Show();
@@ -608,6 +612,7 @@ namespace MacroEditor
         private void RunBrowser(bool bMustFetch)
         {
             string strTemp = tbBody.Text.Trim();
+            string sNewPrefix = "";
             if (strTemp == "" || !tbBody.Enabled) return;
             strTemp = strTemp.Replace(Environment.NewLine, "<br>");
             string sMacroName = tbMacName.Text;
@@ -624,9 +629,13 @@ namespace MacroEditor
             else
             {
                 if (HasNewDataRecord != "")
-                    Utils.CopyHTML(Utils.ShowRawBrowser(HasNewFormattedData + strTemp, strType));
+                    sNewPrefix = HasNewFormattedData;
                 else
-                    Utils.CopyHTML(Utils.ShowRawBrowser(DataFileFormatted + strTemp, strType));
+                    sNewPrefix = DataFileFormatted;
+                if(bAddHline)
+                    sNewPrefix = Utils.AddHline(sDefaultHline,strType, "") + sNewPrefix;                
+                Utils.CopyHTML(Utils.ShowRawBrowser(sNewPrefix + strTemp, strType));
+
             }
         }
 
@@ -1621,7 +1630,7 @@ namespace MacroEditor
         private int SaveCurrentMacros(bool UpdateSelected)
         {
             bool bChanged = false;
-            string strName = tbMacName.Text;
+            string strName = tbMacName.Text.Trim();
             string strOld = "";
             string sCleanBody = "";
 
@@ -1753,7 +1762,8 @@ namespace MacroEditor
         }
 
         private void btnSaveM_Click(object sender, EventArgs e)
-        {            
+        {
+
             if (RefsOnly())
             {
                 MessageBox.Show("Macros must contain URLs only, no text");
@@ -3861,6 +3871,7 @@ namespace MacroEditor
             Utils.VolunteerUserID = MySettings.userid;
             bMustExit = MySettings.bWantsExit;
             MySettings.Dispose();
+            bAddHline = Properties.Settings.Default.UseHline;
             if (bMustExit) this.Close();
             CheckPWE();
             if (xMacroChanges.sGoTo != "")
