@@ -708,14 +708,14 @@
             this.toolStripMenuItem1,
             this.toolStripMenuItem2});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(167, 202);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(181, 224);
             this.contextMenuStrip1.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStrip1_Opening);
             this.contextMenuStrip1.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.contextMenuStrip1_ItemClicked);
             // 
             // tsmCUT
             // 
             this.tsmCUT.Name = "tsmCUT";
-            this.tsmCUT.Size = new System.Drawing.Size(166, 22);
+            this.tsmCUT.Size = new System.Drawing.Size(180, 22);
             this.tsmCUT.Text = "Cut";
             // 
             // tsmCOPY

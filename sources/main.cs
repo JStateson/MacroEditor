@@ -1,7 +1,4 @@
 ﻿//#define SPECIAL2
-//#define SPECIAL2
-//#define SPECIAL2
-//#define SPECIAL2
 //#define SPECIAL3
 //#define SPECIAL4
 /*
