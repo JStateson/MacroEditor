@@ -25,6 +25,17 @@ namespace MacroEditor.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public string[] MyStringArray {
+            get {
+                return ((string[])(this["MyStringArray"]));
+            }
+            set {
+                this["MyStringArray"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
         public string LastFolder {
             get {
@@ -454,6 +465,28 @@ namespace MacroEditor.Properties {
             }
             set {
                 this["Hline"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public string[] FromPhrase {
+            get {
+                return ((string[])(this["FromPhrase"]));
+            }
+            set {
+                this["FromPhrase"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public string[] ToPhrase {
+            get {
+                return ((string[])(this["ToPhrase"]));
+            }
+            set {
+                this["ToPhrase"] = value;
             }
         }
     }

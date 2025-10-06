@@ -143,6 +143,12 @@ are used by Chrome, Edge, or Firefox only.</value>
   <metadata name="fontDialog.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>235, 5</value>
   </metadata>
+  <data name="label17.Text" xml:space="preserve">
+    <value>When formatting the macro for output to a page, replace
+any occurance of a word or phrase with the new one.
+Change are done sequentially ordered from top to bottom
+so changing the order can affect the results.</value>
+  </data>
   <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>25</value>
   </metadata>

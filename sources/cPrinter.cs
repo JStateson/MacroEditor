@@ -806,13 +806,7 @@ namespace MacroEditor.sources
 
         private void btnApply_Click(object sender, EventArgs e)
         {
-            string FmtOut = "";
-            string sIgnore = "";
-            if (fpNew.ApplyFormat(ref FmtOut, ref sIgnore))
-            {
-                tbEdit.Text = FmtOut;
-            }
-            else tbEdit.Text = "";
+
         }
 
         private void btnCopyNote_Click(object sender, EventArgs e)

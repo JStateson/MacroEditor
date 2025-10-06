@@ -27,6 +27,8 @@ using System.Windows.Media.Animation;
 using System.Runtime.Remoting.Lifetime;
 using System.Windows.Documents;
 using System.Windows.Input;
+using System.Windows.Data;
+using System.ComponentModel;
 
 namespace MacroEditor
 {
@@ -397,8 +399,99 @@ namespace MacroEditor
         }
     }
 
+    public class cFromToPhrases
+    {
+        public string FromWord { get; set; }
+        public string ToWord { get; set; }
+        public string WhereReplaced { get; set; } = "";
+    }
 
 
+    public class ReplaceOutputWords
+    {
+        public List<cFromToPhrases> ListPhrases = new List<cFromToPhrases>();
+        public bool bGivenWarning = true;
+
+        public List<cFromToPhrases> LoadPhrases()
+        {
+            return ListPhrases;
+        }   
+        public List<cFromToPhrases> Init()
+        {
+            ListPhrases.Clear();
+            string[] srcWord = Properties.Settings.Default.FromPhrase;
+            string[] dstWord = Properties.Settings.Default.ToPhrase;
+            if(srcWord == null || srcWord.All(string.IsNullOrEmpty))
+            {
+                cFromToPhrases cFTP = new cFromToPhrases();
+                cFTP.FromWord = "HP Smart App";
+                cFTP.ToWord = "HP App";
+                ListPhrases.Add(cFTP);
+                cFTP = new cFromToPhrases();
+                cFTP.FromWord = "HP Smart";
+                cFTP.ToWord = "HP App";
+                cFTP.WhereReplaced = "";
+                ListPhrases.Add(cFTP);
+                return ListPhrases;
+            }
+            int n = srcWord.Length;
+            for(int i = 0; i < n; i++)
+            {
+                cFromToPhrases cFTP = new cFromToPhrases();
+                cFTP.FromWord = srcWord[i];
+                cFTP.ToWord = dstWord[i];
+                cFTP.WhereReplaced = "";
+                ListPhrases.Add(cFTP);
+            }
+            return ListPhrases;
+        }
+        public void SaveSettings()
+        {
+            int n = ListPhrases.Count;
+            string[] srcWord = new string[n];
+            string[] dstWord = new string[n];
+            int i = 0;
+            foreach(cFromToPhrases cFTP in ListPhrases)
+            {
+                srcWord[i] = cFTP.FromWord;
+                dstWord[i] = cFTP.ToWord;
+                i++;
+            }
+            Properties.Settings.Default.FromPhrase = srcWord;
+            Properties.Settings.Default.ToPhrase = dstWord;
+            Properties.Settings.Default.Save();
+        }
+        /*
+        public void Clear()
+        {
+            ListPhrases.Clear();
+        }
+        public void AddPhrase(string sFrom, string sTo)
+        {
+            cFromToPhrases cFTP = new cFromToPhrases();
+            cFTP.FromWord = sFrom;
+            cFTP.ToWord = sTo;
+            ListPhrases.Add(cFTP);
+        }
+        */
+        public int ReplacePhrase(ref string s, string MacroName)
+        {
+
+            int n = 0;
+            if (MacroName == "") return 0;
+            foreach(cFromToPhrases cFTP in ListPhrases)
+            {
+                int c = Regex.Matches(s, Regex.Escape(cFTP.FromWord)).Count;
+                if(c > 0)
+                {
+                    cFTP.WhereReplaced += MacroName + ":" + cFTP.FromWord + ":" + c.ToString() + Environment.NewLine;
+                }
+                n += c;
+                s = s.Replace(cFTP.FromWord, cFTP.ToWord);
+            }
+            return n;
+        }
+    }
         // to add additional macro pages you need to mod the above cms to add an neXX and the below
         // and add a specific file opening if desired to have it in the menu dropdown
     public static class Utils
@@ -414,6 +507,9 @@ namespace MacroEditor
             //"PC","Printer","Drivers","EBay","Google","Manuals","YouTube","HP KB"
               "PC","PRN",    "DRV",    "EBA", "GOO",   "MAN",    "HPYT",   "HPKB"
         };
+
+        public static ReplaceOutputWords PhraseReplacer = new ReplaceOutputWords();
+
         public static bool bSpellingEnabled = false;
         public static string[] sDefaultINK = new string[7] {
                     "You may need to reset the printer: video here",
@@ -915,17 +1011,21 @@ namespace MacroEditor
             k = 0;
             return "";
         }
-        public static void ShellHTML(string s, bool IsFilename)
+
+
+        public static int ShellHTML(string s, bool IsFilename, string MacName = "")
         {
             string sTemp = WhereExe + "\\";
+            int n = 0;
             if(IsFilename)
             {
                 sTemp += s;
-                if (!File.Exists(sTemp)) return;
+                if (!File.Exists(sTemp)) return 0;
             }
             else
             {
                 sTemp += "MyHtml.html";
+                PhraseReplacer.ReplacePhrase(ref s, MacName);
                 File.WriteAllText(sTemp, s);
             }
             try
@@ -946,6 +1046,7 @@ namespace MacroEditor
             {
                 MessageBox.Show($"An error occurred: {ex.Message}");
             }
+            return n;
         }
 
         public class cIDhttp
@@ -1098,9 +1199,10 @@ namespace MacroEditor
             sOut += s.Replace(Environment.NewLine, "<br>");
             return sOut;
         }
-        public static string ShowRawBrowser(string s, string strType)
+        public static string ShowRawBrowser(string s, string strType, string MacroName = "")
         {
             if (s == "") return "";
+            
             if(strType == "TR")
             {
                 ShellHTML(s, false);
@@ -1133,7 +1235,7 @@ namespace MacroEditor
                     sOut = sMP + s + "<br><br>" + sPS;
                 else sOut = s;
             }
-            ShellHTML(sOut, false);
+            ShellHTML(sOut, false, MacroName);
             return sOut.Trim();
         }
 

@@ -240,6 +240,7 @@ namespace MacroEditor
             //string j = Properties.Settings.Default.sSplash;
             bAddHline = Properties.Settings.Default.UseHline;
             sDefaultHline = Properties.Settings.Default.Hline;
+            Utils.PhraseReplacer.Init();
             if (Properties.Settings.Default.cSplash == Properties.Settings.Default.sSplash) return;
             splash MySplash = new splash();
             MySplash.Show();
@@ -613,6 +614,7 @@ namespace MacroEditor
             if (strTemp == "" || !tbBody.Enabled) return;
             strTemp = strTemp.Replace(Environment.NewLine, "<br>");
             string sMacroName = tbMacName.Text;
+            string sMacroID = "(" + strType + "#" + CurrentRowSelected.ToString() + ")";
             xMacroViews.AddView(strType, sMacroName);
 
             if (DataTable[CurrentRowSelected].rBody.Length <= 4)
@@ -621,7 +623,7 @@ namespace MacroEditor
                 {
                     strTemp = Utils.AddLanguageOption(strTemp);
                 }
-                Utils.CopyHTML(Utils.ShowRawBrowser(strTemp, strType));
+                Utils.CopyHTML(Utils.ShowRawBrowser(strTemp, strType, sMacroName + sMacroID));
             }
             else
             {
@@ -631,7 +633,7 @@ namespace MacroEditor
                     sNewPrefix = DataFileFormatted;
                 if(bAddHline)
                     sNewPrefix = Utils.AddHline(sDefaultHline,strType, "") + sNewPrefix;                
-                Utils.CopyHTML(Utils.ShowRawBrowser(sNewPrefix + strTemp, strType));
+                Utils.CopyHTML(Utils.ShowRawBrowser(sNewPrefix + strTemp, strType, sMacroName + sMacroID));
 
             }
         }

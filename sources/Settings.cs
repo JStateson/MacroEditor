@@ -38,6 +38,8 @@ namespace MacroEditor
         private DateTime ThisDT;
         private List<int> SrtInx;
         private List<TabPage> disabledTabs = new List<TabPage>();
+        private BindingSource bs = new BindingSource();
+
 
         public Settings(eBrowserType reBrowser, string ruserid, int NumAttached, ref cMacroChanges RxMC, ref cMacroChanges RxMV)
         {
@@ -111,7 +113,26 @@ namespace MacroEditor
                 tbPathMacro.Text = Properties.Settings.Default.HTTP_HP;
             tbPathBU.Text = Properties.Settings.Default.MacroArchive;
             cbAllowChange.SelectedIndex = Properties.Settings.Default.AllowChgInx;
-            cbDays.SelectedIndex = Properties.Settings.Default.AllowDaysInx; 
+            cbDays.SelectedIndex = Properties.Settings.Default.AllowDaysInx;
+            this.Shown += LoadInitialFiles;
+        }
+
+        private void LoadInitialFiles(object sender, EventArgs e)
+        {
+            dgvReplace.AutoGenerateColumns = true;
+            dgvReplace.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            bs.DataSource = Utils.PhraseReplacer.LoadPhrases();
+            dgvReplace.DataSource = bs;
+            bs.ResetBindings(false);
+            string sOut = "";
+            foreach(cFromToPhrases et in Utils.PhraseReplacer.ListPhrases)
+            {
+                if(et.WhereReplaced != "")
+                {
+                    sOut += et.WhereReplaced;
+                }
+            }
+            tbReplace.Text = sOut;
         }
 
 
@@ -526,6 +547,12 @@ namespace MacroEditor
         {
             Properties.Settings.Default.SpellOnBoot = true;
             Properties.Settings.Default.Save();
+        }
+
+        private void btnSaveDGV_Click(object sender, EventArgs e)
+        {
+
+            Utils.PhraseReplacer.SaveSettings();
         }
     }
 }

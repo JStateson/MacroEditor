@@ -55,6 +55,7 @@
             this.lbHover = new System.Windows.Forms.Label();
             this.tbShowClip = new System.Windows.Forms.TextBox();
             this.btnApplyExit = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
             this.btnCopyNote = new System.Windows.Forms.Button();
             this.tabC = new System.Windows.Forms.TabControl();
             this.tabObjects = new System.Windows.Forms.TabPage();
@@ -161,7 +162,7 @@
             // 
             this.btnFindID.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnFindID.ForeColor = System.Drawing.Color.DarkRed;
-            this.btnFindID.Location = new System.Drawing.Point(394, 65);
+            this.btnFindID.Location = new System.Drawing.Point(394, 61);
             this.btnFindID.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnFindID.Name = "btnFindID";
             this.btnFindID.Size = new System.Drawing.Size(105, 31);
@@ -373,6 +374,20 @@
             this.btnApplyExit.UseVisualStyleBackColor = true;
             this.btnApplyExit.Click += new System.EventHandler(this.btnApplyExit_Click);
             // 
+            // button1
+            // 
+            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button1.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.button1.Location = new System.Drawing.Point(605, 129);
+            this.button1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(110, 42);
+            this.button1.TabIndex = 17;
+            this.button1.Text = "Save results\r\nand exit";
+            this.toolTip1.SetToolTip(this.button1, "This also does the format");
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.btnApplyExit_Click);
+            // 
             // btnCopyNote
             // 
             this.btnCopyNote.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -442,7 +457,7 @@
             this.label4.AutoSize = true;
             this.label4.BackColor = System.Drawing.SystemColors.Info;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(556, 83);
+            this.label4.Location = new System.Drawing.Point(580, 71);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(183, 48);
             this.label4.TabIndex = 16;
@@ -453,6 +468,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1176, 870);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.tabC);
@@ -515,5 +531,6 @@
         private System.Windows.Forms.TextBox tbSys;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.RichTextBox tbInfoUrls;
+        private System.Windows.Forms.Button button1;
     }
 }

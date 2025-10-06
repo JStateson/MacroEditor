@@ -54,6 +54,7 @@
             this.btnShowURL = new System.Windows.Forms.Button();
             this.btnDelURL = new System.Windows.Forms.Button();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.cbHlineWiz = new System.Windows.Forms.CheckBox();
             this.btnSaveMP = new System.Windows.Forms.Button();
             this.cbMPisPrinter = new System.Windows.Forms.CheckBox();
             this.cbUsePrefix = new System.Windows.Forms.CheckBox();
@@ -112,7 +113,15 @@
             this.label3 = new System.Windows.Forms.Label();
             this.tbPathBU = new System.Windows.Forms.TextBox();
             this.btnSetBUpath = new System.Windows.Forms.Button();
-            this.cbHlineWiz = new System.Windows.Forms.CheckBox();
+            this.tabControl1 = new System.Windows.Forms.TabControl();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.dgvReplace = new System.Windows.Forms.DataGridView();
+            this.label17 = new System.Windows.Forms.Label();
+            this.btnSaveDGV = new System.Windows.Forms.Button();
+            this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.tbReplace = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox4.SuspendLayout();
@@ -123,6 +132,12 @@
             this.tabChanged.SuspendLayout();
             this.tabViewed.SuspendLayout();
             this.groupBox7.SuspendLayout();
+            this.tabControl1.SuspendLayout();
+            this.tabPage1.SuspendLayout();
+            this.tabPage2.SuspendLayout();
+            this.tabPage3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvReplace)).BeginInit();
+            this.tabPage4.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -382,13 +397,24 @@
             this.groupBox4.Controls.Add(this.cbUsePrefix);
             this.groupBox4.Controls.Add(this.btnTestPP);
             this.groupBox4.Controls.Add(this.tbPP);
-            this.groupBox4.Location = new System.Drawing.Point(715, 203);
+            this.groupBox4.Location = new System.Drawing.Point(11, 13);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Size = new System.Drawing.Size(420, 147);
             this.groupBox4.TabIndex = 9;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Macro Prefix";
             this.toolTip1.SetToolTip(this.groupBox4, "Is put in first line of\r\neach printer macro");
+            // 
+            // cbHlineWiz
+            // 
+            this.cbHlineWiz.AutoSize = true;
+            this.cbHlineWiz.Location = new System.Drawing.Point(18, 116);
+            this.cbHlineWiz.Name = "cbHlineWiz";
+            this.cbHlineWiz.Size = new System.Drawing.Size(143, 17);
+            this.cbHlineWiz.TabIndex = 9;
+            this.cbHlineWiz.Text = "Horizontal line on Wizard";
+            this.toolTip1.SetToolTip(this.cbHlineWiz, "Insert the horizantal working line when\r\nthe printer wizard response is used.");
+            this.cbHlineWiz.UseVisualStyleBackColor = true;
             // 
             // btnSaveMP
             // 
@@ -480,7 +506,7 @@
             this.groupBox3.Controls.Add(this.cbisPrinter);
             this.groupBox3.Controls.Add(this.blnTestS);
             this.groupBox3.Controls.Add(this.tbMSuffix);
-            this.groupBox3.Location = new System.Drawing.Point(715, 356);
+            this.groupBox3.Location = new System.Drawing.Point(11, 209);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(420, 146);
             this.groupBox3.TabIndex = 10;
@@ -558,7 +584,7 @@
             this.groupBox6.Controls.Add(this.cbRFsticky);
             this.groupBox6.Controls.Add(this.cbDisableVPaste);
             this.groupBox6.Controls.Add(this.cbRepeatSearch);
-            this.groupBox6.Location = new System.Drawing.Point(715, 517);
+            this.groupBox6.Location = new System.Drawing.Point(705, 510);
             this.groupBox6.Name = "groupBox6";
             this.groupBox6.Size = new System.Drawing.Size(249, 216);
             this.groupBox6.TabIndex = 12;
@@ -723,7 +749,7 @@
             // 
             this.btnBackup.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnBackup.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.btnBackup.Location = new System.Drawing.Point(1005, 579);
+            this.btnBackup.Location = new System.Drawing.Point(1000, 561);
             this.btnBackup.Name = "btnBackup";
             this.btnBackup.Size = new System.Drawing.Size(130, 34);
             this.btnBackup.TabIndex = 16;
@@ -736,7 +762,7 @@
             // 
             this.btnRestoreM.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnRestoreM.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.btnRestoreM.Location = new System.Drawing.Point(1005, 623);
+            this.btnRestoreM.Location = new System.Drawing.Point(1000, 605);
             this.btnRestoreM.Name = "btnRestoreM";
             this.btnRestoreM.Size = new System.Drawing.Size(130, 34);
             this.btnRestoreM.TabIndex = 17;
@@ -749,7 +775,7 @@
             // 
             this.btnResetApp.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnResetApp.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.btnResetApp.Location = new System.Drawing.Point(1005, 528);
+            this.btnResetApp.Location = new System.Drawing.Point(1000, 510);
             this.btnResetApp.Name = "btnResetApp";
             this.btnResetApp.Size = new System.Drawing.Size(106, 34);
             this.btnResetApp.TabIndex = 15;
@@ -845,7 +871,7 @@
             // 
             this.btnSpellAll.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSpellAll.ForeColor = System.Drawing.Color.DarkGreen;
-            this.btnSpellAll.Location = new System.Drawing.Point(1005, 673);
+            this.btnSpellAll.Location = new System.Drawing.Point(1000, 655);
             this.btnSpellAll.Name = "btnSpellAll";
             this.btnSpellAll.Size = new System.Drawing.Size(130, 34);
             this.btnSpellAll.TabIndex = 21;
@@ -900,7 +926,7 @@
             this.groupBox5.Controls.Add(this.btnShowURL);
             this.groupBox5.Controls.Add(this.tbURLcnt);
             this.groupBox5.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox5.Location = new System.Drawing.Point(715, 25);
+            this.groupBox5.Location = new System.Drawing.Point(11, 16);
             this.groupBox5.Name = "groupBox5";
             this.groupBox5.Size = new System.Drawing.Size(420, 169);
             this.groupBox5.TabIndex = 6;
@@ -1095,22 +1121,114 @@
             this.btnSetBUpath.UseVisualStyleBackColor = true;
             this.btnSetBUpath.Click += new System.EventHandler(this.btnSetBUpath_Click);
             // 
-            // cbHlineWiz
+            // tabControl1
             // 
-            this.cbHlineWiz.AutoSize = true;
-            this.cbHlineWiz.Location = new System.Drawing.Point(18, 116);
-            this.cbHlineWiz.Name = "cbHlineWiz";
-            this.cbHlineWiz.Size = new System.Drawing.Size(143, 17);
-            this.cbHlineWiz.TabIndex = 9;
-            this.cbHlineWiz.Text = "Horizontal line on Wizard";
-            this.toolTip1.SetToolTip(this.cbHlineWiz, "Insert the horizantal working line when\r\nthe printer wizard response is used.");
-            this.cbHlineWiz.UseVisualStyleBackColor = true;
+            this.tabControl1.Controls.Add(this.tabPage1);
+            this.tabControl1.Controls.Add(this.tabPage2);
+            this.tabControl1.Controls.Add(this.tabPage3);
+            this.tabControl1.Controls.Add(this.tabPage4);
+            this.tabControl1.Location = new System.Drawing.Point(705, 42);
+            this.tabControl1.Name = "tabControl1";
+            this.tabControl1.SelectedIndex = 0;
+            this.tabControl1.Size = new System.Drawing.Size(470, 446);
+            this.tabControl1.TabIndex = 22;
+            // 
+            // tabPage1
+            // 
+            this.tabPage1.Controls.Add(this.groupBox5);
+            this.tabPage1.Location = new System.Drawing.Point(4, 22);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(462, 420);
+            this.tabPage1.TabIndex = 0;
+            this.tabPage1.Text = "Urls";
+            this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // tabPage2
+            // 
+            this.tabPage2.Controls.Add(this.groupBox3);
+            this.tabPage2.Controls.Add(this.groupBox4);
+            this.tabPage2.Location = new System.Drawing.Point(4, 22);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(462, 420);
+            this.tabPage2.TabIndex = 1;
+            this.tabPage2.Text = "Prefix/Suffix";
+            this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // tabPage3
+            // 
+            this.tabPage3.Controls.Add(this.btnSaveDGV);
+            this.tabPage3.Controls.Add(this.dgvReplace);
+            this.tabPage3.Controls.Add(this.label17);
+            this.tabPage3.Location = new System.Drawing.Point(4, 22);
+            this.tabPage3.Name = "tabPage3";
+            this.tabPage3.Size = new System.Drawing.Size(462, 420);
+            this.tabPage3.TabIndex = 2;
+            this.tabPage3.Text = "Replace";
+            this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // dgvReplace
+            // 
+            this.dgvReplace.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvReplace.Location = new System.Drawing.Point(34, 92);
+            this.dgvReplace.MultiSelect = false;
+            this.dgvReplace.Name = "dgvReplace";
+            this.dgvReplace.RowHeadersVisible = false;
+            this.dgvReplace.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvReplace.Size = new System.Drawing.Size(391, 308);
+            this.dgvReplace.TabIndex = 3;
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.BackColor = System.Drawing.SystemColors.Info;
+            this.label17.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label17.Location = new System.Drawing.Point(16, 13);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(274, 52);
+            this.label17.TabIndex = 2;
+            this.label17.Text = resources.GetString("label17.Text");
+            // 
+            // btnSaveDGV
+            // 
+            this.btnSaveDGV.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSaveDGV.ForeColor = System.Drawing.SystemColors.Highlight;
+            this.btnSaveDGV.Location = new System.Drawing.Point(322, 18);
+            this.btnSaveDGV.Name = "btnSaveDGV";
+            this.btnSaveDGV.Size = new System.Drawing.Size(79, 42);
+            this.btnSaveDGV.TabIndex = 4;
+            this.btnSaveDGV.Text = "Save\r\nChanges";
+            this.toolTip1.SetToolTip(this.btnSaveDGV, "Delete all backups");
+            this.btnSaveDGV.UseVisualStyleBackColor = true;
+            this.btnSaveDGV.Click += new System.EventHandler(this.btnSaveDGV_Click);
+            // 
+            // tabPage4
+            // 
+            this.tabPage4.Controls.Add(this.tbReplace);
+            this.tabPage4.Location = new System.Drawing.Point(4, 22);
+            this.tabPage4.Name = "tabPage4";
+            this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage4.Size = new System.Drawing.Size(462, 420);
+            this.tabPage4.TabIndex = 3;
+            this.tabPage4.Text = "Replacements";
+            this.tabPage4.UseVisualStyleBackColor = true;
+            // 
+            // tbReplace
+            // 
+            this.tbReplace.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tbReplace.Location = new System.Drawing.Point(3, 3);
+            this.tbReplace.Multiline = true;
+            this.tbReplace.Name = "tbReplace";
+            this.tbReplace.Size = new System.Drawing.Size(456, 414);
+            this.tbReplace.TabIndex = 0;
             // 
             // Settings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1166, 745);
+            this.ClientSize = new System.Drawing.Size(1230, 745);
+            this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.btnSpellAll);
             this.Controls.Add(this.groupBox7);
             this.Controls.Add(this.tbPathMacro);
@@ -1120,10 +1238,7 @@
             this.Controls.Add(this.btnResetApp);
             this.Controls.Add(this.tabMacroInfo);
             this.Controls.Add(this.groupBox6);
-            this.Controls.Add(this.groupBox3);
-            this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.label8);
-            this.Controls.Add(this.groupBox5);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.groupBox2);
@@ -1154,6 +1269,14 @@
             this.tabViewed.PerformLayout();
             this.groupBox7.ResumeLayout(false);
             this.groupBox7.PerformLayout();
+            this.tabControl1.ResumeLayout(false);
+            this.tabPage1.ResumeLayout(false);
+            this.tabPage2.ResumeLayout(false);
+            this.tabPage3.ResumeLayout(false);
+            this.tabPage3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvReplace)).EndInit();
+            this.tabPage4.ResumeLayout(false);
+            this.tabPage4.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1244,5 +1367,14 @@
         private System.Windows.Forms.CheckBox cbMPisPrinter;
         private System.Windows.Forms.Button btnSpellAll;
         private System.Windows.Forms.CheckBox cbHlineWiz;
+        private System.Windows.Forms.TabControl tabControl1;
+        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.TabPage tabPage2;
+        private System.Windows.Forms.TabPage tabPage3;
+        private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.DataGridView dgvReplace;
+        private System.Windows.Forms.Button btnSaveDGV;
+        private System.Windows.Forms.TabPage tabPage4;
+        private System.Windows.Forms.TextBox tbReplace;
     }
 }

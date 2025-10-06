@@ -456,6 +456,7 @@ namespace MacroEditor
             string strTemp = cAll[n].sBody;
             string sDRecord = cAll[n].rBody;
             if (strTemp == "") return;
+            string sMacroID = "(" + strType + "#" + cAll[n].Number.ToString() + ")";
             string MacName = dgvSearched.Rows[e.RowIndex].Cells[3].Value.ToString();
             nUseLastViewed = n;
             if (dgvSearched.Rows[e.RowIndex].Cells[0].Value.ToString() == "RF" && cbOnlyRefs.Checked)
@@ -469,11 +470,11 @@ namespace MacroEditor
                 if(cbvAddLangRef.Checked) strTemp = Utils.AddLanguageOption(strTemp);
             }
 
-            ShowMacro(ref strTemp,ref sDRecord, strType, MacName);
+            ShowMacro(ref strTemp,ref sDRecord, strType, MacName + sMacroID);
   
         }
 
-        private void ShowMacro(ref string strTemp, ref string sRec, string strType, string MacName)
+        private void ShowMacro(ref string strTemp, ref string sRec, string strType, string MacName, string sMacroID = "")
         {
 
             string sOut = "";
@@ -498,7 +499,7 @@ namespace MacroEditor
                 }
             }
             sOut += strTemp;
-            Utils.CopyHTML(Utils.ShowRawBrowser(sOut, strType));
+            Utils.CopyHTML(Utils.ShowRawBrowser(sOut, strType, MacName + sMacroID));
             MViews.AddView(strType, MacName);
         }
 
@@ -1351,7 +1352,8 @@ namespace MacroEditor
             string strType = cAll[mUseLastViewed].File;
             string MacName = cAll[mUseLastViewed].Name;
             string sRecord = cAll[mUseLastViewed].rBody;
-            ShowMacro(ref strTemp, ref sRecord, strType, MacName);
+            string sMacroID = "(" + strType + "#" + cAll[mUseLastViewed].Number.ToString() + ")";
+            ShowMacro(ref strTemp, ref sRecord, strType, MacName, sMacroID);
             
         }
 
