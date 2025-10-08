@@ -91,6 +91,9 @@
             this.label13 = new System.Windows.Forms.Label();
             this.tbPathMacro = new System.Windows.Forms.TextBox();
             this.btnSpellAll = new System.Windows.Forms.Button();
+            this.btnSaveDGV = new System.Windows.Forms.Button();
+            this.cbNoFTPurls = new System.Windows.Forms.CheckBox();
+            this.cbBadUrl = new System.Windows.Forms.CheckBox();
             this.label4 = new System.Windows.Forms.Label();
             this.tbDateChg = new System.Windows.Forms.TextBox();
             this.cbFileN = new System.Windows.Forms.ComboBox();
@@ -119,9 +122,13 @@
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.dgvReplace = new System.Windows.Forms.DataGridView();
             this.label17 = new System.Windows.Forms.Label();
-            this.btnSaveDGV = new System.Windows.Forms.Button();
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.tbReplace = new System.Windows.Forms.TextBox();
+            this.tabPage5 = new System.Windows.Forms.TabPage();
+            this.btnSaveURLs = new System.Windows.Forms.Button();
+            this.lbCnt = new System.Windows.Forms.Label();
+            this.tbUrls = new System.Windows.Forms.TextBox();
+            this.btnGetFTPurls = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox4.SuspendLayout();
@@ -138,6 +145,7 @@
             this.tabPage3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvReplace)).BeginInit();
             this.tabPage4.SuspendLayout();
+            this.tabPage5.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -881,6 +889,42 @@
             this.btnSpellAll.UseVisualStyleBackColor = true;
             this.btnSpellAll.Click += new System.EventHandler(this.btnSpellAll_Click);
             // 
+            // btnSaveDGV
+            // 
+            this.btnSaveDGV.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSaveDGV.ForeColor = System.Drawing.SystemColors.Highlight;
+            this.btnSaveDGV.Location = new System.Drawing.Point(322, 18);
+            this.btnSaveDGV.Name = "btnSaveDGV";
+            this.btnSaveDGV.Size = new System.Drawing.Size(79, 42);
+            this.btnSaveDGV.TabIndex = 4;
+            this.btnSaveDGV.Text = "Save\r\nChanges";
+            this.toolTip1.SetToolTip(this.btnSaveDGV, "Delete all backups");
+            this.btnSaveDGV.UseVisualStyleBackColor = true;
+            this.btnSaveDGV.Click += new System.EventHandler(this.btnSaveDGV_Click);
+            // 
+            // cbNoFTPurls
+            // 
+            this.cbNoFTPurls.AutoSize = true;
+            this.cbNoFTPurls.Location = new System.Drawing.Point(14, 27);
+            this.cbNoFTPurls.Name = "cbNoFTPurls";
+            this.cbNoFTPurls.Size = new System.Drawing.Size(141, 30);
+            this.cbNoFTPurls.TabIndex = 8;
+            this.cbNoFTPurls.Text = "Do not show FTP urls\r\nwhen expanding macros";
+            this.toolTip1.SetToolTip(this.cbNoFTPurls, "If un-checked, then the reader can\r\nclick on a driver and download it.\r\nThis appl" +
+        "ies to all web page displayed\r\nnot just this form.");
+            this.cbNoFTPurls.UseVisualStyleBackColor = true;
+            // 
+            // cbBadUrl
+            // 
+            this.cbBadUrl.AutoSize = true;
+            this.cbBadUrl.Location = new System.Drawing.Point(291, 14);
+            this.cbBadUrl.Name = "cbBadUrl";
+            this.cbBadUrl.Size = new System.Drawing.Size(124, 30);
+            this.cbBadUrl.TabIndex = 11;
+            this.cbBadUrl.Text = "Scan for bad HP urls\r\nwhen clicking button";
+            this.toolTip1.SetToolTip(this.cbBadUrl, "displays in this textbox, the HP\r\nURLs that might be obsolete.");
+            this.cbBadUrl.UseVisualStyleBackColor = true;
+            // 
             // label4
             // 
             this.label4.AutoSize = true;
@@ -1127,10 +1171,11 @@
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Controls.Add(this.tabPage4);
+            this.tabControl1.Controls.Add(this.tabPage5);
             this.tabControl1.Location = new System.Drawing.Point(705, 42);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(470, 446);
+            this.tabControl1.Size = new System.Drawing.Size(577, 446);
             this.tabControl1.TabIndex = 22;
             // 
             // tabPage1
@@ -1139,7 +1184,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(462, 420);
+            this.tabPage1.Size = new System.Drawing.Size(569, 420);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Urls";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -1151,7 +1196,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(462, 420);
+            this.tabPage2.Size = new System.Drawing.Size(569, 420);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Prefix/Suffix";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -1163,7 +1208,7 @@
             this.tabPage3.Controls.Add(this.label17);
             this.tabPage3.Location = new System.Drawing.Point(4, 22);
             this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Size = new System.Drawing.Size(462, 420);
+            this.tabPage3.Size = new System.Drawing.Size(569, 420);
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Replace";
             this.tabPage3.UseVisualStyleBackColor = true;
@@ -1190,28 +1235,15 @@
             this.label17.TabIndex = 2;
             this.label17.Text = resources.GetString("label17.Text");
             // 
-            // btnSaveDGV
-            // 
-            this.btnSaveDGV.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSaveDGV.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.btnSaveDGV.Location = new System.Drawing.Point(322, 18);
-            this.btnSaveDGV.Name = "btnSaveDGV";
-            this.btnSaveDGV.Size = new System.Drawing.Size(79, 42);
-            this.btnSaveDGV.TabIndex = 4;
-            this.btnSaveDGV.Text = "Save\r\nChanges";
-            this.toolTip1.SetToolTip(this.btnSaveDGV, "Delete all backups");
-            this.btnSaveDGV.UseVisualStyleBackColor = true;
-            this.btnSaveDGV.Click += new System.EventHandler(this.btnSaveDGV_Click);
-            // 
             // tabPage4
             // 
             this.tabPage4.Controls.Add(this.tbReplace);
             this.tabPage4.Location = new System.Drawing.Point(4, 22);
             this.tabPage4.Name = "tabPage4";
             this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage4.Size = new System.Drawing.Size(462, 420);
+            this.tabPage4.Size = new System.Drawing.Size(569, 420);
             this.tabPage4.TabIndex = 3;
-            this.tabPage4.Text = "Replacements";
+            this.tabPage4.Text = "Info";
             this.tabPage4.UseVisualStyleBackColor = true;
             // 
             // tbReplace
@@ -1220,14 +1252,76 @@
             this.tbReplace.Location = new System.Drawing.Point(3, 3);
             this.tbReplace.Multiline = true;
             this.tbReplace.Name = "tbReplace";
-            this.tbReplace.Size = new System.Drawing.Size(456, 414);
+            this.tbReplace.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+            this.tbReplace.Size = new System.Drawing.Size(563, 414);
             this.tbReplace.TabIndex = 0;
+            this.tbReplace.WordWrap = false;
+            // 
+            // tabPage5
+            // 
+            this.tabPage5.Controls.Add(this.btnSaveURLs);
+            this.tabPage5.Controls.Add(this.lbCnt);
+            this.tabPage5.Controls.Add(this.cbBadUrl);
+            this.tabPage5.Controls.Add(this.tbUrls);
+            this.tabPage5.Controls.Add(this.btnGetFTPurls);
+            this.tabPage5.Controls.Add(this.cbNoFTPurls);
+            this.tabPage5.Location = new System.Drawing.Point(4, 22);
+            this.tabPage5.Name = "tabPage5";
+            this.tabPage5.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage5.Size = new System.Drawing.Size(569, 420);
+            this.tabPage5.TabIndex = 4;
+            this.tabPage5.Text = "FTP urls";
+            this.tabPage5.UseVisualStyleBackColor = true;
+            // 
+            // btnSaveURLs
+            // 
+            this.btnSaveURLs.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSaveURLs.ForeColor = System.Drawing.SystemColors.Highlight;
+            this.btnSaveURLs.Location = new System.Drawing.Point(451, 14);
+            this.btnSaveURLs.Name = "btnSaveURLs";
+            this.btnSaveURLs.Size = new System.Drawing.Size(91, 47);
+            this.btnSaveURLs.TabIndex = 13;
+            this.btnSaveURLs.Text = "Save FTP\r\nURLS";
+            this.btnSaveURLs.UseVisualStyleBackColor = true;
+            this.btnSaveURLs.Click += new System.EventHandler(this.btnSaveURLs_Click);
+            // 
+            // lbCnt
+            // 
+            this.lbCnt.AutoSize = true;
+            this.lbCnt.Location = new System.Drawing.Point(294, 58);
+            this.lbCnt.Name = "lbCnt";
+            this.lbCnt.Size = new System.Drawing.Size(74, 13);
+            this.lbCnt.TabIndex = 12;
+            this.lbCnt.Text = "Number URLs";
+            // 
+            // tbUrls
+            // 
+            this.tbUrls.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.tbUrls.Location = new System.Drawing.Point(3, 93);
+            this.tbUrls.Multiline = true;
+            this.tbUrls.Name = "tbUrls";
+            this.tbUrls.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+            this.tbUrls.Size = new System.Drawing.Size(563, 324);
+            this.tbUrls.TabIndex = 10;
+            this.tbUrls.WordWrap = false;
+            // 
+            // btnGetFTPurls
+            // 
+            this.btnGetFTPurls.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnGetFTPurls.ForeColor = System.Drawing.SystemColors.Highlight;
+            this.btnGetFTPurls.Location = new System.Drawing.Point(182, 14);
+            this.btnGetFTPurls.Name = "btnGetFTPurls";
+            this.btnGetFTPurls.Size = new System.Drawing.Size(91, 47);
+            this.btnGetFTPurls.TabIndex = 9;
+            this.btnGetFTPurls.Text = "Get FTP\r\nURLS";
+            this.btnGetFTPurls.UseVisualStyleBackColor = true;
+            this.btnGetFTPurls.Click += new System.EventHandler(this.btnGetFTPurls_Click);
             // 
             // Settings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1230, 745);
+            this.ClientSize = new System.Drawing.Size(1294, 745);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.btnSpellAll);
             this.Controls.Add(this.groupBox7);
@@ -1277,6 +1371,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgvReplace)).EndInit();
             this.tabPage4.ResumeLayout(false);
             this.tabPage4.PerformLayout();
+            this.tabPage5.ResumeLayout(false);
+            this.tabPage5.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1376,5 +1472,12 @@
         private System.Windows.Forms.Button btnSaveDGV;
         private System.Windows.Forms.TabPage tabPage4;
         private System.Windows.Forms.TextBox tbReplace;
+        private System.Windows.Forms.TabPage tabPage5;
+        private System.Windows.Forms.CheckBox cbNoFTPurls;
+        private System.Windows.Forms.Button btnGetFTPurls;
+        private System.Windows.Forms.TextBox tbUrls;
+        private System.Windows.Forms.CheckBox cbBadUrl;
+        private System.Windows.Forms.Label lbCnt;
+        private System.Windows.Forms.Button btnSaveURLs;
     }
 }

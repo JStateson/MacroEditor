@@ -57,6 +57,7 @@
             this.btnAddNR = new System.Windows.Forms.Button();
             this.btnCreateNR = new System.Windows.Forms.Button();
             this.cbMissing = new System.Windows.Forms.ComboBox();
+            this.lbOldUrl = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.gbText.SuspendLayout();
             this.gpPage.SuspendLayout();
@@ -122,7 +123,7 @@
             // 
             this.btnTest.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnTest.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.btnTest.Location = new System.Drawing.Point(840, 453);
+            this.btnTest.Location = new System.Drawing.Point(707, 453);
             this.btnTest.Name = "btnTest";
             this.btnTest.Size = new System.Drawing.Size(132, 31);
             this.btnTest.TabIndex = 7;
@@ -208,7 +209,7 @@
             this.lbChanged.BackColor = System.Drawing.SystemColors.Control;
             this.lbChanged.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbChanged.ForeColor = System.Drawing.Color.Red;
-            this.lbChanged.Location = new System.Drawing.Point(612, 453);
+            this.lbChanged.Location = new System.Drawing.Point(580, 455);
             this.lbChanged.Name = "lbChanged";
             this.lbChanged.Size = new System.Drawing.Size(111, 20);
             this.lbChanged.TabIndex = 13;
@@ -386,11 +387,24 @@
             this.cbMissing.TabIndex = 0;
             this.cbMissing.SelectedIndexChanged += new System.EventHandler(this.cbMissing_SelectedIndexChanged);
             // 
+            // lbOldUrl
+            // 
+            this.lbOldUrl.AutoSize = true;
+            this.lbOldUrl.BackColor = System.Drawing.SystemColors.Control;
+            this.lbOldUrl.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbOldUrl.ForeColor = System.Drawing.Color.Red;
+            this.lbOldUrl.Location = new System.Drawing.Point(865, 458);
+            this.lbOldUrl.Name = "lbOldUrl";
+            this.lbOldUrl.Size = new System.Drawing.Size(216, 20);
+            this.lbOldUrl.TabIndex = 18;
+            this.lbOldUrl.Text = "ERROR: download is missing";
+            // 
             // EditOldUrls
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1174, 653);
+            this.Controls.Add(this.lbOldUrl);
             this.Controls.Add(this.gpMissing);
             this.Controls.Add(this.btnSave);
             this.Controls.Add(this.btnForm);
@@ -452,5 +466,6 @@
         private System.Windows.Forms.Button btnCreateNR;
         private System.Windows.Forms.TextBox tbInfo;
         private System.Windows.Forms.Button btnDelSelected;
+        private System.Windows.Forms.Label lbOldUrl;
     }
 }

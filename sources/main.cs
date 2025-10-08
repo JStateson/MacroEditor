@@ -1,6 +1,7 @@
 ﻿//#define SPECIAL2
 //#define SPECIAL3
 //#define SPECIAL4
+
 /*
  * to change font size visual studio ctrl shift . or ,
  * zoom is ctrl shift dot  or comma to set font in visual studio
@@ -144,12 +145,16 @@ namespace MacroEditor
         private bool bSpellAll = false;
         private bool bAddHline = false;
         private string sDefaultHline = "";
+        private ChangeUrls changeUrls = new ChangeUrls();
+        private int NumOldUrls = 0;
+        private bool ShowBadUrls = false;
         public main()
         {
             InitializeComponent();
             lbName.AutoGenerateColumns = false;
             Utils.WhereExe = Directory.GetParent(Assembly.GetExecutingAssembly().Location).ToString() +
                 "\\" + Utils.MacPrinterFolder;
+            Utils.OldUrlList = Utils.WhereExe + "\\" + Utils.OldUrlList;    
             Utils.FormAllTxt();
             EnableMacEdits(false);
             gbManageImages.Enabled = true;// System.Diagnostics.Debugger.IsAttached;
@@ -228,6 +233,7 @@ namespace MacroEditor
         private void LoadInitialFiles(object sender, EventArgs e)
         {
             printerDB.InitDB();
+            NumOldUrls = changeUrls.ReadBadUrls(Utils.OldUrlList);
             settingsToolStripMenuItem.ForeColor = (Utils.CountImages() > 20) ? Color.Red : Color.Black;
             Utils.TotalNumberMacros = LoadAllFiles();
             CheckPWE(); // see if password and email are enabled for using
@@ -1242,23 +1248,12 @@ namespace MacroEditor
             LoadHTMLfile();
         }
 
-        private void TryDif(ref string str1, ref string str2)
-        {
-            int k = 0;
-            for (int i = 0; i < str1.Length; i++)
-            {
-                if (str1[i] != str2[i])
-                {
-                    k++;
-                }
-            }
-        }
-
 
         // load files here
         // HP and HTML can have blank macro names and body but NOT any others
         private int LoadFromTXT(string strFN)
         {
+            ShowBadUrls = false;
             int i = 0;
             int IndexstrFN = Utils.IndexMacName(strFN);
             string rBody;
@@ -1277,6 +1272,9 @@ namespace MacroEditor
             DataTable.Clear();
             lbName.DataSource = null;
             lbName.Invalidate();
+#if SPECIAL4
+            int NumBadNames = 0;
+#endif
             if (File.Exists(TXTmacName))
             {
                 StreamReader sr = new StreamReader(TXTmacName);
@@ -1289,14 +1287,18 @@ namespace MacroEditor
                 {
                     dgvStruct dgv = new dgvStruct();
                     dgv.Inx = i + 1;
-                    dgv.MacName = line;
                     dgv.MoveM = false;
                     sBody = sr.ReadLine();
                     if (sBody == null) sBody = "";
                     sBody = sBody.Replace("&quot;", "'"); // jys 8/20/2024
 #if SPECIAL4
-                    sBody = sBody.Replace(" bypass the router ", " avoid using the router ");
+                    //sBody = sBody.Replace(" bypass the router ", " avoid using the router ");                    
+                    if(Utils.BadFilename(ref line))
+                    {
+                        NumBadNames++;
+                    }
 #endif
+                    dgv.MacName = line;
                     dgv.sBody = sBody;
                     rBody = sr.ReadLine();
                     if (rBody == null) rBody = "";
@@ -1345,7 +1347,7 @@ namespace MacroEditor
                         {
                             strBadEnding.Add(strFN);
                         }
-                        break;  // if stop here then file has a trailing newline !!!
+                        Debug.Assert(false, "bad ending in " + strFN);
                     }
                 }
                 NumInBody = DataTable.Count;
@@ -1381,7 +1383,17 @@ namespace MacroEditor
                 {
                     lbName.Rows[i].Cells[3].Style.ForeColor = Color.Blue;
                 }
-                    
+                if(NumOldUrls > 0)
+                {
+                    bool bOldDriver = changeUrls.IsOldUrl(strFN, DataTable[i].MacName);
+                    if(bOldDriver)
+                    {
+                        lbName.Rows[i].Cells[2].Value = "url";
+                        lbName.Rows[i].Cells[2].Style.ForeColor = Color.Red;
+                        ShowBadUrls = true;
+                    }
+
+                }
             }
             btnNew.Enabled = lbName.RowCount < Utils.NumMacros;
             if (strFN == "HP")
@@ -1399,10 +1411,17 @@ namespace MacroEditor
             lbRCcopy.Visible = bMacroDiff;
             AllowTBbody(i > 0);
 #if SPECIAL4
-            SaveAsTXT(TXTName);
+            if (NumBadNames > 0)
+            {
+                SaveAsTXT(TXTName);
+                MessageBox.Show("There were " + NumBadNames.ToString() + " bad macro names in " + TXTName +
+                    Environment.NewLine + "Comma and semicolon replaced with spaces");
+            }
+
 #endif
             EnableClipProcessing();
             EnableLoadTSMitem(strFN, i > 0);
+            lbName.Columns[2].Visible = ShowBadUrls;
             return i;
         }
 
@@ -2018,7 +2037,7 @@ namespace MacroEditor
                 {
                     ParseDevice MyLookup = new ParseDevice();
                     MyLookup.Parse(Clipboard.GetText());
-                    string sName = MyLookup.GetModel();
+                    string sName = Utils.NoDelims(MyLookup.GetModel());
                     MyLookup = null;
                     if(sName == "")
                     {
@@ -2500,6 +2519,11 @@ namespace MacroEditor
             MySE.Show();
         }
 
+#if DEBUG
+        string BadNames = "";
+        bool bBadFound = false;
+#endif
+
         private int LoadAllFiles()
         {
             int nMacroCnt = 0;
@@ -2520,7 +2544,7 @@ namespace MacroEditor
                     if (n > 0) return LoadFromTXT("RF");
                     return 0;
                 }
-                
+
                 foreach (string strFN in Utils.LocalMacroPrefix)
                 {
                     int i = 0;
@@ -2529,6 +2553,10 @@ namespace MacroEditor
                         lbSpelling.Text = "Spelling " + strFN;
                     bNoEmpty = !(strFN == "HP" || strFN == "" || strFN == "HTML");
                     string FNpath = Utils.FNtoPath(strFN);
+
+#if DEBUG
+                    bBadFound = false;
+#endif
 
                     if (File.Exists(FNpath))
                     {
@@ -2547,6 +2575,13 @@ namespace MacroEditor
                                 UnfinishedMN = strMN;
                                 UnfinishedIndex = i;
                             }
+                            //strMN = Utils.NoDelims(strMN);
+#if DEBUG
+                            bBadFound |= Utils.BadFilename(ref strMN);
+#endif
+
+
+
                             sBody = sr.ReadLine();
                             if (sBody == null)
                                 sBody = "";
@@ -2558,6 +2593,7 @@ namespace MacroEditor
                                 SpellErrors[istrFN].Add(bSpERR);
                                 System.Windows.Forms.Application.DoEvents();
                             }
+
                             rBody = sr.ReadLine();
                             if (rBody == null)
                                 rBody = "<nl>";
@@ -2567,8 +2603,7 @@ namespace MacroEditor
                             cb.File = strFN;
                             cb.Number = (i + 1).ToString();
                             cb.Name = strMN;
-                            cb.bHasImages =
-                                Utils.bHasImgMarkup(rBody) || Utils.bHasImgMarkup(sBody);                       cb.bHasImages = Utils.bHasImgMarkup(rBody) || Utils.IsUrlImage(sBody);
+                            cb.bHasImages = Utils.bHasImgMarkup(rBody) || Utils.IsUrlImage(sBody);
 #if SPECIAL2
                         bDebug |= RunBorderFix(strFN, i+1, cb.Name, ref sBody);
 #endif
@@ -2596,10 +2631,18 @@ namespace MacroEditor
                             if (strMN == "" & bNoEmpty)
                             {
                                 strBadEnding.Add(strFN);
-                                break;  // if stop here then file has a trailing newline !!!
+                                Debug.Assert(false, "empty macro name but has a body");
                             }
                         }
                         sr.Close();
+
+
+#if DEBUG
+                        if(bBadFound)
+                        {
+                            BadNames += strFN;
+                        }
+#endif
                         if (strFN == "HP")
                         {
                             if(i > 0)
@@ -2621,25 +2664,20 @@ namespace MacroEditor
                     EnableLoadTSMitem(strFN, i > 0);
                 }
                 StopAllSpelling();
-
             }
 
+#if DEBUG
+            if(BadNames != "")
+            {
+                MessageBox.Show(", or ; in files: " + BadNames);
+            }
+#endif
             bInitialLoad = false;
             if (sBadMacroName != "")
             {
                 MessageBox.Show(sBadMacroName, "Bad macro names");
             }
-            if (strBadEnding.Count > 0)
-            {
-                string strNames = "";
-                foreach (string s in strBadEnding)
-                {
-                    strNames += (s + " ");
-                }
-                MessageBox.Show("One or more files have trailing newline and will be re-written\r\nIf this happens repeatedly please create an issue",
-                    strNames, MessageBoxButtons.OK);
-                ReWriteBadFiles();
-            }
+
             if (strType != "") lbName.ReadOnly = false;
 
             if (UnfinishedFN == "")
@@ -2670,6 +2708,7 @@ namespace MacroEditor
             groupBox2.Enabled = true;
             EnableAll(true);
         }
+
         private bool LoadStartupMacro()
         {
             string s = Properties.Settings.Default.StartupReturn;
@@ -2687,29 +2726,7 @@ namespace MacroEditor
             }
             return b;
         }
-
-        private void ReWriteBadFiles()
-        {
-            foreach (string strFN in strBadEnding)
-            {
-                string strOut = "";
-                bool bFound = false;
-                foreach (CBody cb in cBodies)
-                {
-                    if (cb.File == strFN)
-                    {
-                        if (bFound) strOut += Environment.NewLine;
-                        strOut += cb.Name + Environment.NewLine;
-                        strOut += cb.sBody;
-                        bFound = true;
-                    }
-                }
-                if (strOut != "") // probably should assert this
-                {
-                    File.WriteAllText(Utils.FNtoPath(strFN), strOut);
-                }
-            }
-        }
+ 
 
         private void RaiseSearch()
         {
@@ -3417,10 +3434,12 @@ namespace MacroEditor
             string strBody = "";
             bool bUnChanged = true;
             DataFileRecord = rBodyFromTable();
+            List<string> BadUrls = changeUrls.FindFromUrls(TXTName,
+                lbName.Rows[CurrentRowSelected].Cells[3].Value.ToString());
             if (DataFileRecord != "")
             {
                 string strTemp = tbBody.Text.Trim();
-                UDurl = new EditOldUrls(strTemp, DataFileRecord, ref printerDB);
+                UDurl = new EditOldUrls(strTemp, DataFileRecord, ref printerDB, ref BadUrls);
                 UDurl.ShowDialog();
                 strBody = UDurl.sBodyOut;
                 if(DataFileRecord != "")
@@ -3443,7 +3462,7 @@ namespace MacroEditor
             }
             else
             {
-                UDurl = new EditOldUrls(tbBody.Text, "", ref printerDB);
+                UDurl = new EditOldUrls(tbBody.Text, "", ref printerDB, ref BadUrls);
                 UDurl.ShowDialog();
                 strBody = UDurl.sBodyOut;
                 UDurl.Dispose();
@@ -3864,7 +3883,7 @@ namespace MacroEditor
             bool bIgnore = false;
             int i = 0;
             Settings MySettings = new Settings(Utils.BrowserWanted, Utils.VolunteerUserID, NumSupplementalSignatures,
-                ref xMacroChanges, ref xMacroViews);
+                ref xMacroChanges, ref xMacroViews, ref cBodies);
             MySettings.ShowDialog();
             Utils.BrowserWanted = MySettings.eBrowser;
             Utils.VolunteerUserID = MySettings.userid;

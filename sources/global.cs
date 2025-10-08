@@ -610,6 +610,29 @@ namespace MacroEditor
             return n;
         }
 
+
+        public static bool BadFilename(ref string s)
+        {
+            if (string.IsNullOrEmpty(s))return false;
+            string t = s.Replace(",", " ");
+            t = t.Replace(";", " ");
+            bool bBad = (s!= t);
+            s = t;
+            return bBad;
+        }
+
+
+        public static string NoDelims(string s)
+        {
+            string t = s.Replace(",", " ");
+            t = t.Replace(";", " ");
+            if (t != s)
+            {
+                MessageBox.Show("Macro name cannot contain punctuation characters.\r\nThey have been replaced with spaces.\r\nPlease edit the name to remove any spaces.", "Punctuation Removed", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            return t;
+        }
+
         public static string nNL(int n)
         {
             string s = "";
@@ -694,6 +717,7 @@ namespace MacroEditor
         //    <div style="width: 825px; background-color: lightblue; padding: 10px;">
         //<body style="width: 800px; margin: 0 auto;">
         public static string WhereExe = "";
+        public static string OldUrlList = "OldUrlList.txt";
         public static string UnNamedMacro = "Change Me";
         public static string SpellList = "AllowedSpelling.txt";
         public static string ScratchSpellFile = "ScratchSpellFile.docx";
@@ -726,6 +750,7 @@ namespace MacroEditor
             if (i == 0) return sNew + ((m < n) ? sOld.Substring(m) : "");
             return sOld.Substring(0, i) + sNew + ((m < n) ? sOld.Substring(m) : "");
         }
+
 
         public static string MetaAdd(string sKey, string sNew, string sOld)
         {

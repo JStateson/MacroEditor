@@ -872,6 +872,7 @@ namespace MacroEditor.sources
 
         private void RunUpdate()
         {
+            tbModel.Text = Utils.NoDelims(tbModel.Text.Trim());
             UpdateModelText(tbModel.Text);
             if(tbProduct.Text == "")
                 tbProduct.Text = tbModel.Text;

@@ -50,10 +50,12 @@ namespace MacroEditor.sources
         private int EndMacOld = 0;
         private List<string> lbButtons;
         private string DataFileRecord;
-        public EditOldUrls(string rRText, string rDataFileRecord, ref PrinterDB RpDB)
+        List<string> BadUrls;
+        public EditOldUrls(string rRText, string rDataFileRecord, ref PrinterDB RpDB, ref List<string> rBadUrls)
         {
             InitializeComponent();
             pDB = RpDB;
+            BadUrls = rBadUrls;
             rText = rRText;
             sLBatext = gbText.Text;
             DataFileRecord = rDataFileRecord;
@@ -290,6 +292,15 @@ namespace MacroEditor.sources
             }
         }
 
+        private bool IsBadUrl(string sIn)
+        {
+            foreach(string s in BadUrls)
+            {
+                if (sIn.Contains(s)) return true;
+            }
+            return false;
+        }
+
         private void cbMacroList_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (cbMacroList.SelectedIndex < 0) return;
@@ -303,6 +314,8 @@ namespace MacroEditor.sources
                 }
                 else 
                     tbH.Text = mU.UrlInfo[nSelectedM].sProposedH;
+                lbOldUrl.Visible = IsBadUrl(tbH.Text.ToString());
+
                 tbResult.Text = mU.UrlInfo[nSelectedM].sChangedResult;
                 tbT.ReadOnly = mU.UrlInfo[nSelectedM].bIsImage;
                 if(mU.UrlInfo[nSelectedM].bIsImage)

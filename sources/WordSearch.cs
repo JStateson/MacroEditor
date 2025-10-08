@@ -456,7 +456,7 @@ namespace MacroEditor
             string strTemp = cAll[n].sBody;
             string sDRecord = cAll[n].rBody;
             if (strTemp == "") return;
-            string sMacroID = "(" + strType + "#" + cAll[n].Number.ToString() + ")";
+            string sMacroID = "(" + strType + "#" + cAll[n].Number + ")";
             string MacName = dgvSearched.Rows[e.RowIndex].Cells[3].Value.ToString();
             nUseLastViewed = n;
             if (dgvSearched.Rows[e.RowIndex].Cells[0].Value.ToString() == "RF" && cbOnlyRefs.Checked)
@@ -1352,7 +1352,7 @@ namespace MacroEditor
             string strType = cAll[mUseLastViewed].File;
             string MacName = cAll[mUseLastViewed].Name;
             string sRecord = cAll[mUseLastViewed].rBody;
-            string sMacroID = "(" + strType + "#" + cAll[mUseLastViewed].Number.ToString() + ")";
+            string sMacroID = "(" + strType + "#" + cAll[mUseLastViewed].Number + ")";
             ShowMacro(ref strTemp, ref sRecord, strType, MacName, sMacroID);
             
         }

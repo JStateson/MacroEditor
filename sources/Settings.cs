@@ -1,25 +1,33 @@
 ﻿using HtmlAgilityPack;
 using System;
+using System.CodeDom;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
+using System.Net;
+using System.Net.Http;
 using System.Reflection.Emit;
 using System.Runtime.CompilerServices;
+using System.Security.Policy;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using System.Windows.Data;
 using System.Windows.Forms;
 using System.Windows.Media;
+using System.Xml.Linq;
+using static MacroEditor.Settings;
 using static MacroEditor.Utils;
 using static System.Net.Mime.MediaTypeNames;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.Tab;
-using System.Collections;
-using System.Xml.Linq;
-using System.Diagnostics;
+using HtmlDocument = HtmlAgilityPack.HtmlDocument;
 
 namespace MacroEditor
 {
@@ -39,11 +47,13 @@ namespace MacroEditor
         private List<int> SrtInx;
         private List<TabPage> disabledTabs = new List<TabPage>();
         private BindingSource bs = new BindingSource();
-
-
-        public Settings(eBrowserType reBrowser, string ruserid, int NumAttached, ref cMacroChanges RxMC, ref cMacroChanges RxMV)
+        private List<CBody> Cbodies;
+        private ChangeUrls changeUrls = new ChangeUrls();
+        public Settings(eBrowserType reBrowser, string ruserid, int NumAttached,
+            ref cMacroChanges RxMC, ref cMacroChanges RxMV, ref List<CBody>rCbodies)
         {
             InitializeComponent();
+            Cbodies = rCbodies;
             userid = ruserid;
             tbUserID.Text = userid;
             eBrowser = reBrowser;
@@ -133,6 +143,7 @@ namespace MacroEditor
                 }
             }
             tbReplace.Text = sOut;
+            changeUrls.ReadBadUrls(Utils.OldUrlList);
         }
 
 
@@ -553,6 +564,148 @@ namespace MacroEditor
         {
 
             Utils.PhraseReplacer.SaveSettings();
+        }
+
+
+        string sLocalResult;
+        private async Task<int> ObtainFTPs(string s)
+        {
+            string t = "";
+            int n = 0;
+            string pattern = @"ftp\.[^\s""']*?\.(exe|zip|htm|html)\b";
+            Regex regex = new Regex(pattern, RegexOptions.IgnoreCase);
+            var matches = regex.Matches(s);
+            HashSet<string> uniqueMatches = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+            foreach (Match m in matches)
+            {
+                uniqueMatches.Add(m.Value);
+            }
+            
+            foreach(string url in uniqueMatches)
+            {
+                bool bExists = true;
+                if(cbBadUrl.Checked)
+                {
+                    string sExists = await HttpFileExistsAsync(url);
+                    bExists = (sExists == "");
+                    if (!bExists)
+                    {
+                        t += url + " Error: " + sExists + Environment.NewLine;
+                        changeUrls.AddUrl(url, "", debSys, debName, debNum);
+                        n++;
+                    }
+                }
+                else
+                {
+                    t += url + Environment.NewLine;
+                    n++;
+                }
+            }
+            sLocalResult = t;
+            return n;
+        }
+
+        private string debNum = "";
+        private string debSys = "";
+        private string debName = "";
+        private async void btnGetFTPurls_Click(object sender, EventArgs e)
+        {
+            string sOut = "";
+            changeUrls.Clear();
+            if(cbBadUrl.Checked)sOut = "These URLs may not be valid:" + Environment.NewLine;
+            tbUrls.Text = sOut;
+            lbCnt.Text = "";
+            int n = 0;
+            foreach (CBody cb in Cbodies)
+            {
+                string sR = "";
+                string sS = "";
+                bool sHasFTP = false;
+                string strTemp = cb.sBody;
+                sHasFTP = strTemp.Contains("ftp.");
+                string strType = cb.File;
+                string MacName = cb.Name;
+                string sRecord = cb.rBody;
+                bool rHasFTP = sRecord.Contains("ftp.");
+
+                debNum = cb.Number;
+                debSys= strType;
+                debName= MacName;
+
+                if (!(sHasFTP || rHasFTP))continue;                    
+                string sMacroID = "(" + strType + "#" + cb.Number + ")" + Environment.NewLine;
+                string sHdr = Environment.NewLine + MacName + sMacroID;  
+                if (sHasFTP)
+                {
+                    n+= await ObtainFTPs(strTemp);
+                    sS = sLocalResult;
+                }
+                if (rHasFTP)
+                {
+                    n+= await ObtainFTPs(sRecord);
+                    sR = sLocalResult;
+                }
+                if (sS == "" && sR == "")
+                {
+                    if (!cbBadUrl.Checked)
+                        Debug.Assert(false, "Should not be here");
+                }
+
+                if(cbBadUrl.Checked)
+                {
+                    if (sS != "" || sR != "")
+                    {
+                        //sOut += sHdr + sS + sR;
+                        tbUrls.Text += sHdr + sS + sR;
+                    }
+                }
+                else
+                    //sOut += sHdr + sS + sR;
+                    tbUrls.Text += sHdr + sS + sR;
+            }
+            lbCnt.Text = "Number urls: " + n.ToString();
+            FormCleanList();
+        }
+
+        private void FormCleanList()
+        {
+            tbReplace.Text = changeUrls.FormSavedList();
+        }
+
+        private async Task<string> HttpFileExistsAsync(string surl)
+        {
+            try
+            {
+                string url = "https://" + surl;
+
+                using (HttpClient client = new HttpClient())
+                {
+                    var request = new HttpRequestMessage(HttpMethod.Get, url);
+
+                    // Only read headers — avoids body download
+                    var response = await client.SendAsync(request, HttpCompletionOption.ResponseHeadersRead);
+
+                    // If status code is success → file exists
+                    if (response.IsSuccessStatusCode)
+                        return "";
+
+                    // Otherwise check status code and reason phrase
+                    string reason = response.ReasonPhrase?.ToLower() ?? "";
+                    if (reason.Contains("not found") || reason.Contains("404"))
+                        return "Not found or 404";
+
+                    return "Unknown";
+                }
+            }
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
+        }
+
+        private void btnSaveURLs_Click(object sender, EventArgs e)
+        {
+            changeUrls.SaveBadUrls(Utils.OldUrlList);
         }
     }
 }
