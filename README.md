@@ -10,7 +10,7 @@ The tar has a sample macro html from the forum, 300 supplemental macros and a sa
 
 Images that are not URLs must be uploaded to your HP photo album and URLs are cleaned of tracking info.  Alternately post the image in a reply then obtain the image URL from the posted image.
 
-You can create macros, signatures, and hyperlinks, assemble images, search extensively thorough the macro collection and easily paste replies to users from the collection.
+You can create macros, signatures, and hyperlinks, assemble images, search extensively thorough the macro collection and easily paste replies to users from the collection.  You can also scan for and identify obsolete driver (download) urls.
 
 Supplemental macros files: HP (editable copy of macros.html), HW, OS, NET, LJ, DJ, OJ, IN, PC, AIO.  RF and NO are references and notes. Maximum of 999 macros each except HP which can have up to 40. TR is the transfer file for uploading new macros.
 
