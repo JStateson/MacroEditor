@@ -75,13 +75,15 @@ namespace MacroEditor
             */
 
             if (Properties.Settings.Default.sPPrefix != "init")
-                tbPP.Text = Properties.Settings.Default.sPPrefix;
+                SetPrefixSelections();
+            //tbPP.Text = Properties.Settings.Default.sPPrefix;
             else
                 Properties.Settings.Default.sPPrefix = tbPP.Text;
 
 
             if (Properties.Settings.Default.sMSuffix != "init")
-                tbMSuffix.Text = Properties.Settings.Default.sMSuffix;
+                SetSuffixSelections();
+                //tbMSuffix.Text = Properties.Settings.Default.sMSuffix;
             else
                 Properties.Settings.Default.sMSuffix = tbMSuffix.Text;
 
@@ -390,6 +392,36 @@ namespace MacroEditor
                 cbViewed.Refresh();
             }
         }
+
+        private void SetPrefixSelections()
+        {
+            if (cbMPisPrinter.Checked)
+            {
+                // printer prefix enabled
+                if (cbHlineWiz.Checked)
+                    tbPP.Text = Properties.Settings.Default.Hline;
+                else
+                    tbPP.Text = Properties.Settings.Default.sPPrefix;
+            }
+            else
+            {
+                tbPP.Text = Properties.Settings.Default.NotPrnPrefix;
+            }
+        }
+
+        private void SetSuffixSelections()
+        {
+            if(cbisPrinter.Checked)
+            {
+                // macro suffix for a printer
+                tbMSuffix.Text = Properties.Settings.Default.sMSuffix;
+            }
+            else
+            {
+                tbMSuffix.Text = Properties.Settings.Default.NotPrnSuffix;
+            }
+        }
+
         private void btnSaveMP_Click(object sender, EventArgs e)
         {
             if (cbMPisPrinter.Checked)
@@ -409,13 +441,15 @@ namespace MacroEditor
         }
         private void cbMPisPrinter_CheckedChanged(object sender, EventArgs e)
         {
-            string s = Properties.Settings.Default.sPPrefix;
-            string t = Properties.Settings.Default.NotPrnPrefix;
-            tbPP.Text = cbMPisPrinter.Checked ? Properties.Settings.Default.sPPrefix : Properties.Settings.Default.NotPrnPrefix;
+            //string s = Properties.Settings.Default.sPPrefix;
+            //string t = Properties.Settings.Default.NotPrnPrefix;
+            //tbPP.Text = cbMPisPrinter.Checked ? Properties.Settings.Default.sPPrefix : Properties.Settings.Default.NotPrnPrefix;
+            SetPrefixSelections();
         }
         private void cbisPrinter_CheckedChanged(object sender, EventArgs e)
         {
-            tbMSuffix.Text = cbisPrinter.Checked ? Properties.Settings.Default.sMSuffix : Properties.Settings.Default.NotPrnSuffix;
+            SetSuffixSelections();
+            //tbMSuffix.Text = cbisPrinter.Checked ? Properties.Settings.Default.sMSuffix : Properties.Settings.Default.NotPrnSuffix;
         }
 
 

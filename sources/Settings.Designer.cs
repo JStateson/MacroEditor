@@ -401,9 +401,9 @@
             // 
             // groupBox4
             // 
+            this.groupBox4.Controls.Add(this.cbMPisPrinter);
             this.groupBox4.Controls.Add(this.cbHlineWiz);
             this.groupBox4.Controls.Add(this.btnSaveMP);
-            this.groupBox4.Controls.Add(this.cbMPisPrinter);
             this.groupBox4.Controls.Add(this.cbUsePrefix);
             this.groupBox4.Controls.Add(this.btnTestPP);
             this.groupBox4.Controls.Add(this.tbPP);
@@ -418,12 +418,15 @@
             // cbHlineWiz
             // 
             this.cbHlineWiz.AutoSize = true;
+            this.cbHlineWiz.Checked = true;
+            this.cbHlineWiz.CheckState = System.Windows.Forms.CheckState.Checked;
             this.cbHlineWiz.Location = new System.Drawing.Point(18, 116);
             this.cbHlineWiz.Name = "cbHlineWiz";
             this.cbHlineWiz.Size = new System.Drawing.Size(143, 17);
             this.cbHlineWiz.TabIndex = 9;
             this.cbHlineWiz.Text = "Horizontal line on Wizard";
-            this.toolTip1.SetToolTip(this.cbHlineWiz, "Insert the horizantal working line when\r\nthe printer wizard response is used.");
+            this.toolTip1.SetToolTip(this.cbHlineWiz, "Insert the horizantal working line when\r\nthe printer wizard response is used.\r\nTh" +
+        "e phrase \'oversharing\' is used");
             this.cbHlineWiz.UseVisualStyleBackColor = true;
             // 
             // btnSaveMP
@@ -582,8 +585,8 @@
             this.tbMSuffix.Name = "tbMSuffix";
             this.tbMSuffix.Size = new System.Drawing.Size(244, 88);
             this.tbMSuffix.TabIndex = 1;
-            this.tbMSuffix.Text = "Let me know if you have a flex system (Wi-Fi boosters or repeaters)\r\nas the setup" +
-    " is much more complicated.";
+            this.tbMSuffix.Text = "Let me know if you have a flex system (Wi-Fi boosters or repeaters) as the setup " +
+    "is much more complicated.";
             // 
             // groupBox6
             // 

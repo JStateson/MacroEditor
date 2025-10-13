@@ -1432,7 +1432,7 @@ namespace MacroEditor
 #endif
             EnableClipProcessing();
             EnableLoadTSMitem(strFN, i > 0);
-            lbName.Columns[2].Visible = ShowBadUrls;
+            lbName.Columns[2].Visible = (ShowBadUrls || strType == "RF");
             return i;
         }
 
