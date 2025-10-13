@@ -6,18 +6,23 @@ using System.ComponentModel;
 using System.Data;
 using System.Data.SqlTypes;
 using System.Diagnostics;
+using System.Diagnostics.Eventing.Reader;
 using System.Drawing;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Net.Http;
 using System.Net.NetworkInformation;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Forms;
 using System.Windows.Media.Animation;
+using static MacroEditor.ChangeUrls;
+using static System.Net.WebRequestMethods;
 
 namespace MacroEditor.sources
 {
@@ -50,12 +55,12 @@ namespace MacroEditor.sources
         private int EndMacOld = 0;
         private List<string> lbButtons;
         private string DataFileRecord;
-        List<string> BadUrls;
-        public EditOldUrls(string rRText, string rDataFileRecord, ref PrinterDB RpDB, ref List<string> rBadUrls)
+        private ChangeUrls changeUrls;
+        public EditOldUrls(string rRText, string rDataFileRecord, ref PrinterDB RpDB, ref ChangeUrls rChangeUrls)
         {
             InitializeComponent();
             pDB = RpDB;
-            BadUrls = rBadUrls;
+            changeUrls = rChangeUrls;
             rText = rRText;
             sLBatext = gbText.Text;
             DataFileRecord = rDataFileRecord;
@@ -262,13 +267,14 @@ namespace MacroEditor.sources
             }
             else gpPage.Visible = false;
             if(mU.UrlInfo[i].bIsMacIDrecord)
-            {
+            { 
                 gpTag.Visible = true;
                 tbTagName.Text = mU.UrlInfo[i].sButtonName;
                 gbText.Visible = !mU.UrlInfo[i].bIsSteps;
             }
             else gpTag.Visible = false;
-            btnDelSelected.Visible = gpTag.Visible;
+            //btnDelSelected.Visible = gpTag.Visible;   //10/12/2025 cannot allow delete due to part of macro is in a record
+            // and not just in the text area like the original design
         }
 
         private void ShowImgTip()
@@ -291,15 +297,13 @@ namespace MacroEditor.sources
                 bIsImage = true;
             }
         }
+        /*
+         * return codes
+         * 0: not bad or obsolete 
+         * 1: obsolete and no new url
+         * 2: obsolete but a new url exists
+         */
 
-        private bool IsBadUrl(string sIn)
-        {
-            foreach(string s in BadUrls)
-            {
-                if (sIn.Contains(s)) return true;
-            }
-            return false;
-        }
 
         private void cbMacroList_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -314,7 +318,21 @@ namespace MacroEditor.sources
                 }
                 else 
                     tbH.Text = mU.UrlInfo[nSelectedM].sProposedH;
-                lbOldUrl.Visible = IsBadUrl(tbH.Text.ToString());
+                int RtnCode = changeUrls.IsBadUrl(tbH.Text.ToString());
+                lbOldUrl.Visible = (RtnCode > 0 && RtnCode < 3);
+                btnTestUrl.Visible =  lbOldUrl.Visible;
+                lbFixed.Visible = RtnCode == 3;
+                lbOldToNew.Visible = (RtnCode == 2);
+                btnOldToNew.Visible = (RtnCode == 2);
+                btnApproveOldUrl.Visible = (RtnCode == 1);
+ 
+                lbCntInfo.Visible = false;
+                if (RtnCode > 0 && RtnCode < 3)
+                {
+                    int nChange = changeUrls.GetNumberChanges(out string Filenames);
+                    lbCntInfo.Visible = nChange > 0;
+                    lbCntInfo.Text = "Changes(" + nChange.ToString() + ")\r\n" + Filenames;
+                }
 
                 tbResult.Text = mU.UrlInfo[nSelectedM].sChangedResult;
                 tbT.ReadOnly = mU.UrlInfo[nSelectedM].bIsImage;
@@ -361,6 +379,7 @@ namespace MacroEditor.sources
                 tbResult.Text = mU.UrlInfo[nSelectedM].sOrigResult;
                 mU.UrlInfo[nSelectedM].sChangedResult = tbResult.Text;
                 ShowChange();
+                changeUrls.SignalGoodUrl(false);
             }
 
         }
@@ -546,7 +565,7 @@ namespace MacroEditor.sources
         {
             string FmtOut = "";
             string sModels = "";
-
+            changeUrls.SaveXmlChanges();
             sBodyOut = mU.GetUpdated(StartMacOld, EndMacOld);
             if (bhasMacroID)
             {                
@@ -597,6 +616,7 @@ namespace MacroEditor.sources
         private void btnCancelExit_Click(object sender, EventArgs e)
         {
             sBodyOut = "";
+            changeUrls.ReloadFiles();
             this.Close();
         }
 
@@ -608,18 +628,11 @@ namespace MacroEditor.sources
 
         private void btnCanH_Click(object sender, EventArgs e)
         {
-            /*
-            if (bInMacroRecAddMode)
-            {
-                string s = tbTagName.Text;
-                AddNR(s);
-            }
-            else
-                */
             if (tbTagName.Text.Contains("Steps"))
                 tbH.Text = mU.UrlInfo[nSelectedM].sOrigHref.Replace("<br>", Environment.NewLine);
             else
                 tbH.Text = mU.UrlInfo[nSelectedM].sOrigHref;
+                changeUrls.SignalGoodUrl(false);
         }
 
         private void btnClrT_Click(object sender, EventArgs e)
@@ -646,7 +659,50 @@ namespace MacroEditor.sources
         private void btnForm_Click(object sender, EventArgs e)
         {
             if(nSelectedM >= 0)
-               FormChange();
+            {
+                int BadUrlCode = changeUrls.GetBadUrlType();
+                if (BadUrlCode > 0 && BadUrlCode < 3)
+                {
+                    bool FoundFTPurl = changeUrls.ExtractFTPurl(tbH.Text, out string sToUrl);
+                    int nChange = changeUrls.GetNumberChanges(out string Filenames);
+                    if (nChange == 0) return;
+                    
+                    if (sToUrl == "" || !FoundFTPurl)
+                    {
+                        MessageBox.Show("Error: cannot find new url in HREF box", "ERROR");
+                        return;
+                    }
+
+                    if (sToUrl == changeUrls.GetFromUrl()) // probably nChange == 0 is equivalent here
+                    {
+                        MessageBox.Show("Error: old url is the same as the new one!", "ERROR");
+                        return;
+                    }
+
+                    if (changeUrls.UpdateToUrl(sToUrl))
+                    {
+                        if (changeUrls.SignalGoodUrl(true))
+                        {
+                            string sChanges = changeUrls.ReplaceAllOldUrls(sToUrl);
+                            string sWarn = "Change " + nChange.ToString() + " macros in these files";
+                            //DialogResult dr = MessageBox.Show(sChanges, sWarn, MessageBoxButtons.YesNo);
+                            changeUrls.fnc.ChangeApproved = false;
+                            ShowUrlChanges sc = new ShowUrlChanges(ref changeUrls);
+                            sc.ShowDialog();
+                            sc.Dispose();
+                            if(changeUrls.fnc.ChangeApproved)
+                            {
+                                changeUrls.SaveXmlChanges();
+                                this.Close();
+                            }
+                        }
+                        return;
+                    }
+                    MessageBox.Show("Cannot find ftp: so cannot get url updated");
+
+                }
+                FormChange();
+            }
         }
 
         private void btnShowNotes_Click(object sender, EventArgs e)
@@ -801,6 +857,81 @@ namespace MacroEditor.sources
                 rDB.RecordSet.RemoveAt(iOfst);
             DataFileRecord = FormRecord();
             UpdateAllURLs();
+        }
+
+        private void btnOldToNew_Click(object sender, EventArgs e)
+        {
+            string s = tbH.Text;
+            string t = s.Replace(changeUrls.GetFromUrl(), changeUrls.GetToUrl());
+            if(t == s)
+            {
+                MessageBox.Show("The old url was not found in the current HREF", "Error");
+                return;
+            }
+            tbH.Text = t;
+            FormChange();
+            changeUrls.SignalGoodUrl(true);   // assume he know what he is doing
+        }
+
+
+        /*
+         * if the to url exists then just mark it as valid and needing to be saved
+         * if the to url never existed, then extract the new url and update the changeUrls file (if saved)
+         */
+        private void btnApproveOldUrl_Click(object sender, EventArgs e)
+        {
+            int UrlType = changeUrls.GetBadUrlType();
+            if (UrlType == 1)
+            {
+                // The existing url is good, we just marked it good but it needs to be saved
+                // we also stored a copy of it in the ToUrl structure
+                changeUrls.SignalGoodUrl(true);
+                return;
+            }
+            //below is never reached when url is changed
+            string sToUrl = changeUrls.GetToUrl();
+            bool bFoundNewUrl = changeUrls.ExtractFTPurl(tbH.Text, out string sFtp);
+
+            if(sToUrl == "" || !bFoundNewUrl || sFtp  =="")
+            {
+                MessageBox.Show("Error: cannot find new url in HREF box", "ERROR");
+                return;
+            }
+
+            if(sFtp == changeUrls.GetFromUrl())
+            {
+                MessageBox.Show("Error: old url is the same as the new one!","ERROR");
+                return;
+            }
+
+            if (changeUrls.UpdateToUrl(sFtp))
+            {
+                if(changeUrls.SignalGoodUrl(true))
+                {
+                    string sChances = changeUrls.ReplaceAllOldUrls(sFtp);
+                }
+                return;
+            }
+            MessageBox.Show("Cannot find ftp: so cannot get url updated");
+        }
+
+        private void btnViewWebPage_Click(object sender, EventArgs e)
+        {
+            Utils.ShowLocalFile(changeUrls.GetOriginalPage());
+        }
+
+        private async void btnTestUrl_Click(object sender, EventArgs e)
+        {
+            bool bFoundNewUrl = changeUrls.ExtractFTPurl(tbH.Text, out string url);
+            if(bFoundNewUrl)
+            {
+                string sExists = await changeUrls.HttpFileExistsAsync(url);
+                MessageBox.Show((sExists == "") ? " Url is valid" : "Url seems not to exist:" + sExists);
+            }
+            else
+            {
+                MessageBox.Show("Error: cannot find url in HREF box", "ERROR");
+            }
         }
     }
 }

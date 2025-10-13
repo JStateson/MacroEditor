@@ -28,6 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(EditOldUrls));
             this.tbH = new System.Windows.Forms.TextBox();
             this.tbT = new System.Windows.Forms.TextBox();
             this.btnApplyExit = new System.Windows.Forms.Button();
@@ -58,6 +60,15 @@
             this.btnCreateNR = new System.Windows.Forms.Button();
             this.cbMissing = new System.Windows.Forms.ComboBox();
             this.lbOldUrl = new System.Windows.Forms.Label();
+            this.lbOldToNew = new System.Windows.Forms.Label();
+            this.btnOldToNew = new System.Windows.Forms.Button();
+            this.btnApproveOldUrl = new System.Windows.Forms.Button();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.btnTestUrl = new System.Windows.Forms.Button();
+            this.lbCntInfo = new System.Windows.Forms.Label();
+            this.toolStrip1 = new System.Windows.Forms.ToolStrip();
+            this.lbFixed = new System.Windows.Forms.Label();
+            this.btnViewWebPage = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.gbText.SuspendLayout();
             this.gpPage.SuspendLayout();
@@ -72,7 +83,7 @@
             this.tbH.Location = new System.Drawing.Point(191, 32);
             this.tbH.Multiline = true;
             this.tbH.Name = "tbH";
-            this.tbH.Size = new System.Drawing.Size(400, 128);
+            this.tbH.Size = new System.Drawing.Size(458, 128);
             this.tbH.TabIndex = 1;
             // 
             // tbT
@@ -81,7 +92,7 @@
             this.tbT.Location = new System.Drawing.Point(191, 38);
             this.tbT.Multiline = true;
             this.tbT.Name = "tbT";
-            this.tbT.Size = new System.Drawing.Size(400, 137);
+            this.tbT.Size = new System.Drawing.Size(458, 137);
             this.tbT.TabIndex = 2;
             // 
             // btnApplyExit
@@ -112,18 +123,18 @@
             // 
             this.tbResult.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.tbResult.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbResult.Location = new System.Drawing.Point(707, 490);
+            this.tbResult.Location = new System.Drawing.Point(665, 605);
             this.tbResult.Multiline = true;
             this.tbResult.Name = "tbResult";
             this.tbResult.ReadOnly = true;
-            this.tbResult.Size = new System.Drawing.Size(421, 142);
+            this.tbResult.Size = new System.Drawing.Size(472, 142);
             this.tbResult.TabIndex = 6;
             // 
             // btnTest
             // 
             this.btnTest.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnTest.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.btnTest.Location = new System.Drawing.Point(707, 453);
+            this.btnTest.Location = new System.Drawing.Point(483, 627);
             this.btnTest.Name = "btnTest";
             this.btnTest.Size = new System.Drawing.Size(132, 31);
             this.btnTest.TabIndex = 7;
@@ -135,7 +146,7 @@
             // 
             this.btnCancelChg.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCancelChg.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.btnCancelChg.Location = new System.Drawing.Point(535, 603);
+            this.btnCancelChg.Location = new System.Drawing.Point(480, 716);
             this.btnCancelChg.Name = "btnCancelChg";
             this.btnCancelChg.Size = new System.Drawing.Size(132, 31);
             this.btnCancelChg.TabIndex = 8;
@@ -177,6 +188,7 @@
             this.btnShowNotes.Size = new System.Drawing.Size(89, 50);
             this.btnShowNotes.TabIndex = 7;
             this.btnShowNotes.Text = "Show\r\nResidue";
+            this.toolTip1.SetToolTip(this.btnShowNotes, "Show text left out or not shown\r\nanywher else on this page");
             this.btnShowNotes.UseVisualStyleBackColor = true;
             this.btnShowNotes.Click += new System.EventHandler(this.btnShowNotes_Click);
             // 
@@ -195,7 +207,7 @@
             // 
             this.btnForm.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnForm.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.btnForm.Location = new System.Drawing.Point(535, 509);
+            this.btnForm.Location = new System.Drawing.Point(480, 578);
             this.btnForm.Name = "btnForm";
             this.btnForm.Size = new System.Drawing.Size(132, 31);
             this.btnForm.TabIndex = 9;
@@ -209,7 +221,7 @@
             this.lbChanged.BackColor = System.Drawing.SystemColors.Control;
             this.lbChanged.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbChanged.ForeColor = System.Drawing.Color.Red;
-            this.lbChanged.Location = new System.Drawing.Point(580, 455);
+            this.lbChanged.Location = new System.Drawing.Point(1001, 570);
             this.lbChanged.Name = "lbChanged";
             this.lbChanged.Size = new System.Drawing.Size(111, 20);
             this.lbChanged.TabIndex = 13;
@@ -223,9 +235,9 @@
             this.gbText.Controls.Add(this.tbT);
             this.gbText.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.gbText.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.gbText.Location = new System.Drawing.Point(516, 239);
+            this.gbText.Location = new System.Drawing.Point(488, 238);
             this.gbText.Name = "gbText";
-            this.gbText.Size = new System.Drawing.Size(631, 199);
+            this.gbText.Size = new System.Drawing.Size(674, 199);
             this.gbText.TabIndex = 14;
             this.gbText.TabStop = false;
             this.gbText.Text = "Text (or empty)";
@@ -276,9 +288,9 @@
             this.groupBox3.Controls.Add(this.tbH);
             this.groupBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox3.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.groupBox3.Location = new System.Drawing.Point(516, 26);
+            this.groupBox3.Location = new System.Drawing.Point(488, 28);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(637, 191);
+            this.groupBox3.Size = new System.Drawing.Size(674, 191);
             this.groupBox3.TabIndex = 15;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "HREF or Image";
@@ -326,7 +338,7 @@
             // 
             this.btnSave.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSave.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.btnSave.Location = new System.Drawing.Point(535, 560);
+            this.btnSave.Location = new System.Drawing.Point(480, 673);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(132, 31);
             this.btnSave.TabIndex = 16;
@@ -343,7 +355,7 @@
             this.gpMissing.ForeColor = System.Drawing.SystemColors.Highlight;
             this.gpMissing.Location = new System.Drawing.Point(12, 482);
             this.gpMissing.Name = "gpMissing";
-            this.gpMissing.Size = new System.Drawing.Size(413, 159);
+            this.gpMissing.Size = new System.Drawing.Size(413, 265);
             this.gpMissing.TabIndex = 17;
             this.gpMissing.TabStop = false;
             this.gpMissing.Text = "Missing lnfo";
@@ -351,10 +363,10 @@
             // tbInfo
             // 
             this.tbInfo.BackColor = System.Drawing.SystemColors.Info;
-            this.tbInfo.Location = new System.Drawing.Point(10, 74);
+            this.tbInfo.Location = new System.Drawing.Point(10, 86);
             this.tbInfo.Multiline = true;
             this.tbInfo.Name = "tbInfo";
-            this.tbInfo.Size = new System.Drawing.Size(389, 72);
+            this.tbInfo.Size = new System.Drawing.Size(389, 162);
             this.tbInfo.TabIndex = 3;
             // 
             // btnAddNR
@@ -393,17 +405,123 @@
             this.lbOldUrl.BackColor = System.Drawing.SystemColors.Control;
             this.lbOldUrl.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbOldUrl.ForeColor = System.Drawing.Color.Red;
-            this.lbOldUrl.Location = new System.Drawing.Point(865, 458);
+            this.lbOldUrl.Location = new System.Drawing.Point(675, 455);
             this.lbOldUrl.Name = "lbOldUrl";
-            this.lbOldUrl.Size = new System.Drawing.Size(216, 20);
+            this.lbOldUrl.Size = new System.Drawing.Size(248, 20);
             this.lbOldUrl.TabIndex = 18;
-            this.lbOldUrl.Text = "ERROR: download is missing";
+            this.lbOldUrl.Text = "ERROR: download marked invalid";
+            // 
+            // lbOldToNew
+            // 
+            this.lbOldToNew.AutoSize = true;
+            this.lbOldToNew.BackColor = System.Drawing.SystemColors.Control;
+            this.lbOldToNew.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbOldToNew.ForeColor = System.Drawing.Color.Red;
+            this.lbOldToNew.Location = new System.Drawing.Point(675, 535);
+            this.lbOldToNew.Name = "lbOldToNew";
+            this.lbOldToNew.Size = new System.Drawing.Size(152, 20);
+            this.lbOldToNew.TabIndex = 19;
+            this.lbOldToNew.Text = "There is a new URL:";
+            // 
+            // btnOldToNew
+            // 
+            this.btnOldToNew.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnOldToNew.Location = new System.Drawing.Point(679, 563);
+            this.btnOldToNew.Name = "btnOldToNew";
+            this.btnOldToNew.Size = new System.Drawing.Size(133, 36);
+            this.btnOldToNew.TabIndex = 20;
+            this.btnOldToNew.Text = "Apply New URL";
+            this.toolTip1.SetToolTip(this.btnOldToNew, resources.GetString("btnOldToNew.ToolTip"));
+            this.btnOldToNew.UseVisualStyleBackColor = true;
+            this.btnOldToNew.Visible = false;
+            this.btnOldToNew.Click += new System.EventHandler(this.btnOldToNew_Click);
+            // 
+            // btnApproveOldUrl
+            // 
+            this.btnApproveOldUrl.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnApproveOldUrl.Location = new System.Drawing.Point(975, 455);
+            this.btnApproveOldUrl.Name = "btnApproveOldUrl";
+            this.btnApproveOldUrl.Size = new System.Drawing.Size(162, 41);
+            this.btnApproveOldUrl.TabIndex = 21;
+            this.btnApproveOldUrl.Text = "Approve above url\r\nif it is actually valid";
+            this.toolTip1.SetToolTip(this.btnApproveOldUrl, "The url may not be obsolete, it may be\r\nobfuscated like the web archive URL\r\nsite" +
+        ".  Verify it is obsolete, change the\r\nentry at HREF, and apply and save.");
+            this.btnApproveOldUrl.UseVisualStyleBackColor = true;
+            this.btnApproveOldUrl.Visible = false;
+            this.btnApproveOldUrl.Click += new System.EventHandler(this.btnApproveOldUrl_Click);
+            // 
+            // btnTestUrl
+            // 
+            this.btnTestUrl.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnTestUrl.Location = new System.Drawing.Point(975, 514);
+            this.btnTestUrl.Name = "btnTestUrl";
+            this.btnTestUrl.Size = new System.Drawing.Size(162, 41);
+            this.btnTestUrl.TabIndex = 25;
+            this.btnTestUrl.Text = "Test the above url\r\nto see if it is valid";
+            this.toolTip1.SetToolTip(this.btnTestUrl, "The url may not be obsolete, it may be\r\nobfuscated like the web archive URL\r\nsite" +
+        ".  Verify it is obsolete, change the\r\nentry at HREF, and apply and save.");
+            this.btnTestUrl.UseVisualStyleBackColor = true;
+            this.btnTestUrl.Visible = false;
+            this.btnTestUrl.Click += new System.EventHandler(this.btnTestUrl_Click);
+            // 
+            // lbCntInfo
+            // 
+            this.lbCntInfo.AutoSize = true;
+            this.lbCntInfo.BackColor = System.Drawing.SystemColors.Control;
+            this.lbCntInfo.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbCntInfo.ForeColor = System.Drawing.Color.Red;
+            this.lbCntInfo.Location = new System.Drawing.Point(675, 482);
+            this.lbCntInfo.Name = "lbCntInfo";
+            this.lbCntInfo.Size = new System.Drawing.Size(177, 20);
+            this.lbCntInfo.TabIndex = 24;
+            this.lbCntInfo.Text = "Warning: more changes";
+            this.toolTip1.SetToolTip(this.lbCntInfo, "Changes will be shown here");
+            // 
+            // toolStrip1
+            // 
+            this.toolStrip1.Location = new System.Drawing.Point(0, 0);
+            this.toolStrip1.Name = "toolStrip1";
+            this.toolStrip1.Size = new System.Drawing.Size(1174, 25);
+            this.toolStrip1.TabIndex = 22;
+            this.toolStrip1.Text = "toolStrip1";
+            // 
+            // lbFixed
+            // 
+            this.lbFixed.AutoSize = true;
+            this.lbFixed.BackColor = System.Drawing.SystemColors.Control;
+            this.lbFixed.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lbFixed.ForeColor = System.Drawing.Color.Red;
+            this.lbFixed.Location = new System.Drawing.Point(675, 455);
+            this.lbFixed.Name = "lbFixed";
+            this.lbFixed.Size = new System.Drawing.Size(221, 20);
+            this.lbFixed.TabIndex = 19;
+            this.lbFixed.Text = "CAUTION: fixed but not saved";
+            // 
+            // btnViewWebPage
+            // 
+            this.btnViewWebPage.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnViewWebPage.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.btnViewWebPage.Location = new System.Drawing.Point(486, 455);
+            this.btnViewWebPage.Name = "btnViewWebPage";
+            this.btnViewWebPage.Size = new System.Drawing.Size(125, 55);
+            this.btnViewWebPage.TabIndex = 23;
+            this.btnViewWebPage.Text = "Click to view\r\nthe web page";
+            this.btnViewWebPage.UseVisualStyleBackColor = true;
+            this.btnViewWebPage.Click += new System.EventHandler(this.btnViewWebPage_Click);
             // 
             // EditOldUrls
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1174, 653);
+            this.ClientSize = new System.Drawing.Size(1174, 775);
+            this.Controls.Add(this.btnTestUrl);
+            this.Controls.Add(this.btnApproveOldUrl);
+            this.Controls.Add(this.lbCntInfo);
+            this.Controls.Add(this.btnViewWebPage);
+            this.Controls.Add(this.lbFixed);
+            this.Controls.Add(this.toolStrip1);
+            this.Controls.Add(this.btnOldToNew);
+            this.Controls.Add(this.lbOldToNew);
             this.Controls.Add(this.lbOldUrl);
             this.Controls.Add(this.gpMissing);
             this.Controls.Add(this.btnSave);
@@ -467,5 +585,14 @@
         private System.Windows.Forms.TextBox tbInfo;
         private System.Windows.Forms.Button btnDelSelected;
         private System.Windows.Forms.Label lbOldUrl;
+        private System.Windows.Forms.Label lbOldToNew;
+        private System.Windows.Forms.Button btnOldToNew;
+        private System.Windows.Forms.ToolTip toolTip1;
+        private System.Windows.Forms.Button btnApproveOldUrl;
+        private System.Windows.Forms.ToolStrip toolStrip1;
+        private System.Windows.Forms.Label lbFixed;
+        private System.Windows.Forms.Button btnViewWebPage;
+        private System.Windows.Forms.Label lbCntInfo;
+        private System.Windows.Forms.Button btnTestUrl;
     }
 }

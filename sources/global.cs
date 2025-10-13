@@ -1,34 +1,35 @@
-﻿using System;
-using System.Diagnostics;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Threading;
-using System.Windows.Forms;
-using System.IO;
-using System.Xml.Linq;
-using System.Text.RegularExpressions;
-using HtmlAgilityPack;
-using HtmlDocument = HtmlAgilityPack.HtmlDocument;
-using System.Security;
-using System.Reflection;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.Tab;
-using System.Text;
-using System.Drawing;
-using System.Windows.Ink;
+﻿using HtmlAgilityPack;
+using System;
 using System.Collections.Generic;
-using System.Security.Policy;
-using System.Windows.Automation;
-using System.Net.NetworkInformation;
-using System.Linq.Expressions;
-using static System.Windows.Forms.LinkLabel;
-using static System.Windows.Forms.AxHost;
-using static MacroEditor.main;
-using System.Windows.Media.Animation;
-using System.Runtime.Remoting.Lifetime;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Data;
 using System.ComponentModel;
+using System.Diagnostics;
+using System.Drawing;
+using System.IO;
+using System.Linq;
+using System.Linq.Expressions;
+using System.Net.NetworkInformation;
+using System.Reflection;
+using System.Runtime.InteropServices;
+using System.Runtime.Remoting.Lifetime;
+using System.Security;
+using System.Security.Policy;
+using System.Text;
+using System.Text.RegularExpressions;
+using System.Threading;
+using System.Windows.Automation;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Forms;
+using System.Windows.Ink;
+using System.Windows.Input;
+using System.Windows.Media.Animation;
+using System.Xml.Linq;
+using static MacroEditor.CSendCloud;
+using static MacroEditor.main;
+using static System.Windows.Forms.AxHost;
+using static System.Windows.Forms.LinkLabel;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.Tab;
+using HtmlDocument = HtmlAgilityPack.HtmlDocument;
 
 namespace MacroEditor
 {
@@ -677,7 +678,10 @@ namespace MacroEditor
         {
             return Array.IndexOf(LocalMacroPrefix, s);
         }
-
+        public static int IndexFromFullName(string s)
+        {
+            return Array.IndexOf(LocalMacroFullName, s);
+        }
         public static string AddHline(string sHline, string sType, string sModel)
         {
             int inx = IndexMacName(sType);
@@ -717,7 +721,7 @@ namespace MacroEditor
         //    <div style="width: 825px; background-color: lightblue; padding: 10px;">
         //<body style="width: 800px; margin: 0 auto;">
         public static string WhereExe = "";
-        public static string OldUrlList = "OldUrlList.txt";
+        public static string OldUrlList = "OldUrlList.xml";
         public static string UnNamedMacro = "Change Me";
         public static string SpellList = "AllowedSpelling.txt";
         public static string ScratchSpellFile = "ScratchSpellFile.docx";
@@ -751,6 +755,74 @@ namespace MacroEditor
             return sOld.Substring(0, i) + sNew + ((m < n) ? sOld.Substring(m) : "");
         }
 
+
+        // either ALL or MACROS
+        public static string GetWildCardName(string sWhich)
+        {
+            string wc = sWhich + "*.zip";
+#if DEBUG
+            wc = "DEB_" + wc;
+#endif
+            return wc;
+        }
+
+        public static bool GetRecentArchive()
+        {
+            string folderPath = Properties.Settings.Default.MacroArchive;
+            if (!Directory.Exists(folderPath)) return false;
+            int n = Properties.Settings.Default.AllowDaysInx;
+            var lastWriteTime = FileUtilities.GetMostRecentFileLastWriteTime(folderPath, GetWildCardName("ALL"));
+            string filename = Utils.GetDateTimeName("ALL");
+
+            string fullPath = System.IO.Path.Combine(folderPath, filename);
+            if (lastWriteTime == null)
+            {
+                CompressMacros(fullPath, "ALL");
+                return true;
+            }
+            DateTime dt = (DateTime)lastWriteTime;
+            TimeSpan ts = DateTime.Now - dt;
+            if (ts.Days > (1 << n))
+                CompressMacros(fullPath, "ALL");
+            return true;
+        }
+
+        public static void GetNextArchive(string sWhich)
+        {
+            string filename = Utils.GetDateTimeName(sWhich);
+            string folderPath = Properties.Settings.Default.MacroArchive;
+            if (Directory.Exists(folderPath))
+            {
+                string fullPath = System.IO.Path.Combine(folderPath, filename);
+                Utils.CompressMacros(fullPath, sWhich);
+            }
+        }
+
+        // cannot do this if any files are open!
+        public static void CompressMacros(string sPathZip, string sPrefix)
+        {
+            string sourceFolder = Utils.WhereExe;
+            string DBfolder = sourceFolder;
+            string destinationZipFile = sPathZip;
+            string[] Images = Directory.GetFiles(Utils.WhereExe, "LOCALIMAGEFILE-*.png");
+
+            List<string> WantedZip = new List<string>();
+            foreach (string s in Images)
+                WantedZip.Add(Path.GetFileName(s));
+            foreach (string s in Utils.ListAllTxt)
+                WantedZip.Add(s);
+            if (sPrefix == "ALL")
+            {
+                string[] RTFs = Directory.GetFiles(Utils.WhereExe, "*.docx");
+                foreach (string s in RTFs)
+                {
+                    if (s == Utils.ScratchSpellFile) continue;
+                    WantedZip.Add(Path.GetFileName(s));
+                }
+
+            }
+            CreateZipFromFolder(DBfolder, WantedZip, sPathZip);
+        }
 
         public static string MetaAdd(string sKey, string sNew, string sOld)
         {
@@ -1037,28 +1109,15 @@ namespace MacroEditor
             return "";
         }
 
-
-        public static int ShellHTML(string s, bool IsFilename, string MacName = "")
+        public static bool ShowLocalFile(string sLocalFile)
         {
-            string sTemp = WhereExe + "\\";
-            int n = 0;
-            if(IsFilename)
-            {
-                sTemp += s;
-                if (!File.Exists(sTemp)) return 0;
-            }
-            else
-            {
-                sTemp += "MyHtml.html";
-                PhraseReplacer.ReplacePhrase(ref s, MacName);
-                File.WriteAllText(sTemp, s);
-            }
+            if (!File.Exists(sLocalFile)) return false;
             try
             {
                 ProcessStartInfo psi = new ProcessStartInfo
                 {
                     FileName = "explorer.exe", // The application to run
-                    Arguments = sTemp,           // Any arguments to pass to the application
+                    Arguments = sLocalFile,           // Any arguments to pass to the application
                     UseShellExecute = true,   // Whether to use the operating system shell to start the process
                     RedirectStandardOutput = false, // Whether to redirect the output (for console applications)
                     RedirectStandardError = false,  // Whether to redirect the error output (for console applications)
@@ -1070,8 +1129,48 @@ namespace MacroEditor
             catch (Exception ex)
             {
                 MessageBox.Show($"An error occurred: {ex.Message}");
+                return false;
             }
-            return n;
+            return true;
+        }
+
+        public static string ShellHTML(string s, bool IsFilename, string MacName = "", bool bShowPage = true)
+        {
+            string sReturnPage = WhereExe + "\\";
+
+            if(IsFilename)
+            {
+                sReturnPage += s;
+                if (!File.Exists(sReturnPage)) return "";
+            }
+            else
+            {
+                sReturnPage += "MyHtml.html";
+                PhraseReplacer.ReplacePhrase(ref s, MacName);
+                File.WriteAllText(sReturnPage, s);
+            }
+            if(bShowPage)
+            {
+                try
+                {
+                    ProcessStartInfo psi = new ProcessStartInfo
+                    {
+                        FileName = "explorer.exe", // The application to run
+                        Arguments = sReturnPage,           // Any arguments to pass to the application
+                        UseShellExecute = true,   // Whether to use the operating system shell to start the process
+                        RedirectStandardOutput = false, // Whether to redirect the output (for console applications)
+                        RedirectStandardError = false,  // Whether to redirect the error output (for console applications)
+                        CreateNoWindow = false    // Whether to create a window for the process
+                    };
+
+                    Process.Start(psi);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"An error occurred: {ex.Message}");
+                }
+            }
+            return sReturnPage;
         }
 
         public class cIDhttp
@@ -1224,14 +1323,15 @@ namespace MacroEditor
             sOut += s.Replace(Environment.NewLine, "<br>");
             return sOut;
         }
-        public static string ShowRawBrowser(string s, string strType, string MacroName = "")
+        public static string ShowRawBrowser(string s, string strType, string MacroName = "", bool bShowPage = true)
         {
             if (s == "") return "";
-            
+            string sReturnPage = "";
             if(strType == "TR")
             {
-                ShellHTML(s, false);
-                return s.Trim();
+                sReturnPage = ShellHTML(s, false, "", bShowPage);
+                if(bShowPage)return s.Trim();
+                return sReturnPage;
             }
             string sOut = s;
             string sPP = Properties.Settings.Default.sPPrefix.Replace(Environment.NewLine, " ");
@@ -1260,8 +1360,9 @@ namespace MacroEditor
                     sOut = sMP + s + "<br><br>" + sPS;
                 else sOut = s;
             }
-            ShellHTML(sOut, false, MacroName);
-            return sOut.Trim();
+            sReturnPage = ShellHTML(sOut, false, MacroName, bShowPage);
+            if (bShowPage) return sOut.Trim();
+            return sReturnPage;
         }
 
         public static int SyntaxTest(string s)

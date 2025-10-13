@@ -1,28 +1,117 @@
-﻿using System;
+﻿using HtmlAgilityPack;
+using Microsoft.Office.Interop.Word;
+using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Net.Http;
+using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices;
+using System.Security.Cryptography;
+using System.Security.Policy;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using System.Windows.Data;
+using System.Windows.Forms;
+using System.Xml.Serialization;
 
 namespace MacroEditor
 {
-    internal class ChangeUrls
+    public class ChangeUrls
     {
+        /*
+        public class cUrlChange
+        {
+            public string FromUrl;
+            public string ToUrl;
+            public bool bValidated;
+            public int uLocation;   // location of bad url in structure when looked up
+            public bool NeedsToBeSaved;
+        }
+        */
+
+        private string MacroName = "";
+        private string sFilename = "";
+        private string FromUrl = "";
+        private string ToUrl = "";
+        private int BadUrlType = 0; // 0:not bad url, 1:url is OK, 2: need to replace existing url, 4: fixed but not saved
+        private bool MacrosHasBadUrl = false;
+        private string LocationFile = "";
+        private string sOriginalPage = "";  // the original page of the macro when in the browser
+
+        public void SetMacroName(string macName, string rFilename, string rOriginalPage)
+        {
+            MacroName = macName;
+            sFilename = rFilename;
+            sOriginalPage = rOriginalPage;
+            MacrosHasBadUrl = IsOldUrl(rFilename, macName, out FromUrl, out ToUrl);
+        }   
+
+        public HashSet<string> GetUniqueUrls(string sUrlText)
+        {
+            string pattern = @"ftp\.[^\s""']*?\.(exe|zip|htm|html)\b";
+            Regex regex = new Regex(pattern, RegexOptions.IgnoreCase);
+            var matches = regex.Matches(sUrlText);
+            HashSet<string> uniqueMatches = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+            foreach (Match m in matches)
+            {
+                uniqueMatches.Add(m.Value);
+            }
+            return uniqueMatches;
+        }
 
         public class cWhereUsed
         {
             public string sysType;
             public string macroName;
             public string macroNumber;  // this can change if macros deleted or added
+            public bool bValidated;
+            public bool NeedsToBeSaved;
         }
 
+        public string GetFromUrl()
+        {
+            return FromUrl;
+        }
+
+        public string GetOriginalPage()
+        {
+            return sOriginalPage;
+        }
+
+        public string GetToUrl()
+        {
+            return ToUrl;
+        }
+
+        public void SetNewUrl(string sNewUrl)
+        {
+            ToUrl = sNewUrl;
+        }
+
+        public int GetBadUrlType()
+        {
+            return BadUrlType;
+        }
         public class cFromToUrls
         {
             public string FromUrl;
             public string ToUrl;
+            public bool bValidated;
             public List<cWhereUsed> WhereUsed = new List<cWhereUsed>();
+        }
+
+        private int CountBadUrls()
+        {
+            int n = 0;
+            foreach(cFromToUrls ftu in FromToUrls)
+            {
+                n += ftu.WhereUsed.Count;
+            }
+            return n;
         }
 
         public List<cFromToUrls> FromToUrls = new List<cFromToUrls>();
@@ -31,6 +120,7 @@ namespace MacroEditor
         {
             FromToUrls.Clear();
         }
+
         public cFromToUrls GetUrl(string sUrl)
         {
             foreach (cFromToUrls cft in FromToUrls)
@@ -43,10 +133,13 @@ namespace MacroEditor
             cFromToUrls cfx = new cFromToUrls();
             cfx.FromUrl = sUrl;
             cfx.ToUrl = "";
+            cfx.bValidated = false;
             cfx.WhereUsed.Clear();
             FromToUrls.Add(cfx);
             return cfx;
         }
+
+
         public void AddUrl(string from, string to, string type, string name, string number)
         {
             cFromToUrls cft = GetUrl(from);
@@ -57,30 +150,211 @@ namespace MacroEditor
             cft.WhereUsed.Add(wu);
         }
 
-        public List<string> FindFromUrls(string type, string name)
+        public int IsBadUrl(string sIn)
         {
-            List<string> urls = new List<string>();
+            BadUrlType = 0;
+            FromUrl = "";
             foreach (cFromToUrls cft in FromToUrls)
             {
-                foreach (cWhereUsed wu in cft.WhereUsed)
+                if (sIn.Contains(cft.FromUrl))
                 {
-                    if (wu.sysType == type && wu.macroName == name)
+                    foreach (cWhereUsed wu in cft.WhereUsed)
                     {
-                        urls.Add(cft.FromUrl);
+                        if (wu.sysType == sFilename && wu.macroName == MacroName)
+                        {
+                            ToUrl = cft.ToUrl;
+                            FromUrl = cft.FromUrl;
+                            if (ToUrl == FromUrl)
+                            {
+                                BadUrlType =  wu.bValidated ? 0 : 3;
+                                return BadUrlType;
+                            }
+                            BadUrlType = wu.bValidated ? 2 : 1;
+                            return BadUrlType;
+                        }
                     }
                 }
             }
-            return urls;
+            return BadUrlType;
         }
 
-        public bool IsOldUrl(string type, string name)
+        // Change the accessibility of cFilesNeedingChanges from private to public
+        public class cFilesNeedingChanges
         {
+            public class cSetOfChanges
+            {
+                public List<string> OldMacroNames = new List<string>();
+                public List<string> OldMacroNumber = new List<string>();
+                public string Filecode;
+            }
+            public string FromUrl = "";
+            public string ToUrl = "";
+            public bool ChangeApproved = false;
+            public List<cSetOfChanges> soc = new List<cSetOfChanges>();
+
+            public void Init(string sFrom)
+            {
+                FromUrl = sFrom;
+                soc.Clear();
+            }
+            public void AddEntry(string fnCode, string MacroName, string MacroNumber)
+            {
+                if (soc.Count == 0)
+                {
+                    cSetOfChanges SOC = new cSetOfChanges();
+                    SOC.Filecode = fnCode;
+                    SOC.OldMacroNumber.Add(MacroNumber);
+                    SOC.OldMacroNames.Add(MacroName);
+                    soc.Add(SOC);
+                    return;
+                }
+                foreach (cSetOfChanges SOC in soc)
+                {
+                    if (SOC.Filecode == fnCode)
+                    {
+                        SOC.OldMacroNames.Add(MacroName);
+                        SOC.OldMacroNumber.Add(MacroNumber);
+                        return;
+                    }
+                }
+                cSetOfChanges Soc = new cSetOfChanges();
+                Soc.Filecode = fnCode;
+                Soc.OldMacroNames.Add(MacroName);
+                Soc.OldMacroNumber.Add(MacroNumber);
+                soc.Add(Soc);
+            }
+        }
+
+        public cFilesNeedingChanges fnc = new cFilesNeedingChanges();
+
+        public int GetNumberChanges(out string FileNames)
+        {
+            int n = 0;
+            FileNames = "";
+            Debug.Assert(FromUrl != "");
+            fnc.Init(FromUrl);
+            foreach (cFromToUrls cft in FromToUrls)
+            {
+                if (cft.FromUrl != FromUrl) continue;
+                foreach (cWhereUsed wu in cft.WhereUsed)
+                {
+                    if (!wu.bValidated)
+                    {
+                        n++;
+                        fnc.AddEntry(wu.sysType, wu.macroName, wu.macroNumber);
+                    }
+                }
+                break;
+            }
+            string sFileNames="";
+            for (int i = 0; i < fnc.soc.Count; i++)
+            {
+                sFileNames = fnc.soc[i].Filecode + ":";
+                for(int j = 0; j < fnc.soc[i].OldMacroNumber.Count; j++)
+                {
+                    sFileNames += fnc.soc[i].OldMacroNumber[j] + ",";
+                }
+                sFileNames = sFileNames.TrimEnd(',') + Environment.NewLine;
+                FileNames += sFileNames;
+            }
+            FileNames = FileNames.TrimEnd();
+            return n;
+        }
+
+        public bool ExtractFTPurl(string s, out string sFtp)
+        {
+            sFtp = "";
+            HashSet<string> uniqueMatches = GetUniqueUrls(s);
+            if (uniqueMatches.Count == 0) return false;
+            Debug.Assert(uniqueMatches.Count == 1);
+            sFtp = uniqueMatches.First();
+            return true;
+        }
+
+        public bool UpdateToUrl(string sFtpUrl)
+        {
+            //bool bFound = ExtractFTPurl(sText, out string sFtpUrl);
+            //if (!bFound) return false;
+            foreach (cFromToUrls cft in FromToUrls)
+            {
+                if (cft.FromUrl != FromUrl) continue;
+                foreach (cWhereUsed wu in cft.WhereUsed)
+                {
+                    if (wu.sysType == sFilename && wu.macroName == MacroName)
+                    {
+                        wu.NeedsToBeSaved = true;
+                        wu.bValidated = true;
+                        cft.ToUrl = sFtpUrl;
+                    }
+                    return true;
+                }
+            }
+            Debug.Assert(false, " not found in url list ");
+            return false;
+        }
+
+        public void SignalAllGoodUrls()
+        {
+            foreach (cFromToUrls cft in FromToUrls)
+            {
+                if (cft.FromUrl != FromUrl) continue;
+                cft.FromUrl = ToUrl;
+                cft.ToUrl = ToUrl;
+                cft.bValidated = true;
+                foreach(cWhereUsed wu in cft.WhereUsed)
+                {
+                    wu.bValidated = true;
+                    wu.NeedsToBeSaved = false;  // we will save it automatically
+                }
+            }
+        }
+        public bool SignalGoodUrl(bool IsValidated)
+        {
+
+            foreach (cFromToUrls cft in FromToUrls)
+            {
+                if (cft.FromUrl != FromUrl) continue;
+                foreach (cWhereUsed wu in cft.WhereUsed)
+                {
+                    if (wu.sysType == sFilename && wu.macroName == MacroName)
+                    {
+                        wu.NeedsToBeSaved = IsValidated;
+                        wu.bValidated = IsValidated;
+
+                        if(BadUrlType == 1)
+                        {
+                            if (IsValidated)
+                                cft.ToUrl = cft.FromUrl;
+                            else
+                                cft.ToUrl = "";
+                        }
+                        else
+                        {
+                            if (IsValidated)
+                                cft.ToUrl = ToUrl;
+                            else
+                                cft.ToUrl = "";
+                        }   
+                        return true;
+                    }
+                }
+            }
+            Debug.Assert(false, " not found in url list ");
+            return false;
+        }
+
+        public bool IsOldUrl(string FileTypeCode, string MacName, out string sFromUrl, out string sToUrl)
+        {
+            sFromUrl = "";
+            sToUrl = "";
             foreach (cFromToUrls cft in FromToUrls)
             {
                 foreach (cWhereUsed wu in cft.WhereUsed)
                 {
-                    if (wu.sysType == type && wu.macroName == name)
+                    if (wu.sysType == FileTypeCode && wu.macroName == MacName && !wu.bValidated)
                     {
+                        sFromUrl = cft.FromUrl;
+                        sToUrl = cft.ToUrl;
                         return true;
                     }
                 }
@@ -88,52 +362,120 @@ namespace MacroEditor
             return false;
         }
 
-        public string FormSavedList()
+        public string ReplaceAllOldUrls(string sFtp)
+        {
+            string sOut = "";
+            fnc.ToUrl = sFtp;
+            ToUrl = sFtp;
+            sOut += "Change " + fnc.FromUrl + Environment.NewLine;
+            sOut += "To " + sFtp + Environment.NewLine;
+            sOut += "At the following locations: " + Environment.NewLine;
+            for (int i = 0; i < fnc.soc.Count; i++)
+            {
+                for (int j = 0; j < fnc.soc[i].OldMacroNumber.Count; j++)
+                {
+                    sOut += fnc.soc[i].Filecode + "#";
+                    sOut += fnc.soc[i].OldMacroNumber[j] + ":" + fnc.soc[i].OldMacroNames[j] + Environment.NewLine;
+                }
+            }
+            return sOut;
+        }
+
+        public string FormSavedList(bool ShowAll = true)
         {
             string sOut = "";
             foreach (cFromToUrls cft in FromToUrls)
             {
-                string s1 = cft.FromUrl + ":";
+                int n = 0;
+                string s1 = cft.FromUrl + Environment.NewLine;
                 foreach (cWhereUsed wu in cft.WhereUsed)
                 {
-                    s1 += wu.sysType + "," + wu.macroName + "," + wu.macroNumber + ";";
+                    if (!ShowAll && wu.bValidated) continue;
+                    s1 += wu.sysType.PadRight(3) + "#" + (wu.macroNumber + ":").PadRight(4) +  "\'" + wu.macroName + "\'"  + Environment.NewLine;
+                    n++;
                 }
-                sOut += s1.TrimEnd(';') + Environment.NewLine;
+                if(n>0)
+                    sOut += "(" + n.ToString() + ")" + s1.TrimEnd(';') + Environment.NewLine;
             }
             return sOut;
         }
 
         public void SaveBadUrls(string sFile)
         {
-            string sOut = FormSavedList();
-            File.WriteAllText(sFile, sOut);
+            SaveToXml(sFile, ref FromToUrls);
+        }
+
+        public static void SaveToXml(string filePath, ref List<cFromToUrls> data)
+        {
+            File.Delete(filePath);
+            XmlSerializer serializer = new XmlSerializer(typeof(List<cFromToUrls>));
+            using (StreamWriter writer = new StreamWriter(filePath))
+            {
+                serializer.Serialize(writer, data);
+            }
+        }
+
+        public  List<cFromToUrls> LoadFromXml(string filePath)
+        {
+            XmlSerializer serializer = new XmlSerializer(typeof(List<cFromToUrls>));
+            using (StreamReader reader = new StreamReader(filePath))
+            {
+                return (List<cFromToUrls>)serializer.Deserialize(reader);
+            }
+        }
+
+        // this restore all settings to quickly cancel any changes.
+        public void ReloadFiles()
+        {
+            if (LocationFile == "") return;
+            FromToUrls = LoadFromXml(LocationFile);
+        }
+
+        public void SaveXmlChanges()
+        {
+            if (LocationFile == "") return;
+            SaveToXml(LocationFile, ref FromToUrls);
         }
 
         public int ReadBadUrls(string sFile)
         {
-            if(!File.Exists(sFile)) return 0;   
-            string sOut = File.ReadAllText(sFile);
-            if (sOut.Length == 0) return 0;
-            FromToUrls.Clear();
-            string[] lines = sOut.Split(new[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
-            foreach (string s in lines)
+            LocationFile = "";
+            if (!File.Exists(sFile)) return 0;
+            LocationFile = sFile;
+            FromToUrls = LoadFromXml(sFile);
+            return CountBadUrls();
+        }
+
+        public async Task<string> HttpFileExistsAsync(string surl)
+        {
+            try
             {
-                string[] sMac = s.Split(':');
-                cFromToUrls cft = new cFromToUrls();
-                cft.FromUrl = sMac[0];
-                string[] rhs = sMac[1].Split(';');
-                foreach (string t in rhs)
+                string url = "https://" + surl;
+
+                using (HttpClient client = new HttpClient())
                 {
-                    string[] u = t.Split(',');
-                    cWhereUsed wu = new cWhereUsed();
-                    wu.sysType = u[0];
-                    wu.macroName = u[1];
-                    wu.macroNumber = u[2];
-                    cft.WhereUsed.Add(wu);
+                    var request = new HttpRequestMessage(HttpMethod.Get, url);
+
+                    // Only read headers — avoids body download
+                    var response = await client.SendAsync(request, HttpCompletionOption.ResponseHeadersRead);
+
+                    // If status code is success → file exists
+                    if (response.IsSuccessStatusCode)
+                        return "";
+
+                    // Otherwise check status code and reason phrase
+                    string reason = response.ReasonPhrase?.ToLower() ?? "";
+                    if (reason.Contains("not found") || reason.Contains("404"))
+                        return "Not found or 404";
+
+                    return "Unknown";
                 }
-                FromToUrls.Add(cft);
             }
-            return lines.Length;
+
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
         }
     }
 }

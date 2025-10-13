@@ -116,6 +116,12 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="sources\ShowUrlChanges.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="sources\ShowUrlChanges.Designer.cs">
+      <DependentUpon>ShowUrlChanges.cs</DependentUpon>
+    </Compile>
     <Compile Include="sources\ChangeUrls.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -289,6 +295,9 @@
     <Compile Include="sources\WordSearch.Designer.cs">
       <DependentUpon>WordSearch.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="sources\ShowUrlChanges.resx">
+      <DependentUpon>ShowUrlChanges.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="sources\associate.resx">
       <DependentUpon>associate.cs</DependentUpon>
     </EmbeddedResource>

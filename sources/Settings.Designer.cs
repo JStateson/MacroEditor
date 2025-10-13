@@ -94,6 +94,7 @@
             this.btnSaveDGV = new System.Windows.Forms.Button();
             this.cbNoFTPurls = new System.Windows.Forms.CheckBox();
             this.cbBadUrl = new System.Windows.Forms.CheckBox();
+            this.btnShowBad = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
             this.tbDateChg = new System.Windows.Forms.TextBox();
             this.cbFileN = new System.Windows.Forms.ComboBox();
@@ -125,6 +126,7 @@
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.tbReplace = new System.Windows.Forms.TextBox();
             this.tabPage5 = new System.Windows.Forms.TabPage();
+            this.pbCounting = new System.Windows.Forms.ProgressBar();
             this.btnSaveURLs = new System.Windows.Forms.Button();
             this.lbCnt = new System.Windows.Forms.Label();
             this.tbUrls = new System.Windows.Forms.TextBox();
@@ -905,7 +907,7 @@
             // cbNoFTPurls
             // 
             this.cbNoFTPurls.AutoSize = true;
-            this.cbNoFTPurls.Location = new System.Drawing.Point(14, 27);
+            this.cbNoFTPurls.Location = new System.Drawing.Point(21, 74);
             this.cbNoFTPurls.Name = "cbNoFTPurls";
             this.cbNoFTPurls.Size = new System.Drawing.Size(141, 30);
             this.cbNoFTPurls.TabIndex = 8;
@@ -917,6 +919,8 @@
             // cbBadUrl
             // 
             this.cbBadUrl.AutoSize = true;
+            this.cbBadUrl.Checked = true;
+            this.cbBadUrl.CheckState = System.Windows.Forms.CheckState.Checked;
             this.cbBadUrl.Location = new System.Drawing.Point(291, 14);
             this.cbBadUrl.Name = "cbBadUrl";
             this.cbBadUrl.Size = new System.Drawing.Size(124, 30);
@@ -924,6 +928,20 @@
             this.cbBadUrl.Text = "Scan for bad HP urls\r\nwhen clicking button";
             this.toolTip1.SetToolTip(this.cbBadUrl, "displays in this textbox, the HP\r\nURLs that might be obsolete.");
             this.cbBadUrl.UseVisualStyleBackColor = true;
+            // 
+            // btnShowBad
+            // 
+            this.btnShowBad.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnShowBad.ForeColor = System.Drawing.SystemColors.Highlight;
+            this.btnShowBad.Location = new System.Drawing.Point(21, 14);
+            this.btnShowBad.Name = "btnShowBad";
+            this.btnShowBad.Size = new System.Drawing.Size(116, 47);
+            this.btnShowBad.TabIndex = 15;
+            this.btnShowBad.Text = "Show remaining\r\nobsolete URLs";
+            this.toolTip1.SetToolTip(this.btnShowBad, "This will show the obsolete\r\nURLs that remaine to be\r\nfixed or re-identified as g" +
+        "ood.");
+            this.btnShowBad.UseVisualStyleBackColor = true;
+            this.btnShowBad.Click += new System.EventHandler(this.btnShowBad_Click);
             // 
             // label4
             // 
@@ -1259,6 +1277,8 @@
             // 
             // tabPage5
             // 
+            this.tabPage5.Controls.Add(this.btnShowBad);
+            this.tabPage5.Controls.Add(this.pbCounting);
             this.tabPage5.Controls.Add(this.btnSaveURLs);
             this.tabPage5.Controls.Add(this.lbCnt);
             this.tabPage5.Controls.Add(this.cbBadUrl);
@@ -1272,6 +1292,13 @@
             this.tabPage5.TabIndex = 4;
             this.tabPage5.Text = "FTP urls";
             this.tabPage5.UseVisualStyleBackColor = true;
+            // 
+            // pbCounting
+            // 
+            this.pbCounting.Location = new System.Drawing.Point(221, 74);
+            this.pbCounting.Name = "pbCounting";
+            this.pbCounting.Size = new System.Drawing.Size(342, 21);
+            this.pbCounting.TabIndex = 14;
             // 
             // btnSaveURLs
             // 
@@ -1297,11 +1324,12 @@
             // tbUrls
             // 
             this.tbUrls.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.tbUrls.Location = new System.Drawing.Point(3, 93);
+            this.tbUrls.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbUrls.Location = new System.Drawing.Point(3, 118);
             this.tbUrls.Multiline = true;
             this.tbUrls.Name = "tbUrls";
             this.tbUrls.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.tbUrls.Size = new System.Drawing.Size(563, 324);
+            this.tbUrls.Size = new System.Drawing.Size(563, 299);
             this.tbUrls.TabIndex = 10;
             this.tbUrls.WordWrap = false;
             // 
@@ -1479,5 +1507,7 @@
         private System.Windows.Forms.CheckBox cbBadUrl;
         private System.Windows.Forms.Label lbCnt;
         private System.Windows.Forms.Button btnSaveURLs;
+        private System.Windows.Forms.ProgressBar pbCounting;
+        private System.Windows.Forms.Button btnShowBad;
     }
 }

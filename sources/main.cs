@@ -29,56 +29,57 @@
  *        miss the new items.  You must exit the program and restart it to update the database.
 */
 
+using AxWMPLib;
+using MacroEditor.Properties;
+using MacroEditor.sources;
+using Microsoft.Office.Interop.Word;
 using System;
-using System.Windows.Forms;
-using System.IO;
-using System.Reflection;
-using System.Runtime.InteropServices;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Drawing;
-using System.Runtime.Remoting.Messaging;
-using System.Linq;
-using System.Windows.Ink;
 using System.ComponentModel;
-using System.Runtime.CompilerServices;
-using System.Xml.Serialization;
-using System.Windows.Media.Animation;
-using System.Dynamic;
 using System.Configuration;
+using System.Data;
+using System.Diagnostics;
+using System.Diagnostics.Eventing.Reader;
+using System.Drawing;
+using System.Dynamic;
+using System.Globalization;
+using System.IO;
+using System.IO.Compression;
+using System.Linq;
+using System.Linq.Expressions;
+using System.Reflection;
+using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices;
+using System.Runtime.InteropServices.ComTypes;
+using System.Runtime.Remoting.Messaging;
+using System.Security.Cryptography;
 using System.Security.Policy;
 using System.Text.RegularExpressions;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
-using System.Security.Cryptography;
-using static System.Windows.Forms.LinkLabel;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.TrackBar;
-using System.Globalization;
-using System.Data;
-using MacroEditor.sources;
-using System.Threading.Tasks;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.Tab;
-using System.Linq.Expressions;
-using System.Runtime.InteropServices.ComTypes;
-using System.Windows.Data;
-using AxWMPLib;
-using System.Windows.Controls;
-using System.Web;
-using System.IO.Compression;
-using System.Diagnostics.Eventing.Reader;
-using static MacroEditor.CSendCloud;
-using MacroEditor.Properties;
-using Button = System.Windows.Forms.Button;
-using Microsoft.Office.Interop.Word;
-using Font = System.Drawing.Font;
-using System.Windows.Media;
-using Color = System.Drawing.Color;
-using System.Xml.Linq;
-using System.Windows.Shapes;
-using Path = System.IO.Path;
-using static System.Windows.Forms.AxHost;
-using static System.Net.WebRequestMethods;
-using File = System.IO.File;
 using System.Threading;
+using System.Threading.Tasks;
+using System.Web;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Forms;
+using System.Windows.Ink;
+using System.Windows.Media;
+using System.Windows.Media.Animation;
+using System.Windows.Shapes;
+using System.Xml.Linq;
+using System.Xml.Serialization;
+using static MacroEditor.ChangeUrls;
+using static MacroEditor.CSendCloud;
+using static System.Net.WebRequestMethods;
+using static System.Windows.Forms.AxHost;
+using static System.Windows.Forms.LinkLabel;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.Tab;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.TrackBar;
+using Button = System.Windows.Forms.Button;
+using Color = System.Drawing.Color;
+using File = System.IO.File;
+using Font = System.Drawing.Font;
+using Path = System.IO.Path;
 
 
 namespace MacroEditor
@@ -147,6 +148,7 @@ namespace MacroEditor
         private string sDefaultHline = "";
         private ChangeUrls changeUrls = new ChangeUrls();
         private int NumOldUrls = 0;
+        private int localNOUs = 0;  // local count of old urls
         private bool ShowBadUrls = false;
         public main()
         {
@@ -238,7 +240,7 @@ namespace MacroEditor
             Utils.TotalNumberMacros = LoadAllFiles();
             CheckPWE(); // see if password and email are enabled for using
             mnuCmpHTTP.Enabled = File.Exists(Properties.Settings.Default.HTTP_HP);
-            GetRecentArchive(); // this includes all files so files must be closed
+            Utils.GetRecentArchive(); // this includes all files so files must be closed
             BiosEmuSim bes = new BiosEmuSim(true);
             BSFlocal = bes.BSFsources;
             bes.Dispose();
@@ -612,12 +614,13 @@ namespace MacroEditor
             return true;
         }
 
-
-        private void RunBrowser(bool bMustFetch)
+        // if show is false then the page is not shown, just saved, and the path to the file is returned
+        private string RunBrowser(bool bShowPage)
         {
             string strTemp = tbBody.Text.Trim();
             string sNewPrefix = "";
-            if (strTemp == "" || !tbBody.Enabled) return;
+            string sReturnPage = "";
+            if (strTemp == "" || !tbBody.Enabled) return "";
             strTemp = strTemp.Replace(Environment.NewLine, "<br>");
             string sMacroName = tbMacName.Text;
             string sMacroID = "(" + strType + "#" + CurrentRowSelected.ToString() + ")";
@@ -629,7 +632,8 @@ namespace MacroEditor
                 {
                     strTemp = Utils.AddLanguageOption(strTemp);
                 }
-                Utils.CopyHTML(Utils.ShowRawBrowser(strTemp, strType, sMacroName + sMacroID));
+                sReturnPage = Utils.ShowRawBrowser(strTemp, strType, sMacroName + sMacroID, bShowPage);
+                if (!bShowPage) return sReturnPage;
             }
             else
             {
@@ -638,16 +642,18 @@ namespace MacroEditor
                 else
                     sNewPrefix = DataFileFormatted;
                 if(bAddHline)
-                    sNewPrefix = Utils.AddHline(sDefaultHline,strType, "") + sNewPrefix;                
-                Utils.CopyHTML(Utils.ShowRawBrowser(sNewPrefix + strTemp, strType, sMacroName + sMacroID));
-
+                    sNewPrefix = Utils.AddHline(sDefaultHline,strType, "") + sNewPrefix;
+                sReturnPage = Utils.ShowRawBrowser(sNewPrefix + strTemp, strType, sMacroName + sMacroID,bShowPage);
+                if (!bShowPage) return sReturnPage;
             }
+            Utils.CopyHTML(sReturnPage);
+            return "";
         }
 
 
         private void btnGo_Click(object sender, EventArgs e)
         {
-            RunBrowser(false);
+            RunBrowser(true);
         }
 
 
@@ -1143,8 +1149,7 @@ namespace MacroEditor
                     return;
                 }
             }
-
-            RunBrowser(false);
+            RunBrowser(true);
         }
 
 
@@ -1254,6 +1259,7 @@ namespace MacroEditor
         private int LoadFromTXT(string strFN)
         {
             ShowBadUrls = false;
+            localNOUs = 0;
             int i = 0;
             int IndexstrFN = Utils.IndexMacName(strFN);
             string rBody;
@@ -1385,16 +1391,21 @@ namespace MacroEditor
                 }
                 if(NumOldUrls > 0)
                 {
-                    bool bOldDriver = changeUrls.IsOldUrl(strFN, DataTable[i].MacName);
+                    string sFromUrl = "";
+                    string sToUrl = "";
+                    bool bOldDriver = changeUrls.IsOldUrl(strFN, DataTable[i].MacName, out sFromUrl, out sToUrl);
                     if(bOldDriver)
                     {
                         lbName.Rows[i].Cells[2].Value = "url";
                         lbName.Rows[i].Cells[2].Style.ForeColor = Color.Red;
                         ShowBadUrls = true;
+                        localNOUs++;
                     }
-
                 }
             }
+#if DEBUG
+            tbShowClip.Text = NumOldUrls.ToString() + "(" + localNOUs.ToString() + ")";
+#endif
             btnNew.Enabled = lbName.RowCount < Utils.NumMacros;
             if (strFN == "HP")
             {
@@ -3434,13 +3445,20 @@ namespace MacroEditor
             string strBody = "";
             bool bUnChanged = true;
             DataFileRecord = rBodyFromTable();
-            List<string> BadUrls = changeUrls.FindFromUrls(TXTName,
-                lbName.Rows[CurrentRowSelected].Cells[3].Value.ToString());
+            string MacroName = lbName.Rows[CurrentRowSelected].Cells[3].Value.ToString();
+            string OriginalPage = RunBrowser(false);
+            changeUrls.SetMacroName(MacroName, TXTName, OriginalPage);
             if (DataFileRecord != "")
             {
                 string strTemp = tbBody.Text.Trim();
-                UDurl = new EditOldUrls(strTemp, DataFileRecord, ref printerDB, ref BadUrls);
+                UDurl = new EditOldUrls(strTemp, DataFileRecord, ref printerDB, ref changeUrls);
                 UDurl.ShowDialog();
+                if (changeUrls.fnc.ChangeApproved)
+                {
+                    LoadFromTXT(TXTName);
+                    UDurl.Dispose();
+                    return;
+                }
                 strBody = UDurl.sBodyOut;
                 if(DataFileRecord != "")
                 {
@@ -3462,8 +3480,14 @@ namespace MacroEditor
             }
             else
             {
-                UDurl = new EditOldUrls(tbBody.Text, "", ref printerDB, ref BadUrls);
+                UDurl = new EditOldUrls(tbBody.Text, "", ref printerDB, ref changeUrls);
                 UDurl.ShowDialog();
+                if (changeUrls.fnc.ChangeApproved)
+                {
+                    LoadFromTXT(TXTName);
+                    UDurl.Dispose();
+                    return;
+                }
                 strBody = UDurl.sBodyOut;
                 UDurl.Dispose();
                 if (strBody == null) return;
@@ -3753,56 +3777,14 @@ namespace MacroEditor
 
 
 
-        private void GetNextArchive(string sWhich)
-        {
-            string filename = Utils.GetDateTimeName(sWhich);
-            string folderPath = Properties.Settings.Default.MacroArchive;
-            if (Directory.Exists(folderPath))
-            {
-                string fullPath = System.IO.Path.Combine(folderPath, filename);
-                CompressMacros(fullPath, sWhich);
-            }
-        }
 
         private void TryGetNextArchive()
         {
             int n = Properties.Settings.Default.AllowChgInx;
             if (nSavedCount < (1 << n)) return;
-            GetNextArchive("MACROS");
+            Utils.GetNextArchive("MACROS");
         }
 
-
-
-        // either ALL or    MACROS
-        private string GetWildCardName(string sWhich)
-        {
-            string wc = sWhich + "*.zip";
-#if DEBUG
-            wc = "DEB_" + wc;
-#endif
-            return wc;
-        }
-
-        private bool GetRecentArchive()
-        {
-            string folderPath = Properties.Settings.Default.MacroArchive;
-            if (!Directory.Exists(folderPath)) return false;
-            int n = Properties.Settings.Default.AllowDaysInx;
-            var lastWriteTime = FileUtilities.GetMostRecentFileLastWriteTime(folderPath,GetWildCardName("ALL"));
-            string filename = Utils.GetDateTimeName("ALL");
-
-            string fullPath = System.IO.Path.Combine(folderPath, filename);
-            if (lastWriteTime == null)
-            {
-                CompressMacros(fullPath, "ALL");
-                return true;
-            }
-            DateTime dt = (DateTime)lastWriteTime;
-            TimeSpan ts = DateTime.Now - dt;
-            if(ts.Days > (1 << n))
-                CompressMacros(fullPath, "ALL");
-            return true;
-        }
 
 
         // button clicked from the new printer tool area so  not a real printer
@@ -3868,12 +3850,12 @@ namespace MacroEditor
 
         private void tsmRunArchive_Click(object sender, EventArgs e)
         {
-            GetNextArchive("MACROS");
+            Utils.GetNextArchive("MACROS");
         }
 
         private void tsmRunArchiveAll_Click(object sender, EventArgs e)
         {
-            GetNextArchive("ALL");
+            Utils.GetNextArchive("ALL");
         }
 
 
@@ -3970,31 +3952,6 @@ namespace MacroEditor
 
 
 
-        // cannot do this if any files are open!
-        private void CompressMacros(string sPathZip, string sPrefix)
-        {
-            string sourceFolder = Utils.WhereExe;
-            string DBfolder = sourceFolder;
-            string destinationZipFile = sPathZip;
-            string[] Images = Directory.GetFiles(Utils.WhereExe, "LOCALIMAGEFILE-*.png");
-
-            List<string> WantedZip = new List<string>();
-            foreach (string s in Images)
-                WantedZip.Add(Path.GetFileName(s));
-            foreach (string s in Utils.ListAllTxt)
-                WantedZip.Add(s);
-            if (sPrefix == "ALL")
-            {
-                string[] RTFs = Directory.GetFiles(Utils.WhereExe, "*.docx");
-                foreach (string s in RTFs)
-                {
-                    if (s == Utils.ScratchSpellFile) continue;
-                    WantedZip.Add(Path.GetFileName(s));
-                }
-
-            }
-            CreateZipFromFolder(DBfolder, WantedZip, sPathZip);
-        }
 
         private void cbShowCleaned_CheckedChanged(object sender, EventArgs e)
         {

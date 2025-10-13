@@ -14,6 +14,7 @@ using System.Net;
 using System.Net.Http;
 using System.Reflection.Emit;
 using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices;
 using System.Security.Policy;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -27,6 +28,7 @@ using static MacroEditor.Utils;
 using static System.Net.Mime.MediaTypeNames;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.Tab;
+using Application = System.Windows.Forms.Application;
 using HtmlDocument = HtmlAgilityPack.HtmlDocument;
 
 namespace MacroEditor
@@ -562,7 +564,6 @@ namespace MacroEditor
 
         private void btnSaveDGV_Click(object sender, EventArgs e)
         {
-
             Utils.PhraseReplacer.SaveSettings();
         }
 
@@ -572,21 +573,15 @@ namespace MacroEditor
         {
             string t = "";
             int n = 0;
-            string pattern = @"ftp\.[^\s""']*?\.(exe|zip|htm|html)\b";
-            Regex regex = new Regex(pattern, RegexOptions.IgnoreCase);
-            var matches = regex.Matches(s);
-            HashSet<string> uniqueMatches = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
-            foreach (Match m in matches)
-            {
-                uniqueMatches.Add(m.Value);
-            }
-            
-            foreach(string url in uniqueMatches)
+
+            HashSet<string> uniqueMatches = changeUrls.GetUniqueUrls(s);
+
+            foreach (string url in uniqueMatches)
             {
                 bool bExists = true;
                 if(cbBadUrl.Checked)
                 {
-                    string sExists = await HttpFileExistsAsync(url);
+                    string sExists = await changeUrls.HttpFileExistsAsync(url);
                     bExists = (sExists == "");
                     if (!bExists)
                     {
@@ -605,19 +600,26 @@ namespace MacroEditor
             return n;
         }
 
+
         private string debNum = "";
         private string debSys = "";
         private string debName = "";
         private async void btnGetFTPurls_Click(object sender, EventArgs e)
         {
             string sOut = "";
+            this.Enabled = false;
+            int nMacros = Cbodies.Count;
+            pbCounting.Maximum = nMacros+1;
+            pbCounting.Value = 1;
             changeUrls.Clear();
             if(cbBadUrl.Checked)sOut = "These URLs may not be valid:" + Environment.NewLine;
             tbUrls.Text = sOut;
             lbCnt.Text = "";
             int n = 0;
+            int c = 0;
             foreach (CBody cb in Cbodies)
             {
+                c++;
                 string sR = "";
                 string sS = "";
                 bool sHasFTP = false;
@@ -628,9 +630,9 @@ namespace MacroEditor
                 string sRecord = cb.rBody;
                 bool rHasFTP = sRecord.Contains("ftp.");
 
-                debNum = cb.Number;
                 debSys= strType;
                 debName= MacName;
+                debNum = cb.Number;
 
                 if (!(sHasFTP || rHasFTP))continue;                    
                 string sMacroID = "(" + strType + "#" + cb.Number + ")" + Environment.NewLine;
@@ -650,7 +652,11 @@ namespace MacroEditor
                     if (!cbBadUrl.Checked)
                         Debug.Assert(false, "Should not be here");
                 }
-
+                if(sHasFTP || rHasFTP)
+                {
+                    pbCounting.Value = c;
+                    Application.DoEvents();
+                }
                 if(cbBadUrl.Checked)
                 {
                     if (sS != "" || sR != "")
@@ -664,7 +670,9 @@ namespace MacroEditor
                     tbUrls.Text += sHdr + sS + sR;
             }
             lbCnt.Text = "Number urls: " + n.ToString();
+            pbCounting.Value = 0;
             FormCleanList();
+            this.Enabled = true;
         }
 
         private void FormCleanList()
@@ -672,40 +680,15 @@ namespace MacroEditor
             tbReplace.Text = changeUrls.FormSavedList();
         }
 
-        private async Task<string> HttpFileExistsAsync(string surl)
-        {
-            try
-            {
-                string url = "https://" + surl;
-
-                using (HttpClient client = new HttpClient())
-                {
-                    var request = new HttpRequestMessage(HttpMethod.Get, url);
-
-                    // Only read headers — avoids body download
-                    var response = await client.SendAsync(request, HttpCompletionOption.ResponseHeadersRead);
-
-                    // If status code is success → file exists
-                    if (response.IsSuccessStatusCode)
-                        return "";
-
-                    // Otherwise check status code and reason phrase
-                    string reason = response.ReasonPhrase?.ToLower() ?? "";
-                    if (reason.Contains("not found") || reason.Contains("404"))
-                        return "Not found or 404";
-
-                    return "Unknown";
-                }
-            }
-            catch (Exception ex)
-            {
-                return ex.Message;
-            }
-        }
 
         private void btnSaveURLs_Click(object sender, EventArgs e)
         {
             changeUrls.SaveBadUrls(Utils.OldUrlList);
+        }
+
+        private void btnShowBad_Click(object sender, EventArgs e)
+        {
+            tbUrls.Text = changeUrls.FormSavedList(false);
         }
     }
 }
