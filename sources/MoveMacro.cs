@@ -5,8 +5,10 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Forms;
 using System.Windows.Forms.Design;
 
@@ -34,6 +36,11 @@ namespace MacroEditor
                 m += cms.nMacsAllowed[i];
             }
             tbTotalCnt.Text = n.ToString() + " of " + m.ToString();
+        }
+
+        public void RunExport()
+        {
+
         }
 
         private void FillFrom(ref GroupBox gb)
@@ -65,7 +72,16 @@ namespace MacroEditor
             }
         }
 
-
+        private bool isTransferAllowed(string sourceType)
+        {
+            if (sourceType == "HP" || sourceType == cms.strType) return false;
+            // cannote move to HP not to its own location
+            if(Utils.IsNewPRN(cms.strType))
+            {
+                if (!Utils.IsNewPRN(sourceType)) return false;  // cannot move printer to non printer type
+            }
+            return true;    
+        }
 
         private void FillTo(ref GroupBox gb)
         {
@@ -79,8 +95,7 @@ namespace MacroEditor
                 rb.Text = s + "macro - " + Utils.LocalMacroFullname[i];
                 rb.Name = s;
                 rb.Location = new System.Drawing.Point(x, y + (i) * 30);
-                rb.Enabled = (cms.strType != s);
-                if(s == "HP") rb.Enabled = false;
+                rb.Enabled = isTransferAllowed(s);
                 // for now do not move into any HP table
                 rb.CheckedChanged += RadioButton_CheckedChanged;
                 gb.Controls.Add(rb);

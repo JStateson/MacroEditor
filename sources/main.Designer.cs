@@ -227,6 +227,11 @@
             this.tsmAddClip = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmRemove = new System.Windows.Forms.ToolStripMenuItem();
             this.SpellTimer = new System.Windows.Forms.Timer(this.components);
+            this.tsm2GoogleAIurl = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsm2PasteAI = new System.Windows.Forms.ToolStripMenuItem();
+            this.moveTSM = new System.Windows.Forms.ToolStripMenuItem();
+            this.exportTSM = new System.Windows.Forms.ToolStripMenuItem();
+            this.importTSM = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.lbName)).BeginInit();
             this.groupBox6.SuspendLayout();
             this.gbManageImages.SuspendLayout();
@@ -1502,10 +1507,13 @@
             // 
             // mMoveMacro
             // 
+            this.mMoveMacro.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.moveTSM,
+            this.exportTSM,
+            this.importTSM});
             this.mMoveMacro.Name = "mMoveMacro";
-            this.mMoveMacro.Size = new System.Drawing.Size(49, 20);
-            this.mMoveMacro.Text = "Move";
-            this.mMoveMacro.Click += new System.EventHandler(this.mMoveMacro_Click);
+            this.mMoveMacro.Size = new System.Drawing.Size(61, 20);
+            this.mMoveMacro.Text = "Transfer";
             // 
             // aboutToolStripMenuItem
             // 
@@ -2104,9 +2112,11 @@
             this.contextMenuStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tsmAddQWatch,
             this.tsmAddClip,
+            this.tsm2GoogleAIurl,
+            this.tsm2PasteAI,
             this.tsmRemove});
             this.contextMenuStrip2.Name = "contextMenuStrip2";
-            this.contextMenuStrip2.Size = new System.Drawing.Size(189, 70);
+            this.contextMenuStrip2.Size = new System.Drawing.Size(189, 114);
             this.contextMenuStrip2.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.contextMenuStrip2_ItemClicked);
             // 
             // tsmAddQWatch
@@ -2132,6 +2142,39 @@
             this.SpellTimer.Interval = 1000;
             this.SpellTimer.Tag = "";
             this.SpellTimer.Tick += new System.EventHandler(this.SpellTimer_Tick);
+            // 
+            // tsm2GoogleAIurl
+            // 
+            this.tsm2GoogleAIurl.Name = "tsm2GoogleAIurl";
+            this.tsm2GoogleAIurl.Size = new System.Drawing.Size(188, 22);
+            this.tsm2GoogleAIurl.Text = "Google AI url";
+            // 
+            // tsm2PasteAI
+            // 
+            this.tsm2PasteAI.Name = "tsm2PasteAI";
+            this.tsm2PasteAI.Size = new System.Drawing.Size(188, 22);
+            this.tsm2PasteAI.Text = "Paste AI text";
+            // 
+            // moveTSM
+            // 
+            this.moveTSM.Name = "moveTSM";
+            this.moveTSM.Size = new System.Drawing.Size(180, 22);
+            this.moveTSM.Text = "Move";
+            this.moveTSM.Click += new System.EventHandler(this.mMoveMacro_Click);
+            // 
+            // exportTSM
+            // 
+            this.exportTSM.Name = "exportTSM";
+            this.exportTSM.Size = new System.Drawing.Size(180, 22);
+            this.exportTSM.Text = "Export";
+            this.exportTSM.Click += new System.EventHandler(this.ExportImport_Click);
+            // 
+            // importTSM
+            // 
+            this.importTSM.Name = "importTSM";
+            this.importTSM.Size = new System.Drawing.Size(180, 22);
+            this.importTSM.Text = "Import";
+            this.importTSM.Click += new System.EventHandler(this.ExportImport_Click);
             // 
             // main
             // 
@@ -2378,6 +2421,11 @@
         private System.Windows.Forms.Label lbSpelling;
         private System.Windows.Forms.Timer SpellTimer;
         private System.Windows.Forms.ToolStripMenuItem HelpLoadMacros;
+        private System.Windows.Forms.ToolStripMenuItem tsm2GoogleAIurl;
+        private System.Windows.Forms.ToolStripMenuItem tsm2PasteAI;
+        private System.Windows.Forms.ToolStripMenuItem moveTSM;
+        private System.Windows.Forms.ToolStripMenuItem exportTSM;
+        private System.Windows.Forms.ToolStripMenuItem importTSM;
     }
 }
 

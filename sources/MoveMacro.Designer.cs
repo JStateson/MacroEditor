@@ -31,6 +31,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MoveMacro));
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.btnCopy = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.tbTotalCnt = new System.Windows.Forms.TextBox();
             this.btnMove = new System.Windows.Forms.Button();
@@ -41,13 +42,14 @@
             this.tbNumMoving = new System.Windows.Forms.TextBox();
             this.gbTo = new System.Windows.Forms.GroupBox();
             this.gbFrom = new System.Windows.Forms.GroupBox();
-            this.btnCopy = new System.Windows.Forms.Button();
+            this.label4 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Controls.Add(this.groupBox2);
             this.groupBox1.Controls.Add(this.gbTo);
             this.groupBox1.Controls.Add(this.gbFrom);
@@ -72,16 +74,29 @@
             this.groupBox2.Controls.Add(this.tbNumMoving);
             this.groupBox2.Location = new System.Drawing.Point(609, 56);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(293, 415);
+            this.groupBox2.Size = new System.Drawing.Size(293, 342);
             this.groupBox2.TabIndex = 2;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Action";
+            // 
+            // btnCopy
+            // 
+            this.btnCopy.Enabled = false;
+            this.btnCopy.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnCopy.ForeColor = System.Drawing.SystemColors.Highlight;
+            this.btnCopy.Location = new System.Drawing.Point(24, 233);
+            this.btnCopy.Name = "btnCopy";
+            this.btnCopy.Size = new System.Drawing.Size(112, 37);
+            this.btnCopy.TabIndex = 9;
+            this.btnCopy.Text = "Copy Them";
+            this.btnCopy.UseVisualStyleBackColor = true;
+            this.btnCopy.Click += new System.EventHandler(this.btnCopy_Click);
             // 
             // label3
             // 
             this.label3.AutoSize = true;
             this.label3.BackColor = System.Drawing.SystemColors.Info;
-            this.label3.Location = new System.Drawing.Point(17, 361);
+            this.label3.Location = new System.Drawing.Point(21, 298);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(116, 16);
             this.label3.TabIndex = 8;
@@ -90,7 +105,7 @@
             // tbTotalCnt
             // 
             this.tbTotalCnt.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbTotalCnt.Location = new System.Drawing.Point(155, 358);
+            this.tbTotalCnt.Location = new System.Drawing.Point(155, 292);
             this.tbTotalCnt.Name = "tbTotalCnt";
             this.tbTotalCnt.ReadOnly = true;
             this.tbTotalCnt.Size = new System.Drawing.Size(113, 22);
@@ -101,7 +116,7 @@
             this.btnMove.Enabled = false;
             this.btnMove.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnMove.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.btnMove.Location = new System.Drawing.Point(20, 207);
+            this.btnMove.Location = new System.Drawing.Point(21, 172);
             this.btnMove.Name = "btnMove";
             this.btnMove.Size = new System.Drawing.Size(112, 37);
             this.btnMove.TabIndex = 4;
@@ -113,7 +128,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.BackColor = System.Drawing.SystemColors.Info;
-            this.label2.Location = new System.Drawing.Point(20, 94);
+            this.label2.Location = new System.Drawing.Point(20, 82);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(107, 16);
             this.label2.TabIndex = 6;
@@ -133,7 +148,7 @@
             // 
             this.btnExit.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnExit.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.btnExit.Location = new System.Drawing.Point(20, 156);
+            this.btnExit.Location = new System.Drawing.Point(21, 121);
             this.btnExit.Name = "btnExit";
             this.btnExit.Size = new System.Drawing.Size(75, 32);
             this.btnExit.TabIndex = 3;
@@ -144,7 +159,7 @@
             // tbNFree
             // 
             this.tbNFree.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbNFree.Location = new System.Drawing.Point(155, 88);
+            this.tbNFree.Location = new System.Drawing.Point(155, 76);
             this.tbNFree.Name = "tbNFree";
             this.tbNFree.ReadOnly = true;
             this.tbNFree.Size = new System.Drawing.Size(69, 22);
@@ -177,18 +192,16 @@
             this.gbFrom.TabStop = false;
             this.gbFrom.Text = "From";
             // 
-            // btnCopy
+            // label4
             // 
-            this.btnCopy.Enabled = false;
-            this.btnCopy.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCopy.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.btnCopy.Location = new System.Drawing.Point(23, 268);
-            this.btnCopy.Name = "btnCopy";
-            this.btnCopy.Size = new System.Drawing.Size(112, 37);
-            this.btnCopy.TabIndex = 9;
-            this.btnCopy.Text = "Copy Them";
-            this.btnCopy.UseVisualStyleBackColor = true;
-            this.btnCopy.Click += new System.EventHandler(this.btnCopy_Click);
+            this.label4.AutoSize = true;
+            this.label4.BackColor = System.Drawing.SystemColors.Info;
+            this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(642, 438);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(191, 48);
+            this.label4.TabIndex = 9;
+            this.label4.Text = "Warning:  Printers can only\r\nbe moved, exported or\r\nimported to other printers";
             // 
             // MoveMacro
             // 
@@ -203,6 +216,7 @@
             this.Name = "MoveMacro";
             this.Text = "MoveMacro";
             this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.ResumeLayout(false);
@@ -224,5 +238,6 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox tbTotalCnt;
         private System.Windows.Forms.Button btnCopy;
+        private System.Windows.Forms.Label label4;
     }
 }

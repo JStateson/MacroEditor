@@ -7,6 +7,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Net.Http.Headers;
 using System.Net.NetworkInformation;
 using System.Reflection;
 using System.Runtime.InteropServices;
@@ -47,6 +48,10 @@ namespace MacroEditor
             MacroIDs = Utils.LocalMacroPrefix;
             nMacsInFile = new int[MacroIDs.Length];
             nMacsAllowed = new int[MacroIDs.Length];
+            bRun = false;
+            bDelete = false;
+            bExport = false;
+            bImport = false;
             for (i = 0; i < MacroIDs.Length - 1; i++)
                 nMacsAllowed[i] = Utils.NumMacros;
             nMacsAllowed[MacroIDs.Length - 1] = Utils.HPmaxNumber; // only 30 macros in HP forum original list
@@ -134,7 +139,11 @@ namespace MacroEditor
         public bool bCopy;      // do not delete
         public string strType;    // name of the "from" file ie: source
         public string strDes;   // destination
+        public string[] ImportedItems;// text (bodies) items to import.
         public bool bDelete;    // if true then just delete the item from the source, no move required
+        public bool bExport;
+        public bool bImport;
+        public string fullPath;    // source file being imported
     }
 
     public class cMacroChanges
@@ -722,6 +731,7 @@ namespace MacroEditor
         //<body style="width: 800px; margin: 0 auto;">
         public static string WhereExe = "";
         public static string OldUrlList = "OldUrlList.xml";
+        public static string ExportImportFile = "ExportedList.txt";
         public static string UnNamedMacro = "Change Me";
         public static string SpellList = "AllowedSpelling.txt";
         public static string ScratchSpellFile = "ScratchSpellFile.docx";

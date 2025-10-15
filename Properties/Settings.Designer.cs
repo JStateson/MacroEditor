@@ -489,5 +489,17 @@ namespace MacroEditor.Properties {
                 this["ToPhrase"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string ExportImportFolder {
+            get {
+                return ((string)(this["ExportImportFolder"]));
+            }
+            set {
+                this["ExportImportFolder"] = value;
+            }
+        }
     }
 }

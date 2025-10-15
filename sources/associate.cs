@@ -84,8 +84,7 @@ namespace MacroEditor.sources
                 }
                 i++;
             }
-            //bTableExists = File.Exists(Utils.FNtoPath("Ass"));
-            //if(!bTableExists) return;
+
             LoadTable();
             foreach (DataGridViewColumn column in dgv.Columns)
             {

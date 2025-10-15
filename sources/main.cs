@@ -53,6 +53,7 @@ using System.Runtime.InteropServices;
 using System.Runtime.InteropServices.ComTypes;
 using System.Runtime.Remoting.Messaging;
 using System.Security.Cryptography;
+using System.Security.Permissions;
 using System.Security.Policy;
 using System.Text.RegularExpressions;
 using System.Threading;
@@ -2811,7 +2812,7 @@ namespace MacroEditor
         }
 
 
-        private void AppendTheseRows(CMoveSpace cms)
+        private void AppendTheseRows(ref CMoveSpace cms)
         {
             string strAdded = "";
             string sB = "";
@@ -2852,7 +2853,7 @@ namespace MacroEditor
             mnuCmpHpTr.Enabled = cms.strType == "HP" && cms.strDes == "TR";
         }
 
-        private void InsertTheseRows(CMoveSpace cms)
+        private void InsertTheseRows(ref CMoveSpace cms)
         {
             List<CNewMac> cb = new List<CNewMac>();
             string[] HPsaved;
@@ -2893,7 +2894,7 @@ namespace MacroEditor
             Utils.WriteAllText(strLoc, Utils.NoTrailingNL(strOut));
         }
 
-        private void PerformMove(CMoveSpace cms)
+        private void PerformMove(ref CMoveSpace cms)
         {
             int i = -1;
             int nResume = -1;   // row to resume at
@@ -2902,11 +2903,11 @@ namespace MacroEditor
             {
                 if (cms.strDes != "HP")
                 {
-                    AppendTheseRows(cms);
+                    AppendTheseRows(ref cms);
                 }
                 else
                 {
-                    InsertTheseRows(cms);
+                    InsertTheseRows(ref cms);
                 }
             }
             NumCheckedMacros = 0;
@@ -2982,19 +2983,153 @@ namespace MacroEditor
         private void mMoveMacro_Click(object sender, EventArgs e)
         {
             cms.Init();
-            cms.strType = strType;
-            cms.bRun = false;
-            cms.bDelete = false;
-
+            cms.strType = strType;          
             cms.nChecked = CountChecks(false);
             if (cms.nChecked > 0)
-            {                
+            {
                 MoveMacro mm = new MoveMacro(ref cms);
                 mm.ShowDialog();
                 mm.Dispose();
-                if(cms.bRun)
-                    PerformMove(cms);
+                if (cms.bRun)
+                    PerformMove(ref cms);
             }
+        }
+
+
+        private void ExportImport_Click(object sender, EventArgs e)
+        {
+            cms.Init();
+            cms.strType = strType;
+            if (sender is ToolStripMenuItem menuItem)
+            {
+                string text = menuItem.Text;
+                cms.bExport = text.Contains("xport");
+            }
+            else return;
+            cms.bImport = !cms.bExport;
+            cms.nChecked = CountChecks(false);
+            if (cms.nChecked > 0)
+            {
+                if(cms.bExport)
+                {
+                    ExportWantedMacros();
+                    return;
+                }
+            }
+            if (cms.bImport)
+            {
+                int n = ImportWantedMacros(ref cms);
+                if (n > 0)
+                {
+                    string sOut = string.Join(Environment.NewLine, cms.ImportedItems.Skip(1)).Trim();
+                    Utils.FileAppendText(cms.strDes, sOut);
+                    if (cms.strDes == "RF")
+                        ConfigureAssociation();
+                    if (cms.strDes == strType)// need to refresh the current macros
+                        LoadFromTXT(strType);
+                    DialogResult dr = MessageBox.Show("Click YES to remove the inport file now",
+                        "Do not forget to delete the file", MessageBoxButtons.YesNo);
+                    if(dr == DialogResult.Yes)
+                    {
+                        File.Delete(cms.fullPath);
+                    }
+                }
+            }
+        }
+
+        private int ImportWantedMacros(ref CMoveSpace cms)
+        {
+            int n = 0;
+            // Retrieve the last saved folder
+            string lastFolder = Properties.Settings.Default.LastFolder;
+            cms.fullPath = string.Empty;
+
+            if (!string.IsNullOrEmpty(lastFolder))
+                cms.fullPath = Path.Combine(lastFolder, Utils.ExportImportFile);
+            else
+                cms.fullPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
+                    Utils.ExportImportFile);
+
+            if (File.Exists(cms.fullPath))
+            {
+                int i = -1;                
+            if (File.Exists(cms.fullPath))
+                cms.ImportedItems = File.ReadAllLines(cms.fullPath);
+                n = cms.ImportedItems.Length - 1;
+                bool bValidCount = (n % 3 == 0);
+                n = n / 3;
+                cms.strType = cms.ImportedItems[0];
+                i = Array.IndexOf(Utils.LocalMacroPrefix, strType);
+                if (i < 0 || !bValidCount)
+                {
+                    MessageBox.Show("Exported file contents cannot be identified!", "Error");
+                    return 0;
+                }
+                cms.strDes = cms.strType;   // must be the same destinaton as source when importing
+                return n;
+            }
+            else
+            {
+            if (File.Exists(cms.fullPath))
+                MessageBox.Show($"File not found:\n{cms.fullPath}");
+            }
+            return n;
+        }
+
+        private void ExportWantedMacros()
+        {
+            string strAdded = cms.strType + Environment.NewLine;
+            // if RF then no rbody but could have a code such as Q, C, G, A or "<nl>"
+            string strPath = Utils.FNtoPath(strType);
+            int i = -1;
+            foreach (DataGridViewRow row in lbName.Rows)
+            {
+                i++;
+                bool bWantExport = (bool)row.Cells[1].Value; // || ((bool)row.Cells[1].EditedFormattedValue);
+                if (bWantExport)
+                {
+                    strAdded += row.Cells[3].Value.ToString() + Environment.NewLine;
+                    strAdded += DataTable[i].sBody + Environment.NewLine;
+                    strAdded += DataTable[i].rBody + Environment.NewLine;
+                }
+                //row.Cells[1].Value = false;
+                
+            }
+            if (strAdded != "")
+                SaveExportedItems(strAdded);
+        }
+
+        private void SaveExportedItems(string sOut)
+        {
+            using (SaveFileDialog sfd = new SaveFileDialog())
+            {
+                // Load last used folder (if it exists)
+                string lastFolder = Properties.Settings.Default.ExportImportFolder;
+                if (!string.IsNullOrEmpty(lastFolder) && Directory.Exists(lastFolder))
+                    sfd.InitialDirectory = lastFolder;
+                else
+                    sfd.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+
+                // Suggest filename
+                sfd.FileName = Utils.ExportImportFile;
+
+                // Optional filters
+                sfd.Filter = "TXT files (*.txt)|*.txt|All files (*.*)|*.*";
+                sfd.Title = "Save Exported Data";
+
+                if (sfd.ShowDialog() == DialogResult.OK)
+                {
+                    // Save the selected folder for next time
+                    string folderPath = Path.GetDirectoryName(sfd.FileName);
+                    Properties.Settings.Default.LastFolder = folderPath;
+                    Properties.Settings.Default.Save();
+
+                    // Save the actual file
+                    File.WriteAllText(sfd.FileName, sOut);
+                    MessageBox.Show($"File saved to: {sfd.FileName}");
+                }
+            }
+
         }
 
         private void btnSearch_Click(object sender, EventArgs e)
@@ -3014,7 +3149,7 @@ namespace MacroEditor
             CMoveSpace cms = new CMoveSpace();
             cms.strType = strType;
             cms.bDelete = true;
-            PerformMove(cms);
+            PerformMove(ref cms);
             NumCheckedMacros = CountChecks(false);
             btnDelChecked.Enabled = NumCheckedMacros > 0;
         }
@@ -4031,6 +4166,14 @@ namespace MacroEditor
                     cMS2_obj = 2;
                     lbName.Rows[cMS2_Row].Cells[2].Value = "";
                     break;
+                case "Google AI url":
+                    cMS2_obj = 3;
+                    lbName.Rows[cMS2_Row].Cells[2].Value = "G";
+                    break;
+                case "Paste AI text":
+                    cMS2_obj = 4;
+                    lbName.Rows[cMS2_Row].Cells[2].Value = "A";
+                    break;
             }
             if(cMS2_obj != -1)
             {
@@ -4117,6 +4260,7 @@ namespace MacroEditor
         private void UpdateClips()
         {
             int i,j;
+            string allowedContexts = "CAG";
             int sepStart = mnRecDis.DropDownItems.IndexOf(toolStripSepSTART);
             int sepEnd = mnRecDis.DropDownItems.IndexOf(toolStripSepEND);
             for (i = sepEnd -1; i > sepStart; i--)
@@ -4127,7 +4271,7 @@ namespace MacroEditor
             j = 1;
             foreach (cQCmacros m in AssociateMacros)
             {
-                if (m.sType == "C")
+                if (allowedContexts.Contains(m.sType))
                 {
                     ToolStripMenuItem submenuItem = new ToolStripMenuItem(m.sName);
                     submenuItem.Tag = i;
