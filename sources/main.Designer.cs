@@ -156,6 +156,9 @@
             this.tsmConfig = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmAssociate = new System.Windows.Forms.ToolStripMenuItem();
             this.mMoveMacro = new System.Windows.Forms.ToolStripMenuItem();
+            this.moveTSM = new System.Windows.Forms.ToolStripMenuItem();
+            this.exportTSM = new System.Windows.Forms.ToolStripMenuItem();
+            this.importTSM = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.testSignatureToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuImgSig = new System.Windows.Forms.ToolStripMenuItem();
@@ -225,13 +228,11 @@
             this.contextMenuStrip2 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.tsmAddQWatch = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmAddClip = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsmRemove = new System.Windows.Forms.ToolStripMenuItem();
-            this.SpellTimer = new System.Windows.Forms.Timer(this.components);
             this.tsm2GoogleAIurl = new System.Windows.Forms.ToolStripMenuItem();
             this.tsm2PasteAI = new System.Windows.Forms.ToolStripMenuItem();
-            this.moveTSM = new System.Windows.Forms.ToolStripMenuItem();
-            this.exportTSM = new System.Windows.Forms.ToolStripMenuItem();
-            this.importTSM = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmRemove = new System.Windows.Forms.ToolStripMenuItem();
+            this.SpellTimer = new System.Windows.Forms.Timer(this.components);
+            this.supportGPTToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.lbName)).BeginInit();
             this.groupBox6.SuspendLayout();
             this.gbManageImages.SuspendLayout();
@@ -1160,8 +1161,8 @@
             this.aboutToolStripMenuItem,
             this.testSignatureToolStripMenuItem,
             this.mnRecDis,
-            this.mShowErr,
             this.hPWebSitesToolStripMenuItem,
+            this.mShowErr,
             this.mnuTexting,
             this.quickWarningsToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
@@ -1515,6 +1516,27 @@
             this.mMoveMacro.Size = new System.Drawing.Size(61, 20);
             this.mMoveMacro.Text = "Transfer";
             // 
+            // moveTSM
+            // 
+            this.moveTSM.Name = "moveTSM";
+            this.moveTSM.Size = new System.Drawing.Size(110, 22);
+            this.moveTSM.Text = "Move";
+            this.moveTSM.Click += new System.EventHandler(this.mMoveMacro_Click);
+            // 
+            // exportTSM
+            // 
+            this.exportTSM.Name = "exportTSM";
+            this.exportTSM.Size = new System.Drawing.Size(110, 22);
+            this.exportTSM.Text = "Export";
+            this.exportTSM.Click += new System.EventHandler(this.ExportImport_Click);
+            // 
+            // importTSM
+            // 
+            this.importTSM.Name = "importTSM";
+            this.importTSM.Size = new System.Drawing.Size(110, 22);
+            this.importTSM.Text = "Import";
+            this.importTSM.Click += new System.EventHandler(this.ExportImport_Click);
+            // 
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
@@ -1724,6 +1746,7 @@
             this.desktopKBToolStripMenuItem2,
             this.gaminToolStripMenuItem,
             this.DriverPackTSM,
+            this.supportGPTToolStripMenuItem,
             this.mnPhAlbum,
             this.toolStripSeparator3,
             this.allToolStripMenuItem,
@@ -1736,66 +1759,66 @@
             // printerKBToolStripMenuItem
             // 
             this.printerKBToolStripMenuItem.Name = "printerKBToolStripMenuItem";
-            this.printerKBToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
+            this.printerKBToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.printerKBToolStripMenuItem.Text = "Printer KB";
             this.printerKBToolStripMenuItem.Click += new System.EventHandler(this.HPWS_click);
             // 
             // desktopKBToolStripMenuItem1
             // 
             this.desktopKBToolStripMenuItem1.Name = "desktopKBToolStripMenuItem1";
-            this.desktopKBToolStripMenuItem1.Size = new System.Drawing.Size(173, 22);
+            this.desktopKBToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
             this.desktopKBToolStripMenuItem1.Text = "Notebook KB";
             this.desktopKBToolStripMenuItem1.Click += new System.EventHandler(this.HPWS_click);
             // 
             // desktopKBToolStripMenuItem2
             // 
             this.desktopKBToolStripMenuItem2.Name = "desktopKBToolStripMenuItem2";
-            this.desktopKBToolStripMenuItem2.Size = new System.Drawing.Size(173, 22);
+            this.desktopKBToolStripMenuItem2.Size = new System.Drawing.Size(180, 22);
             this.desktopKBToolStripMenuItem2.Text = "Desktop KB";
             this.desktopKBToolStripMenuItem2.Click += new System.EventHandler(this.HPWS_click);
             // 
             // gaminToolStripMenuItem
             // 
             this.gaminToolStripMenuItem.Name = "gaminToolStripMenuItem";
-            this.gaminToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
+            this.gaminToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.gaminToolStripMenuItem.Text = "Gaming KB";
             this.gaminToolStripMenuItem.Click += new System.EventHandler(this.HPWS_click);
             // 
             // DriverPackTSM
             // 
             this.DriverPackTSM.Name = "DriverPackTSM";
-            this.DriverPackTSM.Size = new System.Drawing.Size(173, 22);
+            this.DriverPackTSM.Size = new System.Drawing.Size(180, 22);
             this.DriverPackTSM.Text = "Driver Pack";
             this.DriverPackTSM.Click += new System.EventHandler(this.DriverPackTSM_Click);
             // 
             // mnPhAlbum
             // 
             this.mnPhAlbum.Name = "mnPhAlbum";
-            this.mnPhAlbum.Size = new System.Drawing.Size(173, 22);
+            this.mnPhAlbum.Size = new System.Drawing.Size(180, 22);
             this.mnPhAlbum.Text = "Photo Album";
             this.mnPhAlbum.Click += new System.EventHandler(this.mnPhAlbum_Click);
             // 
             // toolStripSeparator3
             // 
             this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(170, 6);
+            this.toolStripSeparator3.Size = new System.Drawing.Size(177, 6);
             // 
             // allToolStripMenuItem
             // 
             this.allToolStripMenuItem.Name = "allToolStripMenuItem";
-            this.allToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
+            this.allToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.allToolStripMenuItem.Text = "All recent";
             this.allToolStripMenuItem.Click += new System.EventHandler(this.HPWS_click);
             // 
             // toolStripSeparator4
             // 
             this.toolStripSeparator4.Name = "toolStripSeparator4";
-            this.toolStripSeparator4.Size = new System.Drawing.Size(170, 6);
+            this.toolStripSeparator4.Size = new System.Drawing.Size(177, 6);
             // 
             // mnuAskQ
             // 
             this.mnuAskQ.Name = "mnuAskQ";
-            this.mnuAskQ.Size = new System.Drawing.Size(173, 22);
+            this.mnuAskQ.Size = new System.Drawing.Size(180, 22);
             this.mnuAskQ.Text = "SiteMap Questions";
             this.mnuAskQ.Click += new System.EventHandler(this.mnuAskQ_Click);
             // 
@@ -2131,18 +2154,6 @@
             this.tsmAddClip.Size = new System.Drawing.Size(188, 22);
             this.tsmAddClip.Text = "Add Clipboard macro";
             // 
-            // tsmRemove
-            // 
-            this.tsmRemove.Name = "tsmRemove";
-            this.tsmRemove.Size = new System.Drawing.Size(188, 22);
-            this.tsmRemove.Text = "Remove";
-            // 
-            // SpellTimer
-            // 
-            this.SpellTimer.Interval = 1000;
-            this.SpellTimer.Tag = "";
-            this.SpellTimer.Tick += new System.EventHandler(this.SpellTimer_Tick);
-            // 
             // tsm2GoogleAIurl
             // 
             this.tsm2GoogleAIurl.Name = "tsm2GoogleAIurl";
@@ -2155,26 +2166,24 @@
             this.tsm2PasteAI.Size = new System.Drawing.Size(188, 22);
             this.tsm2PasteAI.Text = "Paste AI text";
             // 
-            // moveTSM
+            // tsmRemove
             // 
-            this.moveTSM.Name = "moveTSM";
-            this.moveTSM.Size = new System.Drawing.Size(180, 22);
-            this.moveTSM.Text = "Move";
-            this.moveTSM.Click += new System.EventHandler(this.mMoveMacro_Click);
+            this.tsmRemove.Name = "tsmRemove";
+            this.tsmRemove.Size = new System.Drawing.Size(188, 22);
+            this.tsmRemove.Text = "Remove";
             // 
-            // exportTSM
+            // SpellTimer
             // 
-            this.exportTSM.Name = "exportTSM";
-            this.exportTSM.Size = new System.Drawing.Size(180, 22);
-            this.exportTSM.Text = "Export";
-            this.exportTSM.Click += new System.EventHandler(this.ExportImport_Click);
+            this.SpellTimer.Interval = 1000;
+            this.SpellTimer.Tag = "";
+            this.SpellTimer.Tick += new System.EventHandler(this.SpellTimer_Tick);
             // 
-            // importTSM
+            // supportGPTToolStripMenuItem
             // 
-            this.importTSM.Name = "importTSM";
-            this.importTSM.Size = new System.Drawing.Size(180, 22);
-            this.importTSM.Text = "Import";
-            this.importTSM.Click += new System.EventHandler(this.ExportImport_Click);
+            this.supportGPTToolStripMenuItem.Name = "supportGPTToolStripMenuItem";
+            this.supportGPTToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.supportGPTToolStripMenuItem.Text = "SupportGPT";
+            this.supportGPTToolStripMenuItem.Click += new System.EventHandler(this.HPWS_click);
             // 
             // main
             // 
@@ -2426,6 +2435,7 @@
         private System.Windows.Forms.ToolStripMenuItem moveTSM;
         private System.Windows.Forms.ToolStripMenuItem exportTSM;
         private System.Windows.Forms.ToolStripMenuItem importTSM;
+        private System.Windows.Forms.ToolStripMenuItem supportGPTToolStripMenuItem;
     }
 }
 

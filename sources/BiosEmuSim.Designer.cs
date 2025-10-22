@@ -55,6 +55,8 @@
             this.btnApply = new System.Windows.Forms.Button();
             this.tbHref = new System.Windows.Forms.TextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.btnScanMissing = new System.Windows.Forms.Button();
+            this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             this.btnNotSim = new System.Windows.Forms.Button();
             this.btnMarkBad = new System.Windows.Forms.Button();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
@@ -75,7 +77,8 @@
             this.btnExport = new System.Windows.Forms.Button();
             this.dgvBIOS = new System.Windows.Forms.DataGridView();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.linkLabel1 = new System.Windows.Forms.LinkLabel();
+            this.rbMissing = new System.Windows.Forms.RadioButton();
+            this.pbMissing = new System.Windows.Forms.ProgressBar();
             this.groupBox1.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -400,6 +403,8 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.pbMissing);
+            this.groupBox2.Controls.Add(this.btnScanMissing);
             this.groupBox2.Controls.Add(this.linkLabel1);
             this.groupBox2.Controls.Add(this.btnNotSim);
             this.groupBox2.Controls.Add(this.btnMarkBad);
@@ -425,11 +430,36 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Double click to view";
             // 
+            // btnScanMissing
+            // 
+            this.btnScanMissing.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnScanMissing.ForeColor = System.Drawing.SystemColors.Highlight;
+            this.btnScanMissing.Location = new System.Drawing.Point(635, 104);
+            this.btnScanMissing.Margin = new System.Windows.Forms.Padding(4);
+            this.btnScanMissing.Name = "btnScanMissing";
+            this.btnScanMissing.Size = new System.Drawing.Size(127, 50);
+            this.btnScanMissing.TabIndex = 34;
+            this.btnScanMissing.Text = "Scan for any\r\nMissing URLs";
+            this.toolTip1.SetToolTip(this.btnScanMissing, "Missing documentes will be identified\r\nwith a red colored number");
+            this.btnScanMissing.UseVisualStyleBackColor = true;
+            this.btnScanMissing.Click += new System.EventHandler(this.btnScanMissing_Click);
+            // 
+            // linkLabel1
+            // 
+            this.linkLabel1.AutoSize = true;
+            this.linkLabel1.Location = new System.Drawing.Point(632, 181);
+            this.linkLabel1.Name = "linkLabel1";
+            this.linkLabel1.Size = new System.Drawing.Size(106, 16);
+            this.linkLabel1.TabIndex = 33;
+            this.linkLabel1.TabStop = true;
+            this.linkLabel1.Text = "Link to HP article";
+            this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
+            // 
             // btnNotSim
             // 
             this.btnNotSim.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnNotSim.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.btnNotSim.Location = new System.Drawing.Point(635, 97);
+            this.btnNotSim.Location = new System.Drawing.Point(635, 59);
             this.btnNotSim.Margin = new System.Windows.Forms.Padding(4);
             this.btnNotSim.Name = "btnNotSim";
             this.btnNotSim.Size = new System.Drawing.Size(127, 26);
@@ -443,7 +473,7 @@
             // 
             this.btnMarkBad.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnMarkBad.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.btnMarkBad.Location = new System.Drawing.Point(635, 57);
+            this.btnMarkBad.Location = new System.Drawing.Point(635, 25);
             this.btnMarkBad.Margin = new System.Windows.Forms.Padding(4);
             this.btnMarkBad.Name = "btnMarkBad";
             this.btnMarkBad.Size = new System.Drawing.Size(88, 26);
@@ -455,13 +485,14 @@
             // 
             // groupBox4
             // 
+            this.groupBox4.Controls.Add(this.rbMissing);
             this.groupBox4.Controls.Add(this.rbDups);
             this.groupBox4.Controls.Add(this.rbMhttp);
             this.groupBox4.Controls.Add(this.rbMpdf);
             this.groupBox4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox4.Location = new System.Drawing.Point(541, 481);
+            this.groupBox4.Location = new System.Drawing.Point(541, 447);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(208, 122);
+            this.groupBox4.Size = new System.Drawing.Size(208, 156);
             this.groupBox4.TabIndex = 30;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Color Red for missing";
@@ -469,13 +500,11 @@
             // rbDups
             // 
             this.rbDups.AutoSize = true;
-            this.rbDups.Checked = true;
             this.rbDups.Location = new System.Drawing.Point(15, 90);
             this.rbDups.Name = "rbDups";
-            this.rbDups.Size = new System.Drawing.Size(89, 20);
+            this.rbDups.Size = new System.Drawing.Size(125, 20);
             this.rbDups.TabIndex = 2;
-            this.rbDups.TabStop = true;
-            this.rbDups.Text = "Duplicates";
+            this.rbDups.Text = "Show Duplicates";
             this.rbDups.UseVisualStyleBackColor = true;
             this.rbDups.CheckedChanged += new System.EventHandler(this.rbDups_CheckedChanged);
             // 
@@ -544,7 +573,7 @@
             // 
             this.btnCanChg.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnCanChg.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.btnCanChg.Location = new System.Drawing.Point(541, 428);
+            this.btnCanChg.Location = new System.Drawing.Point(543, 397);
             this.btnCanChg.Margin = new System.Windows.Forms.Padding(4);
             this.btnCanChg.Name = "btnCanChg";
             this.btnCanChg.Size = new System.Drawing.Size(149, 32);
@@ -629,7 +658,7 @@
             // 
             this.btnSave.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSave.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.btnSave.Location = new System.Drawing.Point(541, 376);
+            this.btnSave.Location = new System.Drawing.Point(541, 349);
             this.btnSave.Margin = new System.Windows.Forms.Padding(4);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(149, 32);
@@ -671,16 +700,26 @@
             this.dgvBIOS.UserDeletedRow += new System.Windows.Forms.DataGridViewRowEventHandler(this.dgvBIOS_UserDeletedRow);
             this.dgvBIOS.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.dgvBIOS_MouseDoubleClick);
             // 
-            // linkLabel1
+            // rbMissing
             // 
-            this.linkLabel1.AutoSize = true;
-            this.linkLabel1.Location = new System.Drawing.Point(632, 181);
-            this.linkLabel1.Name = "linkLabel1";
-            this.linkLabel1.Size = new System.Drawing.Size(106, 16);
-            this.linkLabel1.TabIndex = 33;
-            this.linkLabel1.TabStop = true;
-            this.linkLabel1.Text = "Link to HP article";
-            this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
+            this.rbMissing.AutoSize = true;
+            this.rbMissing.Checked = true;
+            this.rbMissing.Location = new System.Drawing.Point(15, 119);
+            this.rbMissing.Name = "rbMissing";
+            this.rbMissing.Size = new System.Drawing.Size(98, 20);
+            this.rbMissing.TabIndex = 3;
+            this.rbMissing.TabStop = true;
+            this.rbMissing.Text = "Missing Urls";
+            this.rbMissing.UseVisualStyleBackColor = true;
+            this.rbMissing.CheckedChanged += new System.EventHandler(this.rbMissing_CheckedChanged);
+            // 
+            // pbMissing
+            // 
+            this.pbMissing.Location = new System.Drawing.Point(153, 20);
+            this.pbMissing.Name = "pbMissing";
+            this.pbMissing.Size = new System.Drawing.Size(424, 23);
+            this.pbMissing.TabIndex = 35;
+            this.pbMissing.Visible = false;
             // 
             // BiosEmuSim
             // 
@@ -760,5 +799,8 @@
         private System.Windows.Forms.Button btnClnTxt;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.LinkLabel linkLabel1;
+        private System.Windows.Forms.Button btnScanMissing;
+        private System.Windows.Forms.RadioButton rbMissing;
+        private System.Windows.Forms.ProgressBar pbMissing;
     }
 }

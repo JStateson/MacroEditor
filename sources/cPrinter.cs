@@ -116,8 +116,9 @@ namespace MacroEditor.sources
             pDB = printerDB;
             strResults = "";
             strModels = "";
-            AddSelButtons(ref gbVid, 1);            
+            AddSelButtons(ref gbVid, 1);
         }
+
 
         public string GetUnsavedHeader()
         {

@@ -39,6 +39,7 @@ namespace MacroEditor
         private string ToUrl = "";
         private int BadUrlType = 0; // 0:not bad url, 1:url is OK, 2: need to replace existing url, 4: fixed but not saved
         private bool MacrosHasBadUrl = false;
+        private int NumBadUrls = 0;
         private string LocationFile = "";
         private string sOriginalPage = "";  // the original page of the macro when in the browser
 
@@ -48,6 +49,7 @@ namespace MacroEditor
             sFilename = rFilename;
             sOriginalPage = rOriginalPage;
             MacrosHasBadUrl = IsOldUrl(rFilename, macName, out FromUrl, out ToUrl);
+            NumBadUrls = CountOldUrls(rFilename, macName);
         }   
 
         public HashSet<string> GetUniqueUrls(string sUrlText)
@@ -361,6 +363,21 @@ namespace MacroEditor
             }
             return false;
         }
+        public int CountOldUrls(string FileTypeCode, string MacName)
+        {
+            int n = 0;
+            foreach (cFromToUrls cft in FromToUrls)
+            {
+                foreach (cWhereUsed wu in cft.WhereUsed)
+                {
+                    if (wu.sysType == FileTypeCode && wu.macroName == MacName && !wu.bValidated)
+                    {
+                        n++;
+                    }
+                }
+            }
+            return n;
+        }
 
         public string ReplaceAllOldUrls(string sFtp)
         {
@@ -446,11 +463,25 @@ namespace MacroEditor
             return CountBadUrls();
         }
 
+        //"http://h10032.www1.hp.com/ctg/Manual/c06520607.pdf"
+        public string ExtractHREF(string s)
+        {
+            string c = "://";
+            int i = s.IndexOf(c, StringComparison.OrdinalIgnoreCase);   
+            string sUrl = s.Substring(i+c.Length);
+            return sUrl;
+        }
+        
+
+
         public async Task<string> HttpFileExistsAsync(string surl)
         {
+            string url = surl;
             try
             {
-                string url = "https://" + surl;
+                if(!surl.Contains("http"))
+                    url = "https://" + surl;
+
 
                 using (HttpClient client = new HttpClient())
                 {

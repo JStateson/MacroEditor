@@ -15,7 +15,17 @@ namespace MacroEditor.sources
         public Texting()
         {
             InitializeComponent();
-        
+
+            this.KeyPreview = true;  // Ensure the form receives key events first
+            this.KeyDown += new KeyEventHandler(Form1_KeyDown);
+        }
+
+        private void Form1_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Escape)
+            {
+                this.Close();  // Close the form
+            }
         }
 
         private void ReplaceText(int iStart, int iLen, string strText)

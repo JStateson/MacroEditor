@@ -64,10 +64,16 @@ namespace MacroEditor.sources
         private string sHeaderPDF = "BIOS simulator / emulator (red for missing .PDF)"; // green not visible
         private string ShowColor;
         private string sHeaderDUPS = "BIOS simulator / emulator (red for duplicates)"; // green not visible
+        private string sHeaderURLS = "Document is no longer on the server";
         private string sLastSelectedItem = sExpectName;
         private int iOnce = 2;
         private string sDupID = "";
         private bool bNotSorted = false;
+        private ChangeUrls changeUrls = new ChangeUrls();
+        private bool FindingMissing = false;
+        private bool HasMissingUrls = false;
+        private bool bAskOld = false;
+
         public BiosEmuSim(bool GetTable)
         {
             InitializeComponent();
@@ -79,6 +85,67 @@ namespace MacroEditor.sources
             foreach (DataGridViewColumn column in dgvBIOS.Columns)
             {
                 column.SortMode = DataGridViewColumnSortMode.NotSortable;
+            }
+
+            this.KeyPreview = true;  // Ensure the form receives key events first
+            this.KeyDown += new KeyEventHandler(Form1_KeyDown);
+            this.Shown += InitialLoad;
+        }
+
+        private void InitialLoad(object sender, EventArgs e)
+        {
+            //ObsoleteUrls.Add(11);
+            GetMissingUrls();
+        }
+        private void Form1_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Escape)
+            {
+                this.Close();  // Close the form
+            }
+        }
+
+        private void GetMissingUrls()
+        {
+            if(ObsoleteUrls.Count > 0)
+            {
+                SaveObsoleteUrls();
+                ObsoleteUrls.Clear();
+            }
+            if(File.Exists(Utils.WhereExe + "/ObsoleteBiosSimURLs.txt"))
+                LoadObsoleteUrls();
+        }
+
+        private void LoadObsoleteUrls()
+        {
+            ObsoleteUrls.Clear();
+            string[] OldUrls = File.ReadAllLines(Utils.WhereExe + "/ObsoleteBiosSimURLs.txt");
+            for (int i = 0; i < BSFsources.Count; i++)
+            {
+                string t = BSFsources[i].sHREF;
+                foreach (string s in OldUrls)
+                {
+                    if(t.Contains(s))
+                    {
+                        ObsoleteUrls.Add(i + 1);
+                        break;
+                    }
+                }
+            }
+            ShowAnyMissing();
+        }
+
+        private void SaveObsoleteUrls()
+        {
+            using (StreamWriter writer = new StreamWriter(Utils.WhereExe + "/ObsoleteBiosSimURLs.txt", false))
+            {
+                foreach (int n in ObsoleteUrls)
+                {
+                    string s = changeUrls.ExtractHREF(BSFsources[n - 1].sHREF);
+                    s = s.Replace(".pdf", "");
+                    writer.WriteLine(s);
+                }
+                writer.Close();
             }
         }
 
@@ -176,10 +243,11 @@ namespace MacroEditor.sources
 
         private void FlagInsecureURLs()
         {
-            int i = 0;
+            int i = -1;
             bool PDFmissing = rbMpdf.Checked;
             foreach (cBSFview cb in BSFsources)
             {
+                i++;
                 if (rbMhttp.Checked)
                 {
                     if (cb.sTEXT.Contains(".pdf"))
@@ -198,6 +266,21 @@ namespace MacroEditor.sources
                 {
                     if (cb.sHREF.Contains(sDupID))
                         dgvBIOS.Rows[i].Cells[0].Style.ForeColor = Color.Red;
+                    else
+                        dgvBIOS.Rows[i].Cells[0].Style.ForeColor = Color.Black;
+                }
+                if (rbMissing.Checked)
+                {
+                    if(ObsoleteUrls.Count == 0)
+                    {
+                        dgvBIOS.Rows[i].Cells[0].Style.ForeColor = Color.Black;
+                        continue;
+                    }
+                    if (ObsoleteUrls.Contains(i+1))
+                    {
+                        HasMissingUrls = true;
+                        dgvBIOS.Rows[i].Cells[0].Style.ForeColor = Color.Red;
+                    }
                     else
                         dgvBIOS.Rows[i].Cells[0].Style.ForeColor = Color.Black;
                 }
@@ -377,7 +460,7 @@ namespace MacroEditor.sources
 
         private string GetDoc(string s)
         {
-            string[] sEnds = new string[3] { "\\c", "/c", "/ish_" };
+            string[] sEnds = new string[4] { "\\c", "/c", "/ish_", "/pdf" };
             s = s.Trim().ToLower();
             s = s.Replace(".pdf", "");
             int j = 0, i = 0;
@@ -440,6 +523,7 @@ namespace MacroEditor.sources
                 return;
             }
             nCurrentRow = e.RowIndex;
+            if (e.RowIndex < 0) return;
             tbTextB.Text = BSFsources[nCurrentRow].sTEXT;
             tbHrefB.Text = BSFsources[nCurrentRow].sHREF;
             btnUpdateURL.Enabled = false;
@@ -507,10 +591,12 @@ namespace MacroEditor.sources
             tbURL.Text = Utils.FormUrl(tbHref.Text, tbText.Text);
         }
 
-        
-        private void btnExport_Click(object sender, EventArgs e)
+        private List<int> ObsoleteUrls = new List<int>();
+
+        private async Task ExportAsync()
         {
             int n = sExpectName.Length;
+            pbMissing.Visible = true;
             bool bIsBAD = false;
             bool bIsNOT = false;
             bool bIsLIST = false;
@@ -525,13 +611,15 @@ namespace MacroEditor.sources
             CandidateBAD.Clear();
             CandidateNOT.Clear();
             CandidateDOC.Clear();
-
+            pbMissing.Maximum = BSFsources.Count+1;
             foreach (cBSFview cBSF in BSFsources)
             {
                 string t = cBSF.sTEXT.Trim();
                 string sHREF = cBSF.sHREF;
+                pbMissing.Value++;
+                Application.DoEvents();
                 bIsBAD = t.Contains(sBadSimName);
-                bIsNOT = t.Contains(sNotSimName);   
+                bIsNOT = t.Contains(sNotSimName);
                 bIsLIST = t.Contains(sExpectName);
                 bIsDoc = t.Contains(sIsDocument);
                 if (!(bIsLIST | bIsBAD || bIsNOT || bIsDoc))
@@ -539,12 +627,32 @@ namespace MacroEditor.sources
                     continue;
                 }
 
+                if (bAskOld)
+                {
+                    if(ObsoleteUrls.Contains(cBSF.nInx))
+                    {
+                        tbError.Text += Environment.NewLine + "Removed obsolete URL at " + cBSF.nInx.ToString();
+                        continue;
+                    }
+                }
+
                 if (!(sHREF.Contains(".pdf")) && cbForcePDF.Checked && !bIsDoc)
                 {
                     sHREF += ".pdf";
                 }
 
-                if(bIsNOT)
+                if (FindingMissing)
+                {
+                    string s = sHREF;
+                    if(!s.Contains(".pdf"))s+= ".pdf";
+                    string sOK = await changeUrls.HttpFileExistsAsync(s);
+                    if (sOK != "")
+                    {
+                        ObsoleteUrls.Add(cBSF.nInx);
+                    }
+                }
+
+                if (bIsNOT)
                 {
                     n = sNotSimName.Length;
                     string s = Utils.FormUrl(sHREF, t.Substring(n).Trim());
@@ -573,10 +681,10 @@ namespace MacroEditor.sources
             LineOut = "<center><font size=\"6.0\">" + sExpectName + "for HP PCs</font></center><br>";
             LineOut += "Items marked <strong><font color='#FF0000'>[*]</font></strong> are older and depending on your browser may ask for authorization to run";
             LineOut += "<br>" + FormTable(nCol, ref CandidateList);
-            if(CandidateNOT.Count > 0)
+            if (CandidateNOT.Count > 0)
             {
                 LineOut += "<br><center><font size=\"6.0\">" + sNotSimName + "</font></center>";
-                LineOut += "<br>" +FormTable(nCol, ref CandidateNOT);
+                LineOut += "<br>" + FormTable(nCol, ref CandidateNOT);
             }
             if (CandidateBAD.Count > 0)
             {
@@ -589,11 +697,47 @@ namespace MacroEditor.sources
                 LineOut += "<br><center><font size=\"6.0\">" + sIsDocument + "</font></center>";
                 LineOut += "<br>" + FormTable(nCol, ref CandidateDOC);
             }
-            File.WriteAllText(LexpHTML, LineOut);
+            if (!FindingMissing)
+                File.WriteAllText(LexpHTML, LineOut);
+            else
+                rbMissing.Checked = true;
             tbError.Text = "Exported Good: " + (CandidateList.Count).ToString() + Environment.NewLine;
             tbError.Text += "Exported Not: " + (CandidateNOT.Count).ToString() + Environment.NewLine;
             tbError.Text += "Exported Bad:" + (CandidateBAD.Count).ToString() + Environment.NewLine;
             tbError.Text += "Exported DOC:" + (CandidateDOC.Count).ToString() + Environment.NewLine;
+            ShowAnyMissing();
+            pbMissing.Visible = false;
+        }
+
+
+        private void btnExport_Click(object sender, EventArgs e)
+        {
+            if (HasMissingUrls)
+            {
+                DialogResult dr = MessageBox.Show("You have missing URLs marked in red." + Environment.NewLine +
+                    "Click YES to remove them from the list before export" + Environment.NewLine +
+                    "Click NO to keep them in the list",
+                    "Export HTML Table", MessageBoxButtons.YesNoCancel);
+                if (dr == DialogResult.Cancel) return;
+                bAskOld = (dr == DialogResult.Yes);
+            }
+            ExportAsync();
+        }
+
+        private void ShowAnyMissing()
+        {
+            string sOut = "";
+            if (ObsoleteUrls.Count > 0)
+            {
+                sOut += Environment.NewLine + "Obsolete URLs at: ";
+                foreach (int k in ObsoleteUrls)
+                {
+                    sOut += k.ToString() + " ";
+                }
+            }
+            tbError.Text = sOut.Trim() + Environment.NewLine;
+            rbMissing.Checked = true;
+            SaveObsoleteUrls();
         }
 
         private string FormTable(int nCol, ref List<string> CandidateList)
@@ -687,14 +831,8 @@ namespace MacroEditor.sources
                 DialogResult dr = MessageBox.Show("You have not saved changes." + Environment.NewLine +
                     "Click OK to save",
                     "Click Cancel to return", MessageBoxButtons.OKCancel);
-                if (dr == DialogResult.OK)
-                {
+                if (dr == DialogResult.OK)                
                     SaveChanges();
-                    e.Cancel = false;
-                }
-
-                else
-                    e.Cancel = true;
             }
         }
 
@@ -828,25 +966,40 @@ namespace MacroEditor.sources
                 case "DUP":
                     dgvBIOS.Columns[1].HeaderText = sHeaderDUPS;
                     break;
+                case "URL":
+                    dgvBIOS.Columns[1].HeaderText = sHeaderURLS;
+                    break;
             }
+            FlagInsecureURLs();
             dgvBIOS.Refresh();
         }
 
         private void rbMpdf_CheckedChanged(object sender, EventArgs e)
         {
+            RadioButton rb = (RadioButton)sender;
+            if(!rb.Checked) return;
             SelectURLinfo("PDF");
         }
 
         private void rbMhttp_CheckedChanged(object sender, EventArgs e)
         {
+            RadioButton rb = (RadioButton)sender;
+            if (!rb.Checked) return;
             SelectURLinfo("HTTP");
         }
 
         private void rbDups_CheckedChanged(object sender, EventArgs e)
         {
+            RadioButton rb = (RadioButton)sender;
+            if (!rb.Checked) return;
             SelectURLinfo("DUP");
         }
-
+        private void rbMissing_CheckedChanged(object sender, EventArgs e)
+        {
+            RadioButton rb = (RadioButton)sender;
+            if (!rb.Checked) return;
+            SelectURLinfo("URL");
+        }
         private void btnMarkBad_Click(object sender, EventArgs e)
         {
             if(tbTextB.Text.Contains(sExpectName))
@@ -930,6 +1083,14 @@ namespace MacroEditor.sources
         {
             string s = "https://h30434.www3.hp.com/t5/Notebooks-Knowledge-Base/Interactive-BIOS-simulator-emulator/ta-p/9145598";
             Clipboard.SetText(s);            
+        }
+
+        private async void btnScanMissing_Click(object sender, EventArgs e)
+        {
+            FindingMissing = true;
+            bAskOld = false;
+            await ExportAsync();
+            FindingMissing = false;
         }
     }
 }

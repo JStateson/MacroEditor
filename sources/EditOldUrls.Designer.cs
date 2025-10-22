@@ -235,7 +235,7 @@
             this.gbText.Controls.Add(this.tbT);
             this.gbText.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.gbText.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.gbText.Location = new System.Drawing.Point(488, 238);
+            this.gbText.Location = new System.Drawing.Point(488, 239);
             this.gbText.Name = "gbText";
             this.gbText.Size = new System.Drawing.Size(674, 199);
             this.gbText.TabIndex = 14;

@@ -36,6 +36,16 @@ namespace MacroEditor
                 m += cms.nMacsAllowed[i];
             }
             tbTotalCnt.Text = n.ToString() + " of " + m.ToString();
+            this.KeyPreview = true;  // Ensure the form receives key events first
+            this.KeyDown += new KeyEventHandler(Form1_KeyDown);
+        }
+
+        private void Form1_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Escape)
+            {
+                this.Close();  // Close the form
+            }
         }
 
         public void RunExport()

@@ -56,6 +56,16 @@ namespace MacroEditor
             axWMP.PlayStateChange += axWMP_PlayStateChange;
             cbVSize.SelectedIndex = 0;
             cbImgSize.SelectedIndex = 0;
+            this.KeyPreview = true;  // Ensure the form receives key events first
+            this.KeyDown += new KeyEventHandler(Form1_KeyDown);
+        }
+
+        private void Form1_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Escape)
+            {
+                this.Close();  // Close the form
+            }
         }
 
         private void axWMP_PlayStateChange(object sender, AxWMPLib._WMPOCXEvents_PlayStateChangeEvent e)

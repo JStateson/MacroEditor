@@ -998,8 +998,10 @@ namespace MacroEditor
             lbName.ClearSelection();
             lbName.Rows[CurrentRowSelected].Selected = true;
             CheckForLanguageOption(bChanged);
-            btnEditNew.Enabled = (tbBody.Text.IndexOf("TimeStamp") >= 0);
+            btnEditNew.Enabled = (tbBody.Text.IndexOf("@MACRO@") >= 0);
             btnShowURLs.Enabled = AnyHyper(tbBody.Text.ToLower());
+            bool bUrlOld = lbName.Rows[CurrentRowSelected].Cells[2].Value == "url";
+            btnShowURLs.Text = bUrlOld ? "Edit old URLs" : "Edit URLs";
             MustFinishEdit(true);
         }
 
@@ -3393,7 +3395,7 @@ namespace MacroEditor
                 "Printers-Knowledge-Base/tkb-p/printers-knowledge-base",
                 "Desktop-Knowledge-Base/tkb-p/desktop-knowledge-base",
                 "Notebooks-Knowledge-Base/tkb-p/notebooks-knowledge-base",
-                "Gaming-Knowledge-Base/tkb-p/gaming-knowledge-base"
+                "Gaming-Knowledge-Base/tkb-p/gaming-knowledge-base"                
             };
             string sQ = "";
             switch (s)
@@ -3404,6 +3406,8 @@ namespace MacroEditor
                 case "g": sQ = w + KBl[3]; break;
                 case "a":
                     sQ = "https://h30434.www3.hp.com/t5/custom/page/page-id/RecentDiscussions";
+                    break;
+                case "s": sQ = "https://virtualagent.hpcloud.hp.com/?botClient=Portal&lc=en&cc=us";
                     break;
             }
             if (sQ != "")
@@ -3577,6 +3581,7 @@ namespace MacroEditor
         private void btnShowURLs_Click(object sender, EventArgs e)
         {          
             EditOldUrls UDurl;
+            int crs = CurrentRowSelected;
             string strBody = "";
             bool bUnChanged = true;
             DataFileRecord = rBodyFromTable();
@@ -3592,6 +3597,7 @@ namespace MacroEditor
                 {
                     LoadFromTXT(TXTName);
                     UDurl.Dispose();
+                    ShowUneditedRow(crs);
                     return;
                 }
                 strBody = UDurl.sBodyOut;
@@ -3621,6 +3627,7 @@ namespace MacroEditor
                 {
                     LoadFromTXT(TXTName);
                     UDurl.Dispose();
+                    ShowUneditedRow(crs);
                     return;
                 }
                 strBody = UDurl.sBodyOut;
