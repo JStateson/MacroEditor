@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Diagnostics;
+using System.Diagnostics.Eventing.Reader;
 using System.Drawing;
 using System.IO;
 using System.IO.Compression;
@@ -613,6 +614,18 @@ namespace MacroEditor
 
 
         string sLocalResult;
+        private async Task<int> ObtainHTTPs(string s)
+        {
+            int n = 0;
+            string t = "";
+            string sExists = await changeUrls.HttpFileExistsAsync(s);
+            if(sExists != "")
+            {
+                t += s + " Error: " + sExists + Environment.NewLine;
+                n++;
+            }
+            return n;
+        }
         private async Task<int> ObtainFTPs(string s)
         {
             string t = "";
@@ -733,6 +746,100 @@ namespace MacroEditor
         private void btnShowBad_Click(object sender, EventArgs e)
         {
             tbUrls.Text = changeUrls.FormSavedList(false);
+        }
+
+        private List<string> ExtractUrls(string html)
+        {
+            var urls = new List<string>();
+
+            string pattern = "<a\\s+href=\"(http[^\"]+)\"";
+            var matches = Regex.Matches(html, pattern, RegexOptions.IgnoreCase);
+
+            foreach (Match m in matches)
+            {
+                string s = m.Groups[1].Value.ToString();
+                if(!s.Contains(".pdf"))
+                {
+                   s += ".pdf";
+                }
+                urls.Add(s);
+            }
+
+            return urls;
+        }
+
+        public class LinkItem
+        {
+            public string Href { get; set; }
+            public string Text { get; set; }
+        }
+
+        private List<LinkItem> ExtractLinks(string filePath)
+        {
+            var results = new List<LinkItem>();
+
+            string html = File.ReadAllText(filePath);
+
+            var doc = new HtmlDocument();
+            doc.LoadHtml(html);
+
+            // Select all <a> tags that have href starting with http
+            var links = doc.DocumentNode.SelectNodes("//a[starts-with(@href, 'http')]");
+
+            if (links != null)
+            {
+                foreach (var link in links)
+                {
+                    results.Add(new LinkItem
+                    {
+                        Href = link.GetAttributeValue("href", ""),
+                        Text = link.InnerText.Trim()
+                    });
+                }
+            }
+
+            return results;
+        }
+
+        private string GetCname(string s)
+        {
+            int i = s.LastIndexOf("/c");
+            if (i < 0) return "not pdf";
+            int j = s.IndexOf(".pdf", i);
+            if(j < 0) return "not pdf";
+            string s1 = s.Substring(i + 1, j - i +3);
+            return s1;
+        }
+
+        private async void btnGetBios_Click(object sender, EventArgs e)
+        {
+            string srcData = "BiosSimulators.txt";
+            string LsrcData = Utils.WhereExe + "/" + srcData;
+            //string html = File.ReadAllText(LsrcData);
+            List<LinkItem> allUrls = ExtractLinks(LsrcData);
+            int n = 0;
+            bpBIOS.Maximum = allUrls.Count+1;
+            bpBIOS.Value = 0;
+            string t = "";
+            string s;
+            foreach (LinkItem li in allUrls)
+            {
+                bpBIOS.Value++;
+                s = li.Href;
+                if(!s.Contains(".pdf")) s+= ".pdf";
+                string cName = GetCname(s);
+                string sExists = await changeUrls.HttpFileExistsAsync(s);
+                if (sExists != "")
+                {
+                    t += cName + Environment.NewLine;
+                    t += s + Environment.NewLine;
+                    t += li.Text + Environment.NewLine;
+                    t += Environment.NewLine;
+                    n++;
+                }
+                Application.DoEvents();
+            }
+            tbBios.Text = t;
         }
     }
 }

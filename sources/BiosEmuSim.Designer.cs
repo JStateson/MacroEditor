@@ -55,11 +55,13 @@
             this.btnApply = new System.Windows.Forms.Button();
             this.tbHref = new System.Windows.Forms.TextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.pbMissing = new System.Windows.Forms.ProgressBar();
             this.btnScanMissing = new System.Windows.Forms.Button();
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
             this.btnNotSim = new System.Windows.Forms.Button();
             this.btnMarkBad = new System.Windows.Forms.Button();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.rbMissing = new System.Windows.Forms.RadioButton();
             this.rbDups = new System.Windows.Forms.RadioButton();
             this.rbMhttp = new System.Windows.Forms.RadioButton();
             this.rbMpdf = new System.Windows.Forms.RadioButton();
@@ -77,8 +79,6 @@
             this.btnExport = new System.Windows.Forms.Button();
             this.dgvBIOS = new System.Windows.Forms.DataGridView();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.rbMissing = new System.Windows.Forms.RadioButton();
-            this.pbMissing = new System.Windows.Forms.ProgressBar();
             this.groupBox1.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -430,6 +430,14 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Double click to view";
             // 
+            // pbMissing
+            // 
+            this.pbMissing.Location = new System.Drawing.Point(153, 20);
+            this.pbMissing.Name = "pbMissing";
+            this.pbMissing.Size = new System.Drawing.Size(424, 23);
+            this.pbMissing.TabIndex = 35;
+            this.pbMissing.Visible = false;
+            // 
             // btnScanMissing
             // 
             this.btnScanMissing.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -496,6 +504,19 @@
             this.groupBox4.TabIndex = 30;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Color Red for missing";
+            // 
+            // rbMissing
+            // 
+            this.rbMissing.AutoSize = true;
+            this.rbMissing.Checked = true;
+            this.rbMissing.Location = new System.Drawing.Point(15, 119);
+            this.rbMissing.Name = "rbMissing";
+            this.rbMissing.Size = new System.Drawing.Size(98, 20);
+            this.rbMissing.TabIndex = 3;
+            this.rbMissing.TabStop = true;
+            this.rbMissing.Text = "Missing Urls";
+            this.rbMissing.UseVisualStyleBackColor = true;
+            this.rbMissing.CheckedChanged += new System.EventHandler(this.rbMissing_CheckedChanged);
             // 
             // rbDups
             // 
@@ -688,6 +709,7 @@
             this.dgvBIOS.AllowUserToResizeRows = false;
             this.dgvBIOS.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvBIOS.Location = new System.Drawing.Point(24, 252);
+            this.dgvBIOS.MultiSelect = false;
             this.dgvBIOS.Name = "dgvBIOS";
             this.dgvBIOS.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.dgvBIOS.Size = new System.Drawing.Size(497, 503);
@@ -699,27 +721,6 @@
             this.dgvBIOS.RowEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvBIOS_RowEnter);
             this.dgvBIOS.UserDeletedRow += new System.Windows.Forms.DataGridViewRowEventHandler(this.dgvBIOS_UserDeletedRow);
             this.dgvBIOS.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.dgvBIOS_MouseDoubleClick);
-            // 
-            // rbMissing
-            // 
-            this.rbMissing.AutoSize = true;
-            this.rbMissing.Checked = true;
-            this.rbMissing.Location = new System.Drawing.Point(15, 119);
-            this.rbMissing.Name = "rbMissing";
-            this.rbMissing.Size = new System.Drawing.Size(98, 20);
-            this.rbMissing.TabIndex = 3;
-            this.rbMissing.TabStop = true;
-            this.rbMissing.Text = "Missing Urls";
-            this.rbMissing.UseVisualStyleBackColor = true;
-            this.rbMissing.CheckedChanged += new System.EventHandler(this.rbMissing_CheckedChanged);
-            // 
-            // pbMissing
-            // 
-            this.pbMissing.Location = new System.Drawing.Point(153, 20);
-            this.pbMissing.Name = "pbMissing";
-            this.pbMissing.Size = new System.Drawing.Size(424, 23);
-            this.pbMissing.TabIndex = 35;
-            this.pbMissing.Visible = false;
             // 
             // BiosEmuSim
             // 

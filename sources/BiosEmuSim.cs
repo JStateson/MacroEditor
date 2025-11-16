@@ -19,6 +19,8 @@ using System.Threading;
 using System.Reflection;
 using System.Xml.Linq;
 using System.Net.Http;
+using Microsoft.Office.Interop.Word;
+using Application = System.Windows.Forms.Application;
 
 namespace MacroEditor.sources
 {
@@ -77,6 +79,7 @@ namespace MacroEditor.sources
         public BiosEmuSim(bool GetTable)
         {
             InitializeComponent();
+            GetMissing();
             Blue = btnSave.ForeColor;
             LsrcData = Utils.WhereExe + "/" + srcData;
             LexpHTML = Utils.WhereExe + "/" + expHTML;
@@ -90,6 +93,45 @@ namespace MacroEditor.sources
             this.KeyPreview = true;  // Ensure the form receives key events first
             this.KeyDown += new KeyEventHandler(Form1_KeyDown);
             this.Shown += InitialLoad;
+        }
+
+        private string WhereAttach = "";
+        public class cAttachUrl
+        {
+            public string cName;
+            public string cCode;
+        }
+
+        private List<cAttachUrl> AttachUrls = new List<cAttachUrl>();
+
+        private string UseAttachURL(string sUrl)
+        {
+            foreach(cAttachUrl au in AttachUrls)
+            {
+                if(sUrl.Contains(au.cName))
+                {
+                    string s = WhereAttach.Replace("xxxxx", au.cCode);
+                    return s;
+                }
+            }
+            return sUrl;
+        }
+
+        private void GetMissing()
+        {
+            string lMissing = Utils.WhereExe + "\\..\\..\\..\\..\\bios_sims\\missing.txt";
+            StreamReader sr = new StreamReader(lMissing);
+            WhereAttach = sr.ReadLine();
+            string line;
+            while ((line = sr.ReadLine()) != null)
+            {
+                if (line == "") break;
+                string[] sLine = line.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+                cAttachUrl au = new cAttachUrl();
+                au.cName = sLine[0].Replace(".pdf","");
+                au.cCode = sLine[1];
+                AttachUrls.Add(au);
+            }
         }
 
         private void InitialLoad(object sender, EventArgs e)
@@ -116,10 +158,22 @@ namespace MacroEditor.sources
                 LoadObsoleteUrls();
         }
 
+
+        string[] OldUrls;
+        private bool IsMissingDoc(string sUrl)
+        {
+            foreach(string s in OldUrls)
+            {
+                if (sUrl.Contains(s))
+                    return true;
+            }
+            return false;
+        }
+
         private void LoadObsoleteUrls()
         {
             ObsoleteUrls.Clear();
-            string[] OldUrls = File.ReadAllLines(Utils.WhereExe + "/ObsoleteBiosSimURLs.txt");
+            OldUrls = File.ReadAllLines(Utils.WhereExe + "/ObsoleteBiosSimURLs.txt");
             for (int i = 0; i < BSFsources.Count; i++)
             {
                 string t = BSFsources[i].sHREF;
@@ -133,6 +187,12 @@ namespace MacroEditor.sources
                 }
             }
             ShowAnyMissing();
+            for(int i = 0; i < OldUrls.Length; i++)
+            {
+                int j = OldUrls[i].IndexOf("c");
+                Debug.Assert(j >= 0);
+                OldUrls[i] = OldUrls[i].Substring(j);
+            }   
         }
 
         private void SaveObsoleteUrls()
@@ -181,6 +241,7 @@ namespace MacroEditor.sources
                 if (r == 0)
                 {
                     nDupDocs += ExtractDoc(sH, i);
+                    sH = UseAttachURL(sH);
                     sRawHTML.Add(sH);
                     sRawText.Add(sT);
                     if (!StringsHas(ref sPossible, sT))
@@ -554,6 +615,7 @@ namespace MacroEditor.sources
         {
             string s = BSFsources[nCurrentRow].sHREF;
             bool b = BSFsources[nCurrentRow].sTEXT.Contains(sIsDocument);
+            if (s.Contains("?attachment-id")) b = true;
             s = ForceHREF(s,b);
             //tbURL.Text = s;
             if (cbUseFF.Checked)
@@ -593,7 +655,7 @@ namespace MacroEditor.sources
 
         private List<int> ObsoleteUrls = new List<int>();
 
-        private async Task ExportAsync()
+        private async System.Threading.Tasks.Task ExportAsync()
         {
             int n = sExpectName.Length;
             pbMissing.Visible = true;
@@ -638,18 +700,35 @@ namespace MacroEditor.sources
 
                 if (!(sHREF.Contains(".pdf")) && cbForcePDF.Checked && !bIsDoc)
                 {
-                    sHREF += ".pdf";
+                    if(sHREF.Contains("?attachment-id"))
+                    {
+                        // do nothing
+                    }
+                    else
+                        sHREF += ".pdf";
                 }
 
                 if (FindingMissing)
                 {
                     string s = sHREF;
-                    if(!s.Contains(".pdf"))s+= ".pdf";
+                    if(!s.Contains(".pdf"))
+                    {
+                        if (sHREF.Contains("?attachment-id"))
+                        {
+                            // do nothing
+                        }
+                        else
+                            sHREF += ".pdf";
+                    }
                     string sOK = await changeUrls.HttpFileExistsAsync(s);
                     if (sOK != "")
                     {
                         ObsoleteUrls.Add(cBSF.nInx);
                     }
+                }
+                else
+                {
+
                 }
 
                 if (bIsNOT)
@@ -679,8 +758,11 @@ namespace MacroEditor.sources
                 }
             }
             LineOut = "<center><font size=\"6.0\">" + sExpectName + "for HP PCs</font></center><br>";
-            LineOut += "Items marked <strong><font color='#FF0000'>[*]</font></strong> are older and depending on your browser may ask for authorization to run";
+            LineOut += "Items marked <strong><font color='#FF0000'>[*]</font></strong> are older and depending on your browser may ask for authorization to run<br>";
+            LineOut += "Items marked <strong><font color='#FF0000'>[X]</font></strong> are no longer available";
             LineOut += "<br>" + FormTable(nCol, ref CandidateList);
+
+
             if (CandidateNOT.Count > 0)
             {
                 LineOut += "<br><center><font size=\"6.0\">" + sNotSimName + "</font></center>";
@@ -755,23 +837,30 @@ namespace MacroEditor.sources
                 }
             }
             LineOut += "<table border='0'>";
+
             for (int i = 0; i < nRows; i++)
             {
                 LineOut += "<tr>";
                 for (int j = 0; j < nCol; j++)
                 {
                     string u = CandidateList[i + j * nRows].Trim();
+                    string sMissing = "*";
+                    if (IsMissingDoc(u))
+                    {
+                        sMissing = "X";
+                    }
+
                     if (u != "")
                     {
                         if (u.ToLower().Contains("http:"))
                         {
-                            u = "<strong><font color='#FF0000'>[*]</font></strong>" + u;
+                            u = "<strong><font color='#FF0000'>[" + sMissing + "]</font></strong>" + u;
 
                         }
                         else
                         {
                             //u = "<font color='#008000'>[*]</font>" + u;
-                            u = "<b>[*]</font></b>" + u;
+                            u = "<b>[" + sMissing + "]</font></b>" + u;
                         }
                     }
                     else u = " ";

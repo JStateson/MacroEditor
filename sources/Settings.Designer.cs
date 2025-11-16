@@ -54,9 +54,9 @@
             this.btnShowURL = new System.Windows.Forms.Button();
             this.btnDelURL = new System.Windows.Forms.Button();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.cbMPisPrinter = new System.Windows.Forms.CheckBox();
             this.cbHlineWiz = new System.Windows.Forms.CheckBox();
             this.btnSaveMP = new System.Windows.Forms.Button();
-            this.cbMPisPrinter = new System.Windows.Forms.CheckBox();
             this.cbUsePrefix = new System.Windows.Forms.CheckBox();
             this.btnTestPP = new System.Windows.Forms.Button();
             this.tbPP = new System.Windows.Forms.TextBox();
@@ -131,6 +131,10 @@
             this.lbCnt = new System.Windows.Forms.Label();
             this.tbUrls = new System.Windows.Forms.TextBox();
             this.btnGetFTPurls = new System.Windows.Forms.Button();
+            this.tabPage6 = new System.Windows.Forms.TabPage();
+            this.btnGetBios = new System.Windows.Forms.Button();
+            this.tbBios = new System.Windows.Forms.TextBox();
+            this.bpBIOS = new System.Windows.Forms.ProgressBar();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox4.SuspendLayout();
@@ -148,6 +152,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgvReplace)).BeginInit();
             this.tabPage4.SuspendLayout();
             this.tabPage5.SuspendLayout();
+            this.tabPage6.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -415,6 +420,23 @@
             this.groupBox4.Text = "Macro Prefix";
             this.toolTip1.SetToolTip(this.groupBox4, "Is put in first line of\r\neach printer macro");
             // 
+            // cbMPisPrinter
+            // 
+            this.cbMPisPrinter.AutoSize = true;
+            this.cbMPisPrinter.CheckAlign = System.Drawing.ContentAlignment.BottomRight;
+            this.cbMPisPrinter.Checked = true;
+            this.cbMPisPrinter.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.cbMPisPrinter.ForeColor = System.Drawing.SystemColors.Highlight;
+            this.cbMPisPrinter.Location = new System.Drawing.Point(15, 61);
+            this.cbMPisPrinter.Name = "cbMPisPrinter";
+            this.cbMPisPrinter.Size = new System.Drawing.Size(82, 17);
+            this.cbMPisPrinter.TabIndex = 7;
+            this.cbMPisPrinter.Text = "For a printer";
+            this.toolTip1.SetToolTip(this.cbMPisPrinter, "This response phrase (prefix)\r\nis for a printer if checked and\r\nwill be added to " +
+        "every post");
+            this.cbMPisPrinter.UseVisualStyleBackColor = true;
+            this.cbMPisPrinter.CheckedChanged += new System.EventHandler(this.cbMPisPrinter_CheckedChanged);
+            // 
             // cbHlineWiz
             // 
             this.cbHlineWiz.AutoSize = true;
@@ -439,23 +461,6 @@
             this.btnSaveMP.Text = "Save";
             this.btnSaveMP.UseVisualStyleBackColor = true;
             this.btnSaveMP.Click += new System.EventHandler(this.btnSaveMP_Click);
-            // 
-            // cbMPisPrinter
-            // 
-            this.cbMPisPrinter.AutoSize = true;
-            this.cbMPisPrinter.CheckAlign = System.Drawing.ContentAlignment.BottomRight;
-            this.cbMPisPrinter.Checked = true;
-            this.cbMPisPrinter.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.cbMPisPrinter.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.cbMPisPrinter.Location = new System.Drawing.Point(15, 61);
-            this.cbMPisPrinter.Name = "cbMPisPrinter";
-            this.cbMPisPrinter.Size = new System.Drawing.Size(82, 17);
-            this.cbMPisPrinter.TabIndex = 7;
-            this.cbMPisPrinter.Text = "For a printer";
-            this.toolTip1.SetToolTip(this.cbMPisPrinter, "This response phrase (prefix)\r\nis for a printer if checked and\r\nwill be added to " +
-        "every post");
-            this.cbMPisPrinter.UseVisualStyleBackColor = true;
-            this.cbMPisPrinter.CheckedChanged += new System.EventHandler(this.cbMPisPrinter_CheckedChanged);
             // 
             // cbUsePrefix
             // 
@@ -1193,6 +1198,7 @@
             this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Controls.Add(this.tabPage4);
             this.tabControl1.Controls.Add(this.tabPage5);
+            this.tabControl1.Controls.Add(this.tabPage6);
             this.tabControl1.Location = new System.Drawing.Point(705, 42);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
@@ -1348,6 +1354,50 @@
             this.btnGetFTPurls.UseVisualStyleBackColor = true;
             this.btnGetFTPurls.Click += new System.EventHandler(this.btnGetFTPurls_Click);
             // 
+            // tabPage6
+            // 
+            this.tabPage6.Controls.Add(this.bpBIOS);
+            this.tabPage6.Controls.Add(this.tbBios);
+            this.tabPage6.Controls.Add(this.btnGetBios);
+            this.tabPage6.Location = new System.Drawing.Point(4, 22);
+            this.tabPage6.Name = "tabPage6";
+            this.tabPage6.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage6.Size = new System.Drawing.Size(569, 420);
+            this.tabPage6.TabIndex = 5;
+            this.tabPage6.Text = "BIOS sim";
+            this.tabPage6.UseVisualStyleBackColor = true;
+            // 
+            // btnGetBios
+            // 
+            this.btnGetBios.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnGetBios.ForeColor = System.Drawing.SystemColors.Highlight;
+            this.btnGetBios.Location = new System.Drawing.Point(15, 23);
+            this.btnGetBios.Name = "btnGetBios";
+            this.btnGetBios.Size = new System.Drawing.Size(91, 47);
+            this.btnGetBios.TabIndex = 10;
+            this.btnGetBios.Text = "Get BIOS\r\nURLS";
+            this.btnGetBios.UseVisualStyleBackColor = true;
+            this.btnGetBios.Click += new System.EventHandler(this.btnGetBios_Click);
+            // 
+            // tbBios
+            // 
+            this.tbBios.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.tbBios.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbBios.Location = new System.Drawing.Point(3, 118);
+            this.tbBios.Multiline = true;
+            this.tbBios.Name = "tbBios";
+            this.tbBios.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+            this.tbBios.Size = new System.Drawing.Size(563, 299);
+            this.tbBios.TabIndex = 11;
+            this.tbBios.WordWrap = false;
+            // 
+            // bpBIOS
+            // 
+            this.bpBIOS.Location = new System.Drawing.Point(142, 31);
+            this.bpBIOS.Name = "bpBIOS";
+            this.bpBIOS.Size = new System.Drawing.Size(342, 21);
+            this.bpBIOS.TabIndex = 15;
+            // 
             // Settings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -1404,6 +1454,8 @@
             this.tabPage4.PerformLayout();
             this.tabPage5.ResumeLayout(false);
             this.tabPage5.PerformLayout();
+            this.tabPage6.ResumeLayout(false);
+            this.tabPage6.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1512,5 +1564,9 @@
         private System.Windows.Forms.Button btnSaveURLs;
         private System.Windows.Forms.ProgressBar pbCounting;
         private System.Windows.Forms.Button btnShowBad;
+        private System.Windows.Forms.TabPage tabPage6;
+        private System.Windows.Forms.TextBox tbBios;
+        private System.Windows.Forms.Button btnGetBios;
+        private System.Windows.Forms.ProgressBar bpBIOS;
     }
 }

@@ -183,18 +183,15 @@
             this.desktopKBToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.gamingKBToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuBiosSimLKUP = new System.Windows.Forms.ToolStripMenuItem();
-            this.mShowErr = new System.Windows.Forms.ToolStripMenuItem();
             this.hPWebSitesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.printerKBToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.desktopKBToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.desktopKBToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
-            this.gaminToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.DriverPackTSM = new System.Windows.Forms.ToolStripMenuItem();
+            this.supportGPTToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mnPhAlbum = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.allToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             this.mnuAskQ = new System.Windows.Forms.ToolStripMenuItem();
+            this.mShowErr = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuTexting = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmTexting = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmHPvideo = new System.Windows.Forms.ToolStripMenuItem();
@@ -232,7 +229,8 @@
             this.tsm2PasteAI = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmRemove = new System.Windows.Forms.ToolStripMenuItem();
             this.SpellTimer = new System.Windows.Forms.Timer(this.components);
-            this.supportGPTToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.knowledgeBaseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.BiosSimPage = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.lbName)).BeginInit();
             this.groupBox6.SuspendLayout();
             this.gbManageImages.SuspendLayout();
@@ -1416,7 +1414,8 @@
             this.mnuCmpHpTr,
             this.mnuCmpHTTP,
             this.tsmRunMacArchive,
-            this.tsmRunArchiveAll});
+            this.tsmRunArchiveAll,
+            this.BiosSimPage});
             this.utilsToolStripMenuItem.Name = "utilsToolStripMenuItem";
             this.utilsToolStripMenuItem.Size = new System.Drawing.Size(42, 20);
             this.utilsToolStripMenuItem.Text = "Utils";
@@ -1729,24 +1728,12 @@
             this.mnuBiosSimLKUP.Text = "BIOS sim lookup";
             this.mnuBiosSimLKUP.Click += new System.EventHandler(this.mnuBiosSimLKUP_Click);
             // 
-            // mShowErr
-            // 
-            this.mShowErr.ForeColor = System.Drawing.Color.Red;
-            this.mShowErr.Name = "mShowErr";
-            this.mShowErr.Size = new System.Drawing.Size(61, 20);
-            this.mShowErr.Text = "ERRORS";
-            this.mShowErr.Visible = false;
-            this.mShowErr.Click += new System.EventHandler(this.mShowErr_Click);
-            // 
             // hPWebSitesToolStripMenuItem
             // 
             this.hPWebSitesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.printerKBToolStripMenuItem,
-            this.desktopKBToolStripMenuItem1,
-            this.desktopKBToolStripMenuItem2,
-            this.gaminToolStripMenuItem,
             this.DriverPackTSM,
             this.supportGPTToolStripMenuItem,
+            this.knowledgeBaseToolStripMenuItem,
             this.mnPhAlbum,
             this.toolStripSeparator3,
             this.allToolStripMenuItem,
@@ -1756,40 +1743,19 @@
             this.hPWebSitesToolStripMenuItem.Size = new System.Drawing.Size(89, 20);
             this.hPWebSitesToolStripMenuItem.Text = "HP Web Sites";
             // 
-            // printerKBToolStripMenuItem
-            // 
-            this.printerKBToolStripMenuItem.Name = "printerKBToolStripMenuItem";
-            this.printerKBToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.printerKBToolStripMenuItem.Text = "Printer KB";
-            this.printerKBToolStripMenuItem.Click += new System.EventHandler(this.HPWS_click);
-            // 
-            // desktopKBToolStripMenuItem1
-            // 
-            this.desktopKBToolStripMenuItem1.Name = "desktopKBToolStripMenuItem1";
-            this.desktopKBToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
-            this.desktopKBToolStripMenuItem1.Text = "Notebook KB";
-            this.desktopKBToolStripMenuItem1.Click += new System.EventHandler(this.HPWS_click);
-            // 
-            // desktopKBToolStripMenuItem2
-            // 
-            this.desktopKBToolStripMenuItem2.Name = "desktopKBToolStripMenuItem2";
-            this.desktopKBToolStripMenuItem2.Size = new System.Drawing.Size(180, 22);
-            this.desktopKBToolStripMenuItem2.Text = "Desktop KB";
-            this.desktopKBToolStripMenuItem2.Click += new System.EventHandler(this.HPWS_click);
-            // 
-            // gaminToolStripMenuItem
-            // 
-            this.gaminToolStripMenuItem.Name = "gaminToolStripMenuItem";
-            this.gaminToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.gaminToolStripMenuItem.Text = "Gaming KB";
-            this.gaminToolStripMenuItem.Click += new System.EventHandler(this.HPWS_click);
-            // 
             // DriverPackTSM
             // 
             this.DriverPackTSM.Name = "DriverPackTSM";
             this.DriverPackTSM.Size = new System.Drawing.Size(180, 22);
             this.DriverPackTSM.Text = "Driver Pack";
             this.DriverPackTSM.Click += new System.EventHandler(this.DriverPackTSM_Click);
+            // 
+            // supportGPTToolStripMenuItem
+            // 
+            this.supportGPTToolStripMenuItem.Name = "supportGPTToolStripMenuItem";
+            this.supportGPTToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.supportGPTToolStripMenuItem.Text = "SupportGPT";
+            this.supportGPTToolStripMenuItem.Click += new System.EventHandler(this.HPWS_click);
             // 
             // mnPhAlbum
             // 
@@ -1821,6 +1787,15 @@
             this.mnuAskQ.Size = new System.Drawing.Size(180, 22);
             this.mnuAskQ.Text = "SiteMap Questions";
             this.mnuAskQ.Click += new System.EventHandler(this.mnuAskQ_Click);
+            // 
+            // mShowErr
+            // 
+            this.mShowErr.ForeColor = System.Drawing.Color.Red;
+            this.mShowErr.Name = "mShowErr";
+            this.mShowErr.Size = new System.Drawing.Size(61, 20);
+            this.mShowErr.Text = "ERRORS";
+            this.mShowErr.Visible = false;
+            this.mShowErr.Click += new System.EventHandler(this.mShowErr_Click);
             // 
             // mnuTexting
             // 
@@ -2178,12 +2153,19 @@
             this.SpellTimer.Tag = "";
             this.SpellTimer.Tick += new System.EventHandler(this.SpellTimer_Tick);
             // 
-            // supportGPTToolStripMenuItem
+            // knowledgeBaseToolStripMenuItem
             // 
-            this.supportGPTToolStripMenuItem.Name = "supportGPTToolStripMenuItem";
-            this.supportGPTToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.supportGPTToolStripMenuItem.Text = "SupportGPT";
-            this.supportGPTToolStripMenuItem.Click += new System.EventHandler(this.HPWS_click);
+            this.knowledgeBaseToolStripMenuItem.Name = "knowledgeBaseToolStripMenuItem";
+            this.knowledgeBaseToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.knowledgeBaseToolStripMenuItem.Text = "Knowledge Base";
+            this.knowledgeBaseToolStripMenuItem.Click += new System.EventHandler(this.HPWS_click);
+            // 
+            // BiosSimPage
+            // 
+            this.BiosSimPage.Name = "BiosSimPage";
+            this.BiosSimPage.Size = new System.Drawing.Size(220, 22);
+            this.BiosSimPage.Text = "Simulator Web Page";
+            this.BiosSimPage.Click += new System.EventHandler(this.BiosSimPage_Click);
             // 
             // main
             // 
@@ -2320,10 +2302,6 @@
         private System.Windows.Forms.ToolStripMenuItem gamingKBToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem allKBToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem hPWebSitesToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem printerKBToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem desktopKBToolStripMenuItem1;
-        private System.Windows.Forms.ToolStripMenuItem desktopKBToolStripMenuItem2;
-        private System.Windows.Forms.ToolStripMenuItem gaminToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem allToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
         private System.Windows.Forms.Button bltnHR;
@@ -2436,6 +2414,8 @@
         private System.Windows.Forms.ToolStripMenuItem exportTSM;
         private System.Windows.Forms.ToolStripMenuItem importTSM;
         private System.Windows.Forms.ToolStripMenuItem supportGPTToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem knowledgeBaseToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem BiosSimPage;
     }
 }
 

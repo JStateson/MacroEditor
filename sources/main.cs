@@ -3419,7 +3419,7 @@ namespace MacroEditor
             ToolStripMenuItem menuItem = sender as ToolStripMenuItem;
             if (menuItem != null)
             {
-                FormGoToKB(menuItem.Text);
+                Utils.LocalBrowser("https://h30434.www3.hp.com/t5/tkb/communitypage");
             }
         }
 
@@ -3688,7 +3688,7 @@ namespace MacroEditor
         
         private void mnuBIOSemu_Click(object sender, EventArgs e)
         {
-            BiosEmuSim bes = new BiosEmuSim(false);
+            BiosEmuSim bes = new BiosEmuSim(false);            
             BSFlocal = bes.BSFsources;
             bes.ShowDialog();
             bes.Dispose();
@@ -4420,6 +4420,11 @@ namespace MacroEditor
                     toolStrip.Enabled = b;
                 }
             }
+        }
+
+        private void BiosSimPage_Click(object sender, EventArgs e)
+        {
+            Utils.LocalBrowser("https://h30434.www3.hp.com/t5/Notebooks-Knowledge-Base/Interactive-BIOS-simulator-emulator/ta-p/9145598");
         }
     }
 }
