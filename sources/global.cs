@@ -1348,11 +1348,16 @@ namespace MacroEditor
             string sPS = Properties.Settings.Default.NotPrnSuffix.Replace(Environment.NewLine, " ");
             string sMS = Properties.Settings.Default.sMSuffix.Replace(Environment.NewLine, " ");
             string sMP = Properties.Settings.Default.NotPrnPrefix.Replace(Environment.NewLine, " ");
+
+            //note to myself 11/17/2025 the printer prefix is added before this function is called
+            //cannot use sPP here for printer prefix
+
             if (sPP != "init" && strType != "" && Utils.sPrinterTypes.Contains(strType + " "))
             {
                 if (Properties.Settings.Default.bUsePrefix && Properties.Settings.Default.bUseSuffix)
                 {
-                    sOut = sPP + "<br><br>" + s + "<br><br>" + sMS;
+                    //if(Utils.sPrinterTypes.Contains(strType + " "))
+                    //sOut = sPP + "<br><br>" + s + "<br><br>" + sMS;
                 }
                 else if (Properties.Settings.Default.bUsePrefix)
                 {

@@ -3419,7 +3419,22 @@ namespace MacroEditor
             ToolStripMenuItem menuItem = sender as ToolStripMenuItem;
             if (menuItem != null)
             {
-                Utils.LocalBrowser("https://h30434.www3.hp.com/t5/tkb/communitypage");
+                string sQ = "";
+                string s = menuItem.Text.Substring(0, 1).ToLower();
+                switch (s)
+                {
+                    case "a":
+                        sQ = "https://h30434.www3.hp.com/t5/custom/page/page-id/RecentDiscussions";
+                        break;
+                    case "s":
+                        sQ = "https://virtualagent.hpcloud.hp.com/?botClient=Portal&lc=en&cc=us";
+                        break;
+                    default:
+                        sQ = "https://h30434.www3.hp.com/t5/tkb/communitypage";
+                        break;
+                }
+                if (sQ != "")
+                    Utils.LocalBrowser(sQ);
             }
         }
 
