@@ -657,6 +657,43 @@ namespace MacroEditor
             return n;
         }
 
+        private async Task<int> Obtain_FTPs(string s)
+        {
+            string t = "";
+            int n = 0;
+
+            HashSet<string> urls = new HashSet<string>();
+            Regex rx = new Regex("href\\s*=\\s*\"([^\"]+)\"", RegexOptions.IgnoreCase);
+            MatchCollection uniqueMatches = rx.Matches(s);
+            foreach(Match m in uniqueMatches)
+            {
+               urls.Add(m.Groups[1].Value.ToString());  
+            }
+
+            foreach (string url in urls)
+            {
+                bool bExists = true;
+                if (cbBadUrl.Checked)
+                {
+                    string sExists = await changeUrls.HttpFileExists_Async1(url);
+                    bExists = (sExists == "");
+                    if (!bExists)
+                    {
+                        t += url + " Error: " + sExists + Environment.NewLine;
+                        changeUrls.AddUrl(url, "", debSys, debName, debNum);
+                        n++;
+                    }
+                }
+                else
+                {
+                    t += url + Environment.NewLine;
+                    n++;
+                }
+            }
+            sLocalResult = t;
+            return n;
+        }
+
 
         private string debNum = "";
         private string debSys = "";
@@ -674,9 +711,11 @@ namespace MacroEditor
             lbCnt.Text = "";
             int n = 0;
             int c = 0;
+            bool FoundUrl = false;
             foreach (CBody cb in Cbodies)
             {
                 c++;
+                pbCounting.Value = c;
                 string sR = "";
                 string sS = "";
                 bool sHasFTP = false;
@@ -686,16 +725,24 @@ namespace MacroEditor
                 string MacName = cb.Name;
                 string sRecord = cb.rBody;
                 bool rHasFTP = sRecord.Contains("ftp.");
-
-                debSys= strType;
-                debName= MacName;
-                debNum = cb.Number;
-
-                if (!(sHasFTP || rHasFTP))continue;                    
-                string sMacroID = "(" + strType + "#" + cb.Number + ")" + Environment.NewLine;
-                string sHdr = Environment.NewLine + MacName + sMacroID;  
-                if (sHasFTP)
+                bool rHasHTTP = sRecord.Contains("http");
+                bool sHasHTTP = strTemp.Contains("http");
+                FoundUrl = sHasFTP || rHasFTP;
+/*
+                if (strTemp.Contains("General advice on"))
                 {
+                    int x = 0;
+                }
+                else continue;
+*/
+                debSys = strType;
+                debName= MacName;
+                debNum = cb.Number;                   
+                string sMacroID = "(" + strType + "#" + cb.Number + ")" + Environment.NewLine;
+                string sHdr = Environment.NewLine + MacName + sMacroID;
+                //sHasFTP = rHasFTP = false;
+                if (sHasFTP)
+                { 
                     n+= await ObtainFTPs(strTemp);
                     sS = sLocalResult;
                 }
@@ -704,12 +751,26 @@ namespace MacroEditor
                     n+= await ObtainFTPs(sRecord);
                     sR = sLocalResult;
                 }
+                if(!FoundUrl && false)
+                {
+                    if (sHasHTTP)
+                    {
+                        n += await Obtain_FTPs(strTemp);
+                        sS = sLocalResult;
+                    }
+                    if (rHasHTTP)
+                    {
+                        n += await Obtain_FTPs(sRecord);
+                        sR = sLocalResult;
+                    }
+                }
+
                 if (sS == "" && sR == "")
                 {
                     if (!cbBadUrl.Checked)
                         Debug.Assert(false, "Should not be here");
                 }
-                if(sHasFTP || rHasFTP)
+                if(FoundUrl)
                 {
                     pbCounting.Value = c;
                     Application.DoEvents();

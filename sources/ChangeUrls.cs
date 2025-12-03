@@ -6,6 +6,7 @@ using System.Data;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
@@ -471,7 +472,140 @@ namespace MacroEditor
             string sUrl = s.Substring(i+c.Length);
             return sUrl;
         }
-        
+
+        public async Task<string> HttpFileExists_Async(string surl)
+        {
+            string url = surl;
+            var handler = new HttpClientHandler
+            {
+                AllowAutoRedirect = false
+            };
+
+            try
+            {
+                if (!surl.Contains("http"))
+                    url = "https://" + surl;
+
+                using (HttpClient client = new HttpClient())
+                {
+                    client.Timeout = TimeSpan.FromSeconds(10);
+                    var request = new HttpRequestMessage(HttpMethod.Get, url);
+
+                    // Only read headers — avoids body download
+                    var response = await client.SendAsync(request, HttpCompletionOption.ResponseHeadersRead);
+
+                    // If status code is success → file exists
+                    if (response.IsSuccessStatusCode)
+                        return "";
+
+                    // Otherwise check status code and reason phrase
+                    string reason = response.ReasonPhrase?.ToLower() ?? "";
+                    if (reason.Contains("not found") || reason.Contains("404"))
+                    {
+                        return "Not found or 404";
+                    }
+
+                    return "Unknown";
+                }
+            }
+
+            catch (Exception ex)
+            {
+                return "Not found or 404";
+            }
+        }
+
+
+        public async Task <string> HttpFileExists_Async3(string url)
+        {
+            try
+            {
+                HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
+                request.Method = "HEAD"; // Only headers, not full page
+                request.Timeout = 10000; // 5 seconds
+                request.ReadWriteTimeout = 10000;
+                request.UserAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36";
+                request.AllowAutoRedirect = false;
+
+                using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
+                {
+                    if (response.StatusCode == HttpStatusCode.OK)
+                        return "OK";
+                    else if ((int)response.StatusCode == 404)
+                        return "Not Found";
+                    else
+                        return "Other: " + response.StatusCode;
+                }
+            }
+            catch (WebException ex)
+            {
+                if (ex.Response is HttpWebResponse resp)
+                {
+                    if (resp.StatusCode == HttpStatusCode.NotFound)
+                        return "Not Found";
+                    return "Other: " + resp.StatusCode;
+                }
+                return "Timeout or network error";
+            }
+        }
+
+        public async Task<string> HttpFileExists_Async1(string surl)
+        {
+            string url = surl;
+            var handler = new HttpClientHandler
+            {
+                AllowAutoRedirect = true
+            };
+
+            try
+            {
+                if (!surl.Contains("http"))
+                    url = "https://" + surl;
+
+                using (HttpClient client = new HttpClient())
+                {
+                    client.Timeout = TimeSpan.FromSeconds(5);
+                    client.DefaultRequestHeaders.UserAgent.ParseAdd(
+    "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
+);
+                    //var request = new HttpRequestMessage(HttpMethod.Get, url);
+                    //var response = await client.SendAsync(request, HttpCompletionOption.ResponseHeadersRead);
+
+                    var response = await client.GetAsync(url, HttpCompletionOption.ResponseHeadersRead);
+
+                    if (response.StatusCode == HttpStatusCode.Moved ||
+                        response.StatusCode == HttpStatusCode.Redirect ||
+                        response.StatusCode == HttpStatusCode.RedirectKeepVerb)
+                    {
+                        var target = response.Headers.Location?.ToString() ?? "";
+
+                        if (target.Contains("/error/404"))
+                        {
+                            return "Not found (redirect to HP 404 page)";
+                        }
+                    }
+
+
+                    if (response.StatusCode == HttpStatusCode.NotFound)
+                    {
+                        return "Not found (404)";
+                    }
+
+                    if (response.IsSuccessStatusCode)
+                    {
+                        return "OK";
+                    }
+
+                    return "Unknown: " + response.StatusCode;
+                }
+            }
+
+            catch (Exception ex)
+            {
+                return ex.Message;
+            }
+        }
+
 
 
         public async Task<string> HttpFileExistsAsync(string surl)
@@ -505,7 +639,7 @@ namespace MacroEditor
 
             catch (Exception ex)
             {
-                return ex.Message;
+               return ex.Message;
             }
         }
     }
