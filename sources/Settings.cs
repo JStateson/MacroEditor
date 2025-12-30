@@ -694,6 +694,21 @@ namespace MacroEditor
             return n;
         }
 
+        private static List<string> ExtractCUrls(string input)
+        {
+            var urls = new HashSet<string>();
+
+            // Match URLs ending with /c<digits>" or /c<digits>.pdf
+            string pattern = @"https?://[^""'\s>]*?/c\d+(?="")|https?://[^""'\s>]*?/c\d+\.pdf";
+
+            foreach (Match m in Regex.Matches(input, pattern))
+            {
+                urls.Add(m.Value);
+            }
+
+            return urls.ToList();
+        }
+
 
         private string debNum = "";
         private string debSys = "";
@@ -725,16 +740,16 @@ namespace MacroEditor
                 string MacName = cb.Name;
                 string sRecord = cb.rBody;
                 bool rHasFTP = sRecord.Contains("ftp.");
-                bool rHasHTTP = sRecord.Contains("http");
-                bool sHasHTTP = strTemp.Contains("http");
+                bool rHasHTTP = false; // sRecord.Contains("http");
+                bool sHasHTTP = false; // strTemp.Contains("http");
                 FoundUrl = sHasFTP || rHasFTP;
-/*
+
                 if (strTemp.Contains("General advice on"))
                 {
                     int x = 0;
                 }
-                else continue;
-*/
+                //else continue;
+
                 debSys = strType;
                 debName= MacName;
                 debNum = cb.Number;                   
@@ -751,7 +766,23 @@ namespace MacroEditor
                     n+= await ObtainFTPs(sRecord);
                     sR = sLocalResult;
                 }
-                if(!FoundUrl && false)
+                /*
+                List<string> UrlsToTest = ExtractCUrls(strTemp);
+                if(UrlsToTest.Count > 0)
+                {
+                    FoundUrl = true;
+                    foreach(string url in UrlsToTest)
+                    {
+                        string sExists = await changeUrls.HttpFileExists_Async3(url);
+                        if(sExists != "")
+                        {
+                            sS += url + " Error: " + sExists + Environment.NewLine;
+                            n++;
+                        }
+                    }
+                }
+                */
+                if (!FoundUrl && false)
                 {
                     if (sHasHTTP)
                     {

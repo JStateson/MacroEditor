@@ -4,7 +4,7 @@ you generally have 2 hours to complete the setup. Decide if
 you want to connect the printer to the router or to print
 directly to the printer and bypass the router.<br><br>Many
 HP and other OEM printers have problems with the router when
-the router has two bands and <font color="#FF6600">both bands
+the router has two or more bands and <font color="#FF6600">all
 have the same name (SSID)</font>.  Log into the modem and
 rename one of the bands. Alternately, contact your ISP and
 have them rename a band.<br><br>Or simply <b>use Wi-Fi direct</b>
