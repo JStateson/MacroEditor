@@ -77,8 +77,9 @@ no control panel.</p>
 <b>Support Videos - Parts - Disassembly</b>
 <p>HP has a YouTube site and there are a number of video in
 English and other languages. Typically unboxing, clearing
-paper jams, and cartridge problems.  You may also find
-instructional disassembly videos from other users.</p>
+paper jams, and cartridge problems.  You could also use
+bing or google to possibly find instructional disassembly
+videos from other users.</p>
 <table border='2'><tr><td>@YouTube@</td></tr></table>
 
 
