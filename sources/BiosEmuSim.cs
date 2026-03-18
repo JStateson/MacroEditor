@@ -21,6 +21,7 @@ using System.Xml.Linq;
 using System.Net.Http;
 using Microsoft.Office.Interop.Word;
 using Application = System.Windows.Forms.Application;
+using System.Reflection.Emit;
 
 namespace MacroEditor.sources
 {
@@ -759,7 +760,7 @@ namespace MacroEditor.sources
             }
             LineOut = "<center><font size=\"6.0\">" + sExpectName + "for HP PCs</font></center><br>";
             LineOut += "Items marked <strong><font color='#FF0000'>[*]</font></strong> are older and depending on your browser may ask for authorization to run<br>";
-            LineOut += "Items marked <strong><font color='#FF0000'>[X]</font></strong> are no longer available";
+            LineOut += "Items marked <strong><font color='#FF0000'>[X]</font></strong> , must be downloaded before being viewed";
             LineOut += "<br>" + FormTable(nCol, ref CandidateList);
 
 
@@ -1171,7 +1172,7 @@ namespace MacroEditor.sources
         private void linkLabel1_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             string s = "https://h30434.www3.hp.com/t5/Notebooks-Knowledge-Base/Interactive-BIOS-simulator-emulator/ta-p/9145598";
-            Clipboard.SetText(s);            
+            Utils.LocalBrowser(s);
         }
 
         private async void btnScanMissing_Click(object sender, EventArgs e)

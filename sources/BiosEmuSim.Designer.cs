@@ -448,7 +448,8 @@
             this.btnScanMissing.Size = new System.Drawing.Size(127, 50);
             this.btnScanMissing.TabIndex = 34;
             this.btnScanMissing.Text = "Scan for any\r\nMissing URLs";
-            this.toolTip1.SetToolTip(this.btnScanMissing, "Missing documentes will be identified\r\nwith a red colored number");
+            this.toolTip1.SetToolTip(this.btnScanMissing, "Missing documentes will be identified\r\nwith a red colored number. Look for\r\nfile " +
+        "ObsoleteBiosSimURLs.html");
             this.btnScanMissing.UseVisualStyleBackColor = true;
             this.btnScanMissing.Click += new System.EventHandler(this.btnScanMissing_Click);
             // 
