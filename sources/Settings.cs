@@ -67,6 +67,8 @@ namespace MacroEditor
                 case eBrowserType.eEdge: rbEdge.Checked = true; break;
             }
 
+
+
             /*
             On initial startup copy the source code text fields into
             the default settings otherwise display and use the defaults.
@@ -159,6 +161,10 @@ namespace MacroEditor
             }
             tbReplace.Text = sOut;
             changeUrls.ReadBadUrls(Utils.OldUrlList);
+
+#if DEBUG
+            groupBox8.Enabled = true;
+#endif
         }
 
 
@@ -739,12 +745,18 @@ namespace MacroEditor
                 string strType = cb.File;
                 string MacName = cb.Name;
                 string sRecord = cb.rBody;
-                bool rHasFTP = sRecord.Contains("ftp.");
                 bool rHasHTTP = false; // sRecord.Contains("http");
                 bool sHasHTTP = false; // strTemp.Contains("http");
-                FoundUrl = sHasFTP || rHasFTP;
+                bool rHasFTP = sRecord.Contains("ftp.");
+                if (rbHTTP.Checked) {
+                    sHasHTTP = strTemp.Contains("http");
+                    rHasHTTP = sRecord.Contains("http");
+                    rHasFTP = false;
+                    sHasFTP = false;
+                }   
+                FoundUrl = sHasFTP || rHasFTP || sHasHTTP || rHasHTTP;
 
-                if (strTemp.Contains("General advice on"))
+                if (strTemp.Contains("TG and TP motherboards"))
                 {
                     int x = 0;
                 }
@@ -782,7 +794,7 @@ namespace MacroEditor
                     }
                 }
                 */
-                if (!FoundUrl && false)
+                //if (!FoundUrl && false)
                 {
                     if (sHasHTTP)
                     {
@@ -796,11 +808,13 @@ namespace MacroEditor
                     }
                 }
 
+                /*
                 if (sS == "" && sR == "")
                 {
-                    if (!cbBadUrl.Checked)
-                        Debug.Assert(false, "Should not be here");
+                    if (!cbBadUrl.Checked) Debug.Assert(false, "Should not be here");
                 }
+                */
+
                 if(FoundUrl)
                 {
                     pbCounting.Value = c;
@@ -833,6 +847,7 @@ namespace MacroEditor
         private void btnSaveURLs_Click(object sender, EventArgs e)
         {
             changeUrls.SaveBadUrls(Utils.OldUrlList);
+            MessageBox.Show("You must exit this app before the bad urls show up");
         }
 
         private void btnShowBad_Click(object sender, EventArgs e)

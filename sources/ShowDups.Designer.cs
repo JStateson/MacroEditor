@@ -44,11 +44,13 @@
             this.btnImage = new System.Windows.Forms.Button();
             this.btnNS = new System.Windows.Forms.Button();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.label4 = new System.Windows.Forms.Label();
             this.gbDup.SuspendLayout();
             this.SuspendLayout();
             // 
             // gbDup
             // 
+            this.gbDup.Controls.Add(this.label4);
             this.gbDup.Controls.Add(this.btnExitEdit);
             this.gbDup.Controls.Add(this.label3);
             this.gbDup.Controls.Add(this.label2);
@@ -65,7 +67,7 @@
             // btnExitEdit
             // 
             this.btnExitEdit.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.btnExitEdit.Location = new System.Drawing.Point(197, 307);
+            this.btnExitEdit.Location = new System.Drawing.Point(218, 395);
             this.btnExitEdit.Name = "btnExitEdit";
             this.btnExitEdit.Size = new System.Drawing.Size(104, 23);
             this.btnExitEdit.TabIndex = 12;
@@ -78,7 +80,7 @@
             this.label3.AutoSize = true;
             this.label3.BackColor = System.Drawing.SystemColors.Info;
             this.label3.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.label3.Location = new System.Drawing.Point(194, 114);
+            this.label3.Location = new System.Drawing.Point(194, 35);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(157, 128);
             this.label3.TabIndex = 11;
@@ -200,6 +202,17 @@
             this.btnNS.UseVisualStyleBackColor = true;
             this.btnNS.Click += new System.EventHandler(this.btnNS_Click);
             // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.BackColor = System.Drawing.SystemColors.Info;
+            this.label4.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.label4.Location = new System.Drawing.Point(206, 209);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(116, 64);
+            this.label4.TabIndex = 13;
+            this.label4.Text = "A duplicate is a url\r\nthat simply has the\r\nurl as the text to be\r\nclicked on.";
+            // 
             // ShowDups
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -247,5 +260,6 @@
         private System.Windows.Forms.Button btnNS;
         private System.Windows.Forms.Button btnImage;
         private System.Windows.Forms.ToolTip toolTip1;
+        private System.Windows.Forms.Label label4;
     }
 }

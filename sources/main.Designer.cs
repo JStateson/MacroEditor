@@ -152,6 +152,7 @@
             this.mnuCmpHTTP = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmRunMacArchive = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmRunArchiveAll = new System.Windows.Forms.ToolStripMenuItem();
+            this.BiosSimPage = new System.Windows.Forms.ToolStripMenuItem();
             this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmConfig = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmAssociate = new System.Windows.Forms.ToolStripMenuItem();
@@ -186,6 +187,7 @@
             this.hPWebSitesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.DriverPackTSM = new System.Windows.Forms.ToolStripMenuItem();
             this.supportGPTToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.knowledgeBaseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mnPhAlbum = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.allToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -229,8 +231,7 @@
             this.tsm2PasteAI = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmRemove = new System.Windows.Forms.ToolStripMenuItem();
             this.SpellTimer = new System.Windows.Forms.Timer(this.components);
-            this.knowledgeBaseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.BiosSimPage = new System.Windows.Forms.ToolStripMenuItem();
+            this.uRLManagementToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.lbName)).BeginInit();
             this.groupBox6.SuspendLayout();
             this.gbManageImages.SuspendLayout();
@@ -1482,11 +1483,19 @@
     "T!";
             this.tsmRunArchiveAll.Click += new System.EventHandler(this.tsmRunArchiveAll_Click);
             // 
+            // BiosSimPage
+            // 
+            this.BiosSimPage.Name = "BiosSimPage";
+            this.BiosSimPage.Size = new System.Drawing.Size(220, 22);
+            this.BiosSimPage.Text = "Simulator Web Page";
+            this.BiosSimPage.Click += new System.EventHandler(this.BiosSimPage_Click);
+            // 
             // settingsToolStripMenuItem
             // 
             this.settingsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tsmConfig,
-            this.tsmAssociate});
+            this.tsmAssociate,
+            this.uRLManagementToolStripMenuItem});
             this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
             this.settingsToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
             this.settingsToolStripMenuItem.Text = "Settings";
@@ -1494,14 +1503,14 @@
             // tsmConfig
             // 
             this.tsmConfig.Name = "tsmConfig";
-            this.tsmConfig.Size = new System.Drawing.Size(179, 22);
+            this.tsmConfig.Size = new System.Drawing.Size(180, 22);
             this.tsmConfig.Text = "Configure";
             this.tsmConfig.Click += new System.EventHandler(this.tsmConfig_Click);
             // 
             // tsmAssociate
             // 
             this.tsmAssociate.Name = "tsmAssociate";
-            this.tsmAssociate.Size = new System.Drawing.Size(179, 22);
+            this.tsmAssociate.Size = new System.Drawing.Size(180, 22);
             this.tsmAssociate.Text = "Associate Clipboard";
             this.tsmAssociate.Click += new System.EventHandler(this.tsmAssociate_Click);
             // 
@@ -1746,45 +1755,52 @@
             // DriverPackTSM
             // 
             this.DriverPackTSM.Name = "DriverPackTSM";
-            this.DriverPackTSM.Size = new System.Drawing.Size(180, 22);
+            this.DriverPackTSM.Size = new System.Drawing.Size(173, 22);
             this.DriverPackTSM.Text = "Driver Pack";
             this.DriverPackTSM.Click += new System.EventHandler(this.DriverPackTSM_Click);
             // 
             // supportGPTToolStripMenuItem
             // 
             this.supportGPTToolStripMenuItem.Name = "supportGPTToolStripMenuItem";
-            this.supportGPTToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.supportGPTToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
             this.supportGPTToolStripMenuItem.Text = "SupportGPT";
             this.supportGPTToolStripMenuItem.Click += new System.EventHandler(this.HPWS_click);
+            // 
+            // knowledgeBaseToolStripMenuItem
+            // 
+            this.knowledgeBaseToolStripMenuItem.Name = "knowledgeBaseToolStripMenuItem";
+            this.knowledgeBaseToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
+            this.knowledgeBaseToolStripMenuItem.Text = "Knowledge Base";
+            this.knowledgeBaseToolStripMenuItem.Click += new System.EventHandler(this.HPWS_click);
             // 
             // mnPhAlbum
             // 
             this.mnPhAlbum.Name = "mnPhAlbum";
-            this.mnPhAlbum.Size = new System.Drawing.Size(180, 22);
+            this.mnPhAlbum.Size = new System.Drawing.Size(173, 22);
             this.mnPhAlbum.Text = "Photo Album";
             this.mnPhAlbum.Click += new System.EventHandler(this.mnPhAlbum_Click);
             // 
             // toolStripSeparator3
             // 
             this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(177, 6);
+            this.toolStripSeparator3.Size = new System.Drawing.Size(170, 6);
             // 
             // allToolStripMenuItem
             // 
             this.allToolStripMenuItem.Name = "allToolStripMenuItem";
-            this.allToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.allToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
             this.allToolStripMenuItem.Text = "All recent";
             this.allToolStripMenuItem.Click += new System.EventHandler(this.HPWS_click);
             // 
             // toolStripSeparator4
             // 
             this.toolStripSeparator4.Name = "toolStripSeparator4";
-            this.toolStripSeparator4.Size = new System.Drawing.Size(177, 6);
+            this.toolStripSeparator4.Size = new System.Drawing.Size(170, 6);
             // 
             // mnuAskQ
             // 
             this.mnuAskQ.Name = "mnuAskQ";
-            this.mnuAskQ.Size = new System.Drawing.Size(180, 22);
+            this.mnuAskQ.Size = new System.Drawing.Size(173, 22);
             this.mnuAskQ.Text = "SiteMap Questions";
             this.mnuAskQ.Click += new System.EventHandler(this.mnuAskQ_Click);
             // 
@@ -2153,19 +2169,12 @@
             this.SpellTimer.Tag = "";
             this.SpellTimer.Tick += new System.EventHandler(this.SpellTimer_Tick);
             // 
-            // knowledgeBaseToolStripMenuItem
+            // uRLManagementToolStripMenuItem
             // 
-            this.knowledgeBaseToolStripMenuItem.Name = "knowledgeBaseToolStripMenuItem";
-            this.knowledgeBaseToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.knowledgeBaseToolStripMenuItem.Text = "Knowledge Base";
-            this.knowledgeBaseToolStripMenuItem.Click += new System.EventHandler(this.HPWS_click);
-            // 
-            // BiosSimPage
-            // 
-            this.BiosSimPage.Name = "BiosSimPage";
-            this.BiosSimPage.Size = new System.Drawing.Size(220, 22);
-            this.BiosSimPage.Text = "Simulator Web Page";
-            this.BiosSimPage.Click += new System.EventHandler(this.BiosSimPage_Click);
+            this.uRLManagementToolStripMenuItem.Name = "uRLManagementToolStripMenuItem";
+            this.uRLManagementToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.uRLManagementToolStripMenuItem.Text = "URL management";
+            this.uRLManagementToolStripMenuItem.Click += new System.EventHandler(this.uRLManagementToolStripMenuItem_Click);
             // 
             // main
             // 
@@ -2416,6 +2425,7 @@
         private System.Windows.Forms.ToolStripMenuItem supportGPTToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem knowledgeBaseToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem BiosSimPage;
+        private System.Windows.Forms.ToolStripMenuItem uRLManagementToolStripMenuItem;
     }
 }
 

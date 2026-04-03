@@ -308,6 +308,12 @@
     <Compile Include="sources\UpdateUrl.Designer.cs">
       <DependentUpon>UpdateUrl.cs</DependentUpon>
     </Compile>
+    <Compile Include="sources\URLupdate.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="sources\URLupdate.Designer.cs">
+      <DependentUpon>URLupdate.cs</DependentUpon>
+    </Compile>
     <Compile Include="sources\utils.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -407,6 +413,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="sources\UpdateUrl.resx">
       <DependentUpon>UpdateUrl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="sources\URLupdate.resx">
+      <DependentUpon>URLupdate.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="sources\utils.resx">
       <DependentUpon>utils.cs</DependentUpon>

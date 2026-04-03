@@ -1,0 +1,391 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Net.Http;
+using System.Text;
+using System.Text.RegularExpressions;
+using System.Threading.Tasks;
+using System.Windows.Controls;
+using System.Windows.Documents;
+using System.Windows.Forms;
+
+namespace MacroEditor.sources
+{
+    public partial class URLupdate : Form
+    {
+        private List<CBody> Cbodies;
+        private List<string> sFiltered = new List<string>();
+
+        BindingSource _bsFiltered = new BindingSource();
+
+        private string sAll = "";
+        private List<string> L_All = new List<string>();
+        private List<string> S_All = new List<string>();
+        private List<string> MyLeftovers = new List<string>();  
+        private List<int> L_FilterIndex = new List<int>();
+        private List<int> S_FilterIndex = new List<int>();
+        private List<string>NotExcluded = new List<string>();
+        private string sFile = "", sNum="";
+        private int ListSelectedIndex = -1;
+        private string ListSelectedValue = "";
+
+        public URLupdate(ref List<CBody> rCbodies)
+        {
+            InitializeComponent();
+            Cbodies = rCbodies;
+
+            _bsFiltered.DataSource = typeof(string);
+            lbFiltered.DataSource = _bsFiltered;
+
+            //sFiltered = new BindingList<string>();
+            //lbFiltered.DataSource = sFiltered;
+            InitFilter();
+            this.Shown += LoadInitialFiles;
+            this.KeyPreview = true;  // Ensure the form receives key events first
+            this.KeyDown += new KeyEventHandler(Form1_KeyDown);
+        }
+
+        private void Form1_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Escape)
+            {
+                this.Close();  // Close the form
+            }
+        }
+
+        private void LoadInitialFiles(object sender, EventArgs e)
+        {
+            cbExclude.SelectedIndex = 0;
+            cbFilter.SelectedIndex = 0;
+        }
+
+        private bool IsExcluded(string sUrl)
+        {
+            if (cbExclude == null) return false;
+            foreach (string s in cbExclude.Items)
+            {
+                if (sUrl != null && s != null && sUrl.IndexOf(s, StringComparison.OrdinalIgnoreCase) >= 0)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        private bool IsSelected(string url, ref string[] Items)
+        {
+            for (int i = 1; i < Items.Length; i++)
+            {
+                string s = Items[i];
+                if (url != null && s != null && url.IndexOf(s, StringComparison.OrdinalIgnoreCase) >= 0)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        private bool IsLeftover(string sUrl)
+        {
+            if (cbExclude == null) return false;
+            foreach (string sss in cbFilter.Items)
+            {
+                if(sss == "excluded") continue;
+                else
+                {
+                    string[] ss = sss.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+                    foreach(string s in ss)
+                    {
+                        if(s.Contains(':'))continue;
+                        string t = s;
+                        if (!s.Contains('/')) t += ".com";
+                        if (sUrl != null && s != null && sUrl.IndexOf(t, StringComparison.OrdinalIgnoreCase) >= 0)
+                        {
+                            return true;
+                        }
+                    }
+                }
+            }
+            return false;
+        }
+
+        List<string> ExtractUrls(string sInput)
+        {
+            var urls = new List<string>();
+
+            var matches = Regex.Matches(sInput, "href=\"(.*?)\"", RegexOptions.IgnoreCase);
+
+            foreach (Match match in matches)
+            {
+                urls.Add(match.Groups[1].Value);
+            }
+
+            return urls;
+        }
+
+
+        private void ExtractHTTP(ref string s)
+        {
+            var urls = ExtractUrls(s);
+            string sCode = "[" + sFile.PadRight(3) + sNum.PadLeft(3) + "] ";
+            foreach (var url in urls)
+            {
+
+                if (IsExcluded(url))
+                {
+                    sFiltered.Add(url);
+                    S_All.Add(sFile + " " + sNum);
+                }
+                else
+                {
+                    sAll +=sCode + url + Environment.NewLine;
+                    NotExcluded.Add(url);
+                    if (!IsLeftover(url))
+                    {
+                        MyLeftovers.Add(url);
+                        L_All.Add(sFile + " " + sNum);
+                    }
+                }
+            }
+        }
+
+        private void SetLeftovers()
+        {
+            // Pair each item with its original index
+            var indexed = MyLeftovers
+                .Select((value, index) => new { Value = value, OriginalIndex = index })
+                .ToList();
+
+            // Sort by value (case-insensitive)
+            var sorted = indexed
+                .OrderBy(x => x.Value, StringComparer.OrdinalIgnoreCase)
+                .ToList();
+
+            // Extract the sort indices
+            List<int> sortIndices = sorted.Select(x => x.OriginalIndex).ToList();
+            lbLeftover.Items.Clear();
+            foreach (var x in sorted)
+            {
+                lbLeftover.Items.Add(x.Value);
+            }
+
+            foreach (var i in sortIndices)
+            {
+                L_FilterIndex.Add(i);
+            }
+        }
+
+        private void InitFilter()
+        {
+            sAll = "";
+            MyLeftovers.Clear();
+            NotExcluded.Clear();
+            foreach (CBody cb in Cbodies)
+            {
+                sFile = cb.File;
+                sNum = cb.Number;
+                ExtractHTTP(ref cb.sBody);
+                ExtractHTTP(ref cb.rBody);
+            }
+            tbAll.Text = sAll;
+            SetLeftovers();
+        }
+
+        private void RunFilter(int nSelected)
+        {
+            var selectedItem = cbFilter.SelectedItem;
+            S_FilterIndex.Clear();
+            
+            if (selectedItem != null)
+            {
+                string svalue = selectedItem.ToString();
+                if (svalue == "excluded")
+                {
+                    // Pair each item with its original index
+                    var indexed = sFiltered
+                        .Select((value, index) => new { Value = value, OriginalIndex = index })
+                        .ToList();
+
+                    // Sort by value (case-insensitive)
+                    var sorted = indexed
+                        .OrderBy(x => x.Value, StringComparer.OrdinalIgnoreCase)
+                        .ToList();
+
+                    // Extract the sort indices
+                    List<int> sortIndices = sorted.Select(x => x.OriginalIndex).ToList();
+                    sFiltered.Clear();
+                    foreach (var x in sorted)
+                    {
+                        sFiltered.Add(x.Value);
+                    }
+
+                    foreach(var i in sortIndices)
+                    {
+                        S_FilterIndex.Add(i);
+                    }
+
+                    //lbFiltered.DataSource = null;
+                    //lbFiltered.DataSource = sFiltered.ToList();
+
+                    _bsFiltered.DataSource = null;
+                    _bsFiltered.DataSource = sFiltered;
+                }
+                else
+                {
+                    string[] sItems = cbFilter.Text.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+                    sFiltered.Clear();
+                    foreach (string s in NotExcluded)
+                    {
+                        if (IsSelected(s, ref sItems))
+                        {
+                            sFiltered.Add(s);
+                        }
+                    }
+
+                    // Pair each item with its original index
+                    var indexed = sFiltered
+                        .Select((value, index) => new { Value = value, OriginalIndex = index })
+                        .ToList();
+
+                    // Sort by value (case-insensitive)
+                    var sorted = indexed
+                        .OrderBy(x => x.Value, StringComparer.OrdinalIgnoreCase)
+                        .ToList();
+
+                    // Extract the sort indices
+                    List<int> sortIndices = sorted.Select(x => x.OriginalIndex).ToList();
+                    sFiltered.Clear();
+                    foreach (var x in sorted)
+                    {
+                        sFiltered.Add(x.Value);
+                    }
+
+                    foreach (var i in sortIndices)
+                    {
+                        S_FilterIndex.Add(i);
+                    }
+                    //var NewList = sFiltered.ToList();   
+                    //lbFiltered.DataSource = null;
+                    //lbFiltered.DataSource = NewList;
+
+                    _bsFiltered.DataSource = null;
+                    _bsFiltered.DataSource = sFiltered;
+
+                }
+            }
+        }
+
+        private void cbFilter_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string s = cbFilter.Text;
+            int i = s.IndexOf(':');
+            if (i == -1)
+            {
+                tabPage2.Text = s;
+            }
+            else tabPage2.Text = s.Substring(0, i);
+            RunFilter(cbFilter.SelectedIndex);
+        }
+
+        private void btnAddItemExclude_Click(object sender, EventArgs e)
+        {
+            string sNew = cbExclude.Text;
+            if(cbExclude.Items.Contains(sNew))
+            {
+                MessageBox.Show("Already in the list.");
+                return;
+            }
+            cbExclude.Items.Add(sNew);          
+            sFiltered.Clear();
+            InitFilter();
+            RunFilter(0);            
+        }
+
+        private void lbFiltered_DoubleClick(object sender, EventArgs e)
+        {
+            Utils.LocalBrowser(ListSelectedValue);
+        }
+
+
+        private void lbLeftover_DoubleClick(object sender, EventArgs e)
+        {
+            Utils.LocalBrowser(ListSelectedValue);
+        }
+
+        private void lbFiltered_DoubleClick_1(object sender, EventArgs e)
+        {
+            Utils.LocalBrowser(ListSelectedValue);
+        }
+
+        private void lbFiltered_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ListSelectedValue = lbFiltered.SelectedItem as string;
+            ListSelectedIndex = lbFiltered.Items.IndexOf(ListSelectedValue);
+            int j = ListSelectedIndex;
+            int i = S_FilterIndex[j];
+            string sTemp = S_All[i];
+            int k = sTemp.IndexOf(' ');
+            tbFILE_S.Text = sTemp.Substring(0, k);
+            tbNUM_S.Text = sTemp.Substring(k + 1);
+        }
+
+        private bool DidRedirect = false;
+        private async Task<bool> TryFetch(string s)
+        {
+            var handler = new HttpClientHandler
+            {
+                AllowAutoRedirect = false
+            };
+            using (var client = new HttpClient(handler))
+            {
+                var response = await client.GetAsync(s).ConfigureAwait(false); ;
+                if ((int)response.StatusCode >= 300 && (int)response.StatusCode < 400 || (int)response.StatusCode == 404)
+                {
+                    DidRedirect = true;
+                    return true;
+                    /*
+                    if (response.Headers.Location != null)
+                    {
+                        Console.WriteLine("Redirects to: " + response.Headers.Location);
+                    }
+                    */
+                }
+                else
+                {
+                    DidRedirect = false;
+                }
+            }
+            return false;
+        }
+
+        int n = 0;
+        int i = 0;
+        private async void btnTEST_F_Click(object sender, EventArgs e)
+        {
+           foreach(string s in sFiltered)
+            {
+                if (TryFetch(s).Result)
+                {
+                    n++;
+                }
+                i++;
+                if (i == 10) break;
+            }
+        }
+
+        private void lbLeftover_SelectedIndexChanged(object sender, EventArgs e)
+        {;
+            ListSelectedValue = lbLeftover.SelectedItem as string;
+            ListSelectedIndex = lbLeftover.Items.IndexOf(ListSelectedValue);
+            int j = ListSelectedIndex;
+            int i = L_FilterIndex[j];
+            string sTemp = L_All[i];
+            int k = sTemp.IndexOf(' ');
+            tbFILE_L.Text = sTemp.Substring(0, k);
+            tbNUM_L.Text = sTemp.Substring(k + 1);  
+        }
+    }
+}

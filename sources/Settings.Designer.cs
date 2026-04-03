@@ -132,9 +132,12 @@
             this.tbUrls = new System.Windows.Forms.TextBox();
             this.btnGetFTPurls = new System.Windows.Forms.Button();
             this.tabPage6 = new System.Windows.Forms.TabPage();
-            this.btnGetBios = new System.Windows.Forms.Button();
-            this.tbBios = new System.Windows.Forms.TextBox();
             this.bpBIOS = new System.Windows.Forms.ProgressBar();
+            this.tbBios = new System.Windows.Forms.TextBox();
+            this.btnGetBios = new System.Windows.Forms.Button();
+            this.groupBox8 = new System.Windows.Forms.GroupBox();
+            this.rbFTP = new System.Windows.Forms.RadioButton();
+            this.rbHTTP = new System.Windows.Forms.RadioButton();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox4.SuspendLayout();
@@ -153,6 +156,7 @@
             this.tabPage4.SuspendLayout();
             this.tabPage5.SuspendLayout();
             this.tabPage6.SuspendLayout();
+            this.groupBox8.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -931,9 +935,9 @@
             this.cbBadUrl.CheckState = System.Windows.Forms.CheckState.Checked;
             this.cbBadUrl.Location = new System.Drawing.Point(291, 14);
             this.cbBadUrl.Name = "cbBadUrl";
-            this.cbBadUrl.Size = new System.Drawing.Size(124, 30);
+            this.cbBadUrl.Size = new System.Drawing.Size(95, 43);
             this.cbBadUrl.TabIndex = 11;
-            this.cbBadUrl.Text = "Scan for bad HP urls\r\nwhen clicking button";
+            this.cbBadUrl.Text = "Scan for bad\r\nHP urls when\r\nclicking button";
             this.toolTip1.SetToolTip(this.cbBadUrl, "displays in this textbox, the HP\r\nURLs that might be obsolete.");
             this.cbBadUrl.UseVisualStyleBackColor = true;
             // 
@@ -1286,6 +1290,7 @@
             // 
             // tabPage5
             // 
+            this.tabPage5.Controls.Add(this.groupBox8);
             this.tabPage5.Controls.Add(this.btnShowBad);
             this.tabPage5.Controls.Add(this.pbCounting);
             this.tabPage5.Controls.Add(this.btnSaveURLs);
@@ -1304,27 +1309,27 @@
             // 
             // pbCounting
             // 
-            this.pbCounting.Location = new System.Drawing.Point(221, 74);
+            this.pbCounting.Location = new System.Drawing.Point(182, 94);
             this.pbCounting.Name = "pbCounting";
-            this.pbCounting.Size = new System.Drawing.Size(342, 21);
+            this.pbCounting.Size = new System.Drawing.Size(356, 21);
             this.pbCounting.TabIndex = 14;
             // 
             // btnSaveURLs
             // 
             this.btnSaveURLs.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSaveURLs.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.btnSaveURLs.Location = new System.Drawing.Point(451, 14);
+            this.btnSaveURLs.Location = new System.Drawing.Point(182, 52);
             this.btnSaveURLs.Name = "btnSaveURLs";
-            this.btnSaveURLs.Size = new System.Drawing.Size(91, 47);
+            this.btnSaveURLs.Size = new System.Drawing.Size(91, 29);
             this.btnSaveURLs.TabIndex = 13;
-            this.btnSaveURLs.Text = "Save FTP\r\nURLS";
+            this.btnSaveURLs.Text = "Save urls";
             this.btnSaveURLs.UseVisualStyleBackColor = true;
             this.btnSaveURLs.Click += new System.EventHandler(this.btnSaveURLs_Click);
             // 
             // lbCnt
             // 
             this.lbCnt.AutoSize = true;
-            this.lbCnt.Location = new System.Drawing.Point(294, 58);
+            this.lbCnt.Location = new System.Drawing.Point(303, 71);
             this.lbCnt.Name = "lbCnt";
             this.lbCnt.Size = new System.Drawing.Size(74, 13);
             this.lbCnt.TabIndex = 12;
@@ -1334,11 +1339,11 @@
             // 
             this.tbUrls.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.tbUrls.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbUrls.Location = new System.Drawing.Point(3, 118);
+            this.tbUrls.Location = new System.Drawing.Point(3, 134);
             this.tbUrls.Multiline = true;
             this.tbUrls.Name = "tbUrls";
             this.tbUrls.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.tbUrls.Size = new System.Drawing.Size(563, 299);
+            this.tbUrls.Size = new System.Drawing.Size(563, 283);
             this.tbUrls.TabIndex = 10;
             this.tbUrls.WordWrap = false;
             // 
@@ -1348,9 +1353,10 @@
             this.btnGetFTPurls.ForeColor = System.Drawing.SystemColors.Highlight;
             this.btnGetFTPurls.Location = new System.Drawing.Point(182, 14);
             this.btnGetFTPurls.Name = "btnGetFTPurls";
-            this.btnGetFTPurls.Size = new System.Drawing.Size(91, 47);
+            this.btnGetFTPurls.Size = new System.Drawing.Size(91, 29);
             this.btnGetFTPurls.TabIndex = 9;
-            this.btnGetFTPurls.Text = "Get FTP\r\nURLS";
+            this.btnGetFTPurls.Text = "Get urls";
+            this.toolTip1.SetToolTip(this.btnGetFTPurls, "Find any ftp urls\r\nthat are obsolete");
             this.btnGetFTPurls.UseVisualStyleBackColor = true;
             this.btnGetFTPurls.Click += new System.EventHandler(this.btnGetFTPurls_Click);
             // 
@@ -1367,17 +1373,12 @@
             this.tabPage6.Text = "BIOS sim";
             this.tabPage6.UseVisualStyleBackColor = true;
             // 
-            // btnGetBios
+            // bpBIOS
             // 
-            this.btnGetBios.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnGetBios.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.btnGetBios.Location = new System.Drawing.Point(15, 23);
-            this.btnGetBios.Name = "btnGetBios";
-            this.btnGetBios.Size = new System.Drawing.Size(91, 47);
-            this.btnGetBios.TabIndex = 10;
-            this.btnGetBios.Text = "Get BIOS\r\nURLS";
-            this.btnGetBios.UseVisualStyleBackColor = true;
-            this.btnGetBios.Click += new System.EventHandler(this.btnGetBios_Click);
+            this.bpBIOS.Location = new System.Drawing.Point(142, 31);
+            this.bpBIOS.Name = "bpBIOS";
+            this.bpBIOS.Size = new System.Drawing.Size(342, 21);
+            this.bpBIOS.TabIndex = 15;
             // 
             // tbBios
             // 
@@ -1391,12 +1392,55 @@
             this.tbBios.TabIndex = 11;
             this.tbBios.WordWrap = false;
             // 
-            // bpBIOS
+            // btnGetBios
             // 
-            this.bpBIOS.Location = new System.Drawing.Point(142, 31);
-            this.bpBIOS.Name = "bpBIOS";
-            this.bpBIOS.Size = new System.Drawing.Size(342, 21);
-            this.bpBIOS.TabIndex = 15;
+            this.btnGetBios.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnGetBios.ForeColor = System.Drawing.SystemColors.Highlight;
+            this.btnGetBios.Location = new System.Drawing.Point(15, 23);
+            this.btnGetBios.Name = "btnGetBios";
+            this.btnGetBios.Size = new System.Drawing.Size(91, 47);
+            this.btnGetBios.TabIndex = 10;
+            this.btnGetBios.Text = "Get BIOS\r\nURLS";
+            this.btnGetBios.UseVisualStyleBackColor = true;
+            this.btnGetBios.Click += new System.EventHandler(this.btnGetBios_Click);
+            // 
+            // groupBox8
+            // 
+            this.groupBox8.Controls.Add(this.rbHTTP);
+            this.groupBox8.Controls.Add(this.rbFTP);
+            this.groupBox8.Enabled = false;
+            this.groupBox8.Location = new System.Drawing.Point(407, 11);
+            this.groupBox8.Name = "groupBox8";
+            this.groupBox8.Size = new System.Drawing.Size(131, 70);
+            this.groupBox8.TabIndex = 16;
+            this.groupBox8.TabStop = false;
+            this.groupBox8.Text = "URL types";
+            // 
+            // rbFTP
+            // 
+            this.rbFTP.AutoSize = true;
+            this.rbFTP.Checked = true;
+            this.rbFTP.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rbFTP.ForeColor = System.Drawing.SystemColors.Highlight;
+            this.rbFTP.Location = new System.Drawing.Point(27, 18);
+            this.rbFTP.Name = "rbFTP";
+            this.rbFTP.Size = new System.Drawing.Size(75, 17);
+            this.rbFTP.TabIndex = 0;
+            this.rbFTP.TabStop = true;
+            this.rbFTP.Text = "FTP only";
+            this.rbFTP.UseVisualStyleBackColor = true;
+            // 
+            // rbHTTP
+            // 
+            this.rbHTTP.AutoSize = true;
+            this.rbHTTP.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rbHTTP.ForeColor = System.Drawing.SystemColors.Highlight;
+            this.rbHTTP.Location = new System.Drawing.Point(27, 43);
+            this.rbHTTP.Name = "rbHTTP";
+            this.rbHTTP.Size = new System.Drawing.Size(85, 17);
+            this.rbHTTP.TabIndex = 1;
+            this.rbHTTP.Text = "HTTP only";
+            this.rbHTTP.UseVisualStyleBackColor = true;
             // 
             // Settings
             // 
@@ -1456,6 +1500,8 @@
             this.tabPage5.PerformLayout();
             this.tabPage6.ResumeLayout(false);
             this.tabPage6.PerformLayout();
+            this.groupBox8.ResumeLayout(false);
+            this.groupBox8.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1568,5 +1614,8 @@
         private System.Windows.Forms.TextBox tbBios;
         private System.Windows.Forms.Button btnGetBios;
         private System.Windows.Forms.ProgressBar bpBIOS;
+        private System.Windows.Forms.GroupBox groupBox8;
+        private System.Windows.Forms.RadioButton rbHTTP;
+        private System.Windows.Forms.RadioButton rbFTP;
     }
 }

@@ -4441,5 +4441,12 @@ namespace MacroEditor
         {
             Utils.LocalBrowser("https://h30434.www3.hp.com/t5/Notebooks-Knowledge-Base/Interactive-BIOS-simulator-emulator/ta-p/9145598");
         }
+
+        private void uRLManagementToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            URLupdate MyURLupdate = new URLupdate(ref cBodies);
+            MyURLupdate.ShowDialog();
+            MyURLupdate.Dispose();
+        }
     }
 }
