@@ -53,6 +53,11 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.btnAddItemExclude = new System.Windows.Forms.Button();
+            this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.pbUrlErr = new System.Windows.Forms.ProgressBar();
+            this.label9 = new System.Windows.Forms.Label();
+            this.tb_F_err = new System.Windows.Forms.TextBox();
+            this.lbMacName = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -74,7 +79,8 @@
             // 
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
-            this.tabControl1.Location = new System.Drawing.Point(713, 86);
+            this.tabControl1.Controls.Add(this.tabPage3);
+            this.tabControl1.Location = new System.Drawing.Point(717, 86);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(530, 666);
@@ -173,6 +179,9 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.lbMacName);
+            this.groupBox2.Controls.Add(this.label9);
+            this.groupBox2.Controls.Add(this.tb_F_err);
             this.groupBox2.Controls.Add(this.btnTEST_F);
             this.groupBox2.Controls.Add(this.label7);
             this.groupBox2.Controls.Add(this.tbNUM_S);
@@ -180,7 +189,7 @@
             this.groupBox2.Controls.Add(this.tbFILE_S);
             this.groupBox2.Location = new System.Drawing.Point(15, 10);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(350, 85);
+            this.groupBox2.Size = new System.Drawing.Size(492, 85);
             this.groupBox2.TabIndex = 3;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Macro";
@@ -244,7 +253,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.BackColor = System.Drawing.SystemColors.Info;
-            this.label1.Location = new System.Drawing.Point(920, 20);
+            this.label1.Location = new System.Drawing.Point(718, 30);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(155, 39);
             this.label1.TabIndex = 2;
@@ -332,11 +341,55 @@
             this.btnAddItemExclude.UseVisualStyleBackColor = true;
             this.btnAddItemExclude.Click += new System.EventHandler(this.btnAddItemExclude_Click);
             // 
+            // tabPage3
+            // 
+            this.tabPage3.Location = new System.Drawing.Point(4, 22);
+            this.tabPage3.Name = "tabPage3";
+            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage3.Size = new System.Drawing.Size(522, 640);
+            this.tabPage3.TabIndex = 2;
+            this.tabPage3.Text = "Errors";
+            this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // pbUrlErr
+            // 
+            this.pbUrlErr.Location = new System.Drawing.Point(934, 30);
+            this.pbUrlErr.Name = "pbUrlErr";
+            this.pbUrlErr.Size = new System.Drawing.Size(309, 23);
+            this.pbUrlErr.TabIndex = 9;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(257, 19);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(34, 13);
+            this.label9.TabIndex = 6;
+            this.label9.Text = "Errors";
+            // 
+            // tb_F_err
+            // 
+            this.tb_F_err.ForeColor = System.Drawing.SystemColors.MenuHighlight;
+            this.tb_F_err.Location = new System.Drawing.Point(328, 16);
+            this.tb_F_err.Name = "tb_F_err";
+            this.tb_F_err.Size = new System.Drawing.Size(36, 20);
+            this.tb_F_err.TabIndex = 5;
+            // 
+            // lbMacName
+            // 
+            this.lbMacName.AutoSize = true;
+            this.lbMacName.Location = new System.Drawing.Point(141, 54);
+            this.lbMacName.Name = "lbMacName";
+            this.lbMacName.Size = new System.Drawing.Size(41, 13);
+            this.lbMacName.TabIndex = 7;
+            this.lbMacName.Text = "label10";
+            // 
             // URLupdate
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1259, 756);
+            this.Controls.Add(this.pbUrlErr);
             this.Controls.Add(this.btnAddItemExclude);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
@@ -390,5 +443,10 @@
         private System.Windows.Forms.TextBox tbNUM_S;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.TextBox tbFILE_S;
+        private System.Windows.Forms.TabPage tabPage3;
+        private System.Windows.Forms.ProgressBar pbUrlErr;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.TextBox tb_F_err;
+        private System.Windows.Forms.Label lbMacName;
     }
 }

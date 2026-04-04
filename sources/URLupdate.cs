@@ -1,15 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
 using System.Linq;
 using System.Net.Http;
-using System.Text;
+using System.Security.Cryptography;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using System.Windows.Controls;
-using System.Windows.Documents;
 using System.Windows.Forms;
 
 namespace MacroEditor.sources
@@ -24,13 +20,21 @@ namespace MacroEditor.sources
         private string sAll = "";
         private List<string> L_All = new List<string>();
         private List<string> S_All = new List<string>();
+        private List<string> S_NAM = new List<string>();
+        private List<string> E_All = new List<string>();
+        private List<string> E_NAM = new List<string>();
         private List<string> MyLeftovers = new List<string>();  
         private List<int> L_FilterIndex = new List<int>();
         private List<int> S_FilterIndex = new List<int>();
+        private List<int> E_FilterIndex = new List<int>();
         private List<string>NotExcluded = new List<string>();
-        private string sFile = "", sNum="";
+        private List<string>NotExcludedIDs = new List<string>();
+        private List<string>NotExcludedNames = new List<string>();
+        private string sFile = "", sNum="", sName = "";
         private int ListSelectedIndex = -1;
         private string ListSelectedValue = "";
+        private ChangeUrls changeUrls = new ChangeUrls();
+        
 
         public URLupdate(ref List<CBody> rCbodies)
         {
@@ -137,20 +141,24 @@ namespace MacroEditor.sources
                 if (IsExcluded(url))
                 {
                     sFiltered.Add(url);
-                    S_All.Add(sFile + " " + sNum);
+                    E_All.Add(sFile + " " + sNum);
+                    E_NAM.Add(sName);
                 }
                 else
                 {
                     sAll +=sCode + url + Environment.NewLine;
+                    NotExcludedIDs.Add(sFile + " " + sNum);
                     NotExcluded.Add(url);
+                    NotExcludedNames.Add(sName);
                     if (!IsLeftover(url))
                     {
-                        MyLeftovers.Add(url);
+                        MyLeftovers.Add(url);                      
                         L_All.Add(sFile + " " + sNum);
                     }
                 }
             }
         }
+
 
         private void SetLeftovers()
         {
@@ -187,6 +195,7 @@ namespace MacroEditor.sources
             {
                 sFile = cb.File;
                 sNum = cb.Number;
+                sName = cb.Name;
                 ExtractHTTP(ref cb.sBody);
                 ExtractHTTP(ref cb.rBody);
             }
@@ -194,11 +203,14 @@ namespace MacroEditor.sources
             SetLeftovers();
         }
 
+
         private void RunFilter(int nSelected)
         {
             var selectedItem = cbFilter.SelectedItem;
             S_FilterIndex.Clear();
-            
+            int j;
+            S_All.Clear();
+            S_NAM.Clear();
             if (selectedItem != null)
             {
                 string svalue = selectedItem.ToString();
@@ -224,7 +236,7 @@ namespace MacroEditor.sources
 
                     foreach(var i in sortIndices)
                     {
-                        S_FilterIndex.Add(i);
+                        E_FilterIndex.Add(i);
                     }
 
                     //lbFiltered.DataSource = null;
@@ -237,12 +249,17 @@ namespace MacroEditor.sources
                 {
                     string[] sItems = cbFilter.Text.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
                     sFiltered.Clear();
+                    j = 0;
                     foreach (string s in NotExcluded)
                     {
                         if (IsSelected(s, ref sItems))
                         {
                             sFiltered.Add(s);
+                            string sCode = "";
+                            S_NAM.Add(NotExcludedNames[j]);
+                            S_All.Add(NotExcludedIDs[j]);
                         }
+                        j++;
                     }
 
                     // Pair each item with its original index
@@ -322,14 +339,29 @@ namespace MacroEditor.sources
 
         private void lbFiltered_SelectedIndexChanged(object sender, EventArgs e)
         {
+            int index = lbFiltered.SelectedIndex;
             ListSelectedValue = lbFiltered.SelectedItem as string;
-            ListSelectedIndex = lbFiltered.Items.IndexOf(ListSelectedValue);
+            ListSelectedIndex = index;
             int j = ListSelectedIndex;
-            int i = S_FilterIndex[j];
-            string sTemp = S_All[i];
-            int k = sTemp.IndexOf(' ');
-            tbFILE_S.Text = sTemp.Substring(0, k);
-            tbNUM_S.Text = sTemp.Substring(k + 1);
+            string sID = tabPage2.Text;
+            if (sID == "excluded")
+            {
+                int i = E_FilterIndex[j];
+                string sTemp = E_All[i];
+                int k = sTemp.IndexOf(' ');
+                tbFILE_S.Text = sTemp.Substring(0, k);
+                tbNUM_S.Text = sTemp.Substring(k + 1);
+                lbMacName.Text = E_NAM[i];
+            }
+            else
+            {
+                int i = S_FilterIndex[j];
+                string sTemp = S_All[i];
+                int k = sTemp.IndexOf(' ');
+                tbFILE_S.Text = sTemp.Substring(0, k);
+                tbNUM_S.Text = sTemp.Substring(k + 1);
+                lbMacName.Text = S_NAM[i];
+            }
         }
 
         private bool DidRedirect = false;
@@ -361,25 +393,69 @@ namespace MacroEditor.sources
             return false;
         }
 
-        int n = 0;
-        int i = 0;
         private async void btnTEST_F_Click(object sender, EventArgs e)
         {
-           foreach(string s in sFiltered)
+            string sExists, sID = tabPage2.Text;
+
+            int n = 0;
+            int i = 0;
+            if (sID == "excluded") return;  // do not plan on search through the leftovers
+            pbUrlErr.Maximum = sFiltered.Count;
+            pbUrlErr.Value = 0;
+            tb_F_err.Text = "0";
+            bool bAny = false;
+            bool bExists = true;
+            foreach (string s in sFiltered)
             {
-                if (TryFetch(s).Result)
+                int j = S_FilterIndex[i];
+
+                string sTemp = S_All[j];
+                int k = sTemp.IndexOf(' ');
+                string debSys = sTemp.Substring(0, k);
+                string debNum = sTemp.Substring(k+1);
+                string debName = S_NAM[j];
+
+                bAny = false;
+                bExists = true;
+                switch (sID)
                 {
-                    n++;
+                    case "manuals":
+                        if (TryFetch(s).Result)
+                        {
+                            n++;
+                            bAny = true;
+                        }
+                        break;
+
+                    case "ftp":
+                        sExists = await changeUrls.HttpFileExistsAsync(s);
+                        bExists = (sExists == "");
+                        if (!bExists)
+                        {
+                            n++;
+                            bAny = true;
+                        }
+                        break;
                 }
+                if(bAny)
+                {
+                    tb_F_err.Text = n.ToString();
+                    changeUrls.AddUrl(s, "", debSys, debName, debNum);
+                }
+
+                pbUrlErr.Value++;
+                Application.DoEvents();
                 i++;
                 if (i == 10) break;
             }
         }
+        
 
         private void lbLeftover_SelectedIndexChanged(object sender, EventArgs e)
-        {;
+        {
+            int index = lbLeftover.SelectedIndex;
             ListSelectedValue = lbLeftover.SelectedItem as string;
-            ListSelectedIndex = lbLeftover.Items.IndexOf(ListSelectedValue);
+            ListSelectedIndex = index;
             int j = ListSelectedIndex;
             int i = L_FilterIndex[j];
             string sTemp = L_All[i];
