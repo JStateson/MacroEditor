@@ -40,7 +40,6 @@
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.btnAppAll = new System.Windows.Forms.Button();
             this.btnBackup = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -123,7 +122,7 @@
             // btnCancel
             // 
             this.btnCancel.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.btnCancel.Location = new System.Drawing.Point(493, 328);
+            this.btnCancel.Location = new System.Drawing.Point(174, 41);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(75, 23);
             this.btnCancel.TabIndex = 6;
@@ -134,6 +133,7 @@
             // groupBox3
             // 
             this.groupBox3.Controls.Add(this.btnAppAll);
+            this.groupBox3.Controls.Add(this.btnCancel);
             this.groupBox3.Location = new System.Drawing.Point(481, 382);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(296, 102);
@@ -164,25 +164,13 @@
             this.btnBackup.UseVisualStyleBackColor = true;
             this.btnBackup.Click += new System.EventHandler(this.btnBackup_Click);
             // 
-            // button1
-            // 
-            this.button1.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.button1.Location = new System.Drawing.Point(370, 276);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 9;
-            this.button1.Text = "CANCEL";
-            this.button1.UseVisualStyleBackColor = true;
-            // 
             // ShowUrlChanges
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(815, 574);
-            this.Controls.Add(this.button1);
             this.Controls.Add(this.btnBackup);
             this.Controls.Add(this.groupBox3);
-            this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.lbMacroNames);
@@ -217,6 +205,5 @@
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.Button btnAppAll;
         private System.Windows.Forms.Button btnBackup;
-        private System.Windows.Forms.Button button1;
     }
 }

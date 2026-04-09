@@ -409,8 +409,10 @@ namespace MacroEditor.sources
         private void FormChange()
         {
             string t = "";
-            string sH = tbH.Text;
-            string sT = tbT.Text;
+            string sH = tbH.Text.Trim();
+            tbH.Text = sH; // cannot have crlf
+            string sT = tbT.Text.Trim();
+            tbT.Text = sT;
             cUrls cu = mU.UrlInfo[nSelectedM];
 
             if (bhasMacroID && cu.bIsMacIDrecord)
@@ -679,8 +681,33 @@ namespace MacroEditor.sources
                     
                     if (sToUrl == "" || !FoundFTPurl)
                     {
-                        MessageBox.Show("Error: cannot find new url in HREF box", "ERROR");
-                        return;
+                        DialogResult dr = MessageBox.Show("Error: cannot find 'ftp' url in HREF box. Click OK to approve", "Expected FTP URL", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
+                        if(dr != DialogResult.OK)
+                        {
+                            return;
+                        }
+                        sToUrl = tbH.Text;
+                        if (changeUrls.UpdateToUrl(sToUrl))
+                        {
+                            if (changeUrls.SignalGoodUrl(true))
+                            {
+                                string sChanges = changeUrls.ReplaceAllOldUrls(sToUrl);
+                                string sWarn = "Change " + nChange.ToString() + " macros in these files";
+                                //DialogResult dr = MessageBox.Show(sChanges, sWarn, MessageBoxButtons.YesNo);
+                                changeUrls.fnc.ChangeApproved = false;
+                                ShowUrlChanges sc = new ShowUrlChanges(ref changeUrls);
+                                sc.ShowDialog();
+                                sc.Dispose();
+                                if (changeUrls.fnc.ChangeApproved)
+                                {
+                                    FormChange();
+                                    SaveChange();
+                                    ApplyExit();
+                                }
+                            }
+                            return;
+                        }
+                        MessageBox.Show("Cannot find ftp: so cannot get url updated");
                     }
 
                     if (sToUrl == changeUrls.GetFromUrl()) // probably nChange == 0 is equivalent here
@@ -933,7 +960,7 @@ namespace MacroEditor.sources
 
         private async void btnTestUrl_Click(object sender, EventArgs e)
         {
-            bool bFoundNewUrl = changeUrls.ExtractFTPurl(tbH.Text, out string url);
+            bool bFoundNewUrl = changeUrls.ExtractFTPurl(tbH.Text, out string url);            
             if(bFoundNewUrl)
             {
                 string sExists = await changeUrls.HttpFileExistsAsync(url);

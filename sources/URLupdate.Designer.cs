@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.tbAll = new System.Windows.Forms.TextBox();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
@@ -40,12 +41,30 @@
             this.lbLeftover = new System.Windows.Forms.ListBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.lbMacName = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.tb_F_err = new System.Windows.Forms.TextBox();
             this.btnTEST_F = new System.Windows.Forms.Button();
             this.label7 = new System.Windows.Forms.Label();
             this.tbNUM_S = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
             this.tbFILE_S = new System.Windows.Forms.TextBox();
             this.lbFiltered = new System.Windows.Forms.ListBox();
+            this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.lbO_corrected = new System.Windows.Forms.Label();
+            this.dgv = new System.Windows.Forms.DataGridView();
+            this.WhereUsed = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Valid = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.UrlName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.btnSaveBadList = new System.Windows.Forms.Button();
+            this.cbMacIDs = new System.Windows.Forms.ComboBox();
+            this.label11 = new System.Windows.Forms.Label();
+            this.tbCntWhere = new System.Windows.Forms.TextBox();
+            this.btnUpdateBadUrl = new System.Windows.Forms.Button();
+            this.label13 = new System.Windows.Forms.Label();
+            this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.tbReplace = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.cbExclude = new System.Windows.Forms.ComboBox();
@@ -53,16 +72,21 @@
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.btnAddItemExclude = new System.Windows.Forms.Button();
-            this.tabPage3 = new System.Windows.Forms.TabPage();
             this.pbUrlErr = new System.Windows.Forms.ProgressBar();
-            this.label9 = new System.Windows.Forms.Label();
-            this.tb_F_err = new System.Windows.Forms.TextBox();
-            this.lbMacName = new System.Windows.Forms.Label();
+            this.btnCancel = new System.Windows.Forms.Button();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.btnRemoveHistory = new System.Windows.Forms.Button();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.groupBox2.SuspendLayout();
+            this.tabPage3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgv)).BeginInit();
+            this.groupBox3.SuspendLayout();
+            this.tabPage4.SuspendLayout();
+            this.groupBox4.SuspendLayout();
             this.SuspendLayout();
             // 
             // tbAll
@@ -80,6 +104,7 @@
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
             this.tabControl1.Controls.Add(this.tabPage3);
+            this.tabControl1.Controls.Add(this.tabPage4);
             this.tabControl1.Location = new System.Drawing.Point(717, 86);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
@@ -194,9 +219,35 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Macro";
             // 
+            // lbMacName
+            // 
+            this.lbMacName.AutoSize = true;
+            this.lbMacName.Location = new System.Drawing.Point(141, 54);
+            this.lbMacName.Name = "lbMacName";
+            this.lbMacName.Size = new System.Drawing.Size(41, 13);
+            this.lbMacName.TabIndex = 7;
+            this.lbMacName.Text = "label10";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(257, 19);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(83, 13);
+            this.label9.TabIndex = 6;
+            this.label9.Text = "Nerw bad URLs";
+            // 
+            // tb_F_err
+            // 
+            this.tb_F_err.ForeColor = System.Drawing.SystemColors.MenuHighlight;
+            this.tb_F_err.Location = new System.Drawing.Point(346, 16);
+            this.tb_F_err.Name = "tb_F_err";
+            this.tb_F_err.Size = new System.Drawing.Size(36, 20);
+            this.tb_F_err.TabIndex = 5;
+            // 
             // btnTEST_F
             // 
-            this.btnTEST_F.Location = new System.Drawing.Point(144, 14);
+            this.btnTEST_F.Location = new System.Drawing.Point(144, 13);
             this.btnTEST_F.Name = "btnTEST_F";
             this.btnTEST_F.Size = new System.Drawing.Size(75, 23);
             this.btnTEST_F.TabIndex = 4;
@@ -248,6 +299,165 @@
             this.lbFiltered.TabIndex = 0;
             this.lbFiltered.SelectedIndexChanged += new System.EventHandler(this.lbFiltered_SelectedIndexChanged);
             this.lbFiltered.DoubleClick += new System.EventHandler(this.lbFiltered_DoubleClick_1);
+            // 
+            // tabPage3
+            // 
+            this.tabPage3.Controls.Add(this.lbO_corrected);
+            this.tabPage3.Controls.Add(this.dgv);
+            this.tabPage3.Controls.Add(this.groupBox3);
+            this.tabPage3.Location = new System.Drawing.Point(4, 22);
+            this.tabPage3.Name = "tabPage3";
+            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage3.Size = new System.Drawing.Size(522, 640);
+            this.tabPage3.TabIndex = 2;
+            this.tabPage3.Text = "Obsolete URLs";
+            this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // lbO_corrected
+            // 
+            this.lbO_corrected.AutoSize = true;
+            this.lbO_corrected.ForeColor = System.Drawing.Color.Red;
+            this.lbO_corrected.Location = new System.Drawing.Point(17, 98);
+            this.lbO_corrected.Name = "lbO_corrected";
+            this.lbO_corrected.Size = new System.Drawing.Size(57, 13);
+            this.lbO_corrected.TabIndex = 8;
+            this.lbO_corrected.Text = "lbSelected";
+            // 
+            // dgv
+            // 
+            this.dgv.AllowUserToAddRows = false;
+            this.dgv.AllowUserToDeleteRows = false;
+            this.dgv.AllowUserToOrderColumns = true;
+            this.dgv.AllowUserToResizeColumns = false;
+            this.dgv.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgv.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.WhereUsed,
+            this.Valid,
+            this.UrlName});
+            this.dgv.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.dgv.Location = new System.Drawing.Point(3, 114);
+            this.dgv.MultiSelect = false;
+            this.dgv.Name = "dgv";
+            this.dgv.ReadOnly = true;
+            this.dgv.RowHeadersVisible = false;
+            this.dgv.Size = new System.Drawing.Size(516, 523);
+            this.dgv.TabIndex = 5;
+            this.dgv.SelectionChanged += new System.EventHandler(this.dgv_SelectionChanged);
+            // 
+            // WhereUsed
+            // 
+            this.WhereUsed.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.WhereUsed.FillWeight = 32F;
+            this.WhereUsed.HeaderText = "Where Used";
+            this.WhereUsed.Name = "WhereUsed";
+            this.WhereUsed.ReadOnly = true;
+            // 
+            // Valid
+            // 
+            this.Valid.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Valid.FillWeight = 12F;
+            this.Valid.HeaderText = "Valid";
+            this.Valid.Name = "Valid";
+            this.Valid.ReadOnly = true;
+            this.Valid.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            this.Valid.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            // 
+            // UrlName
+            // 
+            this.UrlName.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.UrlName.HeaderText = "Old URL";
+            this.UrlName.Name = "UrlName";
+            this.UrlName.ReadOnly = true;
+            // 
+            // groupBox3
+            // 
+            this.groupBox3.Controls.Add(this.btnSaveBadList);
+            this.groupBox3.Controls.Add(this.cbMacIDs);
+            this.groupBox3.Controls.Add(this.label11);
+            this.groupBox3.Controls.Add(this.tbCntWhere);
+            this.groupBox3.Controls.Add(this.btnUpdateBadUrl);
+            this.groupBox3.Controls.Add(this.label13);
+            this.groupBox3.Location = new System.Drawing.Point(20, 7);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(393, 81);
+            this.groupBox3.TabIndex = 4;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "Macro";
+            // 
+            // btnSaveBadList
+            // 
+            this.btnSaveBadList.Location = new System.Drawing.Point(144, 48);
+            this.btnSaveBadList.Name = "btnSaveBadList";
+            this.btnSaveBadList.Size = new System.Drawing.Size(100, 23);
+            this.btnSaveBadList.TabIndex = 9;
+            this.btnSaveBadList.Text = "Save Bad List";
+            this.btnSaveBadList.UseVisualStyleBackColor = true;
+            this.btnSaveBadList.Click += new System.EventHandler(this.btnSaveBadList_Click);
+            // 
+            // cbMacIDs
+            // 
+            this.cbMacIDs.FormattingEnabled = true;
+            this.cbMacIDs.Location = new System.Drawing.Point(16, 48);
+            this.cbMacIDs.Name = "cbMacIDs";
+            this.cbMacIDs.Size = new System.Drawing.Size(73, 21);
+            this.cbMacIDs.TabIndex = 8;
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(257, 19);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(55, 13);
+            this.label11.TabIndex = 6;
+            this.label11.Text = "Num used";
+            // 
+            // tbCntWhere
+            // 
+            this.tbCntWhere.ForeColor = System.Drawing.SystemColors.MenuHighlight;
+            this.tbCntWhere.Location = new System.Drawing.Point(328, 16);
+            this.tbCntWhere.Name = "tbCntWhere";
+            this.tbCntWhere.Size = new System.Drawing.Size(36, 20);
+            this.tbCntWhere.TabIndex = 5;
+            // 
+            // btnUpdateBadUrl
+            // 
+            this.btnUpdateBadUrl.Location = new System.Drawing.Point(144, 14);
+            this.btnUpdateBadUrl.Name = "btnUpdateBadUrl";
+            this.btnUpdateBadUrl.Size = new System.Drawing.Size(75, 23);
+            this.btnUpdateBadUrl.TabIndex = 4;
+            this.btnUpdateBadUrl.Text = "Update URL";
+            this.btnUpdateBadUrl.UseVisualStyleBackColor = true;
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(13, 22);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(63, 13);
+            this.label13.TabIndex = 1;
+            this.label13.Text = "File-Macro#";
+            // 
+            // tabPage4
+            // 
+            this.tabPage4.Controls.Add(this.tbReplace);
+            this.tabPage4.Location = new System.Drawing.Point(4, 22);
+            this.tabPage4.Name = "tabPage4";
+            this.tabPage4.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage4.Size = new System.Drawing.Size(522, 640);
+            this.tabPage4.TabIndex = 3;
+            this.tabPage4.Text = "Info";
+            this.tabPage4.UseVisualStyleBackColor = true;
+            // 
+            // tbReplace
+            // 
+            this.tbReplace.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tbReplace.Location = new System.Drawing.Point(3, 3);
+            this.tbReplace.Multiline = true;
+            this.tbReplace.Name = "tbReplace";
+            this.tbReplace.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+            this.tbReplace.Size = new System.Drawing.Size(516, 634);
+            this.tbReplace.TabIndex = 1;
+            this.tbReplace.WordWrap = false;
             // 
             // label1
             // 
@@ -304,7 +514,7 @@
             "search: google bing",
             "social: askubuntu pcmag winraid bios-mods jensd.be reddit",
             "items: amazon ebay aliexpress",
-            "youtube: youtube"});
+            "youtube: youtube.com"});
             this.cbFilter.Location = new System.Drawing.Point(309, 356);
             this.cbFilter.Name = "cbFilter";
             this.cbFilter.Size = new System.Drawing.Size(385, 21);
@@ -341,16 +551,6 @@
             this.btnAddItemExclude.UseVisualStyleBackColor = true;
             this.btnAddItemExclude.Click += new System.EventHandler(this.btnAddItemExclude_Click);
             // 
-            // tabPage3
-            // 
-            this.tabPage3.Location = new System.Drawing.Point(4, 22);
-            this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(522, 640);
-            this.tabPage3.TabIndex = 2;
-            this.tabPage3.Text = "Errors";
-            this.tabPage3.UseVisualStyleBackColor = true;
-            // 
             // pbUrlErr
             // 
             this.pbUrlErr.Location = new System.Drawing.Point(934, 30);
@@ -358,37 +558,46 @@
             this.pbUrlErr.Size = new System.Drawing.Size(309, 23);
             this.pbUrlErr.TabIndex = 9;
             // 
-            // label9
+            // btnCancel
             // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(257, 19);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(34, 13);
-            this.label9.TabIndex = 6;
-            this.label9.Text = "Errors";
+            this.btnCancel.Location = new System.Drawing.Point(1038, 70);
+            this.btnCancel.Name = "btnCancel";
+            this.btnCancel.Size = new System.Drawing.Size(75, 23);
+            this.btnCancel.TabIndex = 10;
+            this.btnCancel.Text = "Cancel";
+            this.btnCancel.UseVisualStyleBackColor = true;
+            this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
-            // tb_F_err
+            // groupBox4
             // 
-            this.tb_F_err.ForeColor = System.Drawing.SystemColors.MenuHighlight;
-            this.tb_F_err.Location = new System.Drawing.Point(328, 16);
-            this.tb_F_err.Name = "tb_F_err";
-            this.tb_F_err.Size = new System.Drawing.Size(36, 20);
-            this.tb_F_err.TabIndex = 5;
+            this.groupBox4.Controls.Add(this.btnRemoveHistory);
+            this.groupBox4.Location = new System.Drawing.Point(470, 187);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Size = new System.Drawing.Size(200, 100);
+            this.groupBox4.TabIndex = 11;
+            this.groupBox4.TabStop = false;
+            this.groupBox4.Text = "Remove URL history?";
             // 
-            // lbMacName
+            // btnRemoveHistory
             // 
-            this.lbMacName.AutoSize = true;
-            this.lbMacName.Location = new System.Drawing.Point(141, 54);
-            this.lbMacName.Name = "lbMacName";
-            this.lbMacName.Size = new System.Drawing.Size(41, 13);
-            this.lbMacName.TabIndex = 7;
-            this.lbMacName.Text = "label10";
+            this.btnRemoveHistory.ForeColor = System.Drawing.Color.Red;
+            this.btnRemoveHistory.Location = new System.Drawing.Point(52, 46);
+            this.btnRemoveHistory.Name = "btnRemoveHistory";
+            this.btnRemoveHistory.Size = new System.Drawing.Size(75, 23);
+            this.btnRemoveHistory.TabIndex = 0;
+            this.btnRemoveHistory.Text = "REMOVE";
+            this.toolTip1.SetToolTip(this.btnRemoveHistory, "You must rescan all catagories\r\nftp, manuals, images\r\nabove are the only ones sea" +
+        "rchable");
+            this.btnRemoveHistory.UseVisualStyleBackColor = true;
+            this.btnRemoveHistory.Click += new System.EventHandler(this.btnRemoveHistory_Click);
             // 
             // URLupdate
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1259, 756);
+            this.Controls.Add(this.groupBox4);
+            this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.pbUrlErr);
             this.Controls.Add(this.btnAddItemExclude);
             this.Controls.Add(this.label4);
@@ -402,6 +611,7 @@
             this.ForeColor = System.Drawing.SystemColors.Highlight;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "URLupdate";
             this.Text = "URLupdate";
             this.tabControl1.ResumeLayout(false);
@@ -411,6 +621,14 @@
             this.tabPage2.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
+            this.tabPage3.ResumeLayout(false);
+            this.tabPage3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dgv)).EndInit();
+            this.groupBox3.ResumeLayout(false);
+            this.groupBox3.PerformLayout();
+            this.tabPage4.ResumeLayout(false);
+            this.tabPage4.PerformLayout();
+            this.groupBox4.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -448,5 +666,23 @@
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.TextBox tb_F_err;
         private System.Windows.Forms.Label lbMacName;
+        private System.Windows.Forms.TabPage tabPage4;
+        private System.Windows.Forms.TextBox tbReplace;
+        private System.Windows.Forms.Button btnCancel;
+        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.TextBox tbCntWhere;
+        private System.Windows.Forms.Button btnUpdateBadUrl;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.DataGridView dgv;
+        private System.Windows.Forms.DataGridViewTextBoxColumn WhereUsed;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn Valid;
+        private System.Windows.Forms.DataGridViewTextBoxColumn UrlName;
+        private System.Windows.Forms.ComboBox cbMacIDs;
+        private System.Windows.Forms.Label lbO_corrected;
+        private System.Windows.Forms.Button btnSaveBadList;
+        private System.Windows.Forms.GroupBox groupBox4;
+        private System.Windows.Forms.Button btnRemoveHistory;
+        private System.Windows.Forms.ToolTip toolTip1;
     }
 }

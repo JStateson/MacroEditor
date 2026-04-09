@@ -150,13 +150,13 @@ namespace MacroEditor.sources
 
         private void GetMissingUrls()
         {
-            if(ObsoleteUrls.Count > 0)
+            if(CompleteUrls.Count > 0)
             {
-                SaveObsoleteUrls();
-                ObsoleteUrls.Clear();
+                SaveAllUrls();
+                CompleteUrls.Clear();
             }
             if(File.Exists(Utils.WhereExe + "/ObsoleteBiosSimURLs.txt"))
-                LoadObsoleteUrls();
+                LoadCompleteUrls();
         }
 
 
@@ -171,9 +171,9 @@ namespace MacroEditor.sources
             return false;
         }
 
-        private void LoadObsoleteUrls()
+        private void LoadCompleteUrls()
         {
-            ObsoleteUrls.Clear();
+            CompleteUrls.Clear();
             OldUrls = File.ReadAllLines(Utils.WhereExe + "/ObsoleteBiosSimURLs.txt");
             for (int i = 0; i < BSFsources.Count; i++)
             {
@@ -182,7 +182,7 @@ namespace MacroEditor.sources
                 {
                     if(t.Contains(s))
                     {
-                        ObsoleteUrls.Add(i + 1);
+                        CompleteUrls.Add(i + 1);
                         break;
                     }
                 }
@@ -196,11 +196,11 @@ namespace MacroEditor.sources
             }   
         }
 
-        private void SaveObsoleteUrls()
+        private void SaveAllUrls()
         {
             using (StreamWriter writer = new StreamWriter(Utils.WhereExe + "/ObsoleteBiosSimURLs.txt", false))
             {
-                foreach (int n in ObsoleteUrls)
+                foreach (int n in CompleteUrls)
                 {
                     string s = changeUrls.ExtractHREF(BSFsources[n - 1].sHREF);
                     s = s.Replace(".pdf", "");
@@ -333,12 +333,12 @@ namespace MacroEditor.sources
                 }
                 if (rbMissing.Checked)
                 {
-                    if(ObsoleteUrls.Count == 0)
+                    if(CompleteUrls.Count == 0) 
                     {
                         dgvBIOS.Rows[i].Cells[0].Style.ForeColor = Color.Black;
                         continue;
                     }
-                    if (ObsoleteUrls.Contains(i+1))
+                    if (CompleteUrls.Contains(i+1))
                     {
                         HasMissingUrls = true;
                         dgvBIOS.Rows[i].Cells[0].Style.ForeColor = Color.Red;
@@ -655,6 +655,8 @@ namespace MacroEditor.sources
         }
 
         private List<int> ObsoleteUrls = new List<int>();
+        private List<int> AttachedUrls = new List<int>();
+        private List<int> CompleteUrls = new List<int>();
 
         private async System.Threading.Tasks.Task ExportAsync()
         {
@@ -692,7 +694,7 @@ namespace MacroEditor.sources
 
                 if (bAskOld)
                 {
-                    if(ObsoleteUrls.Contains(cBSF.nInx))
+                    if(CompleteUrls.Contains(cBSF.nInx))
                     {
                         tbError.Text += Environment.NewLine + "Removed obsolete URL at " + cBSF.nInx.ToString();
                         continue;
@@ -724,7 +726,11 @@ namespace MacroEditor.sources
                     string sOK = await changeUrls.HttpFileExistsAsync(s);
                     if (sOK != "")
                     {
-                        ObsoleteUrls.Add(cBSF.nInx);
+                        if (sHREF.Contains("?attachment-id"))
+                            AttachedUrls.Add(cBSF.nInx);
+                        else
+                            ObsoleteUrls.Add(cBSF.nInx);
+                        CompleteUrls.Add(cBSF.nInx);
                     }
                 }
                 else
@@ -818,9 +824,17 @@ namespace MacroEditor.sources
                     sOut += k.ToString() + " ";
                 }
             }
+            if (AttachedUrls.Count > 0)
+            {
+                sOut += Environment.NewLine + "Attached URLs at: ";
+                foreach (int k in AttachedUrls)
+                {
+                    sOut += k.ToString() + " ";
+                }
+            }
             tbError.Text = sOut.Trim() + Environment.NewLine;
             rbMissing.Checked = true;
-            SaveObsoleteUrls();
+            SaveAllUrls();
         }
 
         private string FormTable(int nCol, ref List<string> CandidateList)
@@ -1178,6 +1192,10 @@ namespace MacroEditor.sources
         private async void btnScanMissing_Click(object sender, EventArgs e)
         {
             FindingMissing = true;
+            tbError.Text = "";
+            ObsoleteUrls.Clear();
+            AttachedUrls.Clear();
+            CompleteUrls.Clear();
             bAskOld = false;
             await ExportAsync();
             FindingMissing = false;

@@ -1352,7 +1352,7 @@ namespace MacroEditor
 
         private void lbTitleSearch_MouseDoubleClick(object sender, MouseEventArgs e)
         {
-            if(mUseLastViewed < 0 || (mUseLastViewed >= cAll.Count-1))
+            if(mUseLastViewed < 0 || mUseLastViewed >= cAll.Count)
             {
                 string sOut = "bug trap: mUse" + mUseLastViewed.ToString() + " count " + cAll.Count.ToString();
                 MessageBox.Show(sOut, "error in Word Search lookup");

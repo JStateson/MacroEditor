@@ -3,10 +3,16 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Net.Http;
+using System.Reflection.Emit;
+using System.Runtime.InteropServices;
 using System.Security.Cryptography;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Forms;
+using static MacroEditor.ChangeUrls;
+using System.IO;
 
 namespace MacroEditor.sources
 {
@@ -33,8 +39,10 @@ namespace MacroEditor.sources
         private string sFile = "", sNum="", sName = "";
         private int ListSelectedIndex = -1;
         private string ListSelectedValue = "";
+        private string[] CanSearch = new string[] { "manuals", "ftp", "images" };  // only ones that can work
+
         private ChangeUrls changeUrls = new ChangeUrls();
-        
+        private List<cFromToUrls> FromToUrls;
 
         public URLupdate(ref List<CBody> rCbodies)
         {
@@ -60,10 +68,36 @@ namespace MacroEditor.sources
             }
         }
 
+        private void UpdateBadUrlList()
+        {
+            FromToUrls = changeUrls.FromToUrls;
+            if (FromToUrls == null) return;
+            dgv.Rows.Clear();
+            foreach (cFromToUrls ft in FromToUrls)
+            {
+                int inx = dgv.Rows.Add();
+                dgv.Rows[inx].Cells[2].Value = ft.FromUrl;
+                dgv.Rows[inx].Cells[0].Value = ft.GetWhereUsed(out int n);
+                dgv.Rows[inx].Cells[0].Tag = n;
+                dgv.Rows[inx].Cells[1].Value = ft.bValidated;
+            }
+        }
+
+        private void GetBadUrls()
+        {
+            int nBad = changeUrls.ReadBadUrls(Utils.OldUrlList);
+            dgv.Rows.Clear();
+            if(nBad > 0)
+            {
+                UpdateBadUrlList();
+            }
+        }
+
         private void LoadInitialFiles(object sender, EventArgs e)
         {
             cbExclude.SelectedIndex = 0;
             cbFilter.SelectedIndex = 0;
+            GetBadUrls();
         }
 
         private bool IsExcluded(string sUrl)
@@ -284,9 +318,6 @@ namespace MacroEditor.sources
                     {
                         S_FilterIndex.Add(i);
                     }
-                    //var NewList = sFiltered.ToList();   
-                    //lbFiltered.DataSource = null;
-                    //lbFiltered.DataSource = NewList;
 
                     _bsFiltered.DataSource = null;
                     _bsFiltered.DataSource = sFiltered;
@@ -303,8 +334,10 @@ namespace MacroEditor.sources
             {
                 tabPage2.Text = s;
             }
-            else tabPage2.Text = s.Substring(0, i);
+            else s= s.Substring(0, i);
+            tabPage2.Text = s;
             RunFilter(cbFilter.SelectedIndex);
+            btnTEST_F.Enabled = CanSearch.Contains(s);
         }
 
         private void btnAddItemExclude_Click(object sender, EventArgs e)
@@ -364,6 +397,9 @@ namespace MacroEditor.sources
             }
         }
 
+
+
+
         private bool DidRedirect = false;
         private async Task<bool> TryFetch(string s)
         {
@@ -378,12 +414,6 @@ namespace MacroEditor.sources
                 {
                     DidRedirect = true;
                     return true;
-                    /*
-                    if (response.Headers.Location != null)
-                    {
-                        Console.WriteLine("Redirects to: " + response.Headers.Location);
-                    }
-                    */
                 }
                 else
                 {
@@ -393,12 +423,92 @@ namespace MacroEditor.sources
             return false;
         }
 
+
+        public async Task<string> CheckYouTubeUrl(string url)
+        {
+            if (url == "https://www.youtube.com/@HPSupport/search") return "";
+
+            HttpClient client = new HttpClient();
+
+
+                client.DefaultRequestHeaders.TryAddWithoutValidation(
+                "User-Agent",
+                "Mozilla/5.0");
+
+                try
+                {
+                    var response = await client.GetAsync(url);
+
+                    var html = await response.Content.ReadAsStringAsync();
+
+                    if (html.Contains("Video unavailable"))
+                        return "Exists but unavailable";
+
+                    if (html.Contains("This video is private"))
+                        return "Private video";
+
+                    if (html.Contains("This video isn't available anymore"))
+                        return "Removed video";
+
+                    if (response.IsSuccessStatusCode)
+                        return "";// "Video exists";
+
+                    return $"Other status: {(int)response.StatusCode}";
+                }
+                catch
+                {
+                    return "Invalid URL or network error";
+                }
+            
+        }
+
+        private bool bStopSearch = false;
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+            bStopSearch = true;
+        }
+
+        private void dgv_SelectionChanged(object sender, EventArgs e)
+        {
+            if (dgv.CurrentCell != null)
+            {
+                int rowIndex = dgv.CurrentCell.RowIndex;
+                lbO_corrected.Text = dgv.Rows[rowIndex].Cells[2].Value.ToString();
+                int n = (int) dgv.Rows[rowIndex].Cells[0].Tag;
+                tbCntWhere.Text = n.ToString();
+                cbMacIDs.Items.Clear();
+                string[] NN = dgv.Rows[rowIndex].Cells[0].Value.ToString().Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+                foreach(string s in NN)
+                {
+                    cbMacIDs.Items.Add(s);
+                }
+                if(n > 0)
+                {
+                    cbMacIDs.SelectedIndex = 0;
+                }
+            }
+
+        }
+
+        private void btnSaveBadList_Click(object sender, EventArgs e)
+        {
+            changeUrls.SaveBadUrls(Utils.OldUrlList);
+            MessageBox.Show("You must exit this entire app before the bad urls show up");
+        }
+
+        private void btnRemoveHistory_Click(object sender, EventArgs e)
+        {
+            File.Delete(Utils.OldUrlList);
+            GetBadUrls();
+        }
+
         private async void btnTEST_F_Click(object sender, EventArgs e)
         {
             string sExists, sID = tabPage2.Text;
 
             int n = 0;
             int i = 0;
+            string t;
             if (sID == "excluded") return;  // do not plan on search through the leftovers
             pbUrlErr.Maximum = sFiltered.Count;
             pbUrlErr.Value = 0;
@@ -408,13 +518,19 @@ namespace MacroEditor.sources
             foreach (string s in sFiltered)
             {
                 int j = S_FilterIndex[i];
-
                 string sTemp = S_All[j];
                 int k = sTemp.IndexOf(' ');
                 string debSys = sTemp.Substring(0, k);
                 string debNum = sTemp.Substring(k+1);
                 string debName = S_NAM[j];
-
+                if (bStopSearch) break;
+                lbFiltered.SelectedIndex = i;
+                if (i >= 0)
+                {
+                    int visibleItems = lbFiltered.ClientSize.Height / lbFiltered.ItemHeight;
+                    int topIndex = Math.Max(0, i - visibleItems / 2);
+                    lbFiltered.TopIndex = topIndex;
+                }
                 bAny = false;
                 bExists = true;
                 switch (sID)
@@ -433,6 +549,29 @@ namespace MacroEditor.sources
                         if (!bExists)
                         {
                             n++;
+                            string st = s.Replace("https://", "");
+                            st = st.Replace("http://", "");
+                            changeUrls.AddUrl(st, "", debSys, debName, debNum);
+                        }
+                        break;
+                    case "document":
+                        k = s.IndexOf('?');
+                        t = s;
+                        if (k != -1) t = s.Substring(k);
+                        // cannot easily be done due to bot protection, so just add to the list of bad urls and let someone check them manually
+                        break;
+                    case "youtube":
+//                        sExists = await CheckYouTubeUrl(s);
+                        break;
+                    case "images":
+                        t = s;
+                        k = s.IndexOf("/image-size");
+                        if(k != -1) t = s.Substring(0,k);
+                        sExists = await changeUrls.ExistsUsingAgent(t);
+                        bExists = (sExists == "");
+                        if (!bExists)
+                        {
+                            n++;
                             bAny = true;
                         }
                         break;
@@ -446,8 +585,12 @@ namespace MacroEditor.sources
                 pbUrlErr.Value++;
                 Application.DoEvents();
                 i++;
-                if (i == 10) break;
             }
+            if(n>0)
+            {
+                UpdateBadUrlList();
+            }
+            pbUrlErr.Value = 0;
         }
         
 

@@ -75,6 +75,8 @@ namespace MacroEditor
             public bool NeedsToBeSaved;
         }
 
+      
+
         public string GetFromUrl()
         {
             return FromUrl;
@@ -105,6 +107,30 @@ namespace MacroEditor
             public string ToUrl;
             public bool bValidated;
             public List<cWhereUsed> WhereUsed = new List<cWhereUsed>();
+            public string GetWhereUsed(out int n)
+            {
+                string bValid, bNeed, sOut = "";
+                n = 0;
+                foreach (cWhereUsed wu in WhereUsed)
+                {
+                    bValid = wu.bValidated ? "Y" : "N";
+                    bNeed = wu.NeedsToBeSaved ? "Y" : "N";
+                    sOut += wu.sysType + wu.macroNumber + bValid + bNeed + " ";
+                    n++;
+                }
+                return sOut.TrimEnd();
+            }
+            public bool IsThere(string FileTypeCode, string MacName)
+            {
+                foreach (cWhereUsed wu in WhereUsed)
+                {
+                    if (wu.sysType == FileTypeCode && wu.macroName == MacName)
+                    {
+                        return true;
+                    }
+                }
+                return false;
+            }
         }
 
         private int CountBadUrls()
@@ -146,6 +172,18 @@ namespace MacroEditor
         public void AddUrl(string from, string to, string type, string name, string number)
         {
             cFromToUrls cft = GetUrl(from);
+            if(cft.IsThere(type, name))
+            {
+                /*
+                if(to == from)                
+                foreach (cWhereUsed wu1 in cft.WhereUsed)
+                {
+                    wu1.bValidated = false;
+                    wu1.NeedsToBeSaved = false;
+                }
+                */
+                return;
+            }
             cWhereUsed wu = new cWhereUsed();
             wu.sysType = type;
             wu.macroName = name;
@@ -342,7 +380,7 @@ namespace MacroEditor
                     }
                 }
             }
-            Debug.Assert(false, " not found in url list ");
+            //Debug.Assert(false, " not found in url list ");
             return false;
         }
 
@@ -606,7 +644,27 @@ namespace MacroEditor
             }
         }
 
+        public async Task<string> ExistsUsingAgent(string sUrl)
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                
+                client.DefaultRequestHeaders.UserAgent.ParseAdd(
+"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 " +
+"(KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36");
 
+                var response = await client.GetAsync(sUrl);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    string sFilename = response.Content.Headers.ContentDisposition.FileName.ToString();
+                    if (sFilename.Contains("not_found")) return "Image not found";
+                    return "";
+                }
+                return response.StatusCode.ToString();
+            }
+            return "unknown error";
+        }
 
         public async Task<string> HttpFileExistsAsync(string surl)
         {
@@ -630,9 +688,10 @@ namespace MacroEditor
 
                     // Otherwise check status code and reason phrase
                     string reason = response.ReasonPhrase?.ToLower() ?? "";
-                    if (reason.Contains("not found") || reason.Contains("404"))
-                        return "Not found or 404";
-
+                    if (reason.Contains("not found") || reason.Contains("404") || reason.Contains("forbidden"))
+                    {
+                        return "Not found, forbidden or 404";
+                    }
                     return "Unknown";
                 }
             }
