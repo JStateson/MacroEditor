@@ -233,9 +233,47 @@ namespace MacroEditor
             CountryCodes = Properties.Resources.Sorted_Raw_List.Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.RemoveEmptyEntries);
             bAddHline = Properties.Settings.Default.UseHline;
             sDefaultHline = Properties.Settings.Default.Hline;
+
             InRepeatMode();
             this.KeyPreview = true;  // Ensure the form receives key events first
             this.KeyDown += new KeyEventHandler(Form1_KeyDown);
+
+            string[] history = Properties.Settings.Default.SearchHistory;
+
+            if (history != null)
+            {
+                comboBoxSearch.Items.AddRange(history);
+            }
+            //comboBoxSearch.SelectedIndex = -1;
+            //comboBoxSearch.Text = "";
+
+        }
+
+        private void AddSearchHistory(string pattern)
+        {
+            pattern = pattern.Trim();
+
+            if (string.IsNullOrEmpty(pattern))
+                return;
+
+            List<string> history = comboBoxSearch.Items
+                                                 .Cast<string>()
+                                                 .ToList();
+
+            history.Remove(pattern);      // remove duplicate
+            history.Insert(0, pattern);   // newest first
+
+            if (history.Count > 5)
+                history = history.Take(5).ToList();
+
+            comboBoxSearch.Items.Clear();
+            comboBoxSearch.Items.AddRange(history.ToArray());
+
+            Properties.Settings.Default.SearchHistory = history.ToArray();
+            Properties.Settings.Default.Save();
+
+            comboBoxSearch.SelectedIndex = -1;
+            comboBoxSearch.Text = "";
         }
 
         private void Form1_KeyDown(object sender, KeyEventArgs e)
@@ -894,6 +932,7 @@ namespace MacroEditor
                     cf.WhereFound = i;
                     WhichMatch |= cf.WhichMatch;
                     cFound.Add(cf);
+
                 }
                 else
                 {
@@ -904,6 +943,7 @@ namespace MacroEditor
             if(CFcnt > 0)
             {
                 AreWeRepeating();
+                AddSearchHistory(tbKeywords.Text);
             }
             else
             {
@@ -1390,6 +1430,12 @@ namespace MacroEditor
                 //string name = rb.Name;
                 RunSearch();
             }
+        }
+
+        private void comboBoxSearch_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            tbKeywords.Text = comboBoxSearch.Text;
+            RunSearch();
         }
     }
 }

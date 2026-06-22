@@ -156,6 +156,7 @@
             this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmConfig = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmAssociate = new System.Windows.Forms.ToolStripMenuItem();
+            this.uRLManagementToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mMoveMacro = new System.Windows.Forms.ToolStripMenuItem();
             this.moveTSM = new System.Windows.Forms.ToolStripMenuItem();
             this.exportTSM = new System.Windows.Forms.ToolStripMenuItem();
@@ -231,7 +232,6 @@
             this.tsm2PasteAI = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmRemove = new System.Windows.Forms.ToolStripMenuItem();
             this.SpellTimer = new System.Windows.Forms.Timer(this.components);
-            this.uRLManagementToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.lbName)).BeginInit();
             this.groupBox6.SuspendLayout();
             this.gbManageImages.SuspendLayout();
@@ -1503,16 +1503,23 @@
             // tsmConfig
             // 
             this.tsmConfig.Name = "tsmConfig";
-            this.tsmConfig.Size = new System.Drawing.Size(180, 22);
+            this.tsmConfig.Size = new System.Drawing.Size(179, 22);
             this.tsmConfig.Text = "Configure";
             this.tsmConfig.Click += new System.EventHandler(this.tsmConfig_Click);
             // 
             // tsmAssociate
             // 
             this.tsmAssociate.Name = "tsmAssociate";
-            this.tsmAssociate.Size = new System.Drawing.Size(180, 22);
+            this.tsmAssociate.Size = new System.Drawing.Size(179, 22);
             this.tsmAssociate.Text = "Associate Clipboard";
             this.tsmAssociate.Click += new System.EventHandler(this.tsmAssociate_Click);
+            // 
+            // uRLManagementToolStripMenuItem
+            // 
+            this.uRLManagementToolStripMenuItem.Name = "uRLManagementToolStripMenuItem";
+            this.uRLManagementToolStripMenuItem.Size = new System.Drawing.Size(179, 22);
+            this.uRLManagementToolStripMenuItem.Text = "URL management";
+            this.uRLManagementToolStripMenuItem.Click += new System.EventHandler(this.uRLManagementToolStripMenuItem_Click);
             // 
             // mMoveMacro
             // 
@@ -1925,6 +1932,7 @@
             // 
             this.TSMprinterUsesAnyInk.Name = "TSMprinterUsesAnyInk";
             this.TSMprinterUsesAnyInk.Size = new System.Drawing.Size(202, 22);
+            this.TSMprinterUsesAnyInk.Tag = "";
             this.TSMprinterUsesAnyInk.Text = "Printer uses any ink";
             this.TSMprinterUsesAnyInk.Click += new System.EventHandler(this.TSMprinterUsesAnyInk_Click);
             // 
@@ -2168,13 +2176,6 @@
             this.SpellTimer.Interval = 1000;
             this.SpellTimer.Tag = "";
             this.SpellTimer.Tick += new System.EventHandler(this.SpellTimer_Tick);
-            // 
-            // uRLManagementToolStripMenuItem
-            // 
-            this.uRLManagementToolStripMenuItem.Name = "uRLManagementToolStripMenuItem";
-            this.uRLManagementToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.uRLManagementToolStripMenuItem.Text = "URL management";
-            this.uRLManagementToolStripMenuItem.Click += new System.EventHandler(this.uRLManagementToolStripMenuItem_Click);
             // 
             // main
             // 

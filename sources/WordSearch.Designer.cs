@@ -72,6 +72,8 @@
             this.tbKeywords = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.comboBoxSearch = new System.Windows.Forms.ComboBox();
+            this.label5 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.gbMakeNew.SuspendLayout();
@@ -108,12 +110,14 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.label5);
+            this.groupBox2.Controls.Add(this.comboBoxSearch);
             this.groupBox2.Controls.Add(this.lbTitleSearch);
             this.groupBox2.Controls.Add(this.btnExitTitle);
             this.groupBox2.Controls.Add(this.label4);
             this.groupBox2.Location = new System.Drawing.Point(1011, 32);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(278, 558);
+            this.groupBox2.Size = new System.Drawing.Size(278, 728);
             this.groupBox2.TabIndex = 16;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Title Search";
@@ -122,7 +126,7 @@
             // 
             this.lbTitleSearch.FormattingEnabled = true;
             this.lbTitleSearch.ItemHeight = 20;
-            this.lbTitleSearch.Location = new System.Drawing.Point(18, 230);
+            this.lbTitleSearch.Location = new System.Drawing.Point(18, 207);
             this.lbTitleSearch.Name = "lbTitleSearch";
             this.lbTitleSearch.Size = new System.Drawing.Size(254, 304);
             this.lbTitleSearch.TabIndex = 11;
@@ -133,7 +137,7 @@
             // 
             this.btnExitTitle.Enabled = false;
             this.btnExitTitle.ForeColor = System.Drawing.Color.Red;
-            this.btnExitTitle.Location = new System.Drawing.Point(32, 167);
+            this.btnExitTitle.Location = new System.Drawing.Point(18, 156);
             this.btnExitTitle.Name = "btnExitTitle";
             this.btnExitTitle.Size = new System.Drawing.Size(192, 31);
             this.btnExitTitle.TabIndex = 10;
@@ -604,6 +608,26 @@
             this.label1.TabIndex = 1;
             this.label1.Text = "Keywords: press\r\nenter to search";
             // 
+            // comboBoxSearch
+            // 
+            this.comboBoxSearch.FormattingEnabled = true;
+            this.comboBoxSearch.Location = new System.Drawing.Point(13, 576);
+            this.comboBoxSearch.Name = "comboBoxSearch";
+            this.comboBoxSearch.Size = new System.Drawing.Size(254, 28);
+            this.comboBoxSearch.TabIndex = 17;
+            this.comboBoxSearch.SelectedIndexChanged += new System.EventHandler(this.comboBoxSearch_SelectedIndexChanged);
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.BackColor = System.Drawing.SystemColors.Info;
+            this.label5.Location = new System.Drawing.Point(66, 533);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(122, 20);
+            this.label5.TabIndex = 18;
+            this.label5.Text = "Last 5 searches";
+            this.toolTip1.SetToolTip(this.label5, "Only list URLS that alow\r\nchanging the languages");
+            // 
             // WordSearch
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -680,5 +704,7 @@
         private System.Windows.Forms.ListBox lbTitleSearch;
         private System.Windows.Forms.Button btnExitTitle;
         private System.Windows.Forms.CheckBox cbOnlyRefs;
+        private System.Windows.Forms.ComboBox comboBoxSearch;
+        private System.Windows.Forms.Label label5;
     }
 }

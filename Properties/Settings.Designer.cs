@@ -501,5 +501,16 @@ namespace MacroEditor.Properties {
                 this["ExportImportFolder"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        public string[] SearchHistory {
+            get {
+                return ((string[])(this["SearchHistory"]));
+            }
+            set {
+                this["SearchHistory"] = value;
+            }
+        }
     }
 }

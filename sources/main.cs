@@ -4394,6 +4394,8 @@ namespace MacroEditor
                 Utils.LocalBrowser(sUrl);
                 return;
             }
+            //printer not in blessed list, give warning
+            MessageBox.Show("This printer is not in the blessed list for OEM ink/toner. Give the try if you like");
         }
 
         private int GetMeta(string sID)
