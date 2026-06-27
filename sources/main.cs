@@ -3795,6 +3795,21 @@ namespace MacroEditor
                     ReplaceText(selectionStart, iLenSelect, sPara);
                     break;
 
+                case "tsmSpoiler":
+                    iLenSelect = tbBody.SelectionLength;
+                    string sTitle = "Expand Spoiler";
+                    if (iLenSelect == 0)
+                    {
+                        string t = Clipboard.GetText();
+                        iLen = t.Length;
+                        if (iLen == 0) return;
+                        sPara = Utils.FormSpoiler(t,sTitle);
+                    }
+                    else
+                        sPara = Utils.FormSpoiler(tbBody.Text.Substring(selectionStart, iLenSelect),sTitle);
+                    ReplaceText(selectionStart, iLenSelect, sPara);
+                    break;
+
                 case "tsmNumList":
                     iLenSelect = tbBody.SelectionLength;
                     if (iLenSelect == 0)

@@ -1716,6 +1716,11 @@ namespace MacroEditor
             return "<table border=\"1\" width=\"" + sWidth + "%\"><tr><td>" + strIn + "</td></tr></table>";
         }
 
+        public static string FormSpoiler(string strIn, string sTitle)
+        {
+            return "<br>" + sTitle + "<div class=\"lia-spoiler-container-editor\">" + strIn + "</div>";
+        }
+
         // this puts a newline in the table to make it easier to read the text and copy it
         // the <p> does not work at the HP forum and a double newline is needed
         public static string Form1CellTableP(string strIn, string sWidth)

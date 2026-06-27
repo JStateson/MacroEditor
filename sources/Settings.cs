@@ -103,6 +103,7 @@ namespace MacroEditor
             cbUsePrefix.Checked = Properties.Settings.Default.bUsePrefix;
             cbUseSuffix.Checked = Properties.Settings.Default.bUseSuffix;
             cbHlineWiz.Checked = Properties.Settings.Default.UseHline;
+            cbUseSpoiler.Checked = Properties.Settings.Default.UseSpoiler;
 
             lbSaveLoc.Text = Utils.WhereExe + "\\UrlDebug.txt";
             CountUnkUrls();
@@ -229,6 +230,7 @@ namespace MacroEditor
             Properties.Settings.Default.UseSpellChecker = cbEnabSpell.Checked;
             Properties.Settings.Default.bUsePrefix = cbUsePrefix.Checked;
             Properties.Settings.Default.bUseSuffix = cbUseSuffix.Checked;
+            Properties.Settings.Default.UseSpoiler = cbUseSpoiler.Checked;
             Utils.nLongestExpectedURL = Properties.Settings.Default.LongestExpectedURL;
             Utils.BrowserWanted = eBrowser;
             if (tbUserID.Text != "")

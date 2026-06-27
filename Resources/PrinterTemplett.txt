@@ -20,9 +20,9 @@ target="_blank">instructions here on how to enable</a> the AI.
 Microsoft's AI assistant <b>(Copilot) has a microphone button</b> and
 supports natural language processing.</td></tr></table><br>
 Do <b>not call any phone numbers</b> shown in any of the videos or
-revealed by a Bing or Google search.
+revealed by a Bing or Google search.<br><br>
 
-<b>You may need to reset your printer</b>.  
+<b>You may need to reset your printer</b>.<!-- @spoiler@=<b>Expand Spoiler for reset instructions</b> -->
 <p>Disconnecting the USB cable may still leave the printer
 in the wired or Wi-Fi mode. Connecting an ethernet cable may
 still leave the printer in Wi-Fi mode.  The Wi-Fi reset is
@@ -37,10 +37,10 @@ performing the Wi-Fi reset.  Note that a reset video may show
 a slightly different model than yours.  <b>Do not</b> call any phone
 numbers revealed in any video or site.</p> 
 <table border='1'><tr><td>@Reset Printer@</td></tr></table>
-
+<!-- @spoiler@ -->
 
 <!-- @IDNetwork Connect@ TimeStamp=DDDDDDDD_TTTTTT -->
-<b>Wi-Fi connection</b><p>
+<b>Wi-Fi connection</b><!-- @spoiler@=<b>Expand Spoiler for network setup instructions</b> --><p>
 Ideally, your Wi-Fi printer should connect to the modem or router.
 If your network has multiple boosters / repeaters, it is possible
 the printer may connect randomly to any of the units.  The
@@ -52,18 +52,22 @@ Note that if you signed up for instant ink or internet
 printing your printer must also be online through the router.
 <b>Do not</b> call any phone number revealed in any video or site.</p>
 <table border='2'><tr><td>@Network Connect@</td></tr></table>
+<!-- @spoiler@ -->
 
 <!-- @IDSoftware@ TimeStamp=DDDDDDDD_TTTTTT -->
 <b>Software</b><p>
 HP updates software periodically.  Downloads shown below may
 be old.  You should always visit the Software and Download
-page to look for new releases. You may need to select an
+page to look for new releases.<br>
+<!-- @spoiler@=<b>Expand Spoiler to find your printer software</b> -->
+You may need to select an
 operating system (OS) first.  If windows 11 is missing then
 use 10.  You can go as far back as Windows 7, 64bit to get
 missing drivers. After selecting the OS click the blue
 <b><font color="#0000FF">Open all</font></b> button to view
 all downloads.</p>
 <table border='2'><tr><td>@Software@</td></tr></table>
+<!-- @spoiler@ -->
 
 <!-- @IDDocuments@ TimeStamp=DDDDDDDD_TTTTTT -->
 <b>Documents</b><p>
@@ -74,7 +78,7 @@ no control panel.</p>
 <table border='2'><tr><td>@Documents@</td></tr></table>
 
 <!-- @IDYouTube@ TimeStamp=DDDDDDDD_TTTTTT -->
-<b>Support Videos - Parts - Disassembly</b>
+<br><b>Support Videos - Parts - Disassembly</b>
 <p>HP has a YouTube site and there are a number of video in
 English and other languages. Typically unboxing, clearing
 paper jams, and cartridge problems.  You could also use
@@ -87,7 +91,7 @@ videos from other users.</p>
 <br><b>This printer is USB only: @USByesno@</b><p>
 
 <!-- @IDReference@ TimeStamp=DDDDDDDD_TTTTTT -->
-<b>Printer Reference</b><p>
+<br><b>Printer Reference</b><p>
 One or more printer reference is listed below.  Typically
 your printer may be part of a series and use the same
 software and manual.  The exact spec may be different.</p>
@@ -118,8 +122,7 @@ comment on any of these YouTube videos.</p>
 <table border='2'><tr><td>@AssemblyPR@</td></tr></table>
 
 <!-- @IDWiFi Connect@ TimeStamp=DDDDDDDD_TTTTTT -->
-<b>Wi-Fi connection</b><p>
-Ideally, your Wi-Fi printer should connect to the modem or router.
+<b>Wi-Fi connection</b><p>Ideally, your Wi-Fi printer should connect to the modem or router.
 An alternate type of connection is Wi-Fi direct.  Your 
 laptop or smartphone prints directly to the printer and 
 does not go through the router.  This is convenient if there 

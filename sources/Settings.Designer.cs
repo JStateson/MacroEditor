@@ -95,6 +95,7 @@
             this.cbNoFTPurls = new System.Windows.Forms.CheckBox();
             this.cbBadUrl = new System.Windows.Forms.CheckBox();
             this.btnShowBad = new System.Windows.Forms.Button();
+            this.btnGetFTPurls = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
             this.tbDateChg = new System.Windows.Forms.TextBox();
             this.cbFileN = new System.Windows.Forms.ComboBox();
@@ -126,18 +127,18 @@
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.tbReplace = new System.Windows.Forms.TextBox();
             this.tabPage5 = new System.Windows.Forms.TabPage();
+            this.groupBox8 = new System.Windows.Forms.GroupBox();
+            this.rbHTTP = new System.Windows.Forms.RadioButton();
+            this.rbFTP = new System.Windows.Forms.RadioButton();
             this.pbCounting = new System.Windows.Forms.ProgressBar();
             this.btnSaveURLs = new System.Windows.Forms.Button();
             this.lbCnt = new System.Windows.Forms.Label();
             this.tbUrls = new System.Windows.Forms.TextBox();
-            this.btnGetFTPurls = new System.Windows.Forms.Button();
             this.tabPage6 = new System.Windows.Forms.TabPage();
             this.bpBIOS = new System.Windows.Forms.ProgressBar();
             this.tbBios = new System.Windows.Forms.TextBox();
             this.btnGetBios = new System.Windows.Forms.Button();
-            this.groupBox8 = new System.Windows.Forms.GroupBox();
-            this.rbFTP = new System.Windows.Forms.RadioButton();
-            this.rbHTTP = new System.Windows.Forms.RadioButton();
+            this.cbUseSpoiler = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox4.SuspendLayout();
@@ -155,8 +156,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.dgvReplace)).BeginInit();
             this.tabPage4.SuspendLayout();
             this.tabPage5.SuspendLayout();
-            this.tabPage6.SuspendLayout();
             this.groupBox8.SuspendLayout();
+            this.tabPage6.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -217,6 +218,7 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.cbUseSpoiler);
             this.groupBox2.Controls.Add(this.cbRetMac);
             this.groupBox2.Controls.Add(this.cbDoNotRead);
             this.groupBox2.Controls.Add(this.ckShowSplash);
@@ -955,6 +957,19 @@
             this.btnShowBad.UseVisualStyleBackColor = true;
             this.btnShowBad.Click += new System.EventHandler(this.btnShowBad_Click);
             // 
+            // btnGetFTPurls
+            // 
+            this.btnGetFTPurls.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnGetFTPurls.ForeColor = System.Drawing.SystemColors.Highlight;
+            this.btnGetFTPurls.Location = new System.Drawing.Point(182, 14);
+            this.btnGetFTPurls.Name = "btnGetFTPurls";
+            this.btnGetFTPurls.Size = new System.Drawing.Size(91, 29);
+            this.btnGetFTPurls.TabIndex = 9;
+            this.btnGetFTPurls.Text = "Get urls";
+            this.toolTip1.SetToolTip(this.btnGetFTPurls, "Find any ftp urls\r\nthat are obsolete");
+            this.btnGetFTPurls.UseVisualStyleBackColor = true;
+            this.btnGetFTPurls.Click += new System.EventHandler(this.btnGetFTPurls_Click);
+            // 
             // label4
             // 
             this.label4.AutoSize = true;
@@ -1307,6 +1322,44 @@
             this.tabPage5.Text = "FTP urls";
             this.tabPage5.UseVisualStyleBackColor = true;
             // 
+            // groupBox8
+            // 
+            this.groupBox8.Controls.Add(this.rbHTTP);
+            this.groupBox8.Controls.Add(this.rbFTP);
+            this.groupBox8.Enabled = false;
+            this.groupBox8.Location = new System.Drawing.Point(407, 11);
+            this.groupBox8.Name = "groupBox8";
+            this.groupBox8.Size = new System.Drawing.Size(131, 70);
+            this.groupBox8.TabIndex = 16;
+            this.groupBox8.TabStop = false;
+            this.groupBox8.Text = "URL types";
+            // 
+            // rbHTTP
+            // 
+            this.rbHTTP.AutoSize = true;
+            this.rbHTTP.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rbHTTP.ForeColor = System.Drawing.SystemColors.Highlight;
+            this.rbHTTP.Location = new System.Drawing.Point(27, 43);
+            this.rbHTTP.Name = "rbHTTP";
+            this.rbHTTP.Size = new System.Drawing.Size(85, 17);
+            this.rbHTTP.TabIndex = 1;
+            this.rbHTTP.Text = "HTTP only";
+            this.rbHTTP.UseVisualStyleBackColor = true;
+            // 
+            // rbFTP
+            // 
+            this.rbFTP.AutoSize = true;
+            this.rbFTP.Checked = true;
+            this.rbFTP.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rbFTP.ForeColor = System.Drawing.SystemColors.Highlight;
+            this.rbFTP.Location = new System.Drawing.Point(27, 18);
+            this.rbFTP.Name = "rbFTP";
+            this.rbFTP.Size = new System.Drawing.Size(75, 17);
+            this.rbFTP.TabIndex = 0;
+            this.rbFTP.TabStop = true;
+            this.rbFTP.Text = "FTP only";
+            this.rbFTP.UseVisualStyleBackColor = true;
+            // 
             // pbCounting
             // 
             this.pbCounting.Location = new System.Drawing.Point(182, 94);
@@ -1346,19 +1399,6 @@
             this.tbUrls.Size = new System.Drawing.Size(563, 283);
             this.tbUrls.TabIndex = 10;
             this.tbUrls.WordWrap = false;
-            // 
-            // btnGetFTPurls
-            // 
-            this.btnGetFTPurls.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnGetFTPurls.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.btnGetFTPurls.Location = new System.Drawing.Point(182, 14);
-            this.btnGetFTPurls.Name = "btnGetFTPurls";
-            this.btnGetFTPurls.Size = new System.Drawing.Size(91, 29);
-            this.btnGetFTPurls.TabIndex = 9;
-            this.btnGetFTPurls.Text = "Get urls";
-            this.toolTip1.SetToolTip(this.btnGetFTPurls, "Find any ftp urls\r\nthat are obsolete");
-            this.btnGetFTPurls.UseVisualStyleBackColor = true;
-            this.btnGetFTPurls.Click += new System.EventHandler(this.btnGetFTPurls_Click);
             // 
             // tabPage6
             // 
@@ -1404,43 +1444,16 @@
             this.btnGetBios.UseVisualStyleBackColor = true;
             this.btnGetBios.Click += new System.EventHandler(this.btnGetBios_Click);
             // 
-            // groupBox8
+            // cbUseSpoiler
             // 
-            this.groupBox8.Controls.Add(this.rbHTTP);
-            this.groupBox8.Controls.Add(this.rbFTP);
-            this.groupBox8.Enabled = false;
-            this.groupBox8.Location = new System.Drawing.Point(407, 11);
-            this.groupBox8.Name = "groupBox8";
-            this.groupBox8.Size = new System.Drawing.Size(131, 70);
-            this.groupBox8.TabIndex = 16;
-            this.groupBox8.TabStop = false;
-            this.groupBox8.Text = "URL types";
-            // 
-            // rbFTP
-            // 
-            this.rbFTP.AutoSize = true;
-            this.rbFTP.Checked = true;
-            this.rbFTP.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rbFTP.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.rbFTP.Location = new System.Drawing.Point(27, 18);
-            this.rbFTP.Name = "rbFTP";
-            this.rbFTP.Size = new System.Drawing.Size(75, 17);
-            this.rbFTP.TabIndex = 0;
-            this.rbFTP.TabStop = true;
-            this.rbFTP.Text = "FTP only";
-            this.rbFTP.UseVisualStyleBackColor = true;
-            // 
-            // rbHTTP
-            // 
-            this.rbHTTP.AutoSize = true;
-            this.rbHTTP.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rbHTTP.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.rbHTTP.Location = new System.Drawing.Point(27, 43);
-            this.rbHTTP.Name = "rbHTTP";
-            this.rbHTTP.Size = new System.Drawing.Size(85, 17);
-            this.rbHTTP.TabIndex = 1;
-            this.rbHTTP.Text = "HTTP only";
-            this.rbHTTP.UseVisualStyleBackColor = true;
+            this.cbUseSpoiler.AutoSize = true;
+            this.cbUseSpoiler.Location = new System.Drawing.Point(14, 468);
+            this.cbUseSpoiler.Name = "cbUseSpoiler";
+            this.cbUseSpoiler.Size = new System.Drawing.Size(160, 17);
+            this.cbUseSpoiler.TabIndex = 14;
+            this.cbUseSpoiler.Text = "Use Spoilers on new printers";
+            this.toolTip1.SetToolTip(this.cbUseSpoiler, "New printers will have the click to expand feature");
+            this.cbUseSpoiler.UseVisualStyleBackColor = true;
             // 
             // Settings
             // 
@@ -1498,10 +1511,10 @@
             this.tabPage4.PerformLayout();
             this.tabPage5.ResumeLayout(false);
             this.tabPage5.PerformLayout();
-            this.tabPage6.ResumeLayout(false);
-            this.tabPage6.PerformLayout();
             this.groupBox8.ResumeLayout(false);
             this.groupBox8.PerformLayout();
+            this.tabPage6.ResumeLayout(false);
+            this.tabPage6.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1617,5 +1630,6 @@
         private System.Windows.Forms.GroupBox groupBox8;
         private System.Windows.Forms.RadioButton rbHTTP;
         private System.Windows.Forms.RadioButton rbFTP;
+        private System.Windows.Forms.CheckBox cbUseSpoiler;
     }
 }

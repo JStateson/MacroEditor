@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices.WindowsRuntime;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
@@ -80,10 +81,49 @@ namespace MacroEditor.sources
             return false;
         }
 
+
+
+        /*
+            <!-- @spoiler@=Expand Spoiler for reset instructions -->
+            <!-- @spoiler@ -->
+         */
+        private string DoSpoiler(string s)
+        {
+            string sFindTitle = "<!-- @spoiler@=";
+            string sFindEnd = "<!-- @spoiler@ -->";
+            if (!s.Contains(sFindEnd)) return s;
+            string sOut = s.Replace(sFindEnd, "</div>");
+            while (true)
+            {
+                int i = sOut.IndexOf(sFindTitle);
+                if (i == -1) break;
+                string sTitle = GetTitle(sOut, i + sFindTitle.Length, out int sLen);
+                sOut = sOut.Remove(i, sLen + sFindTitle.Length);
+                sOut = sOut.Insert(i,"<br>" +sTitle + " <div class=\"lia-spoiler-container-editor\">");
+            }
+            return sOut;
+        }
+
+        private string GetTitle(string s, int i, out int sLen)
+        {
+            sLen = 0;
+            int j = s.IndexOf("-->", i);
+            if (j == -1) return "";
+            sLen = j - i + 3 ;
+            return s.Substring(i, j - i).Trim();
+        }
+
         public void Init()
         {
             MakeLBlists(Properties.Resources.PrinterList);
-            sFormIn = Resources.PrinterTemplett;
+            if(Properties.Settings.Default.UseSpoiler)
+            {
+                sFormIn = DoSpoiler(Resources.PrinterTemplett);
+            }
+            else
+            {
+                sFormIn = Resources.PrinterTemplett;
+            }
             DateTime now = DateTime.Now;
             TimeStamp = now.ToString("yyyyMMdd_HHmmss");
             MyPrinterInfo = new List<csIDs>();

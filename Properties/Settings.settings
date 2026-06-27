@@ -125,5 +125,8 @@
     <Setting Name="SearchHistory" Type="System.String[]" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
+    <Setting Name="UseSpoiler" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

@@ -512,5 +512,17 @@ namespace MacroEditor.Properties {
                 this["SearchHistory"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool UseSpoiler {
+            get {
+                return ((bool)(this["UseSpoiler"]));
+            }
+            set {
+                this["UseSpoiler"] = value;
+            }
+        }
     }
 }
