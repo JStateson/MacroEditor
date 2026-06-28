@@ -1066,6 +1066,7 @@ namespace MacroEditor.sources
                 }
 
             }
+            nRemoved = 0; // todo todo to do to do why did I do this as it always traps !!! June 27, 2026
             return pDB.FormRecord(nRemoved);
         }
 

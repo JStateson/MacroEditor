@@ -175,6 +175,8 @@ namespace MacroEditor.sources
         {
             string sOut = Utils.mTableStyle;
             string sComment = "";
+            bool bUseSpoiler = Properties.Settings.Default.UseSpoiler;
+            bool bUsed = false;
             foreach (csIDs cid in MyPrinterInfo)
             {
                 if(cid.sPhrase.Count > 0)
@@ -182,9 +184,19 @@ namespace MacroEditor.sources
                     string sTemp = GetParagraph(cid.sID, ref sComment);
                     sComment = sComment.Replace(sTS, TimeStamp);
                     string t = "";
-                    foreach(string s in cid.sPhrase)
+                    if(cid.sID == "@YouTube@" && bUseSpoiler && cid.sPhrase.Count > 0)
+                    {
+                        bUsed = true;
+                        t = "<b>Expand Spoiler for parts, disassembly and HP videos</b><div class=\"lia-spoiler-container-editor\"> ";
+                    }
+                    foreach (string s in cid.sPhrase)
                     {
                         t+= s.Trim() + " ";
+                    }
+                    if(bUsed)
+                    {
+                        t += "</div>";
+                        bUsed = false;
                     }
                     sTemp = sTemp.Replace(cid.sID,t);
                     sTemp = sComment + sTemp;
