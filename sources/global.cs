@@ -421,7 +421,7 @@ namespace MacroEditor
     {
         public List<cFromToPhrases> ListPhrases = new List<cFromToPhrases>();
         public bool bGivenWarning = true;
-
+        public bool bEnabled = false;
         public List<cFromToPhrases> LoadPhrases()
         {
             return ListPhrases;
@@ -431,6 +431,7 @@ namespace MacroEditor
             ListPhrases.Clear();
             string[] srcWord = Properties.Settings.Default.FromPhrase;
             string[] dstWord = Properties.Settings.Default.ToPhrase;
+            /*  do not do this any more, need to actuall use APP or SMART
             if(srcWord == null || srcWord.All(string.IsNullOrEmpty))
             {
                 cFromToPhrases cFTP = new cFromToPhrases();
@@ -444,6 +445,7 @@ namespace MacroEditor
                 ListPhrases.Add(cFTP);
                 return ListPhrases;
             }
+            */
             int n = srcWord.Length;
             for(int i = 0; i < n; i++)
             {
@@ -488,7 +490,7 @@ namespace MacroEditor
         {
 
             int n = 0;
-            if (MacroName == "") return 0;
+            if (MacroName == "" || !Properties.Settings.Default.EnableReplace) return 0;
             foreach(cFromToPhrases cFTP in ListPhrases)
             {
                 int c = Regex.Matches(s, Regex.Escape(cFTP.FromWord)).Count;

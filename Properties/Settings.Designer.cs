@@ -524,5 +524,17 @@ namespace MacroEditor.Properties {
                 this["UseSpoiler"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool EnableReplace {
+            get {
+                return ((bool)(this["EnableReplace"]));
+            }
+            set {
+                this["EnableReplace"] = value;
+            }
+        }
     }
 }

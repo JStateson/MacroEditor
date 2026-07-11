@@ -861,6 +861,7 @@ namespace MacroEditor
         // "PCI\VEN_1B21&DEV_2142&SUBSYS_87561043&REV_00\4&299AAA38&0&00E4"
 
         // devicehunt.com/search/type/usb/vendor/2EF4/device/5842
+        // or type could be pci
         private void mnuHuntDev_Click(object sender, EventArgs e)
         {
             string s = RunDeviceHunt();
@@ -897,12 +898,14 @@ namespace MacroEditor
             else if(n > 1) Utils.ShowPageInBrowser("",sPossible);
         }
 
+        // 7/8/2026 bug: https://devicehunt.com/view/type//PCI/vendor/8086/device/0084
+        // needs to be https://devicehunt.com/view/type/pci/vendor/8086/device/0084
         private string RunDeviceHunt()
         {
             string s = Utils.ClipboardGetText().ToUpper();
             string sType = "";
-            if (s.Contains("USB")) sType = "/USB";
-            if (s.Contains("PCI")) sType = "/PCI";
+            if (s.Contains("USB")) sType = "/usb";
+            if (s.Contains("PCI")) sType = "/pci";
             //if (s.Contains("HID")) sType = "/HID";
             if (sType == "") return "";
             string sVid = sExtract(s, "\\VID_");
@@ -911,7 +914,7 @@ namespace MacroEditor
             string sPid = sExtract(s, "&PID_");
             if (sPid == "") sPid = sExtract(s, "&DEV_");
             if (sPid == "") return "";
-            s = "https://devicehunt.com/view/type/" + sType + "/vendor/" + sVid + "/device/" + sPid;
+            s = "https://devicehunt.com/view/type" + sType + "/vendor/" + sVid + "/device/" + sPid;
             return s;
         }
 
@@ -4464,6 +4467,12 @@ namespace MacroEditor
             URLupdate MyURLupdate = new URLupdate(ref cBodies);
             MyURLupdate.ShowDialog();
             MyURLupdate.Dispose();
+        }
+
+        private void ClipToSpoiler_Click(object sender, EventArgs e)
+        {
+            string strTemp = Utils.FormSpoiler(Utils.ClipboardGetText(), "<b>Expand spoiler ...</b>");
+            Utils.ShowRawBrowser(strTemp, "TR", "", true);
         }
     }
 }

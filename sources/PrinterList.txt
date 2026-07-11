@@ -78,9 +78,9 @@ Microsoft's Copilot may have more recent videos.<br>MacOS 14 or higher needed fo
 <br>Wi-Fi Direct can be used to avoid configuring the router.  Watch this: @Direct Video@
 <br>Wi-Fi Direct is explained on page @Direct Page@ of the @Direct Doc@, this Wi-Fi setup avoids configuring the router.
 <br>A simple connection to the router can be done by using the WPS pushbutton method.  This is explained on page @WPS Page@ in this @WPS Doc@.
-<br>Full function printer drivers can be downloaded here: @Driver@
-<br>Full function software for scanning can be downloaded here: @Scanner@
-<br>You can find all of the software here.  You should select the OS and then look for the phrase "Open All" and click that. @Software@
+<br>Full function printer drivers (Intel/AMD cpu) can be downloaded here: @Driver@
+<br>Full function software for scanning (Intel/AMD cpu) can be downloaded here: @Scanner@
+<br>You can find all of the software here (including ARM cpu).  You should select the OS and then look for the phrase "Open All" and click that. @Software@
 <br>All HP manuals are here: @All Docs@
 <br>Parts, if any available, can be found here @Parts@.  Use your serial number for more extensive information.
 <br>Disassembly is shown in this video: @Assembly@ 

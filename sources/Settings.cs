@@ -104,6 +104,7 @@ namespace MacroEditor
             cbUseSuffix.Checked = Properties.Settings.Default.bUseSuffix;
             cbHlineWiz.Checked = Properties.Settings.Default.UseHline;
             cbUseSpoiler.Checked = Properties.Settings.Default.UseSpoiler;
+            cbEnableReplace.Checked = Properties.Settings.Default.EnableReplace;
 
             lbSaveLoc.Text = Utils.WhereExe + "\\UrlDebug.txt";
             CountUnkUrls();
@@ -617,7 +618,9 @@ namespace MacroEditor
 
         private void btnSaveDGV_Click(object sender, EventArgs e)
         {
-            Utils.PhraseReplacer.SaveSettings();
+            Properties.Settings.Default.EnableReplace = cbEnableReplace.Checked;
+            Utils.PhraseReplacer.SaveSettings(); // this also saves all settings
+
         }
 
 

@@ -36,6 +36,7 @@
             this.rbChrome = new System.Windows.Forms.RadioButton();
             this.rbEdge = new System.Windows.Forms.RadioButton();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.cbUseSpoiler = new System.Windows.Forms.CheckBox();
             this.cbRetMac = new System.Windows.Forms.CheckBox();
             this.cbDoNotRead = new System.Windows.Forms.CheckBox();
             this.ckShowSplash = new System.Windows.Forms.CheckBox();
@@ -138,7 +139,7 @@
             this.bpBIOS = new System.Windows.Forms.ProgressBar();
             this.tbBios = new System.Windows.Forms.TextBox();
             this.btnGetBios = new System.Windows.Forms.Button();
-            this.cbUseSpoiler = new System.Windows.Forms.CheckBox();
+            this.cbEnableReplace = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox4.SuspendLayout();
@@ -236,6 +237,17 @@
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "User Info";
+            // 
+            // cbUseSpoiler
+            // 
+            this.cbUseSpoiler.AutoSize = true;
+            this.cbUseSpoiler.Location = new System.Drawing.Point(14, 468);
+            this.cbUseSpoiler.Name = "cbUseSpoiler";
+            this.cbUseSpoiler.Size = new System.Drawing.Size(160, 17);
+            this.cbUseSpoiler.TabIndex = 14;
+            this.cbUseSpoiler.Text = "Use Spoilers on new printers";
+            this.toolTip1.SetToolTip(this.cbUseSpoiler, "New printers will have the click to expand feature");
+            this.cbUseSpoiler.UseVisualStyleBackColor = true;
             // 
             // cbRetMac
             // 
@@ -1249,6 +1261,7 @@
             // 
             // tabPage3
             // 
+            this.tabPage3.Controls.Add(this.cbEnableReplace);
             this.tabPage3.Controls.Add(this.btnSaveDGV);
             this.tabPage3.Controls.Add(this.dgvReplace);
             this.tabPage3.Controls.Add(this.label17);
@@ -1267,7 +1280,7 @@
             this.dgvReplace.Name = "dgvReplace";
             this.dgvReplace.RowHeadersVisible = false;
             this.dgvReplace.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvReplace.Size = new System.Drawing.Size(391, 308);
+            this.dgvReplace.Size = new System.Drawing.Size(489, 308);
             this.dgvReplace.TabIndex = 3;
             // 
             // label17
@@ -1444,16 +1457,15 @@
             this.btnGetBios.UseVisualStyleBackColor = true;
             this.btnGetBios.Click += new System.EventHandler(this.btnGetBios_Click);
             // 
-            // cbUseSpoiler
+            // cbEnableReplace
             // 
-            this.cbUseSpoiler.AutoSize = true;
-            this.cbUseSpoiler.Location = new System.Drawing.Point(14, 468);
-            this.cbUseSpoiler.Name = "cbUseSpoiler";
-            this.cbUseSpoiler.Size = new System.Drawing.Size(160, 17);
-            this.cbUseSpoiler.TabIndex = 14;
-            this.cbUseSpoiler.Text = "Use Spoilers on new printers";
-            this.toolTip1.SetToolTip(this.cbUseSpoiler, "New printers will have the click to expand feature");
-            this.cbUseSpoiler.UseVisualStyleBackColor = true;
+            this.cbEnableReplace.AutoSize = true;
+            this.cbEnableReplace.Location = new System.Drawing.Point(443, 31);
+            this.cbEnableReplace.Name = "cbEnableReplace";
+            this.cbEnableReplace.Size = new System.Drawing.Size(59, 17);
+            this.cbEnableReplace.TabIndex = 5;
+            this.cbEnableReplace.Text = "Enable";
+            this.cbEnableReplace.UseVisualStyleBackColor = true;
             // 
             // Settings
             // 
@@ -1631,5 +1643,6 @@
         private System.Windows.Forms.RadioButton rbHTTP;
         private System.Windows.Forms.RadioButton rbFTP;
         private System.Windows.Forms.CheckBox cbUseSpoiler;
+        private System.Windows.Forms.CheckBox cbEnableReplace;
     }
 }
