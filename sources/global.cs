@@ -1405,10 +1405,10 @@ namespace MacroEditor
         public static string GetHelpFile(string sHelp)
         {
             string[] strForms = { "FILE", "SIG", "EDIT",  "EDITLINK",
-                "MANAGE","XMLERRORS", "UTILS", "SEARCH", "WEB" ,"NEW-PRINTER","MACROS"};
+                "MANAGE","XMLERRORS", "UTILS", "SEARCH", "WEB" ,"NEW-PRINTER","MACROS","BIOS"};
             string[] strFiles = { "mnu-file.docx","mnu-imag-sig.docx","mnu-main-edit.docx", "mnu-edit-link.docx",
                 "mnu-manage-img.docx", "mnu-paste-sig.docx", "mnu-util.docx", "mnu-word-search.docx" ,
-                "mnu-web-search.docx","mnu-new-printer.docx","LoadHPmacros.docx"};
+                "mnu-web-search.docx","mnu-new-printer.docx","LoadHPmacros.docx","mnu-bios-sim.docx"};
             int n = 0;
             foreach (string s in strForms)
             {

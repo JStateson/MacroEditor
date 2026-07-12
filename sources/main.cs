@@ -242,7 +242,7 @@ namespace MacroEditor
             CheckPWE(); // see if password and email are enabled for using
             mnuCmpHTTP.Enabled = File.Exists(Properties.Settings.Default.HTTP_HP);
             Utils.GetRecentArchive(); // this includes all files so files must be closed
-            BiosEmuSim bes = new BiosEmuSim(true);
+            BiosEmuSim bes = new BiosEmuSim(true, ref MySpellCheck);
             BSFlocal = bes.BSFsources;
             bes.Dispose();
             //string i = Properties.Settings.Default.cSplash;  // for debugging 
@@ -3706,7 +3706,7 @@ namespace MacroEditor
         
         private void mnuBIOSemu_Click(object sender, EventArgs e)
         {
-            BiosEmuSim bes = new BiosEmuSim(false);            
+            BiosEmuSim bes = new BiosEmuSim(false, ref MySpellCheck);            
             BSFlocal = bes.BSFsources;
             bes.ShowDialog();
             bes.Dispose();

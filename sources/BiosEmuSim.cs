@@ -55,6 +55,7 @@ namespace MacroEditor.sources
         private Color Red = Color.Red;
         private List<string> sDocs = new List<string>();
         private List<string> tDocs = new List<string>();
+        private List<int> vDocs = new List<int>();
         private int nDupDocs = 0;
         private static string sExpectName = "Interactive BIOS simulator ";
         private static string sBadSimName = "BIOS main page only: others missing ";
@@ -76,12 +77,13 @@ namespace MacroEditor.sources
         private bool FindingMissing = false;
         private bool HasMissingUrls = false;
         private bool bAskOld = false;
-
-        public BiosEmuSim(bool GetTable)
+        private cCheckSpell SpellCheck;
+        public BiosEmuSim(bool GetTable, ref cCheckSpell MySpellCheck)
         {
             InitializeComponent();
             GetMissing();
             Blue = btnSave.ForeColor;
+            SpellCheck = MySpellCheck;
             LsrcData = Utils.WhereExe + "/" + srcData;
             LexpHTML = Utils.WhereExe + "/" + expHTML;
             cbSelText.DataSource = sPossible;
@@ -103,8 +105,53 @@ namespace MacroEditor.sources
             public string cCode;
         }
 
+        private string GetNameFromCode(string sCode)
+        {
+            foreach(cAttachUrl au in AttachUrls)
+            {
+                if(au.cCode == sCode)
+                {
+                    return au.cName;
+                }
+            }
+            return "";
+        }
+
+        private bool DocIsMissing(string sUrl, out string sDoc)
+        {
+            sDoc = "";
+            foreach (cAttachUrl au in AttachUrls)
+            {
+                if (sUrl.Contains(au.cName))
+                {
+                    sDoc = au.cName;
+                    return true;
+                }
+            }
+            return false;
+        }
+
         private List<cAttachUrl> AttachUrls = new List<cAttachUrl>();
 
+        //https://h30434.www3.hp.com/t5/Notebooks-Knowledge-Base/Interactive-BIOS-simulator-emulator/ta-p/9145598?attachment-id=16362
+        private string UseJYSdoc(string sUrl)
+        {
+            //string sAny = UseAttachURL(sUrl);
+            int i = sUrl.IndexOf("?attachment-id=");
+            if(i > 0)
+            {
+                string s = sUrl.Substring(i + 15);
+                string cDoc = GetNameFromCode(s);
+                return jysLoc + cDoc + ".pdf";
+            }
+            if (DocIsMissing(sUrl, out string sDoc))
+            {
+                return jysLoc + sDoc + ".pdf";
+            }
+            return sUrl;
+        }
+
+        private string jysLoc = "https://stateson.net/bios_sims/";
         private string UseAttachURL(string sUrl)
         {
             foreach(cAttachUrl au in AttachUrls)
@@ -117,10 +164,12 @@ namespace MacroEditor.sources
             }
             return sUrl;
         }
-
+        // 7/11/2026 using https://stateson.net/bios_sims/c06523945.pdf for attachment 16362 (for example)
+        // attachments no longer used
         private void GetMissing()
         {
             string lMissing = Utils.WhereExe + "\\..\\..\\..\\..\\bios_sims\\missing.txt";
+            if (!File.Exists(lMissing)) return;
             StreamReader sr = new StreamReader(lMissing);
             WhereAttach = sr.ReadLine();
             string line;
@@ -130,7 +179,9 @@ namespace MacroEditor.sources
                 string[] sLine = line.Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
                 cAttachUrl au = new cAttachUrl();
                 au.cName = sLine[0].Replace(".pdf","");
-                au.cCode = sLine[1];
+                if (sLine.Length > 1)
+                    au.cCode = sLine[1];
+                else au.cCode = "-1";
                 AttachUrls.Add(au);
             }
         }
@@ -163,6 +214,10 @@ namespace MacroEditor.sources
         string[] OldUrls;
         private bool IsMissingDoc(string sUrl)
         {
+            if (OldUrls == null)
+            {
+                return false;
+            }
             foreach(string s in OldUrls)
             {
                 if (sUrl.Contains(s))
@@ -219,6 +274,7 @@ namespace MacroEditor.sources
             BSFsources.Clear();
             sDocs.Clear();
             tDocs.Clear();
+            vDocs.Clear();  
             nDupDocs = 0;
             SENfound = "";
             sRawText.Clear();
@@ -242,7 +298,7 @@ namespace MacroEditor.sources
                 if (r == 0)
                 {
                     nDupDocs += ExtractDoc(sH, i);
-                    sH = UseAttachURL(sH);
+                    sH = UseJYSdoc(sH);
                     sRawHTML.Add(sH);
                     sRawText.Add(sT);
                     if (!StringsHas(ref sPossible, sT))
@@ -362,7 +418,7 @@ namespace MacroEditor.sources
 
         private int ExtractDoc(string s, int j)
         {
-            int Rtn = 0;
+            int Rtn = 0;            
             s = s.ToLower().Replace(".pdf", "");
             int i = s.IndexOf("manual/");
             if (i >= 0)
@@ -372,7 +428,10 @@ namespace MacroEditor.sources
                 Rtn = 1;
                 tbError.Text += "Dup: " + s + " at " + (j + 1).ToString() + Environment.NewLine;
                 if (!tDocs.Contains(s))
+                {
                     tDocs.Add(s);
+                    vDocs.Add(j);
+                }
             }
             sDocs.Add(s);
             return Rtn;
@@ -764,6 +823,7 @@ namespace MacroEditor.sources
                     CandidateBAD.Add(s);
                 }
             }
+            pbMissing.Value = 0;
             LineOut = "<center><font size=\"6.0\">" + sExpectName + "for HP PCs</font></center><br>";
             LineOut += "Items marked <strong><font color='#FF0000'>[*]</font></strong> are older and depending on your browser may ask for authorization to run<br>";
             LineOut += "Items marked <strong><font color='#FF0000'>[X]</font></strong> , must be downloaded before being viewed";
@@ -1158,6 +1218,7 @@ namespace MacroEditor.sources
         {
             if (cbDups == null) return;
             sDupID = cbDups.SelectedItem.ToString();
+            int j = vDocs[cbDups.SelectedIndex];
             bs.ResetBindings(false);
         }
 
@@ -1196,9 +1257,42 @@ namespace MacroEditor.sources
             ObsoleteUrls.Clear();
             AttachedUrls.Clear();
             CompleteUrls.Clear();
+            
+            /*
+            GetMissing();
+            LoadSimFiles(false);
+            GetMissingUrls();
+            */
+            
             bAskOld = false;
             await ExportAsync();
             FindingMissing = false;
+        }
+
+        private void EditHelp(string s)
+        {
+            if (Utils.bSpellingEnabled)
+                SpellCheck.EditHelpDocs(s);
+            else Utils.WordpadEdit(s);
+        }
+
+        private void BiosEmuSim_HelpButtonClicked(object sender, CancelEventArgs e)
+        {
+            EditHelp("BIOS");
+        }
+
+        private void dgvBIOS_UserDeletingRow(object sender, DataGridViewRowCancelEventArgs e)
+        {
+            cBSFview item = (cBSFview)e.Row.DataBoundItem;
+            foreach (int i in CompleteUrls)
+            {
+                if (i == item.nInx)
+                {
+                    CompleteUrls.Remove(i);
+                    SaveAllUrls();
+                    break;
+                }
+            }
         }
     }
 }

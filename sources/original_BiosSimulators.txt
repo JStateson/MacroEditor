@@ -1,0 +1,197 @@
+<a href="http://h10032.www1.hp.com/ctg/Manual/c06516363" target="_blank">BIOS main page only: others missing HP 200 G3 All-in-One</a>
+<a href="https://h10032.www1.hp.com/ctg/Manual/c06516362.pdf" target="_blank">BIOS main page only: others missing HP 205 G3 All-in-One</a>
+<a href="http://h10032.www1.hp.com/ctg/Manual/c06523945.pdf" target="_blank">BIOS main page only: others missing HP 20-c4XX All-in-One PC</a>
+<a href="http://h10032.www1.hp.com/ctg/Manual/c06523951" target="_blank">BIOS main page only: others missing HP 22-b000 All-in-One Desktop PC Series</a>
+<a href="http://h10032.www1.hp.com/ctg/Manual/c06516475" target="_blank">BIOS main page only: others missing HP All-in-One 22/24 c1xx/f1xx Series</a>
+<a href="https://h10032.www1.hp.com/ctg/Manual/c06521190.pdf" target="_blank">BIOS main page only: others missing HP ENVY All-in-One PC 27-b100</a>
+<a href="https://h10032.www1.hp.com/ctg/Manual/c06523603.pdf" target="_blank">BIOS main page only: others missing HP ENVY Curved 34-b100 All-in-One</a>
+<a href="https://h10032.www1.hp.com/ctg/Manual/c06523601.pdf" target="_blank">BIOS main page only: others missing HP Pavilion 24-r000/27-r000 AiO Desktop PC Series</a>
+<a href="http://h10032.www1.hp.com/ctg/Manual/c06523967" target="_blank">BIOS main page only: others missing OMEN by HP 880-p000 Desktop PC</a>
+<a href="https://h10032.www1.hp.com/ctg/Manual/c03481740.pdf" target="_blank">F10 notes: 2012 HP Business Notebooks and Desktops</a>
+<a href="https://h10032.www1.hp.com/ctg/Manual/c06399361.pdf" target="_blank">F10 notes: Commercial Platforms using HP BIOSphere Gen 3-5</a>
+<a href="https://ftp.hp.com/pub/caps-softpaq/cmit/whitepapers/HPBIOSSetup.pdf" target="_blank">F10 notes: Commercial Platforms using HP BIOSphere Gen 7-10</a>
+<a href="https://h10032.www1.hp.com/ctg/Manual/c00765938.pdf" target="_blank">F10 notes: Compaq dc5750 Models</a>
+<a href="https://h10032.www1.hp.com/ctg/Manual/c01363881.pdf" target="_blank">F10 notes: dc5800 Models</a>
+<a href="https://h10032.www1.hp.com/ctg/Manual/c01361573.pdf" target="_blank">F10 notes: dc5850 Models HP Compaq Business PC</a>
+<a href="https://h10032.www1.hp.com/ctg/Manual/c00873020.pdf" target="_blank">F10 notes: dx2250 Microtower Model</a>
+<a href="https://h10032.www1.hp.com/ctg/Manual/c01870957.pdf" target="_blank">F10 notes: HP Compaq 6005 Pro Business PCs</a>
+<a href="https://h10032.www1.hp.com/ctg/Manual/c00711128.pdf" target="_blank">F10 notes: HP Compaq d220 and d230 Microtower</a>
+<a href="https://h10032.www1.hp.com/ctg/Manual/c00625223.pdf" target="_blank">F10 notes: HP Compaq dx2200 Microtower Business PC</a>
+<a href="https://h10032.www1.hp.com/ctg/Manual/c01162226.pdf" target="_blank">F10 notes: HP Compaq dx7400 Series</a>
+<a href="https://h10032.www1.hp.com/ctg/Manual/c06507923.pdf" target="_blank">Interactive BIOS simulator HP 14/15/17 Laptop PC (AMD) Series</a>
+<a href="https://h10032.www1.hp.com/ctg/Manual/c06498459.pdf" target="_blank">Interactive BIOS simulator HP 14/15/17 Laptop PC (Intel) Series</a>
+<a href="https://h10032.www1.hp.com/ctg/Manual/c06508151.pdf" target="_blank">Interactive BIOS simulator HP 14-dk0000 Laptop PC</a>
+<a href="http://h10032.www1.hp.com/ctg/Manual/c06508132" target="_blank">Interactive BIOS simulator HP 14-dq0000 Laptop PC</a>
+<a href="https://h10032.www1.hp.com/ctg/Manual/c06508150.pdf" target="_blank">Interactive BIOS simulator HP 15-dy0000 Laptop PC</a>
+<a href="https://h10032.www1.hp.com/ctg/Manual/c06508265.pdf" target="_blank">Interactive BIOS simulator HP 15-ef0000 Laptop PC</a>
+<a href="https://h10032.www1.hp.com/ctg/Manual/c07723095.pdf" target="_blank">Interactive BIOS simulator HP 17-cn0xxx Laptop</a>
+<a href="http://h10032.www1.hp.com/ctg/Manual/c07605280.pdf" target="_blank">Interactive BIOS simulator HP 17-cp0xxx Laptop PC</a>
+<a href="http://h10032.www1.hp.com/ctg/Manual/c06508064" target="_blank">Interactive BIOS simulator HP 200 G7 Notebook PC (AMD)</a>
+<a href="http://h10032.www1.hp.com/ctg/Manual/c06511286.pdf" target="_blank">Interactive BIOS simulator HP 200 G7 Notebook PC (Intel)</a>
+<a href="http://h10032.www1.hp.com/ctg/Manual/c06585856.pdf" target="_blank">Interactive BIOS simulator HP 22/24/27 All-in-One PC</a>
+<a href="https://h10032.www1.hp.com/ctg/Manual/c06558311.pdf" target="_blank">Interactive BIOS simulator HP 268 Pro G1 MT</a>
+<a href="http://h10032.www1.hp.com/ctg/Manual/c06525375" target="_blank">Interactive BIOS simulator HP 280 G4 MT PC Business PC</a>
+<a href="http://h10032.www1.hp.com/ctg/Manual/c06463173" target="_blank">Interactive BIOS simulator HP 280 G4 Small Form Factor PC</a>
+<a href="http://h10032.www1.hp.com/ctg/Manual/c06473200" target="_blank">Interactive BIOS simulator HP 280 G5 MT PC</a>
+<a href="https://h10032.www1.hp.com/ctg/Manual/c07730663.pdf" target="_blank">Interactive BIOS simulator HP 285 G8 MT Pro</a>
+<a href="https://h10032.www1.hp.com/ctg/Manual/c06535375.pdf" target="_blank">Interactive BIOS simulator HP 285 Pro G3 MT Business PC</a>
+<a href="http://h10032.www1.hp.com/ctg/Manual/c06520274.pdf" target="_blank">Interactive BIOS simulator HP 340/348 G7 Notebook</a>
+<a href="http://h10032.www1.hp.com/ctg/Manual/c06938794" target="_blank">Interactive BIOS simulator HP All-in-One PC 21-b000I/A</a>
+<a href="http://h10032.www1.hp.com/ctg/Manual/c06506638" target="_blank">Interactive BIOS simulator HP Desktop 190-000 PC</a>
+<a href="http://www1.hp.com/ctg/Manual/c06525448.pdf" target="_blank">Interactive BIOS simulator HP Desktop M01-xxxxx series</a>
+<a href="http://h10032.www1.hp.com/ctg/Manual/c06494136" target="_blank">Interactive BIOS simulator HP Desktop Pro G2/G3 Series</a>
+<a href="http://h10032.www1.hp.com/ctg/Manual/c07006609.pdf" target="_blank">Interactive BIOS simulator HP Elite Dragonfly G2 Notebook PC</a>
+<a href="http://h10032.www1.hp.com/ctg/Manual/c06489037.pdf" target="_blank">Interactive BIOS simulator HP Elite Dragonfly Notebook PC</a>
+<a href="http://h10032.www1.hp.com/ctg/Manual/c06530249" target="_blank">Interactive BIOS simulator HP Elite Slice</a>
+<a href="https://h10032.www1.hp.com/ctg/Manual/c06530363.pdf" target="_blank">Interactive BIOS simulator HP Elite x2 1013 G3 Tablet</a>
+<a href="http://h10032.www1.hp.com/ctg/Manual/c06525374" target="_blank">Interactive BIOS simulator HP Elite x2 G4</a>
+<a href="https://h10032.www1.hp.com/ctg/Manual/c07730668.pdf" target="_blank">Interactive BIOS simulator HP Elite x2 G8 Tablet</a>
+<a href="https://h10032.www1.hp.com/ctg/Manual/c06511074.pdf" target="_blank">Interactive BIOS simulator HP EliteBook 700 G5 Notebook PC Series</a>
+<a href="http://h10032.www1.hp.com/ctg/Manual/c06508236" target="_blank">Interactive BIOS simulator HP EliteBook 700 G6 Notebook PC Series</a>
+<a href="http://h10032.www1.hp.com/ctg/Manual/c06691369.pdf" target="_blank">Interactive BIOS simulator HP EliteBook 830 G7 Notebook</a>
+<a href="http://h10032.www1.hp.com/ctg/Manual/c07496764.pdf" target="_blank">Interactive BIOS simulator HP EliteBook 830 G8 Notebook</a>
+<a href="https://h10032.www1.hp.com/ctg/Manual/c06511071.pdf" target="_blank">Interactive BIOS simulator HP EliteBook 830/840/840 HC/850 G5 Notebook PCs</a>
+<a href="http://h10032.www1.hp.com/ctg/Manual/c07605270.pdf" target="_blank">Interactive BIOS simulator HP EliteBook 835 G8 Notebook PC</a>
+<a href="http://h10032.www1.hp.com/ctg/Manual/c07066784" target="_blank">Interactive BIOS simulator HP EliteBook 840 Aero G8 Notebook PC</a>
+<a href="https://h10032.www1.hp.com/ctg/Manual/c06508204.pdf" target="_blank">Interactive BIOS simulator HP EliteBook 840 G6 Healthcare Edition Notebook PC</a>
+<a href="http://h10032.www1.hp.com/ctg/Manual/c06692772.pdf" target="_blank">Interactive BIOS simulator HP EliteBook 840 G7 Notebook</a>
+<a href="http://h10032.www1.hp.com/ctg/Manual/c06511073" target="_blank">Interactive BIOS simulator HP EliteBook 840r G4 Notebook PC</a>
+<a href="http://h10032.www1.hp.com/ctg/Manual/c06694497" target="_blank">Interactive BIOS simulator HP EliteBook 850 G7 Notebook PC</a>
+<a href="http://h10032.www1.hp.com/ctg/Manual/c07496903.pdf" target="_blank">Interactive BIOS simulator HP EliteBook 850 G8 Notebook PC</a>
+<a href="http://h10032.www1.hp.com/ctg/Manual/c07605273.pdf" target="_blank">Interactive BIOS simulator HP EliteBook 855 G8 Notebook</a>
+<a href="http://h10032.www1.hp.com/ctg/Manual/c06530247" target="_blank">Interactive BIOS simulator HP EliteBook x360 1030 G3</a>
+<a href="http://h10032.www1.hp.com/ctg/Manual/c06716763" target="_blank">Interactive BIOS simulator HP EliteBook x360 1030 G7 Notebook PC</a>
+<a href="http://h10032.www1.hp.com/ctg/Manual/c06527732.pdf" target="_blank">Interactive BIOS simulator HP EliteBook x360 1040 G5</a>
+<a href="http://h10032.www1.hp.com/ctg/Manual/c06716767" target="_blank">Interactive BIOS simulator HP EliteBook x360 1040 G7 Notebook PC</a>
+<a href="http://h10032.www1.hp.com/ctg/Manual/c07006590.pdf" target="_blank">Interactive BIOS simulator HP EliteBook x360 1040 G8 Notebook PC</a>
+<a href="http://h10032.www1.hp.com/ctg/Manual/c06525383.pdf" target="_blank">Interactive BIOS simulator HP EliteBook x360 830 G5</a>
+<a href="http://h10032.www1.hp.com/ctg/Manual/c06701466" target="_blank">Interactive BIOS simulator HP EliteBook x360 830 G7 Notebook PC</a>
+<a href="https://h10032.www1.hp.com/ctg/Manual/c06516420.pdf" target="_blank">Interactive BIOS simulator HP Elitedesk 705 G4 MT</a>
+<a href="http://h10032.www1.hp.com/ctg/Manual/c06508271" target="_blank">Interactive BIOS simulator HP EliteDesk 705 G5 DM</a>
+<a href="https://h10032.www1.hp.com/ctg/Manual/c06466790.pdf" target="_blank">Interactive BIOS simulator HP EliteDesk 705 G5 Small Form Factor PC</a>
+<a href="http://h10032.www1.hp.com/ctg/Manual/c06714311.pdf" target="_blank">Interactive BIOS simulator HP EliteDesk 800 35W/65W/95W G6</a>
+<a href="http://h10032.www1.hp.com/ctg/Manual/c06506607" target="_blank">Interactive BIOS simulator HP EliteDesk 800 G4/G5 TWR Series</a>
+<a href="https://h10032.www1.hp.com/ctg/Manual/c06527312.pdf" target="_blank">Interactive BIOS simulator HP EliteDesk 800 G5 DM</a>
+<a href="http://h10032.www1.hp.com/ctg/Manual/c06527315.pdf" target="_blank">Interactive BIOS simulator HP EliteDesk 800 G5 DM 35W</a>
+<a href="http://h10032.www1.hp.com/ctg/Manual/c06516357" target="_blank">Interactive BIOS simulator HP EliteOne 1000 G2 All-in-One</a>
+<a href="https://h10032.www1.hp.com/ctg/Manual/c06509438.pdf" target="_blank">Interactive BIOS simulator HP EliteOne 800 G4 23.8 All-in-One Series</a>
+<a href="http://h10032.www1.hp.com/ctg/Manual/c06506631" target="_blank">Interactive BIOS simulator HP EliteOne 800 G5 23.8 All-in-One Series</a>
+<a href="https://h10032.www1.hp.com/ctg/Manual/c07688396.pdf" target="_blank">Interactive BIOS simulator HP EliteOne 800 G8 AiO PC</a>
+<a href="http://h10032.www1.hp.com/ctg/Manual/c06516355" target="_blank">Interactive BIOS simulator HP Engage Flex Pro Modular Systems</a>
+<a href="https://h10032.www1.hp.com/ctg/Manual/c07956211.pdf" target="_blank">Interactive BIOS simulator HP Engage Go 10 Mobile System</a>
+<a href="https://h10032.www1.hp.com/ctg/Manual/c07046139.pdf" target="_blank">Interactive BIOS simulator HP Engage One Pro AIO System</a>
+<a href="https://h10032.www1.hp.com/ctg/Manual/c06608449.pdf" target="_blank">Interactive BIOS simulator HP ENVY 13-ba0000 Laptop PC</a>
+<a href="https://h10032.www1.hp.com/ctg/Manual/c06996330.pdf" target="_blank">Interactive BIOS simulator HP ENVY 14-eb0000 Laptop PC</a>
+<a href="https://h10032.www1.hp.com/ctg/Manual/c06610420.pdf" target="_blank">Interactive BIOS simulator HP ENVY 15-ep0000 Laptop PC</a>
+<a href="http://h10032.www1.hp.com/ctg/Manual/c06489341" target="_blank">Interactive BIOS simulator HP ENVY 17-bw0000 and 17m-bw0000 Laptop PCs</a>
+<a href="http://h10032.www1.hp.com/ctg/Manual/c06558319" target="_blank">Interactive BIOS simulator HP ENVY 17-cg0000 Laptop PC</a>
+<a href="http://h10032.www1.hp.com/ctg/Manual/c07758164.pdf" target="_blank">Interactive BIOS simulator HP ENVY 34in AiO Desktop PC</a>
+<a href="https://h10032.www1.hp.com/ctg/Manual/c06524606.pdf" target="_blank">Interactive BIOS simulator HP ENVY All-in-One 32-a0xxx</a>
+<a href="http://h10032.www1.hp.com/ctg/Manual/c06530253" target="_blank">Interactive BIOS simulator HP ENVY Desktop 790-0xx</a>
+<a href="https://h10032.www1.hp.com/ctg/Manual/c06527745.pdf" target="_blank">Interactive BIOS simulator HP ENVY Desktop 795-9xxx</a>
+<a href="https://h10032.www1.hp.com/ctg/Manual/c06508165.pdf" target="_blank">Interactive BIOS simulator HP ENVY Laptop 13-aq0xxx</a>
+<a href="http://h10032.www1.hp.com/ctg/Manual/c06489332.pdf" target="_blank">Interactive BIOS simulator HP ENVY x2 12-g000 Detachable PC</a>
+<a href="https://h10032.www1.hp.com/ctg/Manual/c06584269.pdf" target="_blank">Interactive BIOS simulator HP ENVY x360 13-ay0000 Convertible PC</a>
+<a href="http://h10032.www1.hp.com/ctg/Manual/c06584305" target="_blank">Interactive BIOS simulator HP ENVY x360 15-ed0000</a>
+<a href="http://h10032.www1.hp.com/ctg/Manual/c06584274" target="_blank">Interactive BIOS simulator HP ENVY x360 15-ee0000 Convertible PC</a>
+<a href="https://h10032.www1.hp.com/ctg/Manual/c07066145.pdf" target="_blank">Interactive BIOS simulator HP ENVY x360 15-eu0xxx Convertible PC</a>
+<a href="http://h10032.www1.hp.com/ctg/Manual/c06530248" target="_blank">Interactive BIOS simulator HP ENVY x360 Convertible 13-ar0xxx</a>
+<a href="https://h10032.www1.hp.com/ctg/Manual/c06941126.pdf" target="_blank">Interactive BIOS simulator HP ENVY x360 Convertible 13m-bd0xxx PC</a>
+<a href="http://h10032.www1.hp.com/ctg/Manual/c06534576" target="_blank">Interactive BIOS simulator HP ENVY x360 Convertible 15-ds0xxx</a>
+<a href="http://h10032.www1.hp.com/ctg/Manual/c06983537.pdf" target="_blank">Interactive BIOS simulator HP G6 ProOne AiO 400</a>
+<a href="http://h10032.www1.hp.com/ctg/Manual/c06983532.pdf" target="_blank">Interactive BIOS simulator HP G6 ProOne AiO 600</a>
+<a href="http://h10032.www1.hp.com/ctg/Manual/c06527751" target="_blank">Interactive BIOS simulator HP Laptop 15-dw0xxx</a>
+<a href="https://h10032.www1.hp.com/ctg/Manual/c06510976.pdf" target="_blank">Interactive BIOS simulator HP mt45 Mobile Thin Client</a>
+<a href="http://h10032.www1.hp.com/ctg/Manual/c06948903.pdf" target="_blank">Interactive BIOS simulator HP Pavilion 13-bb0000 Laptop PC</a>
+<a href="http://h10032.www1.hp.com/ctg/Manual/c06489418.pdf" target="_blank">Interactive BIOS simulator HP Pavilion 14-ce000 Laptop PC</a>
+<a href="http://h10032.www1.hp.com/ctg/Manual/c06944811" target="_blank">Interactive BIOS simulator HP Pavilion 14-dv0000 Laptop PC</a>
+<a href="http://h10032.www1.hp.com/ctg/Manual/c07118643.pdf" target="_blank">Interactive BIOS simulator HP Pavilion 14-ec0000 Laptop PC</a>
+<a href="https://h10032.www1.hp.com/ctg/Manual/c06489408.pdf" target="_blank">Interactive BIOS simulator HP Pavilion 15 Laptop PCs</a>
+<a href="https://h10032.www1.hp.com/ctg/Manual/c06489420.pdf" target="_blank">Interactive BIOS simulator HP Pavilion 15-cw0000 Laptop PC</a>
+<a href="https://h10032.www1.hp.com/ctg/Manual/c06945419.pdf" target="_blank">Interactive BIOS simulator HP Pavilion 15-eg0000 Laptop PC</a>
+<a href="http://h10032.www1.hp.com/ctg/Manual/c06724927.pdf" target="_blank">Interactive BIOS simulator HP Pavilion 15-eh0000 Laptop PC</a>
+<a href="https://h10032.www1.hp.com/ctg/Manual/c06530416.pdf" target="_blank">Interactive BIOS simulator HP Pavilion 24-b000 All-in-One Desktop PC series</a>
+<a href="https://h10032.www1.hp.com/ctg/Manual/c06621980.pdf" target="_blank">Interactive BIOS simulator HP Pavilion 24-k0xxxx/27-d0xxxx All-in-One PC Series</a>
+<a href="https://h10032.www1.hp.com/ctg/Manual/c06525447.pdf" target="_blank">Interactive BIOS simulator HP Pavilion Desktop PC</a>
+<a href="https://h10032.www1.hp.com/ctg/Manual/c06665344.pdf" target="_blank">Interactive BIOS simulator HP Pavilion Gaming 16-a0000 Laptop PC</a>
+<a href="https://h10032.www1.hp.com/ctg/Manual/c06525376.pdf" target="_blank">Interactive BIOS simulator HP Pavilion Gaming Desktop 690-0xxx</a>
+<a href="http://www1.hp.com/ctg/Manual/c06527734" target="_blank">Interactive BIOS simulator HP Pavilion Gaming Laptop 15-dk0xxx</a>
+<a href="https://h10032.www1.hp.com/ctg/Manual/c06527752.pdf" target="_blank">Interactive BIOS simulator HP Pavilion Gaming Laptop 15-ec0xxx</a>
+<a href="http://h10032.www1.hp.com/ctg/Manual/c06525446.pdf" target="_blank">Interactive BIOS simulator HP Pavilion Gaming Laptop 17-cd0xxx</a>
+<a href="https://h10032.www1.hp.com/ctg/Manual/c07047587.pdf" target="_blank">Interactive BIOS simulator HP Pavilion x360 15-er0000 Notebook PC</a>
+<a href="http://h10032.www1.hp.com/ctg/Manual/c06530251" target="_blank">Interactive BIOS simulator HP Pavilion x360 Convertible 15-cr0xxx</a>
+<a href="https://h10032.www1.hp.com/ctg/Manual/c06527749.pdf" target="_blank">Interactive BIOS simulator HP Pavilion x360 Convertible 15-dq0xxx</a>
+<a href="https://h10032.www1.hp.com/ctg/Manual/c06530417.pdf" target="_blank">Interactive BIOS simulator HP ProBook 430 G6 Notebook PC</a>
+<a href="http://h10032.www1.hp.com/ctg/Manual/c06974385" target="_blank">Interactive BIOS simulator HP ProBook 430 G8 Notebook PC</a>
+<a href="http://h10032.www1.hp.com/ctg/Manual/c06487157" target="_blank">Interactive BIOS simulator HP ProBook 430/440/450 G7 PC</a>
+<a href="http://h10032.www1.hp.com/ctg/Manual/c06974382" target="_blank">Interactive BIOS simulator HP ProBook 440 G8 Notebook PC</a>
+<a href="http://h10032.www1.hp.com/ctg/Manual/c06634752" target="_blank">Interactive BIOS simulator HP ProBook 445 G7 Notebook PC</a>
+<a href="http://h10032.www1.hp.com/ctg/Manual/c06974339.pdf" target="_blank">Interactive BIOS simulator HP ProBook 450 G8 Notebook PC</a>
+<a href="http://h10032.www1.hp.com/ctg/Manual/c06534544.pdf" target="_blank">Interactive BIOS simulator HP ProBook 450G6</a>
+<a href="http://h10032.www1.hp.com/ctg/Manual/c06634792" target="_blank">Interactive BIOS simulator HP ProBook 455 G7 Notebook PC</a>
+<a href="http://h10032.www1.hp.com/ctg/Manual/c06511070.pdf" target="_blank">Interactive BIOS simulator HP ProBook 600 G5 Notebook</a>
+<a href="https://h10032.www1.hp.com/ctg/Manual/c06974389.pdf" target="_blank">Interactive BIOS simulator HP ProBook 650 G8 Notebook PC</a>
+<a href="http://h10032.www1.hp.com/ctg/Manual/c06527733" target="_blank">Interactive BIOS simulator HP ProBook x360 11 G3 EE</a>
+<a href="http://h10032.www1.hp.com/ctg/Manual/c06524609" target="_blank">Interactive BIOS simulator HP ProBook x360 11 G5 Education Edition</a>
+<a href="http://h10032.www1.hp.com/ctg/Manual/c06654991" target="_blank">Interactive BIOS simulator HP ProBook x360 435 G7 Notebook PC</a>
+<a href="https://h10032.www1.hp.com/ctg/Manual/c07047590.pdf" target="_blank">Interactive BIOS simulator HP ProBook x360 435 G8 Notebook PC</a>
+<a href="http://h10032.www1.hp.com/ctg/Manual/c06525378" target="_blank">Interactive BIOS simulator HP ProDesk 260 G3</a>
+<a href="https://h10032.www1.hp.com/ctg/Manual/c06516350.pdf" target="_blank">Interactive BIOS simulator HP ProDesk 400 35W G5 DM</a>
+<a href="http://h10032.www1.hp.com/ctg/Manual/c06527529" target="_blank">Interactive BIOS simulator HP ProDesk 400 G4 DM (35W</a>
+<a href="http://h10032.www1.hp.com/ctg/Manual/c06717758.pdf" target="_blank">Interactive BIOS simulator HP ProDesk 400 G6 DM</a>
+<a href="http://h10032.www1.hp.com/ctg/Manual/c06506642.pdf" target="_blank">Interactive BIOS simulator HP ProDesk 400 MT G5 Desktop PC Series</a>
+<a href="http://h10032.www1.hp.com/ctg/Manual/c06506644.pdf" target="_blank">Interactive BIOS simulator HP ProDesk 400 SFF G5</a>
+<a href="http://h10032.www1.hp.com/ctg/Manual/c06506643.pdf" target="_blank">Interactive BIOS simulator HP ProDesk 400 SFF G6</a>
+<a href="https://h10032.www1.hp.com/ctg/Manual/c06520275.pdf" target="_blank">Interactive BIOS simulator HP ProDesk 405 G4 SFF</a>
+<a href="http://h10032.www1.hp.com/ctg/Manual/c06527725" target="_blank">Interactive BIOS simulator HP ProDesk 600 G4 PCI MT</a>
+<a href="http://h10032.www1.hp.com/ctg/Manual/c06535380.pdf" target="_blank">Interactive BIOS simulator HP ProDesk 600 G5 MT</a>
+<a href="http://h10032.www1.hp.com/ctg/Manual/c06715362.pdf" target="_blank">Interactive BIOS simulator HP ProDesk 600 G6 DM</a>
+<a href="http://h10032.www1.hp.com/ctg/Manual/c06904981" target="_blank">Interactive BIOS simulator HP ProDesk 600 G6 Small Form Factor PC</a>
+<a href="http://h10032.www1.hp.com/ctg/Manual/c06527746.pdf" target="_blank">Interactive BIOS simulator HP ProDesk 680 G4 MT</a>
+<a href="http://h10032.www1.hp.com/ctg/Manual/c06525444.pdf" target="_blank">Interactive BIOS simulator HP ProOne 600 G5 21.5-in All-in-One</a>
+<a href="https://h10032.www1.hp.com/ctg/Manual/c06533140.pdf" target="_blank">Interactive BIOS simulator HP Slim Desktop 290-a00xx</a>
+<a href="http://h10032.www1.hp.com/ctg/Manual/c06506608" target="_blank">Interactive BIOS simulator HP Slim Desktop Series S01-aF S01-aD</a>
+<a href="http://h10032.www1.hp.com/ctg/Manual/c06530246" target="_blank">Interactive BIOS simulator HP Slimline Desktop 290-p0xx</a>
+<a href="https://h10032.www1.hp.com/ctg/Manual/c07758141.pdf" target="_blank">Interactive BIOS simulator HP Spectre 16 x360 Convertible PC</a>
+<a href="https://h10032.www1.hp.com/ctg/Manual/c06489413.pdf" target="_blank">Interactive BIOS simulator HP Spectre x360 13-ap0000 Convertible PC</a>
+<a href="http://h10032.www1.hp.com/ctg/Manual/c06948908" target="_blank">Interactive BIOS simulator HP Spectre x360 14-ea0000 Convertible PC</a>
+<a href="http://h10032.www1.hp.com/ctg/Manual/c06489330" target="_blank">Interactive BIOS simulator HP Spectre x360 15-ch000 Convertible PC</a>
+<a href="http://h10032.www1.hp.com/ctg/Manual/c06489414.pdf" target="_blank">Interactive BIOS simulator HP Spectre x360 15-df0000 Convertible PC</a>
+<a href="http://h10032.www1.hp.com/ctg/Manual/c06508199" target="_blank">Interactive BIOS simulator HP Stream - 14-ds000</a>
+<a href="https://h10032.www1.hp.com/ctg/Manual/c06508130.pdf" target="_blank">Interactive BIOS simulator HP Stream 11 ak-1000 Laptop PC</a>
+<a href="http://h10032.www1.hp.com/ctg/Manual/c06534483.pdf" target="_blank">Interactive BIOS simulator HP Stream 11 Pro G5</a>
+<a href="http://h10032.www1.hp.com/ctg/Manual/c06508098" target="_blank">Interactive BIOS simulator HP Stream 11-ak0000 Laptop PC</a>
+<a href="https://h10032.www1.hp.com/ctg/Manual/c06524599.pdf" target="_blank">Interactive BIOS simulator HP Z1 Entry Tower Workstation</a>
+<a href="http://h10032.www1.hp.com/ctg/Manual/c07704169.pdf" target="_blank">Interactive BIOS simulator HP Z2 G8 Small Form Factor</a>
+<a href="https://h10032.www1.hp.com/ctg/Manual/c06527728.pdf" target="_blank">Interactive BIOS simulator HP Z2 Mini G4 Workstation</a>
+<a href="http://h10032.www1.hp.com/ctg/Manual/c06914335.pdf" target="_blank">Interactive BIOS simulator HP Z2 Mini G5 Workstation</a>
+<a href="http://h10032.www1.hp.com/ctg/Manual/c06530364" target="_blank">Interactive BIOS simulator HP Z2 SFF G4 Workstation</a>
+<a href="http://h10032.www1.hp.com/ctg/Manual/c06535368.pdf" target="_blank">Interactive BIOS simulator HP Z4 G4 Workstation</a>
+<a href="http://h10032.www1.hp.com/ctg/Manual/c06527726.pdf" target="_blank">Interactive BIOS simulator HP ZBook 15 G5</a>
+<a href="http://h10032.www1.hp.com/ctg/Manual/c06535378.pdf" target="_blank">Interactive BIOS simulator HP ZBook 15 G6 Mobile</a>
+<a href="http://h10032.www1.hp.com/ctg/Manual/c06527727" target="_blank">Interactive BIOS simulator HP ZBook 17 G5</a>
+<a href="http://h10032.www1.hp.com/ctg/Manual/c06535377.pdf" target="_blank">Interactive BIOS simulator HP ZBook 17 G6 Mobile</a>
+<a href="http://h10032.www1.hp.com/ctg/Manual/c06715367" target="_blank">Interactive BIOS simulator HP ZBook Create G7 Notebook PC</a>
+<a href="http://h10032.www1.hp.com/ctg/Manual/c06930070" target="_blank">Interactive BIOS simulator HP ZBook Fury 15 G7 Mobile Workstation</a>
+<a href="http://h10032.www1.hp.com/ctg/Manual/c07721758.pdf" target="_blank">Interactive BIOS simulator HP ZBook Fury 15 G8 Mobile Workstation</a>
+<a href="http://h10032.www1.hp.com/ctg/Manual/c06930571.pdf" target="_blank">Interactive BIOS simulator HP ZBook Fury 17 G7 Mobile</a>
+<a href="https://h10032.www1.hp.com/ctg/Manual/c07721804.pdf" target="_blank">Interactive BIOS simulator HP ZBook Fury 17 G8 Mobile Workstation</a>
+<a href="http://h10032.www1.hp.com/ctg/Manual/c06511285" target="_blank">Interactive BIOS simulator HP ZBook G5 Mobile Workstation Series</a>
+<a href="http://h10032.www1.hp.com/ctg/Manual/c06950649" target="_blank">Interactive BIOS simulator HP ZBook Power G7 Mobile Workstation</a>
+<a href="https://h10032.www1.hp.com/ctg/Manual/c07710530.pdf" target="_blank">Interactive BIOS simulator HP ZBook Studio G8 Mobile Workstation</a>
+<a href="http://h10032.www1.hp.com/ctg/Manual/c06489415.pdf" target="_blank">Interactive BIOS simulator HP ZBook x2 Detachable Workstation</a>
+<a href="http://h10032.www1.hp.com/ctg/Manual/c06472071" target="_blank">Interactive BIOS simulator HP ZHAN 66 Pro 14/15 G3 Notebook PCs</a>
+<a href="https://h10032.www1.hp.com/ctg/Manual/c06634822.pdf" target="_blank">Interactive BIOS simulator HP ZHAN 66 Pro A 14 G3 Notebook PC</a>
+<a href="http://h10032.www1.hp.com/ctg/Manual/c06592756.pdf" target="_blank">Interactive BIOS simulator OMEN 25L / 30L Desktop PC</a>
+<a href="https://h10032.www1.hp.com/ctg/Manual/c06489343.pdf" target="_blank">Interactive BIOS simulator OMEN by HP 15-dc0000 Laptop PC</a>
+<a href="http://h10032.www1.hp.com/ctg/Manual/c06634751.pdf" target="_blank">Interactive BIOS simulator OMEN by HP 15-ek0000 Laptop</a>
+<a href="https://h10032.www1.hp.com/ctg/Manual/c07605278.pdf" target="_blank">Interactive BIOS simulator OMEN by HP 16 Laptop PC</a>
+<a href="http://h10032.www1.hp.com/ctg/Manual/c06523592" target="_blank">Interactive BIOS simulator OMEN by HP 17-ax0000 Laptop PC</a>
+<a href="https://h10032.www1.hp.com/ctg/Manual/c06525451.pdf" target="_blank">Interactive BIOS simulator OMEN by HP 17-cb0xxx</a>
+<a href="http://h10032.www1.hp.com/ctg/Manual/c06516345" target="_blank">Interactive BIOS simulator OMEN by HP 873-xxxx Desktop PC</a>
+<a href="http://h10032.www1.hp.com/ctg/Manual/c06527531" target="_blank">Interactive BIOS simulator OMEN by HP Laptop 15-dh0xxx</a>
+<a href="http://h10032.www1.hp.com/ctg/Manual/c06520607.pdf" target="_blank">Interactive BIOS simulator OMEN by HP Obelisk 875-1000 Desktop PC</a>
+<a href="http://h10032.www1.hp.com/ctg/Manual/c06525380.pdf" target="_blank">Interactive BIOS simulator OMEN X by HP Desktop PC 900-2xx</a>
+<a href="http://h10032.www1.hp.com/ctg/Manual/c07654155.pdf" target="_blank">Interactive BIOS simulator Victus by HP 16 Laptop PC</a>
+<a href="https://www.grs-software.de/sims/bios/phoenix/pages/" target="_blank">Phoenix BIOS Simulator</a>
+<a href="https://pranx.com/bios" target="_blank">Phoenix CMOS Setup Utility</a>

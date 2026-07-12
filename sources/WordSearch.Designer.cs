@@ -32,6 +32,8 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(WordSearch));
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.comboBoxSearch = new System.Windows.Forms.ComboBox();
             this.lbTitleSearch = new System.Windows.Forms.ListBox();
             this.btnExitTitle = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
@@ -72,8 +74,6 @@
             this.tbKeywords = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
-            this.comboBoxSearch = new System.Windows.Forms.ComboBox();
-            this.label5 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.gbMakeNew.SuspendLayout();
@@ -121,6 +121,26 @@
             this.groupBox2.TabIndex = 16;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Title Search";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.BackColor = System.Drawing.SystemColors.Info;
+            this.label5.Location = new System.Drawing.Point(66, 533);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(122, 20);
+            this.label5.TabIndex = 18;
+            this.label5.Text = "Last 5 searches";
+            this.toolTip1.SetToolTip(this.label5, "Only list URLS that alow\r\nchanging the languages");
+            // 
+            // comboBoxSearch
+            // 
+            this.comboBoxSearch.FormattingEnabled = true;
+            this.comboBoxSearch.Location = new System.Drawing.Point(13, 576);
+            this.comboBoxSearch.Name = "comboBoxSearch";
+            this.comboBoxSearch.Size = new System.Drawing.Size(254, 28);
+            this.comboBoxSearch.TabIndex = 17;
+            this.comboBoxSearch.SelectedIndexChanged += new System.EventHandler(this.comboBoxSearch_SelectedIndexChanged);
             // 
             // lbTitleSearch
             // 
@@ -607,26 +627,6 @@
             this.label1.Size = new System.Drawing.Size(124, 40);
             this.label1.TabIndex = 1;
             this.label1.Text = "Keywords: press\r\nenter to search";
-            // 
-            // comboBoxSearch
-            // 
-            this.comboBoxSearch.FormattingEnabled = true;
-            this.comboBoxSearch.Location = new System.Drawing.Point(13, 576);
-            this.comboBoxSearch.Name = "comboBoxSearch";
-            this.comboBoxSearch.Size = new System.Drawing.Size(254, 28);
-            this.comboBoxSearch.TabIndex = 17;
-            this.comboBoxSearch.SelectedIndexChanged += new System.EventHandler(this.comboBoxSearch_SelectedIndexChanged);
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.BackColor = System.Drawing.SystemColors.Info;
-            this.label5.Location = new System.Drawing.Point(66, 533);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(122, 20);
-            this.label5.TabIndex = 18;
-            this.label5.Text = "Last 5 searches";
-            this.toolTip1.SetToolTip(this.label5, "Only list URLS that alow\r\nchanging the languages");
             // 
             // WordSearch
             // 

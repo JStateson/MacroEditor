@@ -178,7 +178,7 @@
             this.label3.BackColor = System.Drawing.SystemColors.Info;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.label3.Location = new System.Drawing.Point(84, 734);
+            this.label3.Location = new System.Drawing.Point(16, 734);
             this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(84, 20);
@@ -188,9 +188,9 @@
             // cbDups
             // 
             this.cbDups.FormattingEnabled = true;
-            this.cbDups.Location = new System.Drawing.Point(191, 734);
+            this.cbDups.Location = new System.Drawing.Point(123, 734);
             this.cbDups.Name = "cbDups";
-            this.cbDups.Size = new System.Drawing.Size(127, 24);
+            this.cbDups.Size = new System.Drawing.Size(319, 24);
             this.cbDups.TabIndex = 23;
             this.cbDups.SelectedIndexChanged += new System.EventHandler(this.cbDups_SelectedIndexChanged);
             // 
@@ -721,6 +721,7 @@
             this.dgvBIOS.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvBIOS_ColumnHeaderMouseClick);
             this.dgvBIOS.RowEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvBIOS_RowEnter);
             this.dgvBIOS.UserDeletedRow += new System.Windows.Forms.DataGridViewRowEventHandler(this.dgvBIOS_UserDeletedRow);
+            this.dgvBIOS.UserDeletingRow += new System.Windows.Forms.DataGridViewRowCancelEventHandler(this.dgvBIOS_UserDeletingRow);
             this.dgvBIOS.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.dgvBIOS_MouseDoubleClick);
             // 
             // BiosEmuSim
@@ -732,11 +733,13 @@
             this.Controls.Add(this.groupBox1);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.HelpButton = true;
             this.Margin = new System.Windows.Forms.Padding(4);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "BiosEmuSim";
             this.Text = "BiosEmuSim";
+            this.HelpButtonClicked += new System.ComponentModel.CancelEventHandler(this.BiosEmuSim_HelpButtonClicked);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.BiosEmuSim_FormClosing);
             this.Shown += new System.EventHandler(this.BiosEmuSim_Shown);
             this.groupBox1.ResumeLayout(false);
