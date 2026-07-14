@@ -53,7 +53,7 @@ namespace MacroEditor
         private List<CBody> Cbodies;
         private ChangeUrls changeUrls = new ChangeUrls();
         public Settings(eBrowserType reBrowser, string ruserid, int NumAttached,
-            ref cMacroChanges RxMC, ref cMacroChanges RxMV, ref List<CBody>rCbodies)
+            ref cMacroChanges RxMC, ref cMacroChanges RxMV, ref List<CBody> rCbodies)
         {
             InitializeComponent();
             Cbodies = rCbodies;
@@ -86,7 +86,7 @@ namespace MacroEditor
 
             if (Properties.Settings.Default.sMSuffix != "init")
                 SetSuffixSelections();
-                //tbMSuffix.Text = Properties.Settings.Default.sMSuffix;
+            //tbMSuffix.Text = Properties.Settings.Default.sMSuffix;
             else
                 Properties.Settings.Default.sMSuffix = tbMSuffix.Text;
 
@@ -105,6 +105,9 @@ namespace MacroEditor
             cbHlineWiz.Checked = Properties.Settings.Default.UseHline;
             cbUseSpoiler.Checked = Properties.Settings.Default.UseSpoiler;
             cbEnableReplace.Checked = Properties.Settings.Default.EnableReplace;
+
+            tbRepTo.Text = "";
+
 
             lbSaveLoc.Text = Utils.WhereExe + "\\UrlDebug.txt";
             CountUnkUrls();
@@ -154,16 +157,19 @@ namespace MacroEditor
             dgvReplace.DataSource = bs;
             bs.ResetBindings(false);
             string sOut = "";
-            foreach(cFromToPhrases et in Utils.PhraseReplacer.ListPhrases)
+            foreach (cFromToPhrases et in Utils.PhraseReplacer.ListPhrases)
             {
-                if(et.WhereReplaced != "")
+                if (et.WhereReplaced != "")
                 {
                     sOut += et.WhereReplaced;
                 }
             }
             tbReplace.Text = sOut;
             changeUrls.ReadBadUrls(Utils.OldUrlList);
-
+            List<string> xst = changeUrls.GetAllBadUrls();
+            lbRepFrom.Items.Clear();
+            foreach(string s in xst)
+                lbRepFrom.Items.Add(s);
 #if DEBUG
             groupBox8.Enabled = true;
 #endif
@@ -431,7 +437,7 @@ namespace MacroEditor
 
         private void SetSuffixSelections()
         {
-            if(cbisPrinter.Checked)
+            if (cbisPrinter.Checked)
             {
                 // macro suffix for a printer
                 tbMSuffix.Text = Properties.Settings.Default.sMSuffix;
@@ -486,7 +492,7 @@ namespace MacroEditor
 
         private void btnBackup_Click(object sender, EventArgs e)
         {
-            string[] sMisc = { "emoji.html", "HP_CountryCodes.html", "SiteMap.html", "MacroChanges.txt", "MacroViews.txt"};
+            string[] sMisc = { "emoji.html", "HP_CountryCodes.html", "SiteMap.html", "MacroChanges.txt", "MacroViews.txt" };
 
             string zipPath = Utils.WhereExe + "/backup.zip";
             using (FileStream zipToOpen = new FileStream(zipPath, FileMode.Create))
@@ -520,7 +526,7 @@ namespace MacroEditor
             try
             {
                 ZipArchive za = ZipFile.OpenRead(zipPath);
-                foreach(ZipArchiveEntry zae in za.Entries)
+                foreach (ZipArchiveEntry zae in za.Entries)
                 {
                     string s = Utils.WhereExe + "\\" + zae.FullName.ToString();
                     if (File.Exists(s))
@@ -531,7 +537,7 @@ namespace MacroEditor
                 ZipFile.ExtractToDirectory(zipPath, Utils.WhereExe);
             }
             catch (Exception ex)
-            {                
+            {
                 MessageBox.Show(ex.Message);
             }
         }
@@ -579,7 +585,7 @@ namespace MacroEditor
         private void btnViewBU_Click(object sender, EventArgs e)
         {
             string s = tbPathBU.Text;
-            if(Directory.Exists(s))
+            if (Directory.Exists(s))
                 Process.Start(s);
         }
 
@@ -630,7 +636,7 @@ namespace MacroEditor
             int n = 0;
             string t = "";
             string sExists = await changeUrls.HttpFileExistsAsync(s);
-            if(sExists != "")
+            if (sExists != "")
             {
                 t += s + " Error: " + sExists + Environment.NewLine;
                 n++;
@@ -647,7 +653,7 @@ namespace MacroEditor
             foreach (string url in uniqueMatches)
             {
                 bool bExists = true;
-                if(cbBadUrl.Checked)
+                if (cbBadUrl.Checked)
                 {
                     string sExists = await changeUrls.HttpFileExistsAsync(url);
                     bExists = (sExists == "");
@@ -676,9 +682,9 @@ namespace MacroEditor
             HashSet<string> urls = new HashSet<string>();
             Regex rx = new Regex("href\\s*=\\s*\"([^\"]+)\"", RegexOptions.IgnoreCase);
             MatchCollection uniqueMatches = rx.Matches(s);
-            foreach(Match m in uniqueMatches)
+            foreach (Match m in uniqueMatches)
             {
-               urls.Add(m.Groups[1].Value.ToString());  
+                urls.Add(m.Groups[1].Value.ToString());
             }
 
             foreach (string url in urls)
@@ -720,7 +726,6 @@ namespace MacroEditor
             return urls.ToList();
         }
 
-
         private string debNum = "";
         private string debSys = "";
         private string debName = "";
@@ -729,10 +734,11 @@ namespace MacroEditor
             string sOut = "";
             this.Enabled = false;
             int nMacros = Cbodies.Count;
-            pbCounting.Maximum = nMacros+1;
+            pbCounting.Maximum = nMacros + 1;
             pbCounting.Value = 1;
             changeUrls.Clear();
-            if(cbBadUrl.Checked)sOut = "These URLs may not be valid:" + Environment.NewLine;
+            lbRepFrom.Items.Clear();
+            if (cbBadUrl.Checked) sOut = "These URLs may not be valid:" + Environment.NewLine;
             tbUrls.Text = sOut;
             lbCnt.Text = "";
             int n = 0;
@@ -753,34 +759,29 @@ namespace MacroEditor
                 bool rHasHTTP = false; // sRecord.Contains("http");
                 bool sHasHTTP = false; // strTemp.Contains("http");
                 bool rHasFTP = sRecord.Contains("ftp.");
-                if (rbHTTP.Checked) {
+                if (rbHTTP.Checked)
+                {
                     sHasHTTP = strTemp.Contains("http");
                     rHasHTTP = sRecord.Contains("http");
                     rHasFTP = false;
                     sHasFTP = false;
-                }   
+                }
                 FoundUrl = sHasFTP || rHasFTP || sHasHTTP || rHasHTTP;
 
-                if (strTemp.Contains("TG and TP motherboards"))
-                {
-                    int x = 0;
-                }
-                //else continue;
-
                 debSys = strType;
-                debName= MacName;
-                debNum = cb.Number;                   
+                debName = MacName;
+                debNum = cb.Number;
                 string sMacroID = "(" + strType + "#" + cb.Number + ")" + Environment.NewLine;
                 string sHdr = Environment.NewLine + MacName + sMacroID;
                 //sHasFTP = rHasFTP = false;
                 if (sHasFTP)
-                { 
-                    n+= await ObtainFTPs(strTemp);
+                {
+                    n += await ObtainFTPs(strTemp);
                     sS = sLocalResult;
                 }
                 if (rHasFTP)
                 {
-                    n+= await ObtainFTPs(sRecord);
+                    n += await ObtainFTPs(sRecord);
                     sR = sLocalResult;
                 }
                 /*
@@ -820,16 +821,19 @@ namespace MacroEditor
                 }
                 */
 
-                if(FoundUrl)
+                if (FoundUrl)
                 {
                     pbCounting.Value = c;
                     Application.DoEvents();
                 }
-                if(cbBadUrl.Checked)
+                if (cbBadUrl.Checked)
                 {
                     if (sS != "" || sR != "")
                     {
-                        //sOut += sHdr + sS + sR;
+                        foreach(ChangeUrls.cFromToUrls et in changeUrls.FromToUrls)
+                        {
+                            if(!lbRepFrom.Items.Contains(et.FromUrl)) lbRepFrom.Items.Add(et.FromUrl);
+                        }
                         tbUrls.Text += sHdr + sS + sR;
                     }
                 }
@@ -852,7 +856,7 @@ namespace MacroEditor
         private void btnSaveURLs_Click(object sender, EventArgs e)
         {
             changeUrls.SaveBadUrls(Utils.OldUrlList);
-            MessageBox.Show("You must exit this app before the bad urls show up");
+            MessageBox.Show("You must exit this app before the bad urls show up\\you should run the replace ftp app");
         }
 
         private void btnShowBad_Click(object sender, EventArgs e)
@@ -870,9 +874,9 @@ namespace MacroEditor
             foreach (Match m in matches)
             {
                 string s = m.Groups[1].Value.ToString();
-                if(!s.Contains(".pdf"))
+                if (!s.Contains(".pdf"))
                 {
-                   s += ".pdf";
+                    s += ".pdf";
                 }
                 urls.Add(s);
             }
@@ -918,8 +922,8 @@ namespace MacroEditor
             int i = s.LastIndexOf("/c");
             if (i < 0) return "not pdf";
             int j = s.IndexOf(".pdf", i);
-            if(j < 0) return "not pdf";
-            string s1 = s.Substring(i + 1, j - i +3);
+            if (j < 0) return "not pdf";
+            string s1 = s.Substring(i + 1, j - i + 3);
             return s1;
         }
 
@@ -930,7 +934,7 @@ namespace MacroEditor
             //string html = File.ReadAllText(LsrcData);
             List<LinkItem> allUrls = ExtractLinks(LsrcData);
             int n = 0;
-            bpBIOS.Maximum = allUrls.Count+1;
+            bpBIOS.Maximum = allUrls.Count + 1;
             bpBIOS.Value = 0;
             string t = "";
             string s;
@@ -938,7 +942,7 @@ namespace MacroEditor
             {
                 bpBIOS.Value++;
                 s = li.Href;
-                if(!s.Contains(".pdf")) s+= ".pdf";
+                if (!s.Contains(".pdf")) s += ".pdf";
                 string cName = GetCname(s);
                 string sExists = await changeUrls.HttpFileExistsAsync(s);
                 if (sExists != "")
@@ -952,6 +956,45 @@ namespace MacroEditor
                 Application.DoEvents();
             }
             tbBios.Text = t;
+        }
+
+        private void btnApplyChanges_Click(object sender, EventArgs e)
+        {
+            string RepFrom_Text = lbRepFrom.Text;
+            bool bMustChange =  tbRepTo.Text != "";
+            if (!bMustChange) return;
+            foreach (string strFN in Utils.LocalMacroPrefix)
+            {
+                string sFN = Utils.FNtoPath(strFN);
+                if (File.Exists(sFN))
+                {
+                    string sContents = File.ReadAllText(sFN);
+                    if (bMustChange)
+                    {
+                        string jContents = sContents.Replace(RepFrom_Text, tbRepTo.Text);
+                        File.WriteAllText(sFN, jContents);
+                    }
+                }
+                lbRepFrom.Items.Remove(RepFrom_Text);
+                changeUrls.RemoveUrl(RepFrom_Text);
+                changeUrls.SaveBadUrls(Utils.OldUrlList);
+            }
+
+        }
+
+        private void tabControl1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string title = tabControl1.SelectedTab.Text;
+            if(title=="Replace")
+            {
+                //need to get a full backup
+
+            }
+        }
+
+        private void btnBackupMacros_Click(object sender, EventArgs e)
+        {
+            Utils.GetNextArchive("ALL");
         }
     }
 }

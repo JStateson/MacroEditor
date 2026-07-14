@@ -831,7 +831,11 @@ namespace MacroEditor
                     if (s == Utils.ScratchSpellFile) continue;
                     WantedZip.Add(Path.GetFileName(s));
                 }
-
+                RTFs = Directory.GetFiles(Utils.WhereExe, "*.xml");
+                foreach (string s in RTFs)
+                {
+                    WantedZip.Add(Path.GetFileName(s));
+                }
             }
             CreateZipFromFolder(DBfolder, WantedZip, sPathZip);
         }

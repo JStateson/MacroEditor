@@ -123,6 +123,13 @@
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.groupBox9 = new System.Windows.Forms.GroupBox();
+            this.lbRepFrom = new System.Windows.Forms.ListBox();
+            this.btnApplyChanges = new System.Windows.Forms.Button();
+            this.tbRepTo = new System.Windows.Forms.TextBox();
+            this.label19 = new System.Windows.Forms.Label();
+            this.label18 = new System.Windows.Forms.Label();
+            this.cbEnableReplace = new System.Windows.Forms.CheckBox();
             this.dgvReplace = new System.Windows.Forms.DataGridView();
             this.label17 = new System.Windows.Forms.Label();
             this.tabPage4 = new System.Windows.Forms.TabPage();
@@ -139,7 +146,7 @@
             this.bpBIOS = new System.Windows.Forms.ProgressBar();
             this.tbBios = new System.Windows.Forms.TextBox();
             this.btnGetBios = new System.Windows.Forms.Button();
-            this.cbEnableReplace = new System.Windows.Forms.CheckBox();
+            this.btnBackupMacros = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox4.SuspendLayout();
@@ -154,6 +161,7 @@
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.tabPage3.SuspendLayout();
+            this.groupBox9.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvReplace)).BeginInit();
             this.tabPage4.SuspendLayout();
             this.tabPage5.SuspendLayout();
@@ -1235,6 +1243,7 @@
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(577, 446);
             this.tabControl1.TabIndex = 22;
+            this.tabControl1.SelectedIndexChanged += new System.EventHandler(this.tabControl1_SelectedIndexChanged);
             // 
             // tabPage1
             // 
@@ -1261,6 +1270,7 @@
             // 
             // tabPage3
             // 
+            this.tabPage3.Controls.Add(this.groupBox9);
             this.tabPage3.Controls.Add(this.cbEnableReplace);
             this.tabPage3.Controls.Add(this.btnSaveDGV);
             this.tabPage3.Controls.Add(this.dgvReplace);
@@ -1272,6 +1282,77 @@
             this.tabPage3.Text = "Replace";
             this.tabPage3.UseVisualStyleBackColor = true;
             // 
+            // groupBox9
+            // 
+            this.groupBox9.Controls.Add(this.btnBackupMacros);
+            this.groupBox9.Controls.Add(this.lbRepFrom);
+            this.groupBox9.Controls.Add(this.btnApplyChanges);
+            this.groupBox9.Controls.Add(this.tbRepTo);
+            this.groupBox9.Controls.Add(this.label19);
+            this.groupBox9.Controls.Add(this.label18);
+            this.groupBox9.Location = new System.Drawing.Point(34, 198);
+            this.groupBox9.Name = "groupBox9";
+            this.groupBox9.Size = new System.Drawing.Size(511, 207);
+            this.groupBox9.TabIndex = 6;
+            this.groupBox9.TabStop = false;
+            this.groupBox9.Text = "Replace everywhere";
+            // 
+            // lbRepFrom
+            // 
+            this.lbRepFrom.FormattingEnabled = true;
+            this.lbRepFrom.Location = new System.Drawing.Point(6, 40);
+            this.lbRepFrom.Name = "lbRepFrom";
+            this.lbRepFrom.Size = new System.Drawing.Size(502, 69);
+            this.lbRepFrom.TabIndex = 5;
+            // 
+            // btnApplyChanges
+            // 
+            this.btnApplyChanges.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnApplyChanges.ForeColor = System.Drawing.Color.Red;
+            this.btnApplyChanges.Location = new System.Drawing.Point(28, 178);
+            this.btnApplyChanges.Name = "btnApplyChanges";
+            this.btnApplyChanges.Size = new System.Drawing.Size(111, 23);
+            this.btnApplyChanges.TabIndex = 4;
+            this.btnApplyChanges.Text = "Apply";
+            this.btnApplyChanges.UseVisualStyleBackColor = true;
+            this.btnApplyChanges.Click += new System.EventHandler(this.btnApplyChanges_Click);
+            // 
+            // tbRepTo
+            // 
+            this.tbRepTo.Location = new System.Drawing.Point(6, 146);
+            this.tbRepTo.Name = "tbRepTo";
+            this.tbRepTo.ScrollBars = System.Windows.Forms.ScrollBars.Horizontal;
+            this.tbRepTo.Size = new System.Drawing.Size(499, 20);
+            this.tbRepTo.TabIndex = 3;
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Location = new System.Drawing.Point(7, 126);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(20, 13);
+            this.label19.TabIndex = 2;
+            this.label19.Text = "To";
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Location = new System.Drawing.Point(3, 24);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(30, 13);
+            this.label18.TabIndex = 0;
+            this.label18.Text = "From";
+            // 
+            // cbEnableReplace
+            // 
+            this.cbEnableReplace.AutoSize = true;
+            this.cbEnableReplace.Location = new System.Drawing.Point(443, 31);
+            this.cbEnableReplace.Name = "cbEnableReplace";
+            this.cbEnableReplace.Size = new System.Drawing.Size(59, 17);
+            this.cbEnableReplace.TabIndex = 5;
+            this.cbEnableReplace.Text = "Enable";
+            this.cbEnableReplace.UseVisualStyleBackColor = true;
+            // 
             // dgvReplace
             // 
             this.dgvReplace.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -1280,7 +1361,7 @@
             this.dgvReplace.Name = "dgvReplace";
             this.dgvReplace.RowHeadersVisible = false;
             this.dgvReplace.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvReplace.Size = new System.Drawing.Size(489, 308);
+            this.dgvReplace.Size = new System.Drawing.Size(511, 84);
             this.dgvReplace.TabIndex = 3;
             // 
             // label17
@@ -1457,15 +1538,17 @@
             this.btnGetBios.UseVisualStyleBackColor = true;
             this.btnGetBios.Click += new System.EventHandler(this.btnGetBios_Click);
             // 
-            // cbEnableReplace
+            // btnBackupMacros
             // 
-            this.cbEnableReplace.AutoSize = true;
-            this.cbEnableReplace.Location = new System.Drawing.Point(443, 31);
-            this.cbEnableReplace.Name = "cbEnableReplace";
-            this.cbEnableReplace.Size = new System.Drawing.Size(59, 17);
-            this.cbEnableReplace.TabIndex = 5;
-            this.cbEnableReplace.Text = "Enable";
-            this.cbEnableReplace.UseVisualStyleBackColor = true;
+            this.btnBackupMacros.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnBackupMacros.ForeColor = System.Drawing.Color.Red;
+            this.btnBackupMacros.Location = new System.Drawing.Point(183, 178);
+            this.btnBackupMacros.Name = "btnBackupMacros";
+            this.btnBackupMacros.Size = new System.Drawing.Size(111, 23);
+            this.btnBackupMacros.TabIndex = 6;
+            this.btnBackupMacros.Text = "Backup Macros";
+            this.btnBackupMacros.UseVisualStyleBackColor = true;
+            this.btnBackupMacros.Click += new System.EventHandler(this.btnBackupMacros_Click);
             // 
             // Settings
             // 
@@ -1518,6 +1601,8 @@
             this.tabPage2.ResumeLayout(false);
             this.tabPage3.ResumeLayout(false);
             this.tabPage3.PerformLayout();
+            this.groupBox9.ResumeLayout(false);
+            this.groupBox9.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvReplace)).EndInit();
             this.tabPage4.ResumeLayout(false);
             this.tabPage4.PerformLayout();
@@ -1644,5 +1729,12 @@
         private System.Windows.Forms.RadioButton rbFTP;
         private System.Windows.Forms.CheckBox cbUseSpoiler;
         private System.Windows.Forms.CheckBox cbEnableReplace;
+        private System.Windows.Forms.GroupBox groupBox9;
+        private System.Windows.Forms.TextBox tbRepTo;
+        private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.Button btnApplyChanges;
+        private System.Windows.Forms.ListBox lbRepFrom;
+        private System.Windows.Forms.Button btnBackupMacros;
     }
 }

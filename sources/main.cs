@@ -977,6 +977,7 @@ namespace MacroEditor
         // show macro here
         private void ShowUneditedRow(int e)
         {
+            if (e < 0) return;
             bool bChanged = (CurrentRowSelected != e);
             CurrentRowSelected = e;
             lbNoDirect.Visible = false;
@@ -2546,6 +2547,7 @@ namespace MacroEditor
             int nMacroCnt = 0;
             int istrFN = -1;
             bool bNoEmpty;
+
             sBadMacroName = "";
             if (cBodies == null)
             {
@@ -2598,11 +2600,11 @@ namespace MacroEditor
 #endif
 
 
-
                             sBody = sr.ReadLine();
+
                             if (sBody == null)
                                 sBody = "";
-                            //sBody = sBody.Replace("<br>", Environment.NewLine);
+
                             sBody = Utils.RemoveStyles(sBody);
                             if(bSpellAll)
                             {
@@ -2611,11 +2613,14 @@ namespace MacroEditor
                                 System.Windows.Forms.Application.DoEvents();
                             }
 
+
                             rBody = sr.ReadLine();
                             if (rBody == null)
                                 rBody = "<nl>";
                             if (rBody == "")
                                 rBody = "<nl>";
+
+
                             CBody cb = new CBody();
                             cb.File = strFN;
                             cb.Number = (i + 1).ToString();
@@ -2652,7 +2657,6 @@ namespace MacroEditor
                             }
                         }
                         sr.Close();
-
 
 #if DEBUG
                         if(bBadFound)

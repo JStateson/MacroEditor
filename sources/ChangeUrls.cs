@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Diagnostics;
+using System.Diagnostics.Eventing.Reader;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -23,17 +24,6 @@ namespace MacroEditor
 {
     public class ChangeUrls
     {
-        /*
-        public class cUrlChange
-        {
-            public string FromUrl;
-            public string ToUrl;
-            public bool bValidated;
-            public int uLocation;   // location of bad url in structure when looked up
-            public bool NeedsToBeSaved;
-        }
-        */
-
         private string MacroName = "";
         private string sFilename = "";
         private string FromUrl = "";
@@ -174,14 +164,6 @@ namespace MacroEditor
             cFromToUrls cft = GetUrl(from);
             if(cft.IsThere(type, name))
             {
-                /*
-                if(to == from)                
-                foreach (cWhereUsed wu1 in cft.WhereUsed)
-                {
-                    wu1.bValidated = false;
-                    wu1.NeedsToBeSaved = false;
-                }
-                */
                 return;
             }
             cWhereUsed wu = new cWhereUsed();
@@ -189,6 +171,23 @@ namespace MacroEditor
             wu.macroName = name;
             wu.macroNumber = number;
             cft.WhereUsed.Add(wu);
+        }
+
+        //can I remove the need for the boolean and remove all the matching items from the structure
+        public void RemoveUrl(string From)
+        {
+            FromToUrls.RemoveAll(cft => cft.FromUrl == From);
+        }
+
+        public List<string> GetAllBadUrls()
+        {
+            List<string> urls = new List<string>();
+            foreach (cFromToUrls cft in FromToUrls)
+            {
+                if(!urls.Contains(cft.FromUrl))
+                urls.Add(cft.FromUrl);
+            }
+            return urls;
         }
 
         public int IsBadUrl(string sIn)
