@@ -124,6 +124,7 @@
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.groupBox9 = new System.Windows.Forms.GroupBox();
+            this.btnBackupMacros = new System.Windows.Forms.Button();
             this.lbRepFrom = new System.Windows.Forms.ListBox();
             this.btnApplyChanges = new System.Windows.Forms.Button();
             this.tbRepTo = new System.Windows.Forms.TextBox();
@@ -146,7 +147,7 @@
             this.bpBIOS = new System.Windows.Forms.ProgressBar();
             this.tbBios = new System.Windows.Forms.TextBox();
             this.btnGetBios = new System.Windows.Forms.Button();
-            this.btnBackupMacros = new System.Windows.Forms.Button();
+            this.tbRepOne = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox4.SuspendLayout();
@@ -1284,23 +1285,36 @@
             // 
             // groupBox9
             // 
+            this.groupBox9.Controls.Add(this.tbRepOne);
             this.groupBox9.Controls.Add(this.btnBackupMacros);
             this.groupBox9.Controls.Add(this.lbRepFrom);
             this.groupBox9.Controls.Add(this.btnApplyChanges);
             this.groupBox9.Controls.Add(this.tbRepTo);
             this.groupBox9.Controls.Add(this.label19);
             this.groupBox9.Controls.Add(this.label18);
-            this.groupBox9.Location = new System.Drawing.Point(34, 198);
+            this.groupBox9.Location = new System.Drawing.Point(34, 187);
             this.groupBox9.Name = "groupBox9";
-            this.groupBox9.Size = new System.Drawing.Size(511, 207);
+            this.groupBox9.Size = new System.Drawing.Size(511, 218);
             this.groupBox9.TabIndex = 6;
             this.groupBox9.TabStop = false;
             this.groupBox9.Text = "Replace everywhere";
             // 
+            // btnBackupMacros
+            // 
+            this.btnBackupMacros.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnBackupMacros.ForeColor = System.Drawing.Color.Red;
+            this.btnBackupMacros.Location = new System.Drawing.Point(183, 186);
+            this.btnBackupMacros.Name = "btnBackupMacros";
+            this.btnBackupMacros.Size = new System.Drawing.Size(111, 23);
+            this.btnBackupMacros.TabIndex = 6;
+            this.btnBackupMacros.Text = "Backup Macros";
+            this.btnBackupMacros.UseVisualStyleBackColor = true;
+            this.btnBackupMacros.Click += new System.EventHandler(this.btnBackupMacros_Click);
+            // 
             // lbRepFrom
             // 
             this.lbRepFrom.FormattingEnabled = true;
-            this.lbRepFrom.Location = new System.Drawing.Point(6, 40);
+            this.lbRepFrom.Location = new System.Drawing.Point(6, 31);
             this.lbRepFrom.Name = "lbRepFrom";
             this.lbRepFrom.Size = new System.Drawing.Size(502, 69);
             this.lbRepFrom.TabIndex = 5;
@@ -1309,7 +1323,7 @@
             // 
             this.btnApplyChanges.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnApplyChanges.ForeColor = System.Drawing.Color.Red;
-            this.btnApplyChanges.Location = new System.Drawing.Point(28, 178);
+            this.btnApplyChanges.Location = new System.Drawing.Point(28, 186);
             this.btnApplyChanges.Name = "btnApplyChanges";
             this.btnApplyChanges.Size = new System.Drawing.Size(111, 23);
             this.btnApplyChanges.TabIndex = 4;
@@ -1319,7 +1333,7 @@
             // 
             // tbRepTo
             // 
-            this.tbRepTo.Location = new System.Drawing.Point(6, 146);
+            this.tbRepTo.Location = new System.Drawing.Point(6, 159);
             this.tbRepTo.Name = "tbRepTo";
             this.tbRepTo.ScrollBars = System.Windows.Forms.ScrollBars.Horizontal;
             this.tbRepTo.Size = new System.Drawing.Size(499, 20);
@@ -1328,7 +1342,7 @@
             // label19
             // 
             this.label19.AutoSize = true;
-            this.label19.Location = new System.Drawing.Point(7, 126);
+            this.label19.Location = new System.Drawing.Point(7, 139);
             this.label19.Name = "label19";
             this.label19.Size = new System.Drawing.Size(20, 13);
             this.label19.TabIndex = 2;
@@ -1337,7 +1351,7 @@
             // label18
             // 
             this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(3, 24);
+            this.label18.Location = new System.Drawing.Point(3, 15);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(30, 13);
             this.label18.TabIndex = 0;
@@ -1538,17 +1552,14 @@
             this.btnGetBios.UseVisualStyleBackColor = true;
             this.btnGetBios.Click += new System.EventHandler(this.btnGetBios_Click);
             // 
-            // btnBackupMacros
+            // tbRepOne
             // 
-            this.btnBackupMacros.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnBackupMacros.ForeColor = System.Drawing.Color.Red;
-            this.btnBackupMacros.Location = new System.Drawing.Point(183, 178);
-            this.btnBackupMacros.Name = "btnBackupMacros";
-            this.btnBackupMacros.Size = new System.Drawing.Size(111, 23);
-            this.btnBackupMacros.TabIndex = 6;
-            this.btnBackupMacros.Text = "Backup Macros";
-            this.btnBackupMacros.UseVisualStyleBackColor = true;
-            this.btnBackupMacros.Click += new System.EventHandler(this.btnBackupMacros_Click);
+            this.tbRepOne.Location = new System.Drawing.Point(28, 106);
+            this.tbRepOne.Name = "tbRepOne";
+            this.tbRepOne.Size = new System.Drawing.Size(440, 20);
+            this.tbRepOne.TabIndex = 7;
+            this.toolTip1.SetToolTip(this.tbRepOne, "If not empty then this is used\r\ninstead of the combox box above\r\nfor example\r\nfro" +
+        "m: /product/details/\r\nto: /product/product-specs/");
             // 
             // Settings
             // 
@@ -1736,5 +1747,6 @@
         private System.Windows.Forms.Button btnApplyChanges;
         private System.Windows.Forms.ListBox lbRepFrom;
         private System.Windows.Forms.Button btnBackupMacros;
+        private System.Windows.Forms.TextBox tbRepOne;
     }
 }

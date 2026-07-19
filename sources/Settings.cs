@@ -961,7 +961,11 @@ namespace MacroEditor
         private void btnApplyChanges_Click(object sender, EventArgs e)
         {
             string RepFrom_Text = lbRepFrom.Text;
-            bool bMustChange =  tbRepTo.Text != "";
+            if(tbRepOne.Text != "")
+            {
+                RepFrom_Text = tbRepOne.Text;
+            }
+            bool bMustChange =  tbRepTo.Text != "" && RepFrom_Text!= "";
             if (!bMustChange) return;
             foreach (string strFN in Utils.LocalMacroPrefix)
             {

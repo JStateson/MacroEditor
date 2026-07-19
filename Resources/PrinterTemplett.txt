@@ -7,8 +7,14 @@ HP and other OEM printers have problems with the router when
 the router has two or more bands and <font color="#FF6600">all
 have the same name (SSID)</font>.  Log into the modem and
 rename one of the bands. Alternately, contact your ISP and
-have them rename a band.<br><br>Or simply <b>use Wi-Fi direct</b>
-(but read note below about Instant Ink).<br><br><table border="2">
+have them rename a band, or simply <b>use Wi-Fi direct</b>.<br>
+<b>NOTE</b>: If you signed up for instant ink, internet services, or your
+printer model ends in the letter 'e' then click the spoiler for special needs.<div class="lia-spoiler-container-editor">HP+ printers are designated by
+a lowercase "e" at the end of their model number (e.g., 8135e rather than 8135).
+These models are enabled for HP's smart printing ecosystem, which requires a
+<b>permanent internet connection</b>, an <b>HP account</b>, and the
+exclusive use of Original HP ink for the lifetime of the printer.</div>
+<br><br><table border="2">
 <tr><td>If English is not your native language or if you wish to
 get additional information not covered below, then use the HP and
 Microsoft support assistants.  The latest HPSA supports 36 languages
@@ -48,8 +54,6 @@ router needs to provide the same IP address on every connection.
 This rarely happens with random connects.  An alternate Wi-Fi
 connection is <b>Wi-Fi direct</b>.  Your laptop or smartphone prints
 directly to the printer and does not go through the router.
-Note that if you signed up for instant ink or internet
-printing your printer must also be online through the router.
 <b>Do not</b> call any phone number revealed in any video or site.</p>
 <table border='2'><tr><td>@Network Connect@</td></tr></table>
 <!-- @spoiler@ -->
