@@ -85,6 +85,7 @@ namespace MacroEditor.sources
         private string sWorkingContext = "";
         private cCheckSpell SpellCheck;
 
+        private int Tag_Spec = -1;
 
         // do not record Page, Doc for direct or wps as no devices are listed
 
@@ -372,7 +373,11 @@ namespace MacroEditor.sources
             {
                 int n = (int)button.Tag;
                 int c = PrinterListH[n].Count;
-                if (c == 0) return;
+                if (c == 0)
+                {
+                    tbInfoUrls.Text = "";
+                    return;
+                }
                 string s = "";
                 foreach (string t in PrinterListH[n])
                     s += t + Environment.NewLine;
@@ -418,8 +423,10 @@ namespace MacroEditor.sources
             }
             i = fpNew.AddT_list(n, ss);
             SetLabel(n, i.ToString(), s);
-            fpNew.AddH_list(n,CurrentClip.Replace(Environment.NewLine, "<br>"));
+            string sH = CurrentClip.Replace(Environment.NewLine, "<br>");
+            fpNew.AddH_list(n, sH);
             fpNew.Reduce(s, iWorkingTab, GetWorkingText(iWorkingTab));
+            tbInfoUrls.Text = sH;
         }
 
 
@@ -439,7 +446,7 @@ namespace MacroEditor.sources
             }
         }
 
-
+        //lbl1 is the bottom or "-" button
         private void lbl_clr_Click(object sender, EventArgs e)
         {
             if (sender is Button label)
@@ -598,6 +605,7 @@ namespace MacroEditor.sources
                                 PrinterListT[n].Add("No");
                                 SetWorkingText(n, "No");
                             }
+                            tbInfoUrls.Text = "";
                         }
                     }
 
@@ -744,12 +752,17 @@ namespace MacroEditor.sources
                         SetLabel(n, PrinterListH[n].Count.ToString(), "");
                         string s = lbButtons[n].ToString();
                         fpNew.Reduce(s, iWorkingTab, GetWorkingText(iWorkingTab));
+                        string sOut = "";
+                        foreach (string t in PrinterListH[n])
+                            sOut += t + Environment.NewLine;
+                        tbInfoUrls.Text = sOut;
                         break;
                     }
                 }
             }
         }
 
+        //lb2 is the top or "+"
         private void lbl2_add_Click(object sender, EventArgs e)
         {
 
@@ -802,12 +815,6 @@ namespace MacroEditor.sources
         {
             if (tbEdit.Text == "") return;
             Clipboard.SetText(tbEdit.Text.Replace(Environment.NewLine, "<br>"));
-        }
-
-
-        private void btnApply_Click(object sender, EventArgs e)
-        {
-
         }
 
         private void btnCopyNote_Click(object sender, EventArgs e)

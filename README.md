@@ -1,6 +1,6 @@
 # MacroEditor - View and edit user macros and signatures
  
-## This app is only useful for HP Community Volunteers.  A 2K dual monitor is recommended, EDGE, and MS Word are required.
+## This app is only useful for HP Community Volunteers.  A 2K dual monitor is recommended, EDGE, and MS Word are required.  This is an independent community tool and is not an official HP product.
 
 Click for <a href="https://h30434.www3.hp.com/t5/image/serverpage/image-id/420063i43ED5C1B34C8B68C" target="_blank">Image of main page</a> and DOCX help files can be viewed in sources
 
