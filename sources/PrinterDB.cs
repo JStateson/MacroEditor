@@ -239,6 +239,13 @@ namespace MacroEditor.sources
             fpNew.Init();
         }
 
+        public bool FormatOneRecord(int iSelect, string sRawIn, ref string FmtOut, ref string sModels)
+        {
+            LastDBresult = ParseRecord(ref sRawIn);
+            if (LastDBresult == null) return false;
+            return FormatOneParsedRecord(iSelect, ref LastDBresult, ref FmtOut, ref sModels);
+        }
+
         public bool FormatRecord(string sRawIn, ref string FmtOut, ref string sModels)
         { 
             LastDBresult = ParseRecord(ref sRawIn);
@@ -246,7 +253,38 @@ namespace MacroEditor.sources
             if (LastDBresult == null) return false;
             return FormatParsedRecord(ref LastDBresult, ref FmtOut, ref sModels);
         }
-
+        public bool FormatOneParsedRecord(int iSelect, ref cDBresult dbResult, ref string FmtOut, ref string sModels)
+        {
+            int i,j, n;
+            FormPrinter fpNew = new FormPrinter();
+            fpNew.Init();
+            j = 0;
+            foreach (cEachTag et in dbResult.RecordSet)
+            {
+                if(j != iSelect)
+                {
+                    j++;
+                    continue;
+                }
+                string e = Utils.sTOe(et.TagName);
+                int iDes = fpNew.SourceDestination.GetDesINXfromSrc(e); // Reset Video  
+                string sDes = fpNew.SourceDestination.Des[iDes]; // becomes @Reset Printer@
+                int iTgt = fpNew.SourceDestination.PushToHere.IndexOf(sDes); // index to that http table
+                n = et.SourceTEXT.Count;
+                for (i = 0; i < n; i++)
+                {
+                    int iTag = et.iTag;
+                    iTag = fpNew.TagNameToPhrase(et.TagName);
+                    fpNew.PrinterListH[iTag].Add(et.SourceHREF[i]);
+                    fpNew.PrinterListT[iTag].Add(et.SourceTEXT[i]);
+                    fpNew.SourceDestination.TagToTemplett.Add(iTgt);  //may not be needed ??
+                    string s = et.TagName;
+                    fpNew.Reduce(s, iTag, et.SourceTEXT[i]);
+                }
+                break;
+            }
+            return fpNew.ApplyFormat(ref FmtOut, ref sModels);
+        }
         public bool FormatParsedRecord(ref cDBresult dbResult, ref string FmtOut, ref string sModels)
         {
             int i, n;

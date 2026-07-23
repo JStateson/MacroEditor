@@ -516,21 +516,107 @@ namespace MacroEditor
             else
             {
                 if(cbvAddLangRef.Checked) strTemp = Utils.AddLanguageOption(strTemp);
-            }
-
-            ShowMacro(ref strTemp,ref sDRecord, strType, MacName + sMacroID);
-  
+            }            
+            ShowMacro(ref strTemp,ref sDRecord, strType, MacName + sMacroID);  
         }
 
+        private void dgvSearched_CellMouseDown(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right && e.RowIndex >= 0)
+            {
+                // Make the clicked row the current row
+                dgvSearched.ClearSelection();
+                dgvSearched.CurrentCell = dgvSearched.Rows[e.RowIndex].Cells[e.ColumnIndex];
+                dgvSearched.Rows[e.RowIndex].Selected = true;
+                PrepareShowMacro();
+            }
+        }
+
+        private void PrepareShowMacro()
+        {
+            if (SelectedRow < 0) return;
+            List<CFound> bSorted = (List<CFound>)dgvSearched.DataSource as List<CFound>;
+            int n = bSorted[SelectedRow].WhereFound;
+            string strType = bSorted[SelectedRow].File;
+            string strTemp = cAll[n].sBody;
+            string sDRecord = cAll[n].rBody;
+            if (strTemp == "") return;
+            string sMacroID = "(" + strType + "#" + cAll[n].Number + ")";
+            string MacName = dgvSearched.Rows[SelectedRow].Cells[3].Value.ToString();
+            nUseLastViewed = n;
+            if (dgvSearched.Rows[SelectedRow].Cells[0].Value.ToString() == "RF" && cbOnlyRefs.Checked)
+            {
+                strTemp = GetRefUrl(MacName);
+                if (strTemp == "") return;
+            }
+            else
+            {
+                if (cbvAddLangRef.Checked) strTemp = Utils.AddLanguageOption(strTemp);
+            }
+            string sOut = "";
+            string sModels = "";    // not used here
+            bool bRet;
+            if (sDRecord.Length <= 4) return;
+            sDRecord = sDRecord.Replace("<nl>", Environment.NewLine);
+            cDBresult LastDBresult = printerDB.ParseRecord(ref sDRecord);
+            ContextMenuStrip cmSearch = new ContextMenuStrip();
+            int j = -1;
+            foreach( cEachTag cet in LastDBresult.RecordSet)
+            {
+                j++;
+                int index = j;
+                if (LastDBresult.RecordSet[j].SourceHREF.Count == 0) continue;
+                if (cet.TagName.Contains("WPS")) continue;
+                if(cet.TagName.Contains("Direct Page")) continue; // need to eventually include these somehow
+                if(cet.TagName.Contains("Direct Doc")) continue;  
+                ToolStripMenuItem tsmi = new ToolStripMenuItem();
+                tsmi.Text = cet.TagName;
+                tsmi.Click += (sender, e) =>
+                {
+                    ShowOneMacro(index, ref strTemp, ref sDRecord, strType, MacName, sMacroID);
+                };
+                cmSearch.Items.Add(tsmi);
+            }
+            dgvSearched.ContextMenuStrip = cmSearch;
+        }
+        private void ShowOneMacro(int iSelect, ref string strTemp, ref string sRec, string strType, string MacName, string sMacroID = "")
+        {
+            string sOut = "";
+            string sModels = "";    // not used here
+            bool bRet;
+            if (sRec.Length > 4)
+            {
+
+                bRet = printerDB.FormatOneRecord(iSelect, sRec.Replace("<nl>", Environment.NewLine), ref sOut, ref sModels);
+                if (!bRet) return;
+                if (bAddHline && false)
+                {
+                    string strSphrase = "";
+                    if (rbExactMatch.Checked && keywords.Count == 1)
+                        strSphrase = keywords[0];
+                    else
+                    {
+                        int n = sModels.IndexOf(" ");
+                        if (n != -1)
+                            strSphrase = sModels;
+                    }
+                    sOut = Utils.AddHline(sDefaultHline, strType, strSphrase) + sOut;
+                }
+                Utils.CopyHTML(Utils.ShowRawBrowser(sOut, strType, MacName + sMacroID));
+                MViews.AddView(strType, MacName);
+            }
+            return;
+        }
         private void ShowMacro(ref string strTemp, ref string sRec, string strType, string MacName, string sMacroID = "")
         {
 
             string sOut = "";
             string sModels = "";    // not used here
             bool bRet;
+            int j = 3;
             if (sRec.Length > 4)
-            {
-                bRet = printerDB.FormatRecord(sRec.Replace("<nl>",Environment.NewLine), ref sOut, ref sModels);
+            {                
+                bRet = printerDB.FormatRecord(sRec.Replace("<nl>", Environment.NewLine), ref sOut, ref sModels);
                 if (!bRet) return;
                 if(bAddHline)
                 {
@@ -1437,5 +1523,6 @@ namespace MacroEditor
             tbKeywords.Text = comboBoxSearch.Text;
             RunSearch();
         }
+
     }
 }

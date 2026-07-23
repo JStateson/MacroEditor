@@ -606,6 +606,7 @@
             this.dgvSearched.Size = new System.Drawing.Size(561, 342);
             this.dgvSearched.TabIndex = 3;
             this.dgvSearched.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvSearched_CellDoubleClick);
+            this.dgvSearched.CellMouseDown += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvSearched_CellMouseDown);
             this.dgvSearched.ColumnHeaderMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dgvSearched_ColumnHeaderMouseClick);
             this.dgvSearched.RowEnter += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvSearched_RowEnter);
             // 
