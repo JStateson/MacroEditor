@@ -70,6 +70,7 @@ using System.Xml.Linq;
 using System.Xml.Serialization;
 using static MacroEditor.ChangeUrls;
 using static MacroEditor.CSendCloud;
+using static System.Net.Mime.MediaTypeNames;
 using static System.Net.WebRequestMethods;
 using static System.Windows.Forms.AxHost;
 using static System.Windows.Forms.LinkLabel;
@@ -3238,6 +3239,64 @@ namespace MacroEditor
             Clipboard.SetText(s);
         }
 
+        static string BuildHtmlClipboard(string fragment)
+        {
+            string prefix =
+                "<html><body><!--StartFragment-->";
+
+            string suffix =
+                "<!--EndFragment--></body></html>";
+
+            string html = prefix + fragment + suffix;
+
+            string header =
+                "Version:0.9\r\n" +
+                "StartHTML:{0:D10}\r\n" +
+                "EndHTML:{1:D10}\r\n" +
+                "StartFragment:{2:D10}\r\n" +
+                "EndFragment:{3:D10}\r\n";
+
+            int startHtml = header.Length;
+            int startFragment = startHtml + prefix.Length;
+            int endFragment = startFragment + fragment.Length;
+            int endHtml = startHtml + html.Length;
+
+            return string.Format(
+                header,
+                startHtml,
+                endHtml,
+                startFragment,
+                endFragment) + html;
+        }
+
+        private void btnRemAI_Click(object sender, EventArgs e)
+        {
+            System.Windows.Forms.IDataObject oldData = Clipboard.GetDataObject();
+            if(oldData == null) return;
+
+
+            System.Windows.Forms.DataObject newData = new System.Windows.Forms.DataObject(oldData);
+
+            string html = oldData.GetData(DataFormats.Html) as string;
+            if (html == null) return;
+
+            int start = html.IndexOf("<!--StartFragment-->");
+            int end = html.IndexOf("<!--EndFragment-->");
+
+            if (!(start >= 0 && end > start)) return;
+            string fragment = html.Substring(
+                    start + "<!--StartFragment-->".Length,
+                    end - start - "<!--StartFragment-->".Length);
+
+            html = Utils.RemoveCitationLinks(fragment);
+
+            string newHtml = BuildHtmlClipboard(html);
+            //newData.SetData(DataFormats.Html, html);
+
+            Clipboard.SetText(newHtml, TextDataFormat.Html);
+        }
+
+
         private void btnCleanUrl_Click(object sender, EventArgs e)
         {
             int i, j;
@@ -4478,5 +4537,7 @@ namespace MacroEditor
             string strTemp = Utils.FormSpoiler(Utils.ClipboardGetText(), "<b>Expand spoiler ...</b>");
             Utils.ShowRawBrowser(strTemp, "TR", "", true);
         }
+
+
     }
 }

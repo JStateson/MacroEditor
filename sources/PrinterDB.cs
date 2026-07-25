@@ -259,11 +259,51 @@ namespace MacroEditor.sources
             FormPrinter fpNew = new FormPrinter();
             fpNew.Init();
             j = 0;
+            List<bool> RSallowed = new List<bool>();
             foreach (cEachTag et in dbResult.RecordSet)
             {
-                if(j != iSelect)
+                if (j != iSelect)
                 {
+                    RSallowed.Add(false);
                     j++;
+                    continue;
+                }
+                j++;
+                RSallowed.Add(true);
+                if (et.TagName == "Direct Video") 
+                {
+                    RSallowed.Add(true);
+                    RSallowed.Add(true);
+                    if(j < dbResult.RecordSet.Count - 1)
+                    {
+                        j++;
+                        RSallowed.Add(false);
+                        continue;
+                    }
+                    break;
+                }
+                if (et.TagName == "Router Video")
+                {
+                    RSallowed.Add(false); // skip over Direct video
+                    RSallowed.Add(false); // skip over Direct page
+                    RSallowed.Add(false); // skip over Direct doc
+                    RSallowed.Add(true);
+                    RSallowed.Add(true);
+                    if (j < dbResult.RecordSet.Count - 1)
+                    {
+                        j++;
+                        RSallowed.Add(false);
+                        continue;
+                    }
+                    break;
+                }
+            }
+            j = -1;
+            foreach (cEachTag et in dbResult.RecordSet)
+            {
+                j++;
+                if(!RSallowed[j])
+                {
                     continue;
                 }
                 string e = Utils.sTOe(et.TagName);
@@ -281,7 +321,6 @@ namespace MacroEditor.sources
                     string s = et.TagName;
                     fpNew.Reduce(s, iTag, et.SourceTEXT[i]);
                 }
-                break;
             }
             return fpNew.ApplyFormat(ref FmtOut, ref sModels);
         }

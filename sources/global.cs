@@ -537,6 +537,30 @@ namespace MacroEditor
             return Regex.Replace(s, "<.*?>", String.Empty);
         }
 
+        public static string RemoveCitationLinks(string html)
+        {
+            var doc = new HtmlDocument();
+            doc.LoadHtml(html);
+
+            var spans = doc.DocumentNode.SelectNodes("//span");
+
+            if (spans != null)
+            {
+                foreach (var span in spans)
+                {
+                    var links = span.SelectNodes(".//a");
+
+                    if (links != null &&
+                        links.All(a => Regex.IsMatch(a.InnerText.Trim(), @"^\d+$")))
+                    {
+                        span.Remove();
+                    }
+                }
+            }
+
+            return doc.DocumentNode.OuterHtml;
+        }
+
         public static string RemoveStyles(string s)
         {
             string t = Regex.Replace(s, @"\s*style\s*=\s*""[^""]*""", "", RegexOptions.IgnoreCase);

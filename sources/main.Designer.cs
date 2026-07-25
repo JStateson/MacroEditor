@@ -154,6 +154,7 @@
             this.tsmRunMacArchive = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmRunArchiveAll = new System.Windows.Forms.ToolStripMenuItem();
             this.BiosSimPage = new System.Windows.Forms.ToolStripMenuItem();
+            this.ClipToSpoiler = new System.Windows.Forms.ToolStripMenuItem();
             this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmConfig = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmAssociate = new System.Windows.Forms.ToolStripMenuItem();
@@ -233,7 +234,7 @@
             this.tsm2PasteAI = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmRemove = new System.Windows.Forms.ToolStripMenuItem();
             this.SpellTimer = new System.Windows.Forms.Timer(this.components);
-            this.ClipToSpoiler = new System.Windows.Forms.ToolStripMenuItem();
+            this.btnRemAI = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.lbName)).BeginInit();
             this.groupBox6.SuspendLayout();
             this.gbManageImages.SuspendLayout();
@@ -1063,7 +1064,7 @@
             // 
             // tbCleanedURL
             // 
-            this.tbCleanedURL.Location = new System.Drawing.Point(24, 118);
+            this.tbCleanedURL.Location = new System.Drawing.Point(24, 137);
             this.tbCleanedURL.Multiline = true;
             this.tbCleanedURL.Name = "tbCleanedURL";
             this.tbCleanedURL.Size = new System.Drawing.Size(378, 58);
@@ -1074,7 +1075,7 @@
             // 
             this.cbShowCleaned.AutoSize = true;
             this.cbShowCleaned.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.cbShowCleaned.Location = new System.Drawing.Point(208, 92);
+            this.cbShowCleaned.Location = new System.Drawing.Point(26, 108);
             this.cbShowCleaned.Name = "cbShowCleaned";
             this.cbShowCleaned.Size = new System.Drawing.Size(137, 20);
             this.cbShowCleaned.TabIndex = 31;
@@ -1152,9 +1153,9 @@
             this.btnNoMarks.ForeColor = System.Drawing.SystemColors.HotTrack;
             this.btnNoMarks.Location = new System.Drawing.Point(208, 54);
             this.btnNoMarks.Name = "btnNoMarks";
-            this.btnNoMarks.Size = new System.Drawing.Size(194, 32);
+            this.btnNoMarks.Size = new System.Drawing.Size(143, 32);
             this.btnNoMarks.TabIndex = 33;
-            this.btnNoMarks.Text = "Remove Google Markup";
+            this.btnNoMarks.Text = "Remove Markup";
             this.toolTip1.SetToolTip(this.btnNoMarks, "Extract text from the AI\r\nof a Google search ");
             this.btnNoMarks.UseVisualStyleBackColor = true;
             this.btnNoMarks.Click += new System.EventHandler(this.btnNoMarks_Click);
@@ -1500,6 +1501,13 @@
             this.BiosSimPage.Size = new System.Drawing.Size(236, 22);
             this.BiosSimPage.Text = "Simulator Web Page";
             this.BiosSimPage.Click += new System.EventHandler(this.BiosSimPage_Click);
+            // 
+            // ClipToSpoiler
+            // 
+            this.ClipToSpoiler.Name = "ClipToSpoiler";
+            this.ClipToSpoiler.Size = new System.Drawing.Size(236, 22);
+            this.ClipToSpoiler.Text = "Clipboard contents to a spoiler";
+            this.ClipToSpoiler.Click += new System.EventHandler(this.ClipToSpoiler_Click);
             // 
             // settingsToolStripMenuItem
             // 
@@ -2019,15 +2027,16 @@
             // 
             // groupBox5
             // 
+            this.groupBox5.Controls.Add(this.btnRemAI);
             this.groupBox5.Controls.Add(this.btnNoMarks);
             this.groupBox5.Controls.Add(this.tbCleanedURL);
             this.groupBox5.Controls.Add(this.cbShowCleaned);
             this.groupBox5.Controls.Add(this.btnCleanUrl);
             this.groupBox5.Controls.Add(this.btnToNotepad);
             this.groupBox5.Controls.Add(this.btnCopyTo);
-            this.groupBox5.Location = new System.Drawing.Point(24, 603);
+            this.groupBox5.Location = new System.Drawing.Point(24, 584);
             this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(425, 188);
+            this.groupBox5.Size = new System.Drawing.Size(450, 207);
             this.groupBox5.TabIndex = 16;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Clipboard and Notepad operations";
@@ -2188,12 +2197,18 @@
             this.SpellTimer.Tag = "";
             this.SpellTimer.Tick += new System.EventHandler(this.SpellTimer_Tick);
             // 
-            // ClipToSpoiler
+            // btnRemAI
             // 
-            this.ClipToSpoiler.Name = "ClipToSpoiler";
-            this.ClipToSpoiler.Size = new System.Drawing.Size(236, 22);
-            this.ClipToSpoiler.Text = "Clipboard contents to a spoiler";
-            this.ClipToSpoiler.Click += new System.EventHandler(this.ClipToSpoiler_Click);
+            this.btnRemAI.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnRemAI.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.btnRemAI.Location = new System.Drawing.Point(208, 92);
+            this.btnRemAI.Name = "btnRemAI";
+            this.btnRemAI.Size = new System.Drawing.Size(143, 32);
+            this.btnRemAI.TabIndex = 34;
+            this.btnRemAI.Text = "Remove AI";
+            this.toolTip1.SetToolTip(this.btnRemAI, "Remove AI references from HTML");
+            this.btnRemAI.UseVisualStyleBackColor = true;
+            this.btnRemAI.Click += new System.EventHandler(this.btnRemAI_Click);
             // 
             // main
             // 
@@ -2447,6 +2462,7 @@
         private System.Windows.Forms.ToolStripMenuItem uRLManagementToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem tsmSpoiler;
         private System.Windows.Forms.ToolStripMenuItem ClipToSpoiler;
+        private System.Windows.Forms.Button btnRemAI;
     }
 }
 
