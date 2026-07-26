@@ -113,6 +113,7 @@
             this.btnSpellChk = new System.Windows.Forms.Button();
             this.bWasHTML = new System.Windows.Forms.Button();
             this.btnNoMarks = new System.Windows.Forms.Button();
+            this.btnRemAI = new System.Windows.Forms.Button();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpWithFILEToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -234,7 +235,7 @@
             this.tsm2PasteAI = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmRemove = new System.Windows.Forms.ToolStripMenuItem();
             this.SpellTimer = new System.Windows.Forms.Timer(this.components);
-            this.btnRemAI = new System.Windows.Forms.Button();
+            this.tsmTabs = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.lbName)).BeginInit();
             this.groupBox6.SuspendLayout();
             this.gbManageImages.SuspendLayout();
@@ -715,40 +716,41 @@
             this.tsmNumList,
             this.toolStripMenuItem1,
             this.toolStripMenuItem2,
-            this.tsmSpoiler});
+            this.tsmSpoiler,
+            this.tsmTabs});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(167, 224);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(190, 246);
             this.contextMenuStrip1.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStrip1_Opening);
             this.contextMenuStrip1.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.contextMenuStrip1_ItemClicked);
             // 
             // tsmCUT
             // 
             this.tsmCUT.Name = "tsmCUT";
-            this.tsmCUT.Size = new System.Drawing.Size(166, 22);
+            this.tsmCUT.Size = new System.Drawing.Size(189, 22);
             this.tsmCUT.Text = "Cut";
             // 
             // tsmCOPY
             // 
             this.tsmCOPY.Name = "tsmCOPY";
-            this.tsmCOPY.Size = new System.Drawing.Size(166, 22);
+            this.tsmCOPY.Size = new System.Drawing.Size(189, 22);
             this.tsmCOPY.Text = "Copy";
             // 
             // tsmPASTE
             // 
             this.tsmPASTE.Name = "tsmPASTE";
-            this.tsmPASTE.Size = new System.Drawing.Size(166, 22);
+            this.tsmPASTE.Size = new System.Drawing.Size(189, 22);
             this.tsmPASTE.Text = "Paste";
             // 
             // tsmDEL
             // 
             this.tsmDEL.Name = "tsmDEL";
-            this.tsmDEL.Size = new System.Drawing.Size(166, 22);
+            this.tsmDEL.Size = new System.Drawing.Size(189, 22);
             this.tsmDEL.Text = "Delete";
             // 
             // tsmJustify
             // 
             this.tsmJustify.Name = "tsmJustify";
-            this.tsmJustify.Size = new System.Drawing.Size(166, 22);
+            this.tsmJustify.Size = new System.Drawing.Size(189, 22);
             this.tsmJustify.Text = "Justfiy Text";
             this.tsmJustify.Visible = false;
             this.tsmJustify.Click += new System.EventHandler(this.PrinterItemClicked);
@@ -756,14 +758,14 @@
             // tsmTable
             // 
             this.tsmTable.Name = "tsmTable";
-            this.tsmTable.Size = new System.Drawing.Size(166, 22);
+            this.tsmTable.Size = new System.Drawing.Size(189, 22);
             this.tsmTable.Text = "Table It";
             this.tsmTable.Click += new System.EventHandler(this.PrinterItemClicked);
             // 
             // tsmNumList
             // 
             this.tsmNumList.Name = "tsmNumList";
-            this.tsmNumList.Size = new System.Drawing.Size(166, 22);
+            this.tsmNumList.Size = new System.Drawing.Size(189, 22);
             this.tsmNumList.Text = "Number List";
             this.tsmNumList.Click += new System.EventHandler(this.PrinterItemClicked);
             // 
@@ -778,7 +780,7 @@
             this.tsmScan,
             this.tsmID});
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(166, 22);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(189, 22);
             this.toolStripMenuItem1.Text = "Add Printer Items";
             this.toolStripMenuItem1.Click += new System.EventHandler(this.PrinterItemClicked);
             // 
@@ -845,7 +847,7 @@
             this.tsm9s,
             this.tsm10x});
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(166, 22);
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(189, 22);
             this.toolStripMenuItem2.Text = "Change Font";
             // 
             // tsm1s
@@ -924,7 +926,7 @@
             // tsmSpoiler
             // 
             this.tsmSpoiler.Name = "tsmSpoiler";
-            this.tsmSpoiler.Size = new System.Drawing.Size(166, 22);
+            this.tsmSpoiler.Size = new System.Drawing.Size(189, 22);
             this.tsmSpoiler.Text = "Put in Spoiler";
             this.tsmSpoiler.Click += new System.EventHandler(this.PrinterItemClicked);
             // 
@@ -1159,6 +1161,19 @@
             this.toolTip1.SetToolTip(this.btnNoMarks, "Extract text from the AI\r\nof a Google search ");
             this.btnNoMarks.UseVisualStyleBackColor = true;
             this.btnNoMarks.Click += new System.EventHandler(this.btnNoMarks_Click);
+            // 
+            // btnRemAI
+            // 
+            this.btnRemAI.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnRemAI.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.btnRemAI.Location = new System.Drawing.Point(208, 92);
+            this.btnRemAI.Name = "btnRemAI";
+            this.btnRemAI.Size = new System.Drawing.Size(143, 32);
+            this.btnRemAI.TabIndex = 34;
+            this.btnRemAI.Text = "Remove AI";
+            this.toolTip1.SetToolTip(this.btnRemAI, "Remove AI references from HTML");
+            this.btnRemAI.UseVisualStyleBackColor = true;
+            this.btnRemAI.Click += new System.EventHandler(this.btnRemAI_Click);
             // 
             // menuStrip1
             // 
@@ -2197,18 +2212,12 @@
             this.SpellTimer.Tag = "";
             this.SpellTimer.Tick += new System.EventHandler(this.SpellTimer_Tick);
             // 
-            // btnRemAI
+            // tsmTabs
             // 
-            this.btnRemAI.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnRemAI.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.btnRemAI.Location = new System.Drawing.Point(208, 92);
-            this.btnRemAI.Name = "btnRemAI";
-            this.btnRemAI.Size = new System.Drawing.Size(143, 32);
-            this.btnRemAI.TabIndex = 34;
-            this.btnRemAI.Text = "Remove AI";
-            this.toolTip1.SetToolTip(this.btnRemAI, "Remove AI references from HTML");
-            this.btnRemAI.UseVisualStyleBackColor = true;
-            this.btnRemAI.Click += new System.EventHandler(this.btnRemAI_Click);
+            this.tsmTabs.Name = "tsmTabs";
+            this.tsmTabs.Size = new System.Drawing.Size(189, 22);
+            this.tsmTabs.Text = "Fix tabs, double space";
+            this.tsmTabs.Click += new System.EventHandler(this.PrinterItemClicked);
             // 
             // main
             // 
@@ -2463,6 +2472,7 @@
         private System.Windows.Forms.ToolStripMenuItem tsmSpoiler;
         private System.Windows.Forms.ToolStripMenuItem ClipToSpoiler;
         private System.Windows.Forms.Button btnRemAI;
+        private System.Windows.Forms.ToolStripMenuItem tsmTabs;
     }
 }
 

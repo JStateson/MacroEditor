@@ -3876,6 +3876,23 @@ namespace MacroEditor
                     ReplaceText(selectionStart, iLenSelect, sPara);
                     break;
 
+                case "tsmTabs":
+                    iLenSelect = tbBody.SelectionLength;
+                    if (iLenSelect == 0)
+                    {
+                        string t = Clipboard.GetText();
+                        iLen = t.Length;
+                        if (iLen == 0) return;
+                        sPara = t.Replace("\t", " ");
+                    }
+                    else
+                        sPara = tbBody.Text.Substring(selectionStart, iLenSelect).Replace("\t", " ");
+                    sPara = sPara.Replace(Environment.NewLine, "<br><br>"); //jys may want to see of newline or <br> is in the body
+                    ReplaceText(selectionStart, iLenSelect, sPara);
+                    break;
+
+                    break;
+
                 case "tsmNumList":
                     iLenSelect = tbBody.SelectionLength;
                     if (iLenSelect == 0)
@@ -4537,7 +4554,6 @@ namespace MacroEditor
             string strTemp = Utils.FormSpoiler(Utils.ClipboardGetText(), "<b>Expand spoiler ...</b>");
             Utils.ShowRawBrowser(strTemp, "TR", "", true);
         }
-
 
     }
 }
