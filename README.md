@@ -4,7 +4,7 @@
 
 Click for <a href="https://h30434.www3.hp.com/t5/image/serverpage/image-id/420063i43ED5C1B34C8B68C" target="_blank">Image of main page</a> and DOCX help files can be viewed in sources
 
-A tar with latest binaries can be downloaded if you do not wish to build the app.  There is no install app so you must unzip the tar and <a href="https://h30434.www3.hp.com/t5/image/serverpage/image-id/371726i4F7A8A35B3DFE493" target="_blank">will have to unblock</a> the .exe app before it can run.
+A tar with latest binaries can be downloaded if you do not wish to build the app.  There is no install app so you must unzip the tar and <a href="https://h30434.www3.hp.com/t5/image/serverpage/image-id/371726i4F7A8A35B3DFE493" target="_blank">will have to unblock</a> the .exe app before it can run.  Please read the problem with WinWord in issue before building this app.
 
 The tar has a sample macro html from the forum, 300 supplemental macros and a sample signature and images.  You may copy any of the sample macros into your own macros.  
 
