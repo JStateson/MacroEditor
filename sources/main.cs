@@ -47,6 +47,7 @@ using System.IO;
 using System.IO.Compression;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Net;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
@@ -61,6 +62,7 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Windows.Controls;
 using System.Windows.Data;
+using System.Windows.Documents;
 using System.Windows.Forms;
 using System.Windows.Ink;
 using System.Windows.Media;
@@ -203,15 +205,6 @@ namespace MacroEditor
                 timer1.Interval = 500;
             }
 
-            vWarning = lblVurl.Text;
-            if (Properties.Settings.Default.Vdisable)
-            {
-                lblVurl.Text = "CTRL-V behavies as usual" + Environment.NewLine + "No hyperlink shortcut";
-            }
-            else
-            {
-                lblVurl.Text = vWarning;
-            }
             ConfigureAssociation();
             this.Shown += LoadInitialFiles;
         }
@@ -3883,11 +3876,24 @@ namespace MacroEditor
                         string t = Clipboard.GetText();
                         iLen = t.Length;
                         if (iLen == 0) return;
-                        sPara = t.Replace("\t", " ");
+                        //sPara = t.Replace("\t", " ");
+                        sPara = t.Replace("</b>", "</strong>");
                     }
                     else
-                        sPara = tbBody.Text.Substring(selectionStart, iLenSelect).Replace("\t", " ");
-                    sPara = sPara.Replace(Environment.NewLine, "<br><br>"); //jys may want to see of newline or <br> is in the body
+                    {
+                        //sPara = tbBody.Text.Substring(selectionStart, iLenSelect).Replace("\t", " ");
+                        sPara = tbBody.Text.Substring(selectionStart, iLenSelect).Replace("</b>", "</strong>");
+                    }
+                    // get rid of the code block viewer and replace with a table with the code in it
+                    sPara = Regex.Replace(
+                        sPara,
+                        @"<div\s+id=""code-block-viewer""[^>]*>.*?<code[^>]*>(.*?)</code>.*?</div>\s*</div>",
+                        m =>
+                        {
+                            string code = WebUtility.HtmlDecode(m.Groups[1].Value);
+                            return $"<table border=\"1\"><tr><td>{WebUtility.HtmlEncode(code)}</td></tr></table>";
+                        },
+                        RegexOptions.Singleline | RegexOptions.IgnoreCase);
                     ReplaceText(selectionStart, iLenSelect, sPara);
                     break;
 
@@ -4555,5 +4561,110 @@ namespace MacroEditor
             Utils.ShowRawBrowser(strTemp, "TR", "", true);
         }
 
+        private void tbSearch_TextChanged(object sender, EventArgs e)
+        {
+            FindNext(true);
+        }
+
+        private void lbDown_Click(object sender, EventArgs e)
+        {
+            FindNext(false);
+        }
+
+        private void lbUP_Click(object sender, EventArgs e)
+        {
+            FindPrevious();
+        }
+
+        private void FindNext(bool firstSearch)
+        {
+            string sFind = tbSearch.Text.Trim();
+            if (string.IsNullOrEmpty(sFind))
+                return;
+
+            string sPara = tbBody.Text;
+
+            int start;
+
+            if (firstSearch)
+                start = 0;
+            else
+                start = tbBody.SelectionStart + tbBody.SelectionLength;
+
+            int pos = sPara.IndexOf(sFind, start, StringComparison.CurrentCultureIgnoreCase);
+
+            // Wrap around
+            if (pos == -1 && !firstSearch)
+                pos = sPara.IndexOf(sFind, 0, StringComparison.CurrentCultureIgnoreCase);
+
+            if (pos >= 0)
+            {
+                tbBody.Focus();
+                tbBody.Select(pos, sFind.Length);
+                tbBody.ScrollToCaret();
+            }
+            else
+            {
+                System.Media.SystemSounds.Beep.Play();
+            }
+        }
+
+        private void FindPrevious()
+        {
+            string sFind = tbSearch.Text.Trim();
+            if (string.IsNullOrEmpty(sFind))
+                return;
+
+            string sPara = tbBody.Text;
+
+            int start = Math.Max(tbBody.SelectionStart - 1, 0);
+
+            int pos = sPara.LastIndexOf(sFind, start, StringComparison.CurrentCultureIgnoreCase);
+
+            // Wrap around
+            if (pos == -1)
+                pos = sPara.LastIndexOf(sFind, sPara.Length - 1, StringComparison.CurrentCultureIgnoreCase);
+
+            if (pos >= 0)
+            {
+                tbBody.Focus();
+                tbBody.Select(pos, sFind.Length);
+                tbBody.ScrollToCaret();
+            }
+            else
+            {
+                System.Media.SystemSounds.Beep.Play();
+            }
+        }
+
+        private void FindFirst()
+        {
+            string sFind = tbSearch.Text.Trim();
+            if (string.IsNullOrEmpty(sFind))
+                return;
+
+            int pos = tbBody.Text.IndexOf(sFind, StringComparison.CurrentCultureIgnoreCase);
+
+            if (pos >= 0)
+            {
+                tbBody.Focus();
+                tbBody.Select(pos, sFind.Length);
+                tbBody.ScrollToCaret();
+            }
+            else
+            {
+                System.Media.SystemSounds.Beep.Play();
+            }
+        }
+
+
+        private void tbSearch_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                e.SuppressKeyPress = true;    // Prevent ding
+                FindFirst();
+            }
+        }
     }
 }

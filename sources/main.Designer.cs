@@ -52,7 +52,6 @@
             this.lbNoDirect = new System.Windows.Forms.Label();
             this.tbClipboard = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
-            this.lblVurl = new System.Windows.Forms.Label();
             this.bltnHR = new System.Windows.Forms.Button();
             this.btnColors = new System.Windows.Forms.Button();
             this.btnHTest = new System.Windows.Forms.Button();
@@ -95,6 +94,7 @@
             this.tsm9s = new System.Windows.Forms.ToolStripMenuItem();
             this.tsm10x = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmSpoiler = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmTabs = new System.Windows.Forms.ToolStripMenuItem();
             this.btnNew = new System.Windows.Forms.Button();
             this.btnClearEM = new System.Windows.Forms.Button();
             this.btnSwapBR = new System.Windows.Forms.Button();
@@ -235,7 +235,10 @@
             this.tsm2PasteAI = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmRemove = new System.Windows.Forms.ToolStripMenuItem();
             this.SpellTimer = new System.Windows.Forms.Timer(this.components);
-            this.tsmTabs = new System.Windows.Forms.ToolStripMenuItem();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.tbSearch = new System.Windows.Forms.TextBox();
+            this.lbUP = new System.Windows.Forms.Label();
+            this.lbDown = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.lbName)).BeginInit();
             this.groupBox6.SuspendLayout();
             this.gbManageImages.SuspendLayout();
@@ -248,6 +251,7 @@
             this.groupBox3.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.contextMenuStrip2.SuspendLayout();
+            this.groupBox4.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel2
@@ -470,11 +474,11 @@
             // groupBox6
             // 
             this.groupBox6.BackColor = System.Drawing.SystemColors.Control;
+            this.groupBox6.Controls.Add(this.groupBox4);
             this.groupBox6.Controls.Add(this.lbNotDeletable);
             this.groupBox6.Controls.Add(this.lbNoDirect);
             this.groupBox6.Controls.Add(this.tbClipboard);
             this.groupBox6.Controls.Add(this.label8);
-            this.groupBox6.Controls.Add(this.lblVurl);
             this.groupBox6.Controls.Add(this.bltnHR);
             this.groupBox6.Controls.Add(this.btnColors);
             this.groupBox6.Controls.Add(this.btnHTest);
@@ -534,20 +538,6 @@
             this.label8.Size = new System.Drawing.Size(139, 32);
             this.label8.TabIndex = 37;
             this.label8.Text = "Clipboard Contents\r\n(interactive only)";
-            // 
-            // lblVurl
-            // 
-            this.lblVurl.AutoSize = true;
-            this.lblVurl.BackColor = System.Drawing.SystemColors.Info;
-            this.lblVurl.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblVurl.Location = new System.Drawing.Point(377, 36);
-            this.lblVurl.Name = "lblVurl";
-            this.lblVurl.Size = new System.Drawing.Size(166, 52);
-            this.lblVurl.TabIndex = 36;
-            this.lblVurl.Text = "Caution: CTRl-V is enabled and\r\nand expects to create a Hyperlink\r\nfrom the URL i" +
-    "n your clipboard if\r\nany text is selected.";
-            this.toolTip1.SetToolTip(this.lblVurl, "If you select some test and press CTRL-V\r\nthe paste operatoin assumes you have a " +
-        "UTL\r\nin the clipbaord and want to create a  hyperlink");
             // 
             // bltnHR
             // 
@@ -719,38 +709,38 @@
             this.tsmSpoiler,
             this.tsmTabs});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(190, 246);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(167, 246);
             this.contextMenuStrip1.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStrip1_Opening);
             this.contextMenuStrip1.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.contextMenuStrip1_ItemClicked);
             // 
             // tsmCUT
             // 
             this.tsmCUT.Name = "tsmCUT";
-            this.tsmCUT.Size = new System.Drawing.Size(189, 22);
+            this.tsmCUT.Size = new System.Drawing.Size(166, 22);
             this.tsmCUT.Text = "Cut";
             // 
             // tsmCOPY
             // 
             this.tsmCOPY.Name = "tsmCOPY";
-            this.tsmCOPY.Size = new System.Drawing.Size(189, 22);
+            this.tsmCOPY.Size = new System.Drawing.Size(166, 22);
             this.tsmCOPY.Text = "Copy";
             // 
             // tsmPASTE
             // 
             this.tsmPASTE.Name = "tsmPASTE";
-            this.tsmPASTE.Size = new System.Drawing.Size(189, 22);
+            this.tsmPASTE.Size = new System.Drawing.Size(166, 22);
             this.tsmPASTE.Text = "Paste";
             // 
             // tsmDEL
             // 
             this.tsmDEL.Name = "tsmDEL";
-            this.tsmDEL.Size = new System.Drawing.Size(189, 22);
+            this.tsmDEL.Size = new System.Drawing.Size(166, 22);
             this.tsmDEL.Text = "Delete";
             // 
             // tsmJustify
             // 
             this.tsmJustify.Name = "tsmJustify";
-            this.tsmJustify.Size = new System.Drawing.Size(189, 22);
+            this.tsmJustify.Size = new System.Drawing.Size(166, 22);
             this.tsmJustify.Text = "Justfiy Text";
             this.tsmJustify.Visible = false;
             this.tsmJustify.Click += new System.EventHandler(this.PrinterItemClicked);
@@ -758,14 +748,14 @@
             // tsmTable
             // 
             this.tsmTable.Name = "tsmTable";
-            this.tsmTable.Size = new System.Drawing.Size(189, 22);
+            this.tsmTable.Size = new System.Drawing.Size(166, 22);
             this.tsmTable.Text = "Table It";
             this.tsmTable.Click += new System.EventHandler(this.PrinterItemClicked);
             // 
             // tsmNumList
             // 
             this.tsmNumList.Name = "tsmNumList";
-            this.tsmNumList.Size = new System.Drawing.Size(189, 22);
+            this.tsmNumList.Size = new System.Drawing.Size(166, 22);
             this.tsmNumList.Text = "Number List";
             this.tsmNumList.Click += new System.EventHandler(this.PrinterItemClicked);
             // 
@@ -780,7 +770,7 @@
             this.tsmScan,
             this.tsmID});
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(189, 22);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(166, 22);
             this.toolStripMenuItem1.Text = "Add Printer Items";
             this.toolStripMenuItem1.Click += new System.EventHandler(this.PrinterItemClicked);
             // 
@@ -847,7 +837,7 @@
             this.tsm9s,
             this.tsm10x});
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(189, 22);
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(166, 22);
             this.toolStripMenuItem2.Text = "Change Font";
             // 
             // tsm1s
@@ -926,9 +916,16 @@
             // tsmSpoiler
             // 
             this.tsmSpoiler.Name = "tsmSpoiler";
-            this.tsmSpoiler.Size = new System.Drawing.Size(189, 22);
+            this.tsmSpoiler.Size = new System.Drawing.Size(166, 22);
             this.tsmSpoiler.Text = "Put in Spoiler";
             this.tsmSpoiler.Click += new System.EventHandler(this.PrinterItemClicked);
+            // 
+            // tsmTabs
+            // 
+            this.tsmTabs.Name = "tsmTabs";
+            this.tsmTabs.Size = new System.Drawing.Size(166, 22);
+            this.tsmTabs.Text = "Fix ChatGPT bold";
+            this.tsmTabs.Click += new System.EventHandler(this.PrinterItemClicked);
             // 
             // btnNew
             // 
@@ -1048,7 +1045,8 @@
             this.btnEditNew.Size = new System.Drawing.Size(96, 48);
             this.btnEditNew.TabIndex = 27;
             this.btnEditNew.Text = "Printer Edit\r\n   Wizard";
-            this.toolTip1.SetToolTip(this.btnEditNew, "use only on the new style macros");
+            this.toolTip1.SetToolTip(this.btnEditNew, "This removes citations from the\r\ngoogle AI text in the clipboard.\r\neg: [1]  [1,2," +
+        "3] are removed.");
             this.btnEditNew.UseVisualStyleBackColor = true;
             this.btnEditNew.Click += new System.EventHandler(this.btnEditNew_Click);
             // 
@@ -1170,7 +1168,7 @@
             this.btnRemAI.Name = "btnRemAI";
             this.btnRemAI.Size = new System.Drawing.Size(143, 32);
             this.btnRemAI.TabIndex = 34;
-            this.btnRemAI.Text = "Remove AI";
+            this.btnRemAI.Text = "Remove Citations";
             this.toolTip1.SetToolTip(this.btnRemAI, "Remove AI references from HTML");
             this.btnRemAI.UseVisualStyleBackColor = true;
             this.btnRemAI.Click += new System.EventHandler(this.btnRemAI_Click);
@@ -2212,12 +2210,45 @@
             this.SpellTimer.Tag = "";
             this.SpellTimer.Tick += new System.EventHandler(this.SpellTimer_Tick);
             // 
-            // tsmTabs
+            // groupBox4
             // 
-            this.tsmTabs.Name = "tsmTabs";
-            this.tsmTabs.Size = new System.Drawing.Size(189, 22);
-            this.tsmTabs.Text = "Fix tabs, double space";
-            this.tsmTabs.Click += new System.EventHandler(this.PrinterItemClicked);
+            this.groupBox4.Controls.Add(this.lbDown);
+            this.groupBox4.Controls.Add(this.lbUP);
+            this.groupBox4.Controls.Add(this.tbSearch);
+            this.groupBox4.Location = new System.Drawing.Point(393, 21);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Size = new System.Drawing.Size(134, 70);
+            this.groupBox4.TabIndex = 42;
+            this.groupBox4.TabStop = false;
+            this.groupBox4.Text = "Search";
+            // 
+            // tbSearch
+            // 
+            this.tbSearch.Location = new System.Drawing.Point(12, 20);
+            this.tbSearch.Name = "tbSearch";
+            this.tbSearch.Size = new System.Drawing.Size(116, 22);
+            this.tbSearch.TabIndex = 0;
+            this.tbSearch.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tbSearch_KeyDown);
+            // 
+            // lbUP
+            // 
+            this.lbUP.AutoSize = true;
+            this.lbUP.Location = new System.Drawing.Point(66, 49);
+            this.lbUP.Name = "lbUP";
+            this.lbUP.Size = new System.Drawing.Size(16, 16);
+            this.lbUP.TabIndex = 1;
+            this.lbUP.Text = "▲";
+            this.lbUP.Click += new System.EventHandler(this.lbUP_Click);
+            // 
+            // lbDown
+            // 
+            this.lbDown.AutoSize = true;
+            this.lbDown.Location = new System.Drawing.Point(28, 48);
+            this.lbDown.Name = "lbDown";
+            this.lbDown.Size = new System.Drawing.Size(16, 16);
+            this.lbDown.TabIndex = 2;
+            this.lbDown.Text = "▼";
+            this.lbDown.Click += new System.EventHandler(this.lbDown_Click);
             // 
             // main
             // 
@@ -2261,6 +2292,8 @@
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.contextMenuStrip2.ResumeLayout(false);
+            this.groupBox4.ResumeLayout(false);
+            this.groupBox4.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -2370,7 +2403,6 @@
         private System.Windows.Forms.ToolStripMenuItem loadINPrinterMacsToolStripMenuItem;
         private System.Windows.Forms.TextBox tbMNum;
         private System.Windows.Forms.ToolStripMenuItem loadOJPrinterMacsToolStripMenuItem;
-        private System.Windows.Forms.Label lblVurl;
         private System.Windows.Forms.Button btnShowURLs;
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
         private System.Windows.Forms.DataGridView lbName;
@@ -2473,6 +2505,10 @@
         private System.Windows.Forms.ToolStripMenuItem ClipToSpoiler;
         private System.Windows.Forms.Button btnRemAI;
         private System.Windows.Forms.ToolStripMenuItem tsmTabs;
+        private System.Windows.Forms.GroupBox groupBox4;
+        private System.Windows.Forms.TextBox tbSearch;
+        private System.Windows.Forms.Label lbUP;
+        private System.Windows.Forms.Label lbDown;
     }
 }
 
