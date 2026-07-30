@@ -71,7 +71,6 @@ namespace MacroEditor
 
         public bool Init()
         {
-            int n=0;
             if (!(Properties.Settings.Default.UseSpellChecker || Properties.Settings.Default.SpellOnBoot))
             {                
                 return false;
@@ -90,11 +89,25 @@ namespace MacroEditor
                 object filePath = sfilePath; 
                 if(!File.Exists(sfilePath))
                 {
-                    tempDoc = _wordApp.Documents.Add();
-                    tempDoc.SaveAs2(sfilePath);
-                    tempDoc.Close();
+
+                    Word.Document tempDoc = null;
+
+                    try
+                    {
+                        tempDoc = _wordApp.Documents.Add();
+                        tempDoc.SaveAs2(sfilePath);
+                        tempDoc.Close(false);
+                    }
+                    finally
+                    {
+                        if (tempDoc != null)
+                        {
+                            Marshal.ReleaseComObject(tempDoc);
+                            tempDoc = null;
+                        }
+                    }
                 }
-                //tempDoc = _wordApp.Documents.Add();
+
                 tempDoc = _wordApp.Documents.Open(
                     ref filePath,
                     ReadOnly: true,            // Open in read-write mode
@@ -103,10 +116,7 @@ namespace MacroEditor
                     NoEncodingDialog: true      // Suppress encoding dialogs
                 );
                 string sName = tempDoc.Name;
-                //Document1
-                //012345678
-                // each open app has its own Document
-                //n = Convert.ToInt32(sName.Substring(8));
+
             }
             catch (System.Runtime.InteropServices.COMException ex)
             {
@@ -119,18 +129,6 @@ namespace MacroEditor
                     MessageBox.Show("An error occurred: " + ex.Message);
                 }
             }
-            if(n > 3) // 2 indicates I running the debug and the release
-            {
-                DialogResult dr = MessageBox.Show("multiple unsaved word documents are open" + n.ToString(), "OK to delete?",MessageBoxButtons.OKCancel);
-                if(DialogResult.OK == dr)
-                {
-                    foreach(string s in unsavedFiles)
-                    {
-                        MessageBox.Show("deleting " + s);
-                        File.Delete(s);
-                    }
-                }
-            }
             range = tempDoc.Range();
             sPathWords = Utils.WhereExe + "\\" + Utils.SpellList;
             if(!File.Exists(sPathWords))
@@ -141,33 +139,70 @@ namespace MacroEditor
             return true;
         }
 
-
-
-
-        private bool DoExit1()
+        public bool DoExit()
         {
-            if(!Properties.Settings.Default.UseSpellChecker) return false;
-            File.WriteAllText(sPathWords, sAllowedWords);
-            if(tempDoc  != null)
+            if (!Properties.Settings.Default.UseSpellChecker)
+                return false;
+
+            try
             {
-                tempDoc.Close(false);
-                Marshal.ReleaseComObject(tempDoc);
-                tempDoc = null;
+                // Release the Range first
+                if (range != null)
+                {
+                    Marshal.ReleaseComObject(range);
+                    range = null;
+                }
+
+                // Close and release the document
+                if (tempDoc != null)
+                {
+                    try
+                    {
+                        tempDoc.Close(false);
+                    }
+                    catch (COMException)
+                    {
+                        // Document may already be closed
+                    }
+
+                    Marshal.ReleaseComObject(tempDoc);
+                    tempDoc = null;
+                }
+
+                // Quit and release Word
+                if (_wordApp != null)
+                {
+                    try
+                    {
+                        _wordApp.Quit(false);
+                    }
+                    catch (COMException)
+                    {
+                        // Word may already be shutting down
+                    }
+
+                    Marshal.ReleaseComObject(_wordApp);
+                    _wordApp = null;
+                }
             }
-            if (_wordApp != null)
+            catch (Exception ex)
             {
-                _wordApp.Quit();
-                Marshal.ReleaseComObject(_wordApp);
-                _wordApp = null;
+                MessageBox.Show("General Exception during cleanup: " + ex.Message);
+            }
+            finally
+            {
+                GC.Collect();
+                GC.WaitForPendingFinalizers();
+
+                GC.Collect();
+                GC.WaitForPendingFinalizers();
             }
 
-            // Force garbage collection
-            GC.Collect();
-            GC.WaitForPendingFinalizers();
             return true;
         }
 
-        public bool DoExit()
+
+        public bool DoExit1()
         {
             if(!Properties.Settings.Default.UseSpellChecker) return false;
             try
@@ -177,6 +212,12 @@ namespace MacroEditor
                 {
                     tempDoc.Close(false); // Close without saving changes
                     System.Runtime.InteropServices.Marshal.ReleaseComObject(tempDoc);
+                }
+
+                if (range != null)
+                {
+                    Marshal.ReleaseComObject(range);
+                    range = null;
                 }
 
                 if (_wordApp != null)
@@ -209,25 +250,105 @@ namespace MacroEditor
         {
             string strOut = "";
             range.Text = PreFilter(sText);
-            List<string> WordList = new List<string>();
-            Word.ProofreadingErrors errors = tempDoc.SpellingErrors;
-            if (errors.Count > 0)
-            {
-                foreach (Word.Range error in errors)
-                {
-                    string w = error.Text;
-                    if(WordList.Count == 0) WordList.Add(w);
-                    if (WordList.Contains(w)) continue;
-                    WordList.Add(w);
-                }
 
-                foreach (string w in WordList)
+            List<string> WordList = new List<string>();
+            Word.ProofreadingErrors errors = null;
+
+            try
+            {
+                errors = tempDoc.SpellingErrors;
+
+                for (int i = 1; i <= errors.Count; i++)
                 {
-                    if (bIsAllowed(w)) continue;
-                    strOut += w + " ";
+                    Word.Range error = null;
+
+                    try
+                    {
+                        error = errors[i];
+
+                        string w = error.Text;
+
+                        if (WordList.Count == 0)
+                            WordList.Add(w);
+
+                        if (WordList.Contains(w))
+                            continue;
+
+                        WordList.Add(w);
+                    }
+                    finally
+                    {
+                        if (error != null)
+                            Marshal.ReleaseComObject(error);
+                    }
                 }
             }
-            if(strOut != "" && bShow)
+            finally
+            {
+                if (errors != null)
+                    Marshal.ReleaseComObject(errors);
+            }
+
+            foreach (string w in WordList)
+            {
+                if (bIsAllowed(w))
+                    continue;
+
+                strOut += w + " ";
+            }
+
+            if (strOut != "" && bShow)
+            {
+                MessageBox.Show("Spell errors: " + strOut);
+            }
+
+            return strOut.Split(
+                new[] { ' ' },
+                StringSplitOptions.RemoveEmptyEntries);
+        }
+
+        public string[] RunSpellList1(string sText, bool bShow)
+        {
+            string strOut = "";
+            range.Text = PreFilter(sText);
+            List<string> WordList = new List<string>();
+            Word.ProofreadingErrors errors = null;
+
+
+            errors = tempDoc.SpellingErrors;
+            try
+            {
+                errors = tempDoc.SpellingErrors;
+
+                if (errors.Count > 0)
+                {
+                    foreach (Word.Range error in errors)
+                    {
+                        try
+                        {
+                            string w = error.Text;
+
+                            if (WordList.Count == 0)
+                                WordList.Add(w);
+
+                            if (WordList.Contains(w))
+                                continue;
+
+                            WordList.Add(w);
+                        }
+                        finally
+                        {
+                            Marshal.ReleaseComObject(error);
+                        }
+                    }
+                }
+            }
+            finally
+            {
+                if (errors != null)
+                    Marshal.ReleaseComObject(errors);
+            }
+            if (strOut != "" && bShow)
             {
                 MessageBox.Show("Spell errors: " + strOut);
             }

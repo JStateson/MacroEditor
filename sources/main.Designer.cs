@@ -48,6 +48,10 @@
             this.btnCopyFrom = new System.Windows.Forms.Button();
             this.btnSearch = new System.Windows.Forms.Button();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
+            this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.lbDown = new System.Windows.Forms.Label();
+            this.lbUP = new System.Windows.Forms.Label();
+            this.tbSearch = new System.Windows.Forms.TextBox();
             this.lbNotDeletable = new System.Windows.Forms.Label();
             this.lbNoDirect = new System.Windows.Forms.Label();
             this.tbClipboard = new System.Windows.Forms.TextBox();
@@ -235,12 +239,9 @@
             this.tsm2PasteAI = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmRemove = new System.Windows.Forms.ToolStripMenuItem();
             this.SpellTimer = new System.Windows.Forms.Timer(this.components);
-            this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.tbSearch = new System.Windows.Forms.TextBox();
-            this.lbUP = new System.Windows.Forms.Label();
-            this.lbDown = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.lbName)).BeginInit();
             this.groupBox6.SuspendLayout();
+            this.groupBox4.SuspendLayout();
             this.gbManageImages.SuspendLayout();
             this.contextMenuStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -251,7 +252,6 @@
             this.groupBox3.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.contextMenuStrip2.SuspendLayout();
-            this.groupBox4.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel2
@@ -499,6 +499,46 @@
             this.groupBox6.Text = "EDIT BOX:  Enter text or html and click to Show As Page";
             this.toolTip1.SetToolTip(this.groupBox6, "Switch to markup substitutes <BR> for newliens\r\nAvoid using CTRL-V to paste from " +
         "forum\r\nUse \"Pase from clipboard\" instead");
+            // 
+            // groupBox4
+            // 
+            this.groupBox4.Controls.Add(this.lbDown);
+            this.groupBox4.Controls.Add(this.lbUP);
+            this.groupBox4.Controls.Add(this.tbSearch);
+            this.groupBox4.Location = new System.Drawing.Point(393, 21);
+            this.groupBox4.Name = "groupBox4";
+            this.groupBox4.Size = new System.Drawing.Size(134, 70);
+            this.groupBox4.TabIndex = 42;
+            this.groupBox4.TabStop = false;
+            this.groupBox4.Text = "Search";
+            // 
+            // lbDown
+            // 
+            this.lbDown.AutoSize = true;
+            this.lbDown.Location = new System.Drawing.Point(28, 48);
+            this.lbDown.Name = "lbDown";
+            this.lbDown.Size = new System.Drawing.Size(16, 16);
+            this.lbDown.TabIndex = 2;
+            this.lbDown.Text = "▼";
+            this.lbDown.Click += new System.EventHandler(this.lbDown_Click);
+            // 
+            // lbUP
+            // 
+            this.lbUP.AutoSize = true;
+            this.lbUP.Location = new System.Drawing.Point(66, 49);
+            this.lbUP.Name = "lbUP";
+            this.lbUP.Size = new System.Drawing.Size(16, 16);
+            this.lbUP.TabIndex = 1;
+            this.lbUP.Text = "▲";
+            this.lbUP.Click += new System.EventHandler(this.lbUP_Click);
+            // 
+            // tbSearch
+            // 
+            this.tbSearch.Location = new System.Drawing.Point(12, 20);
+            this.tbSearch.Name = "tbSearch";
+            this.tbSearch.Size = new System.Drawing.Size(116, 22);
+            this.tbSearch.TabIndex = 0;
+            this.tbSearch.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tbSearch_KeyDown);
             // 
             // lbNotDeletable
             // 
@@ -1169,7 +1209,8 @@
             this.btnRemAI.Size = new System.Drawing.Size(143, 32);
             this.btnRemAI.TabIndex = 34;
             this.btnRemAI.Text = "Remove Citations";
-            this.toolTip1.SetToolTip(this.btnRemAI, "Remove AI references from HTML");
+            this.toolTip1.SetToolTip(this.btnRemAI, "Remove AI references from HTML\r\nBoth ChatGPT and Google AI\r\nBe sure to Insert HTM" +
+        "L from cliipboard");
             this.btnRemAI.UseVisualStyleBackColor = true;
             this.btnRemAI.Click += new System.EventHandler(this.btnRemAI_Click);
             // 
@@ -2210,46 +2251,6 @@
             this.SpellTimer.Tag = "";
             this.SpellTimer.Tick += new System.EventHandler(this.SpellTimer_Tick);
             // 
-            // groupBox4
-            // 
-            this.groupBox4.Controls.Add(this.lbDown);
-            this.groupBox4.Controls.Add(this.lbUP);
-            this.groupBox4.Controls.Add(this.tbSearch);
-            this.groupBox4.Location = new System.Drawing.Point(393, 21);
-            this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(134, 70);
-            this.groupBox4.TabIndex = 42;
-            this.groupBox4.TabStop = false;
-            this.groupBox4.Text = "Search";
-            // 
-            // tbSearch
-            // 
-            this.tbSearch.Location = new System.Drawing.Point(12, 20);
-            this.tbSearch.Name = "tbSearch";
-            this.tbSearch.Size = new System.Drawing.Size(116, 22);
-            this.tbSearch.TabIndex = 0;
-            this.tbSearch.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tbSearch_KeyDown);
-            // 
-            // lbUP
-            // 
-            this.lbUP.AutoSize = true;
-            this.lbUP.Location = new System.Drawing.Point(66, 49);
-            this.lbUP.Name = "lbUP";
-            this.lbUP.Size = new System.Drawing.Size(16, 16);
-            this.lbUP.TabIndex = 1;
-            this.lbUP.Text = "▲";
-            this.lbUP.Click += new System.EventHandler(this.lbUP_Click);
-            // 
-            // lbDown
-            // 
-            this.lbDown.AutoSize = true;
-            this.lbDown.Location = new System.Drawing.Point(28, 48);
-            this.lbDown.Name = "lbDown";
-            this.lbDown.Size = new System.Drawing.Size(16, 16);
-            this.lbDown.TabIndex = 2;
-            this.lbDown.Text = "▼";
-            this.lbDown.Click += new System.EventHandler(this.lbDown_Click);
-            // 
             // main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -2274,6 +2275,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.lbName)).EndInit();
             this.groupBox6.ResumeLayout(false);
             this.groupBox6.PerformLayout();
+            this.groupBox4.ResumeLayout(false);
+            this.groupBox4.PerformLayout();
             this.gbManageImages.ResumeLayout(false);
             this.gbManageImages.PerformLayout();
             this.contextMenuStrip1.ResumeLayout(false);
@@ -2292,8 +2295,6 @@
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.contextMenuStrip2.ResumeLayout(false);
-            this.groupBox4.ResumeLayout(false);
-            this.groupBox4.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 

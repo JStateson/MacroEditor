@@ -1193,6 +1193,15 @@ namespace MacroEditor
             {
                 try
                 {
+
+                    ProcessStartInfo psi = new ProcessStartInfo
+                    {
+                        FileName = sReturnPage,
+                        UseShellExecute = true
+                    };
+
+
+                    /* removed at the suggestion of ChatGPT
                     ProcessStartInfo psi = new ProcessStartInfo
                     {
                         FileName = "explorer.exe", // The application to run
@@ -1202,6 +1211,7 @@ namespace MacroEditor
                         RedirectStandardError = false,  // Whether to redirect the error output (for console applications)
                         CreateNoWindow = false    // Whether to create a window for the process
                     };
+                    */
 
                     Process.Start(psi);
                 }

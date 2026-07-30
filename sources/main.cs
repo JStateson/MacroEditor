@@ -3284,8 +3284,7 @@ namespace MacroEditor
             html = Utils.RemoveCitationLinks(fragment);
 
             string newHtml = BuildHtmlClipboard(html);
-            //newData.SetData(DataFormats.Html, html);
-
+            // this is still a fragment so cannot clean here as it will remove the required <!--StartFragment--> and <!--EndFragment-->
             Clipboard.SetText(newHtml, TextDataFormat.Html);
         }
 
@@ -3871,32 +3870,9 @@ namespace MacroEditor
 
                 case "tsmTabs":
                     iLenSelect = tbBody.SelectionLength;
-                    if (iLenSelect == 0)
-                    {
-                        string t = Clipboard.GetText();
-                        iLen = t.Length;
-                        if (iLen == 0) return;
-                        //sPara = t.Replace("\t", " ");
-                        sPara = t.Replace("</b>", "</strong>");
-                    }
-                    else
-                    {
-                        //sPara = tbBody.Text.Substring(selectionStart, iLenSelect).Replace("\t", " ");
-                        sPara = tbBody.Text.Substring(selectionStart, iLenSelect).Replace("</b>", "</strong>");
-                    }
-                    // get rid of the code block viewer and replace with a table with the code in it
-                    sPara = Regex.Replace(
-                        sPara,
-                        @"<div\s+id=""code-block-viewer""[^>]*>.*?<code[^>]*>(.*?)</code>.*?</div>\s*</div>",
-                        m =>
-                        {
-                            string code = WebUtility.HtmlDecode(m.Groups[1].Value);
-                            return $"<table border=\"1\"><tr><td>{WebUtility.HtmlEncode(code)}</td></tr></table>";
-                        },
-                        RegexOptions.Singleline | RegexOptions.IgnoreCase);
+                    if (iLenSelect == 0) return;
+                    sPara = GoogleGptClean(tbBody.Text.Substring(selectionStart, iLenSelect));
                     ReplaceText(selectionStart, iLenSelect, sPara);
-                    break;
-
                     break;
 
                 case "tsmNumList":
@@ -3936,6 +3912,32 @@ namespace MacroEditor
                     tbBody.Text = tbBody.Text.Insert(i, Utils.sDefaultINK[6]);
                     break;
             }
+        }
+
+        private string GoogleGptClean(string sHtml)
+        {
+
+            sHtml = Regex.Replace(sHtml, @"<!--[\s\S]*?-->", ""); // remove comments
+
+            // fix <b> </b> to <strong> </strong> for Google GPT
+            sHtml = Regex.Replace(sHtml,
+    @"(<strong\b[^>]*>.*?)(</b>)",
+    "$1</strong>",
+    RegexOptions.IgnoreCase | RegexOptions.Singleline);
+
+
+            // Remove Google wrapper elements but keep their contents
+            sHtml = Regex.Replace(sHtml,
+                @"</?(?:div|span|mark)\b[^>]*>",
+                "",
+                RegexOptions.IgnoreCase);
+
+            // Remove Google's attributes from useful structural tags
+            sHtml = Regex.Replace(sHtml, @"<ul\b[^>]*>", "<ul>", RegexOptions.IgnoreCase);
+            sHtml = Regex.Replace(sHtml, @"<li\b[^>]*>", "<li>", RegexOptions.IgnoreCase);
+            sHtml = Regex.Replace(sHtml, @"<strong\b[^>]*>", "<strong>", RegexOptions.IgnoreCase);
+
+            return sHtml;
         }
 
         private void contextMenuStrip1_Opening(object sender, CancelEventArgs e)
