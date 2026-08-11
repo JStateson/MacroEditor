@@ -115,7 +115,6 @@
             this.lbSpelling = new System.Windows.Forms.Label();
             this.btnNextChk = new System.Windows.Forms.Button();
             this.btnSpellChk = new System.Windows.Forms.Button();
-            this.bWasHTML = new System.Windows.Forms.Button();
             this.btnNoMarks = new System.Windows.Forms.Button();
             this.btnRemAI = new System.Windows.Forms.Button();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
@@ -290,11 +289,11 @@
             // 
             this.btnGo.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnGo.ForeColor = System.Drawing.SystemColors.MenuHighlight;
-            this.btnGo.Location = new System.Drawing.Point(353, 21);
+            this.btnGo.Location = new System.Drawing.Point(265, 21);
             this.btnGo.Name = "btnGo";
-            this.btnGo.Size = new System.Drawing.Size(121, 31);
+            this.btnGo.Size = new System.Drawing.Size(161, 31);
             this.btnGo.TabIndex = 7;
-            this.btnGo.Text = "Show As Page";
+            this.btnGo.Text = "Show as WebPage";
             this.toolTip1.SetToolTip(this.btnGo, "Pops up a page using EDGE or default\r\nThe Clipboard has a copy of the page or\r\nyo" +
         "u can select and copy just what you\r\nwant into your reply");
             this.btnGo.UseVisualStyleBackColor = true;
@@ -1173,20 +1172,6 @@
             this.btnSpellChk.UseVisualStyleBackColor = true;
             this.btnSpellChk.Click += new System.EventHandler(this.btnSpellChk_Click);
             // 
-            // bWasHTML
-            // 
-            this.bWasHTML.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.bWasHTML.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.bWasHTML.Location = new System.Drawing.Point(260, 21);
-            this.bWasHTML.Name = "bWasHTML";
-            this.bWasHTML.Size = new System.Drawing.Size(59, 46);
-            this.bWasHTML.TabIndex = 38;
-            this.bWasHTML.Text = "Was\r\nhtml";
-            this.toolTip1.SetToolTip(this.bWasHTML, "restores clipboard if HTML");
-            this.bWasHTML.UseVisualStyleBackColor = true;
-            this.bWasHTML.Visible = false;
-            this.bWasHTML.Click += new System.EventHandler(this.bWasHTML_Click);
-            // 
             // btnNoMarks
             // 
             this.btnNoMarks.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -2020,7 +2005,6 @@
             // 
             // gpMainEdit
             // 
-            this.gpMainEdit.Controls.Add(this.bWasHTML);
             this.gpMainEdit.Controls.Add(this.groupBox1);
             this.gpMainEdit.Controls.Add(this.btnEditNew);
             this.gpMainEdit.Controls.Add(this.tbShowClip);
@@ -2482,7 +2466,6 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSepEND;
         private System.Windows.Forms.Label lbNoDirect;
         private System.Windows.Forms.ToolStripMenuItem mnuAIOSpec;
-        private System.Windows.Forms.Button bWasHTML;
         private System.Windows.Forms.Button btnShowImage;
         private System.Windows.Forms.Button btnNoMarks;
         private System.Windows.Forms.ToolStripMenuItem DriverPackTSM;

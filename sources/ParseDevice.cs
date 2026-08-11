@@ -82,12 +82,12 @@ namespace MacroEditor.sources
             return "";
         }
 
-        public string Parse(string ist)
+        public string Parse(string ist, int nMaxLen)
         {
             sProductID = "";
             sModel = "";
 
-            if (ist.Length > 48)  //clipboard may have garbage--------------------^ 48
+            if (ist.Length > nMaxLen)  //clipboard may have garbage--------------------^ 48
             {
                 int i = ist.IndexOf("Currently Viewing:");
                 if (i == -1)

@@ -2048,7 +2048,7 @@ namespace MacroEditor
                 if (Utils.IsNewPRN(TXTName))
                 {
                     ParseDevice MyLookup = new ParseDevice();
-                    MyLookup.Parse(Clipboard.GetText());
+                    MyLookup.Parse(Clipboard.GetText(), Utils.MaxPrinterIdentifierLen);
                     string sName = Utils.NoDelims(MyLookup.GetModel());
                     MyLookup = null;
                     if(sName == "")
@@ -4094,7 +4094,7 @@ namespace MacroEditor
             {
                 string sClip = Clipboard.GetText();
                 ParseDevice MyLookup = new ParseDevice();
-                string sWanted = MyLookup.Parse(sClip); // could be model or product id
+                string sWanted = MyLookup.Parse(sClip, Utils.MaxDeviceIdentifierLen);
                 tbClipboard.Text = sWanted == "" ? "bad clipboard contents" : sWanted;
                 if (sWanted != "")
                 {
@@ -4222,32 +4222,18 @@ namespace MacroEditor
         }
 
 
-        private string wasHtml = "";
-        private void bWasHTML_Click(object sender, EventArgs e)
-        {
-            if(wasHtml.Length > 0)
-            {
-                Clipboard.SetText(wasHtml);
-                wasHtml = "";
-                bWasHTML.Visible = false;
-            }
-        }
         private void btnNew_MouseHover(object sender, EventArgs e)
         {
             string s = Clipboard.GetText();
-            if (s.Length > 32)
-            {
-                int i = s.IndexOf("http");
-                if(i == 0)
-                {
-                    wasHtml = s;                    
-                    bWasHTML.Visible = true;
-                }
-                s = "";
-            }
             if (s == "")
+            {
                 s = Utils.UnNamedMacro;
-            Clipboard.SetText(s);
+                Clipboard.SetText(s);
+            }
+            if(s.Length > Utils.MaxDeviceIdentifierLen)
+            {
+                s = s.Substring(0, Utils.MaxDeviceIdentifierLen);
+            }
             tbShowClip.Text = s;
             timer2.Enabled = true;
         }

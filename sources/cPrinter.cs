@@ -188,7 +188,7 @@ namespace MacroEditor.sources
         private string ParseClip(string s)
         {
             if (s == UnNamedMacro) return UnNamedMacro;
-            MyLookup.Parse(s);
+            MyLookup.Parse(s, Utils.MaxPrinterIdentifierLen);
             tbModel.Text = MyLookup.GetModel();
             tbProduct.Text = MyLookup.GetProductID();
             return tbModel.Text;

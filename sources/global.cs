@@ -759,6 +759,10 @@ namespace MacroEditor
         public static string OldUrlList = "OldUrlList.xml";
         public static string ExportImportFile = "ExportedList.txt";
         public static string UnNamedMacro = "Change Me";
+        //Currently Viewing: "HP Laptop PC 15-dw3000 (31R08AV)" in "Notebook Hardware and Upgrade Question"
+        //--------------------12345678901234567890123456789012345678
+        public static int MaxDeviceIdentifierLen = 32; // but more likely  8-12 characters for printer models
+        public static int MaxPrinterIdentifierLen = 12;
         public static string SpellList = "AllowedSpelling.txt";
         public static string ScratchSpellFile = "ScratchSpellFile.docx";
         public static int MaxLinesInSteps = 12; // no more than 16 lines in any steps of instructions.
