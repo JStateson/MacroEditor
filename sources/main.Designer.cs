@@ -238,6 +238,7 @@
             this.tsm2PasteAI = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmRemove = new System.Windows.Forms.ToolStripMenuItem();
             this.SpellTimer = new System.Windows.Forms.Timer(this.components);
+            this.tsmPit = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.lbName)).BeginInit();
             this.groupBox6.SuspendLayout();
             this.groupBox4.SuspendLayout();
@@ -746,9 +747,10 @@
             this.toolStripMenuItem1,
             this.toolStripMenuItem2,
             this.tsmSpoiler,
-            this.tsmTabs});
+            this.tsmTabs,
+            this.tsmPit});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(167, 246);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(167, 268);
             this.contextMenuStrip1.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStrip1_Opening);
             this.contextMenuStrip1.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.contextMenuStrip1_ItemClicked);
             // 
@@ -1561,21 +1563,21 @@
             // tsmConfig
             // 
             this.tsmConfig.Name = "tsmConfig";
-            this.tsmConfig.Size = new System.Drawing.Size(179, 22);
+            this.tsmConfig.Size = new System.Drawing.Size(180, 22);
             this.tsmConfig.Text = "Configure";
             this.tsmConfig.Click += new System.EventHandler(this.tsmConfig_Click);
             // 
             // tsmAssociate
             // 
             this.tsmAssociate.Name = "tsmAssociate";
-            this.tsmAssociate.Size = new System.Drawing.Size(179, 22);
+            this.tsmAssociate.Size = new System.Drawing.Size(180, 22);
             this.tsmAssociate.Text = "Associate Clipboard";
             this.tsmAssociate.Click += new System.EventHandler(this.tsmAssociate_Click);
             // 
             // uRLManagementToolStripMenuItem
             // 
             this.uRLManagementToolStripMenuItem.Name = "uRLManagementToolStripMenuItem";
-            this.uRLManagementToolStripMenuItem.Size = new System.Drawing.Size(179, 22);
+            this.uRLManagementToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.uRLManagementToolStripMenuItem.Text = "URL management";
             this.uRLManagementToolStripMenuItem.Click += new System.EventHandler(this.uRLManagementToolStripMenuItem_Click);
             // 
@@ -2235,6 +2237,13 @@
             this.SpellTimer.Tag = "";
             this.SpellTimer.Tick += new System.EventHandler(this.SpellTimer_Tick);
             // 
+            // tsmPit
+            // 
+            this.tsmPit.Name = "tsmPit";
+            this.tsmPit.Size = new System.Drawing.Size(166, 22);
+            this.tsmPit.Text = "Put In tbody";
+            this.tsmPit.Click += new System.EventHandler(this.PrinterItemClicked);
+            // 
             // main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -2493,6 +2502,7 @@
         private System.Windows.Forms.TextBox tbSearch;
         private System.Windows.Forms.Label lbUP;
         private System.Windows.Forms.Label lbDown;
+        private System.Windows.Forms.ToolStripMenuItem tsmPit;
     }
 }
 

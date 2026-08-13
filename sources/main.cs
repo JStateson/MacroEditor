@@ -3868,6 +3868,20 @@ namespace MacroEditor
                     ReplaceText(selectionStart, iLenSelect, sPara);
                     break;
 
+                case "tsmPit":
+                    iLenSelect = tbBody.SelectionLength;
+                    if (iLenSelect == 0)
+                    {
+                        string t = Clipboard.GetText();
+                        iLen = t.Length;
+                        if (iLen == 0) return;
+                        sPara = Utils.FormTbody(t.Replace(Environment.NewLine, "<br>"));
+                    }
+                    else
+                        sPara = Utils.FormTbody(tbBody.Text.Substring(selectionStart, iLenSelect).Replace(Environment.NewLine, "<br>"));
+                    ReplaceText(selectionStart, iLenSelect, sPara);
+                    break;
+
                 case "tsmTabs":
                     iLenSelect = tbBody.SelectionLength;
                     if (iLenSelect == 0) return;
