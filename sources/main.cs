@@ -56,6 +56,7 @@ using System.Runtime.Remoting.Messaging;
 using System.Security.Cryptography;
 using System.Security.Permissions;
 using System.Security.Policy;
+using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
@@ -154,6 +155,7 @@ namespace MacroEditor
         private int NumOldUrls = 0;
         private int localNOUs = 0;  // local count of old urls
         private bool ShowBadUrls = false;
+        private string BadFileName = "";
         public main()
         {
             InitializeComponent();
@@ -2591,6 +2593,10 @@ namespace MacroEditor
                             //strMN = Utils.NoDelims(strMN);
 #if DEBUG
                             bBadFound |= Utils.BadFilename(ref strMN);
+                            if(bBadFound)
+                            {
+                                BadFileName = strMN;
+                            }
 #endif
 
 
@@ -2655,7 +2661,7 @@ namespace MacroEditor
 #if DEBUG
                         if(bBadFound)
                         {
-                            BadNames += strFN;
+                            BadNames += strFN + " " + BadFileName + ",";
                         }
 #endif
                         if (strFN == "HP")
@@ -3602,16 +3608,89 @@ namespace MacroEditor
         }
 
 
-        // not used jys
-        private string sExtractInfo(string sP)
+        public static class ClipboardHtml
         {
-            string sout = "";
-            int i = sP.IndexOf("<a href=\"");
-            int j = sP.IndexOf("</a>", i + 9);
-            string s = sP.Substring(i + 9, j - i - 9);
-            return sout;
+            public static string GetHtml()
+            {
+                if (!Clipboard.ContainsText(TextDataFormat.Html))
+                    return null;
+
+                string clipboardHtml =
+                    Clipboard.GetText(TextDataFormat.Html);
+
+                if (string.IsNullOrEmpty(clipboardHtml))
+                    return null;
+
+                // Get the fragment offsets.
+                Match startMatch = Regex.Match(
+                    clipboardHtml,
+                    @"StartFragment:(\d+)",
+                    RegexOptions.IgnoreCase);
+
+                Match endMatch = Regex.Match(
+                    clipboardHtml,
+                    @"EndFragment:(\d+)",
+                    RegexOptions.IgnoreCase);
+
+                if (startMatch.Success && endMatch.Success)
+                {
+                    int startByte =
+                        int.Parse(startMatch.Groups[1].Value);
+
+                    int endByte =
+                        int.Parse(endMatch.Groups[1].Value);
+
+                    byte[] bytes =
+                        Encoding.UTF8.GetBytes(clipboardHtml);
+
+                    if (startByte >= 0 &&
+                        endByte > startByte &&
+                        endByte <= bytes.Length)
+                    {
+                        return Encoding.UTF8.GetString(
+                            bytes,
+                            startByte,
+                            endByte - startByte);
+                    }
+                }
+
+                // Fallback if the offsets aren't available.
+                const string startMarker =
+                    "<!--StartFragment-->";
+
+                const string endMarker =
+                    "<!--EndFragment-->";
+
+                int start =
+                    clipboardHtml.IndexOf(
+                        startMarker,
+                        StringComparison.OrdinalIgnoreCase);
+
+                int end =
+                    clipboardHtml.IndexOf(
+                        endMarker,
+                        StringComparison.OrdinalIgnoreCase);
+
+                if (start >= 0 && end > start)
+                {
+                    start += startMarker.Length;
+
+                    return clipboardHtml.Substring(
+                        start,
+                        end - start);
+                }
+
+                return clipboardHtml;
+            }
         }
 
+
+        private void PasteRawHtml_Click(object sender, EventArgs e)
+        {
+            string s = ClipboardHtml.GetHtml();
+            if (s == null) return;
+            TbodyInsert(s);
+        }
 
         private void btnFromHP_Click(object sender, EventArgs e)
         {
@@ -3803,6 +3882,7 @@ namespace MacroEditor
             }
         }
 
+        // may want to implement <font face="hpsimplifiedlight,arial,sans-serif" size="4">
         private void PrinterItemClicked(object sender, EventArgs e)
         {
             ToolStripMenuItem clickedItem = sender as ToolStripMenuItem;
@@ -3811,6 +3891,7 @@ namespace MacroEditor
             int rowNumber = tbBody.GetLineFromCharIndex(selectionStart);
             int i = tbBody.GetFirstCharIndexFromLine(rowNumber);
             int iLen, iLenSelect;
+            int j = 0;
             string sPara;
             switch (sName)
             {
@@ -3821,9 +3902,6 @@ namespace MacroEditor
                 case "tsm5s":
                 case "tsm6s":
                 case "tsm7s":
-                case "tsm8s":
-                case "tsm9s":
-                case "tsm10s":
                     iLen = tbBody.SelectionLength;
                     if (iLen == 0) return;
                     string s = "<font size=\"" + clickedItem.Text + "\">";
@@ -3831,14 +3909,30 @@ namespace MacroEditor
                     s += sPara + "</font>";
                     ReplaceText(selectionStart, iLen, s);
                     break;
-
+                case "tsm6HP":
+                case "tsm5HP":
+                case "tsm4HP":
+                    iLen = tbBody.SelectionLength;
+                    if (iLen == 0) return;
+                    int k = clickedItem.Text.IndexOf(" ");
+                    Debug.Assert(k == 1);
+                    s = "<font face=\"hpsimplifiedlight,arial,sans-serif\" size=\"" + clickedItem.Text.Substring(0,1) + "\">";
+                    sPara = tbBody.Text.Substring(selectionStart, iLen);
+                    s += sPara + "</font>";
+                    ReplaceText(selectionStart, iLen, s);
+                    break;
                 case "tsmJustify":
                     iLen = tbBody.SelectionLength;
                     if (iLen == 0) return;
                     sPara = Utils.JustifiedText(tbBody.Text.Substring(selectionStart, iLen));
                     ReplaceText(selectionStart, iLen, sPara);
                     break;
-
+                case "tsmDelDbl":
+                    iLen = tbBody.SelectionLength;
+                    if (iLen == 0) return;
+                    sPara = tbBody.SelectedText.Replace("<br><br>", "<br>");
+                    ReplaceText(selectionStart, iLen, sPara);
+                    break;
                 case "tsmTable":
                     iLenSelect = tbBody.SelectionLength;
                     if (iLenSelect == 0)
@@ -3849,7 +3943,7 @@ namespace MacroEditor
                         sPara = Utils.Form1CellTable(t,"");
                     }
                     else 
-                        sPara = Utils.Form1CellTable(tbBody.Text.Substring(selectionStart, iLenSelect),"");
+                        sPara = Utils.FormCenteredTable(tbBody.Text.Substring(selectionStart, iLenSelect),"");
                     ReplaceText(selectionStart, iLenSelect, sPara);
                     break;
 
@@ -4667,6 +4761,11 @@ namespace MacroEditor
                 e.SuppressKeyPress = true;    // Prevent ding
                 FindFirst();
             }
+        }
+
+        private void spamFolderToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Utils.LocalBrowser("https://h30434.www3.hp.com/t5/Spam-Threads/bd-p/spam");
         }
     }
 }

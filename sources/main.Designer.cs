@@ -91,15 +91,16 @@
             this.tsm3s = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator7 = new System.Windows.Forms.ToolStripSeparator();
             this.tsm4s = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsm4HP = new System.Windows.Forms.ToolStripMenuItem();
             this.tsm5s = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsm5HP = new System.Windows.Forms.ToolStripMenuItem();
             this.tsm6s = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsm7s = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsm8s = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsm9s = new System.Windows.Forms.ToolStripMenuItem();
-            this.tsm10x = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsm6HP = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsm7x = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmSpoiler = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmTabs = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmPit = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsmDelDbl = new System.Windows.Forms.ToolStripMenuItem();
             this.btnNew = new System.Windows.Forms.Button();
             this.btnClearEM = new System.Windows.Forms.Button();
             this.btnSwapBR = new System.Windows.Forms.Button();
@@ -118,6 +119,7 @@
             this.btnSpellChk = new System.Windows.Forms.Button();
             this.btnNoMarks = new System.Windows.Forms.Button();
             this.btnRemAI = new System.Windows.Forms.Button();
+            this.PasteRawHtml = new System.Windows.Forms.Button();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpWithFILEToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -196,6 +198,7 @@
             this.DriverPackTSM = new System.Windows.Forms.ToolStripMenuItem();
             this.supportGPTToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.knowledgeBaseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.spamFolderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mnPhAlbum = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.allToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -239,7 +242,6 @@
             this.tsm2PasteAI = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmRemove = new System.Windows.Forms.ToolStripMenuItem();
             this.SpellTimer = new System.Windows.Forms.Timer(this.components);
-            this.spamFolderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.lbName)).BeginInit();
             this.groupBox6.SuspendLayout();
             this.groupBox4.SuspendLayout();
@@ -749,40 +751,41 @@
             this.toolStripMenuItem2,
             this.tsmSpoiler,
             this.tsmTabs,
-            this.tsmPit});
+            this.tsmPit,
+            this.tsmDelDbl});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(167, 268);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(189, 290);
             this.contextMenuStrip1.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStrip1_Opening);
             this.contextMenuStrip1.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.contextMenuStrip1_ItemClicked);
             // 
             // tsmCUT
             // 
             this.tsmCUT.Name = "tsmCUT";
-            this.tsmCUT.Size = new System.Drawing.Size(166, 22);
+            this.tsmCUT.Size = new System.Drawing.Size(188, 22);
             this.tsmCUT.Text = "Cut";
             // 
             // tsmCOPY
             // 
             this.tsmCOPY.Name = "tsmCOPY";
-            this.tsmCOPY.Size = new System.Drawing.Size(166, 22);
+            this.tsmCOPY.Size = new System.Drawing.Size(188, 22);
             this.tsmCOPY.Text = "Copy";
             // 
             // tsmPASTE
             // 
             this.tsmPASTE.Name = "tsmPASTE";
-            this.tsmPASTE.Size = new System.Drawing.Size(166, 22);
+            this.tsmPASTE.Size = new System.Drawing.Size(188, 22);
             this.tsmPASTE.Text = "Paste";
             // 
             // tsmDEL
             // 
             this.tsmDEL.Name = "tsmDEL";
-            this.tsmDEL.Size = new System.Drawing.Size(166, 22);
+            this.tsmDEL.Size = new System.Drawing.Size(188, 22);
             this.tsmDEL.Text = "Delete";
             // 
             // tsmJustify
             // 
             this.tsmJustify.Name = "tsmJustify";
-            this.tsmJustify.Size = new System.Drawing.Size(166, 22);
+            this.tsmJustify.Size = new System.Drawing.Size(188, 22);
             this.tsmJustify.Text = "Justfiy Text";
             this.tsmJustify.Visible = false;
             this.tsmJustify.Click += new System.EventHandler(this.PrinterItemClicked);
@@ -790,14 +793,14 @@
             // tsmTable
             // 
             this.tsmTable.Name = "tsmTable";
-            this.tsmTable.Size = new System.Drawing.Size(166, 22);
+            this.tsmTable.Size = new System.Drawing.Size(188, 22);
             this.tsmTable.Text = "Table It";
             this.tsmTable.Click += new System.EventHandler(this.PrinterItemClicked);
             // 
             // tsmNumList
             // 
             this.tsmNumList.Name = "tsmNumList";
-            this.tsmNumList.Size = new System.Drawing.Size(166, 22);
+            this.tsmNumList.Size = new System.Drawing.Size(188, 22);
             this.tsmNumList.Text = "Number List";
             this.tsmNumList.Click += new System.EventHandler(this.PrinterItemClicked);
             // 
@@ -812,7 +815,7 @@
             this.tsmScan,
             this.tsmID});
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(166, 22);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(188, 22);
             this.toolStripMenuItem1.Text = "Add Printer Items";
             this.toolStripMenuItem1.Click += new System.EventHandler(this.PrinterItemClicked);
             // 
@@ -872,109 +875,117 @@
             this.tsm3s,
             this.toolStripSeparator7,
             this.tsm4s,
+            this.tsm4HP,
             this.tsm5s,
+            this.tsm5HP,
             this.tsm6s,
-            this.tsm7s,
-            this.tsm8s,
-            this.tsm9s,
-            this.tsm10x});
+            this.tsm6HP,
+            this.tsm7x});
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(166, 22);
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(188, 22);
             this.toolStripMenuItem2.Text = "Change Font";
             // 
             // tsm1s
             // 
             this.tsm1s.Name = "tsm1s";
-            this.tsm1s.Size = new System.Drawing.Size(89, 22);
+            this.tsm1s.Size = new System.Drawing.Size(180, 22);
             this.tsm1s.Text = "1.0";
             this.tsm1s.Click += new System.EventHandler(this.PrinterItemClicked);
             // 
             // tsm2s
             // 
             this.tsm2s.Name = "tsm2s";
-            this.tsm2s.Size = new System.Drawing.Size(89, 22);
+            this.tsm2s.Size = new System.Drawing.Size(180, 22);
             this.tsm2s.Text = "2.0";
             this.tsm2s.Click += new System.EventHandler(this.PrinterItemClicked);
             // 
             // tsm3s
             // 
             this.tsm3s.Name = "tsm3s";
-            this.tsm3s.Size = new System.Drawing.Size(89, 22);
+            this.tsm3s.Size = new System.Drawing.Size(180, 22);
             this.tsm3s.Text = "3.0";
             this.tsm3s.Click += new System.EventHandler(this.PrinterItemClicked);
             // 
             // toolStripSeparator7
             // 
             this.toolStripSeparator7.Name = "toolStripSeparator7";
-            this.toolStripSeparator7.Size = new System.Drawing.Size(86, 6);
+            this.toolStripSeparator7.Size = new System.Drawing.Size(177, 6);
             // 
             // tsm4s
             // 
             this.tsm4s.Name = "tsm4s";
-            this.tsm4s.Size = new System.Drawing.Size(89, 22);
+            this.tsm4s.Size = new System.Drawing.Size(180, 22);
             this.tsm4s.Text = "4.0";
             this.tsm4s.Click += new System.EventHandler(this.PrinterItemClicked);
+            // 
+            // tsm4HP
+            // 
+            this.tsm4HP.Name = "tsm4HP";
+            this.tsm4HP.Size = new System.Drawing.Size(180, 22);
+            this.tsm4HP.Text = "4 HP";
+            this.tsm4HP.Click += new System.EventHandler(this.PrinterItemClicked);
             // 
             // tsm5s
             // 
             this.tsm5s.Name = "tsm5s";
-            this.tsm5s.Size = new System.Drawing.Size(89, 22);
-            this.tsm5s.Text = "4.5";
+            this.tsm5s.Size = new System.Drawing.Size(180, 22);
+            this.tsm5s.Text = "5";
             this.tsm5s.Click += new System.EventHandler(this.PrinterItemClicked);
+            // 
+            // tsm5HP
+            // 
+            this.tsm5HP.Name = "tsm5HP";
+            this.tsm5HP.Size = new System.Drawing.Size(180, 22);
+            this.tsm5HP.Text = "5 HP";
+            this.tsm5HP.Click += new System.EventHandler(this.PrinterItemClicked);
             // 
             // tsm6s
             // 
             this.tsm6s.Name = "tsm6s";
-            this.tsm6s.Size = new System.Drawing.Size(89, 22);
-            this.tsm6s.Text = "5";
-            this.tsm6s.Click += new System.EventHandler(this.PrinterItemClicked);
+            this.tsm6s.Size = new System.Drawing.Size(180, 22);
+            this.tsm6s.Text = "6";
+            this.tsm6s.DisplayStyleChanged += new System.EventHandler(this.PrinterItemClicked);
             // 
-            // tsm7s
+            // tsm6HP
             // 
-            this.tsm7s.Name = "tsm7s";
-            this.tsm7s.Size = new System.Drawing.Size(89, 22);
-            this.tsm7s.Text = "5.5";
-            this.tsm7s.DisplayStyleChanged += new System.EventHandler(this.PrinterItemClicked);
+            this.tsm6HP.Name = "tsm6HP";
+            this.tsm6HP.Size = new System.Drawing.Size(180, 22);
+            this.tsm6HP.Text = "6 HP";
+            this.tsm6HP.Click += new System.EventHandler(this.PrinterItemClicked);
             // 
-            // tsm8s
+            // tsm7x
             // 
-            this.tsm8s.Name = "tsm8s";
-            this.tsm8s.Size = new System.Drawing.Size(89, 22);
-            this.tsm8s.Text = "6";
-            this.tsm8s.DisplayStyleChanged += new System.EventHandler(this.PrinterItemClicked);
-            // 
-            // tsm9s
-            // 
-            this.tsm9s.Name = "tsm9s";
-            this.tsm9s.Size = new System.Drawing.Size(89, 22);
-            this.tsm9s.Text = "6.5";
-            // 
-            // tsm10x
-            // 
-            this.tsm10x.Name = "tsm10x";
-            this.tsm10x.Size = new System.Drawing.Size(89, 22);
-            this.tsm10x.Text = "7.0";
+            this.tsm7x.Name = "tsm7x";
+            this.tsm7x.Size = new System.Drawing.Size(180, 22);
+            this.tsm7x.Text = "7.0";
             // 
             // tsmSpoiler
             // 
             this.tsmSpoiler.Name = "tsmSpoiler";
-            this.tsmSpoiler.Size = new System.Drawing.Size(166, 22);
+            this.tsmSpoiler.Size = new System.Drawing.Size(188, 22);
             this.tsmSpoiler.Text = "Put in Spoiler";
             this.tsmSpoiler.Click += new System.EventHandler(this.PrinterItemClicked);
             // 
             // tsmTabs
             // 
             this.tsmTabs.Name = "tsmTabs";
-            this.tsmTabs.Size = new System.Drawing.Size(166, 22);
+            this.tsmTabs.Size = new System.Drawing.Size(188, 22);
             this.tsmTabs.Text = "Fix ChatGPT bold";
             this.tsmTabs.Click += new System.EventHandler(this.PrinterItemClicked);
             // 
             // tsmPit
             // 
             this.tsmPit.Name = "tsmPit";
-            this.tsmPit.Size = new System.Drawing.Size(166, 22);
+            this.tsmPit.Size = new System.Drawing.Size(188, 22);
             this.tsmPit.Text = "Put In tbody";
             this.tsmPit.Click += new System.EventHandler(this.PrinterItemClicked);
+            // 
+            // tsmDelDbl
+            // 
+            this.tsmDelDbl.Name = "tsmDelDbl";
+            this.tsmDelDbl.Size = new System.Drawing.Size(188, 22);
+            this.tsmDelDbl.Text = "Remove Doublespace";
+            this.tsmDelDbl.Click += new System.EventHandler(this.PrinterItemClicked);
             // 
             // btnNew
             // 
@@ -1007,7 +1018,7 @@
             // 
             this.btnSwapBR.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnSwapBR.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.btnSwapBR.Location = new System.Drawing.Point(301, 381);
+            this.btnSwapBR.Location = new System.Drawing.Point(300, 413);
             this.btnSwapBR.Name = "btnSwapBR";
             this.btnSwapBR.Size = new System.Drawing.Size(178, 32);
             this.btnSwapBR.TabIndex = 33;
@@ -1049,7 +1060,7 @@
             // 
             this.btnShowURLs.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnShowURLs.ForeColor = System.Drawing.SystemColors.HotTrack;
-            this.btnShowURLs.Location = new System.Drawing.Point(322, 446);
+            this.btnShowURLs.Location = new System.Drawing.Point(322, 458);
             this.btnShowURLs.Name = "btnShowURLs";
             this.btnShowURLs.Size = new System.Drawing.Size(152, 32);
             this.btnShowURLs.TabIndex = 37;
@@ -1208,6 +1219,20 @@
         "L from cliipboard");
             this.btnRemAI.UseVisualStyleBackColor = true;
             this.btnRemAI.Click += new System.EventHandler(this.btnRemAI_Click);
+            // 
+            // PasteRawHtml
+            // 
+            this.PasteRawHtml.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.PasteRawHtml.ForeColor = System.Drawing.SystemColors.Highlight;
+            this.PasteRawHtml.Location = new System.Drawing.Point(260, 367);
+            this.PasteRawHtml.Name = "PasteRawHtml";
+            this.PasteRawHtml.Size = new System.Drawing.Size(218, 27);
+            this.PasteRawHtml.TabIndex = 38;
+            this.PasteRawHtml.Text = "Insert Khoros Filtered";
+            this.toolTip1.SetToolTip(this.PasteRawHtml, "This will paste all html and text\r\nfrom the clpboard.  Khoros meta\r\nwill be remov" +
+        "ed.");
+            this.PasteRawHtml.UseVisualStyleBackColor = true;
+            this.PasteRawHtml.Click += new System.EventHandler(this.PasteRawHtml_Click);
             // 
             // menuStrip1
             // 
@@ -1831,52 +1856,59 @@
             // DriverPackTSM
             // 
             this.DriverPackTSM.Name = "DriverPackTSM";
-            this.DriverPackTSM.Size = new System.Drawing.Size(180, 22);
+            this.DriverPackTSM.Size = new System.Drawing.Size(173, 22);
             this.DriverPackTSM.Text = "Driver Pack";
             this.DriverPackTSM.Click += new System.EventHandler(this.DriverPackTSM_Click);
             // 
             // supportGPTToolStripMenuItem
             // 
             this.supportGPTToolStripMenuItem.Name = "supportGPTToolStripMenuItem";
-            this.supportGPTToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.supportGPTToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
             this.supportGPTToolStripMenuItem.Text = "SupportGPT";
             this.supportGPTToolStripMenuItem.Click += new System.EventHandler(this.HPWS_click);
             // 
             // knowledgeBaseToolStripMenuItem
             // 
             this.knowledgeBaseToolStripMenuItem.Name = "knowledgeBaseToolStripMenuItem";
-            this.knowledgeBaseToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.knowledgeBaseToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
             this.knowledgeBaseToolStripMenuItem.Text = "Knowledge Base";
             this.knowledgeBaseToolStripMenuItem.Click += new System.EventHandler(this.HPWS_click);
+            // 
+            // spamFolderToolStripMenuItem
+            // 
+            this.spamFolderToolStripMenuItem.Name = "spamFolderToolStripMenuItem";
+            this.spamFolderToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
+            this.spamFolderToolStripMenuItem.Text = "Spam Folder";
+            this.spamFolderToolStripMenuItem.Click += new System.EventHandler(this.spamFolderToolStripMenuItem_Click);
             // 
             // mnPhAlbum
             // 
             this.mnPhAlbum.Name = "mnPhAlbum";
-            this.mnPhAlbum.Size = new System.Drawing.Size(180, 22);
+            this.mnPhAlbum.Size = new System.Drawing.Size(173, 22);
             this.mnPhAlbum.Text = "Photo Album";
             this.mnPhAlbum.Click += new System.EventHandler(this.mnPhAlbum_Click);
             // 
             // toolStripSeparator3
             // 
             this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(177, 6);
+            this.toolStripSeparator3.Size = new System.Drawing.Size(170, 6);
             // 
             // allToolStripMenuItem
             // 
             this.allToolStripMenuItem.Name = "allToolStripMenuItem";
-            this.allToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.allToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
             this.allToolStripMenuItem.Text = "All recent";
             this.allToolStripMenuItem.Click += new System.EventHandler(this.HPWS_click);
             // 
             // toolStripSeparator4
             // 
             this.toolStripSeparator4.Name = "toolStripSeparator4";
-            this.toolStripSeparator4.Size = new System.Drawing.Size(177, 6);
+            this.toolStripSeparator4.Size = new System.Drawing.Size(170, 6);
             // 
             // mnuAskQ
             // 
             this.mnuAskQ.Name = "mnuAskQ";
-            this.mnuAskQ.Size = new System.Drawing.Size(180, 22);
+            this.mnuAskQ.Size = new System.Drawing.Size(173, 22);
             this.mnuAskQ.Text = "SiteMap Questions";
             this.mnuAskQ.Click += new System.EventHandler(this.mnuAskQ_Click);
             // 
@@ -2016,6 +2048,7 @@
             // 
             // gpMainEdit
             // 
+            this.gpMainEdit.Controls.Add(this.PasteRawHtml);
             this.gpMainEdit.Controls.Add(this.groupBox1);
             this.gpMainEdit.Controls.Add(this.btnEditNew);
             this.gpMainEdit.Controls.Add(this.tbShowClip);
@@ -2246,13 +2279,6 @@
             this.SpellTimer.Tag = "";
             this.SpellTimer.Tick += new System.EventHandler(this.SpellTimer_Tick);
             // 
-            // spamFolderToolStripMenuItem
-            // 
-            this.spamFolderToolStripMenuItem.Name = "spamFolderToolStripMenuItem";
-            this.spamFolderToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.spamFolderToolStripMenuItem.Text = "Spam Folder";
-            this.spamFolderToolStripMenuItem.Click += new System.EventHandler(this.spamFolderToolStripMenuItem_Click);
-            // 
             // main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -2457,12 +2483,12 @@
         private System.Windows.Forms.ToolStripMenuItem tsm2s;
         private System.Windows.Forms.ToolStripMenuItem tsm3s;
         private System.Windows.Forms.ToolStripMenuItem tsm4s;
+        private System.Windows.Forms.ToolStripMenuItem tsm4HP;
         private System.Windows.Forms.ToolStripMenuItem tsm5s;
+        private System.Windows.Forms.ToolStripMenuItem tsm5HP;
         private System.Windows.Forms.ToolStripMenuItem tsm6s;
-        private System.Windows.Forms.ToolStripMenuItem tsm7s;
-        private System.Windows.Forms.ToolStripMenuItem tsm8s;
-        private System.Windows.Forms.ToolStripMenuItem tsm9s;
-        private System.Windows.Forms.ToolStripMenuItem tsm10x;
+        private System.Windows.Forms.ToolStripMenuItem tsm6HP;
+        private System.Windows.Forms.ToolStripMenuItem tsm7x;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator7;
         private System.Windows.Forms.TextBox tbShowClip;
         private System.Windows.Forms.ToolStripMenuItem tsmRunMacArchive;
@@ -2513,6 +2539,8 @@
         private System.Windows.Forms.Label lbDown;
         private System.Windows.Forms.ToolStripMenuItem tsmPit;
         private System.Windows.Forms.ToolStripMenuItem spamFolderToolStripMenuItem;
+        private System.Windows.Forms.Button PasteRawHtml;
+        private System.Windows.Forms.ToolStripMenuItem tsmDelDbl;
     }
 }
 

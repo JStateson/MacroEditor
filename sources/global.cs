@@ -1197,7 +1197,7 @@ namespace MacroEditor
             {
                 try
                 {
-
+                    /* want to be able to specify which browser to use
                     ProcessStartInfo psi = new ProcessStartInfo
                     {
                         FileName = sReturnPage,
@@ -1217,7 +1217,8 @@ namespace MacroEditor
                     };
                     */
 
-                    Process.Start(psi);
+                    //Process.Start(psi);
+                    LocalBrowser(sReturnPage);
                 }
                 catch (Exception ex)
                 {
@@ -1647,14 +1648,15 @@ namespace MacroEditor
             switch (BrowserWanted)
             {
                 case Utils.eBrowserType.eFirefox:
-                    Process.Start("firefox.exe", "-new-window " + strUrl);
+                    Process.Start("firefox.exe", "-new-window \"" + strUrl + "\"");
                     break;
+
                 case Utils.eBrowserType.eEdge:
                     Process.Start("microsoft-edge:" + strUrl);
                     break;
+
                 case Utils.eBrowserType.eChrome:
-                    //Process.Start("chrome.exe", "--allow-running-insecure-content  " + strUrl);
-                    Process.Start("chrome.exe", strUrl);
+                    Process.Start("chrome.exe", "\"" + strUrl + "\"");
                     break;
             }
         }
@@ -1750,6 +1752,14 @@ namespace MacroEditor
             return sS + sFs + s + sFe + sE;
         }
 
+        public static string FormCenteredTable(string strIn, string sWidth)
+        {
+            if (sWidth == "")
+            {
+                return "<table style=\"margin-left: auto; margin-right: auto;\"  border=\"1\"><tr><td>" + strIn + "</td></tr></table>";
+            }
+            return "<table style=\"margin-left: auto; margin-right: auto;\"  border=\"1\" width=\"" + sWidth + "%\"><tr><td>" + strIn + "</td></tr></table>";
+        }
 
         public static string Form1CellTable(string strIn, string sWidth)
         {
