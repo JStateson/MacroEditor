@@ -166,6 +166,7 @@
             this.tsmConfig = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmAssociate = new System.Windows.Forms.ToolStripMenuItem();
             this.uRLManagementToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.tsReplaceCode = new System.Windows.Forms.ToolStripMenuItem();
             this.mMoveMacro = new System.Windows.Forms.ToolStripMenuItem();
             this.moveTSM = new System.Windows.Forms.ToolStripMenuItem();
             this.exportTSM = new System.Windows.Forms.ToolStripMenuItem();
@@ -888,75 +889,75 @@
             // tsm1s
             // 
             this.tsm1s.Name = "tsm1s";
-            this.tsm1s.Size = new System.Drawing.Size(180, 22);
+            this.tsm1s.Size = new System.Drawing.Size(99, 22);
             this.tsm1s.Text = "1.0";
             this.tsm1s.Click += new System.EventHandler(this.PrinterItemClicked);
             // 
             // tsm2s
             // 
             this.tsm2s.Name = "tsm2s";
-            this.tsm2s.Size = new System.Drawing.Size(180, 22);
+            this.tsm2s.Size = new System.Drawing.Size(99, 22);
             this.tsm2s.Text = "2.0";
             this.tsm2s.Click += new System.EventHandler(this.PrinterItemClicked);
             // 
             // tsm3s
             // 
             this.tsm3s.Name = "tsm3s";
-            this.tsm3s.Size = new System.Drawing.Size(180, 22);
+            this.tsm3s.Size = new System.Drawing.Size(99, 22);
             this.tsm3s.Text = "3.0";
             this.tsm3s.Click += new System.EventHandler(this.PrinterItemClicked);
             // 
             // toolStripSeparator7
             // 
             this.toolStripSeparator7.Name = "toolStripSeparator7";
-            this.toolStripSeparator7.Size = new System.Drawing.Size(177, 6);
+            this.toolStripSeparator7.Size = new System.Drawing.Size(96, 6);
             // 
             // tsm4s
             // 
             this.tsm4s.Name = "tsm4s";
-            this.tsm4s.Size = new System.Drawing.Size(180, 22);
+            this.tsm4s.Size = new System.Drawing.Size(99, 22);
             this.tsm4s.Text = "4.0";
             this.tsm4s.Click += new System.EventHandler(this.PrinterItemClicked);
             // 
             // tsm4HP
             // 
             this.tsm4HP.Name = "tsm4HP";
-            this.tsm4HP.Size = new System.Drawing.Size(180, 22);
+            this.tsm4HP.Size = new System.Drawing.Size(99, 22);
             this.tsm4HP.Text = "4 HP";
             this.tsm4HP.Click += new System.EventHandler(this.PrinterItemClicked);
             // 
             // tsm5s
             // 
             this.tsm5s.Name = "tsm5s";
-            this.tsm5s.Size = new System.Drawing.Size(180, 22);
+            this.tsm5s.Size = new System.Drawing.Size(99, 22);
             this.tsm5s.Text = "5";
             this.tsm5s.Click += new System.EventHandler(this.PrinterItemClicked);
             // 
             // tsm5HP
             // 
             this.tsm5HP.Name = "tsm5HP";
-            this.tsm5HP.Size = new System.Drawing.Size(180, 22);
+            this.tsm5HP.Size = new System.Drawing.Size(99, 22);
             this.tsm5HP.Text = "5 HP";
             this.tsm5HP.Click += new System.EventHandler(this.PrinterItemClicked);
             // 
             // tsm6s
             // 
             this.tsm6s.Name = "tsm6s";
-            this.tsm6s.Size = new System.Drawing.Size(180, 22);
+            this.tsm6s.Size = new System.Drawing.Size(99, 22);
             this.tsm6s.Text = "6";
             this.tsm6s.DisplayStyleChanged += new System.EventHandler(this.PrinterItemClicked);
             // 
             // tsm6HP
             // 
             this.tsm6HP.Name = "tsm6HP";
-            this.tsm6HP.Size = new System.Drawing.Size(180, 22);
+            this.tsm6HP.Size = new System.Drawing.Size(99, 22);
             this.tsm6HP.Text = "6 HP";
             this.tsm6HP.Click += new System.EventHandler(this.PrinterItemClicked);
             // 
             // tsm7x
             // 
             this.tsm7x.Name = "tsm7x";
-            this.tsm7x.Size = new System.Drawing.Size(180, 22);
+            this.tsm7x.Size = new System.Drawing.Size(99, 22);
             this.tsm7x.Text = "7.0";
             // 
             // tsmSpoiler
@@ -1588,7 +1589,8 @@
             this.settingsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.tsmConfig,
             this.tsmAssociate,
-            this.uRLManagementToolStripMenuItem});
+            this.uRLManagementToolStripMenuItem,
+            this.tsReplaceCode});
             this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
             this.settingsToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
             this.settingsToolStripMenuItem.Text = "Settings";
@@ -1596,23 +1598,31 @@
             // tsmConfig
             // 
             this.tsmConfig.Name = "tsmConfig";
-            this.tsmConfig.Size = new System.Drawing.Size(179, 22);
+            this.tsmConfig.Size = new System.Drawing.Size(180, 22);
             this.tsmConfig.Text = "Configure";
             this.tsmConfig.Click += new System.EventHandler(this.tsmConfig_Click);
             // 
             // tsmAssociate
             // 
             this.tsmAssociate.Name = "tsmAssociate";
-            this.tsmAssociate.Size = new System.Drawing.Size(179, 22);
+            this.tsmAssociate.Size = new System.Drawing.Size(180, 22);
             this.tsmAssociate.Text = "Associate Clipboard";
             this.tsmAssociate.Click += new System.EventHandler(this.tsmAssociate_Click);
             // 
             // uRLManagementToolStripMenuItem
             // 
             this.uRLManagementToolStripMenuItem.Name = "uRLManagementToolStripMenuItem";
-            this.uRLManagementToolStripMenuItem.Size = new System.Drawing.Size(179, 22);
+            this.uRLManagementToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.uRLManagementToolStripMenuItem.Text = "URL management";
             this.uRLManagementToolStripMenuItem.Click += new System.EventHandler(this.uRLManagementToolStripMenuItem_Click);
+            // 
+            // tsReplaceCode
+            // 
+            this.tsReplaceCode.Name = "tsReplaceCode";
+            this.tsReplaceCode.Size = new System.Drawing.Size(180, 22);
+            this.tsReplaceCode.Text = "Replacements";
+            this.tsReplaceCode.Visible = false;
+            this.tsReplaceCode.Click += new System.EventHandler(this.tsReplaceCode_Click);
             // 
             // mMoveMacro
             // 
@@ -2541,6 +2551,7 @@
         private System.Windows.Forms.ToolStripMenuItem spamFolderToolStripMenuItem;
         private System.Windows.Forms.Button PasteRawHtml;
         private System.Windows.Forms.ToolStripMenuItem tsmDelDbl;
+        private System.Windows.Forms.ToolStripMenuItem tsReplaceCode;
     }
 }
 

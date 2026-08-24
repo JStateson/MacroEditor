@@ -4767,5 +4767,12 @@ namespace MacroEditor
         {
             Utils.LocalBrowser("https://h30434.www3.hp.com/t5/Spam-Threads/bd-p/spam");
         }
+
+        private void tsReplaceCode_Click(object sender, EventArgs e)
+        {
+            ReplaceCode rc = new ReplaceCode();
+            rc.ShowDialog();
+            rc.Dispose();
+        }
     }
 }

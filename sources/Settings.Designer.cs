@@ -97,6 +97,7 @@
             this.cbBadUrl = new System.Windows.Forms.CheckBox();
             this.btnShowBad = new System.Windows.Forms.Button();
             this.btnGetFTPurls = new System.Windows.Forms.Button();
+            this.tbRepOne = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.tbDateChg = new System.Windows.Forms.TextBox();
             this.cbFileN = new System.Windows.Forms.ComboBox();
@@ -147,7 +148,6 @@
             this.bpBIOS = new System.Windows.Forms.ProgressBar();
             this.tbBios = new System.Windows.Forms.TextBox();
             this.btnGetBios = new System.Windows.Forms.Button();
-            this.tbRepOne = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox4.SuspendLayout();
@@ -991,6 +991,15 @@
             this.btnGetFTPurls.UseVisualStyleBackColor = true;
             this.btnGetFTPurls.Click += new System.EventHandler(this.btnGetFTPurls_Click);
             // 
+            // tbRepOne
+            // 
+            this.tbRepOne.Location = new System.Drawing.Point(28, 106);
+            this.tbRepOne.Name = "tbRepOne";
+            this.tbRepOne.Size = new System.Drawing.Size(440, 20);
+            this.tbRepOne.TabIndex = 7;
+            this.toolTip1.SetToolTip(this.tbRepOne, "If not empty then this is used\r\ninstead of the combox box above\r\nfor example\r\nfro" +
+        "m: /product/details/\r\nto: /product/product-specs/");
+            // 
             // label4
             // 
             this.label4.AutoSize = true;
@@ -1280,7 +1289,7 @@
             this.tabPage3.Name = "tabPage3";
             this.tabPage3.Size = new System.Drawing.Size(569, 420);
             this.tabPage3.TabIndex = 2;
-            this.tabPage3.Text = "Replace";
+            this.tabPage3.Text = "Replace in Macro";
             this.tabPage3.UseVisualStyleBackColor = true;
             // 
             // groupBox9
@@ -1551,15 +1560,6 @@
             this.btnGetBios.Text = "Get BIOS\r\nURLS";
             this.btnGetBios.UseVisualStyleBackColor = true;
             this.btnGetBios.Click += new System.EventHandler(this.btnGetBios_Click);
-            // 
-            // tbRepOne
-            // 
-            this.tbRepOne.Location = new System.Drawing.Point(28, 106);
-            this.tbRepOne.Name = "tbRepOne";
-            this.tbRepOne.Size = new System.Drawing.Size(440, 20);
-            this.tbRepOne.TabIndex = 7;
-            this.toolTip1.SetToolTip(this.tbRepOne, "If not empty then this is used\r\ninstead of the combox box above\r\nfor example\r\nfro" +
-        "m: /product/details/\r\nto: /product/product-specs/");
             // 
             // Settings
             // 

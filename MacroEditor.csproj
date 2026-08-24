@@ -148,6 +148,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ClipboardHtml.cs" />
+    <Compile Include="sources\ReplaceCode.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="sources\ReplaceCode.Designer.cs">
+      <DependentUpon>ReplaceCode.cs</DependentUpon>
+    </Compile>
     <Compile Include="sources\ShowUrlChanges.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -333,6 +339,9 @@
     <Compile Include="sources\WordSearch.Designer.cs">
       <DependentUpon>WordSearch.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="sources\ReplaceCode.resx">
+      <DependentUpon>ReplaceCode.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="sources\ShowUrlChanges.resx">
       <DependentUpon>ShowUrlChanges.cs</DependentUpon>
     </EmbeddedResource>

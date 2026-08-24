@@ -61,6 +61,7 @@ the printer must be online through the router</b>, but you can still print using
 
 <!-- @IDSoftware@ TimeStamp=DDDDDDDD_TTTTTT -->
 <b>Software</b><p>
+If this is a first time setup and you are online then use <a href="https://apps.microsoft.com/detail/9n9phdt62w94?hl=en-US&amp;gl=US" target="_blank">HP App</a>.
 HP updates software periodically.  Downloads shown below may
 be old.  You should always visit the Software and Download
 page to look for new releases.<br>
