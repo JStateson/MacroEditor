@@ -36,7 +36,7 @@ used to put Wi-Fi printers into setup mode.  Some resets
 are simple and others require a video to understand.  Factory
 resets cannot be revealed in this forum. To do a factory reset
 of your printer, you must contact HP.
-<center><table border='1'><tr><td><a href="https://www.hp.com/us-en/contact-hp/ww-contact-us.html" target="_blank">Click here for world-wide contact info</a></td></tr></table></center>
+<center><table border='1'><tr><td><a href="https://support.hp.com/us-en/contact" target="_blank">Click here for contact info</a></td></tr></table></center>
 <br>Wi-Fi reset instructions and videos (if any) are shown below.
 Generally you have 2 hours to connect your printer after
 performing the Wi-Fi reset.  Note that a reset video may show
