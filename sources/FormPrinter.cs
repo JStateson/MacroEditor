@@ -3,6 +3,7 @@ using Microsoft.Office.Interop.Word;
 using System;
 using System.CodeDom;
 using System.Collections.Generic;
+using System.Data.SqlTypes;
 using System.Diagnostics;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -10,10 +11,12 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
+using System.Windows.Data;
 using System.Windows.Forms;
 using System.Windows.Navigation;
 using static System.Net.Mime.MediaTypeNames;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.Tab;
 
 namespace MacroEditor.sources
 {
@@ -113,8 +116,10 @@ namespace MacroEditor.sources
             return s.Substring(i, j - i).Trim();
         }
 
-        public void Init()
+        private string sUserManual = "";
+        public void Init(string sUManual = "")
         {
+            sUserManual = sUManual;
             MakeLBlists(Properties.Resources.PrinterList);
             if(Properties.Settings.Default.UseSpoiler)
             {
@@ -655,6 +660,29 @@ namespace MacroEditor.sources
             }
             return false;
         }
+
+        private string GetUserManual(ref string sBody)
+        {
+            string sExpected = "target=\"_blank\">User Manual</a>";
+            int HaveManual = sBody.IndexOf(sExpected);
+            if (HaveManual < 0) return "";
+            int i = sBody.LastIndexOf("<a href=", HaveManual);
+            Debug.Assert(i > 0);
+            return sBody.Substring(i, (HaveManual + sExpected.Length) - i);
+        }
+
+        private void  AddUserManualReference(ref string sBody, string sItem)
+        {
+            int iManualRef = sBody.IndexOf(Utils.UserManualID);
+            if (iManualRef < 0) return;
+            if (sItem == "")
+            {
+                sBody = sBody.Replace(Utils.UserManualID, Utils.UserManualID.Replace("@", ""));
+                return;
+            }
+            sBody = sBody.Replace(Utils.UserManualID, sItem);
+        }
+
         public bool ApplyFormat(ref string FmtOut, ref string sModels)
         {
             string[] NoNetwork = {"" };
@@ -686,6 +714,12 @@ namespace MacroEditor.sources
             }
 
             FmtOut = GetMacro();
+            string sItem =  GetUserManual(ref FmtOut);
+            if(sItem == "")
+            {
+                sItem = sUserManual;
+            }
+            AddUserManualReference(ref FmtOut, sItem);
             sModels = FormCollection();
             string m = AnyMissing(FmtOut);
             if (m != "")

@@ -30,6 +30,7 @@ using System.Xml.Linq;
 using MacroEditor.sources;
 using Microsoft.Office.Interop.Word;
 using Font = System.Drawing.Font;
+using System.Security.Policy;
 
 
 namespace MacroEditor
@@ -532,6 +533,7 @@ namespace MacroEditor
             }
         }
 
+        private string sUserManual = "";
         private void PrepareShowMacro()
         {
             if (SelectedRow < 0) return;
@@ -553,6 +555,7 @@ namespace MacroEditor
             {
                 if (cbvAddLangRef.Checked) strTemp = Utils.AddLanguageOption(strTemp);
             }
+            sUserManual = "";
             string sOut = "";
             string sModels = "";    // not used here
             bool bRet;
@@ -561,6 +564,7 @@ namespace MacroEditor
             cDBresult LastDBresult = printerDB.ParseRecord(ref sDRecord);
             ContextMenuStrip cmSearch = new ContextMenuStrip();
             int j = -1;
+            
             foreach( cEachTag cet in LastDBresult.RecordSet)
             {
                 j++;
@@ -568,7 +572,12 @@ namespace MacroEditor
                 if (LastDBresult.RecordSet[j].SourceHREF.Count == 0) continue;
                 if (cet.TagName.Contains("WPS")) continue;
                 if(cet.TagName.Contains("Direct Page")) continue; // need to eventually include these somehow
-                if(cet.TagName.Contains("Direct Doc")) continue;  
+                if(cet.TagName.Contains("Direct Doc") || cet.TagName.Contains("WPS Doc"))
+                {
+                    if(cet.SourceHREF.Count > 0 && sUserManual == "") 
+                        sUserManual = cet.SourceHREF[0];
+                    continue;
+                }
                 ToolStripMenuItem tsmi = new ToolStripMenuItem();
                 tsmi.Text = cet.TagName;
                 tsmi.Click += (sender, e) =>
@@ -586,7 +595,8 @@ namespace MacroEditor
             bool bRet;
             if (sRec.Length > 4)
             {
-
+                if(sUserManual != "")
+                    sModels = Utils.FormUrl(sUserManual, "User Manual");
                 bRet = printerDB.FormatOneRecord(iSelect, sRec.Replace("<nl>", Environment.NewLine), ref sOut, ref sModels);
                 if (!bRet) return;
                 if (bAddHline && false)

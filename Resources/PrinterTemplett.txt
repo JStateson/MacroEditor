@@ -76,9 +76,9 @@ all downloads.</p>
 <!-- @spoiler@ -->
 
 <!-- @IDDocuments@ TimeStamp=DDDDDDDD_TTTTTT -->
-<b>Documents</b><p>
+<b>Documents</b><p> 
 All documents are available at the below HP site.
-The user and reference manuals show how to get status
+The @user manual@ and reference manuals show how to get status
 reports and analyze error indicators on printer that have
 no control panel.</p>
 <table border='2'><tr><td>@Documents@</td></tr></table>

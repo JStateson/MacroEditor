@@ -257,7 +257,7 @@ namespace MacroEditor.sources
         {
             int i,j, n;
             FormPrinter fpNew = new FormPrinter();
-            fpNew.Init();
+            fpNew.Init(sModels);    // sModels has the user manual
             j = 0;
             List<bool> RSallowed = new List<bool>();
             foreach (cEachTag et in dbResult.RecordSet)
