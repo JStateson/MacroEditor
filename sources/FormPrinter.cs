@@ -600,7 +600,7 @@ namespace MacroEditor.sources
 
         private string RemoveE(string input)
         {
-            if (input.EndsWith("e"))
+            if (input.EndsWith("e") || input.EndsWith("r"))
             {
                 input = input.Substring(0, input.Length - 1);
             }
@@ -720,6 +720,7 @@ namespace MacroEditor.sources
                 sItem = sUserManual;
             }
             AddUserManualReference(ref FmtOut, sItem);
+            sUserManual = "";
             sModels = FormCollection();
             string m = AnyMissing(FmtOut);
             if (m != "")

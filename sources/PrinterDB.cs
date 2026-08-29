@@ -239,6 +239,7 @@ namespace MacroEditor.sources
             fpNew.Init();
         }
 
+        //sModels has been passed the user manual url
         public bool FormatOneRecord(int iSelect, string sRawIn, ref string FmtOut, ref string sModels)
         {
             LastDBresult = ParseRecord(ref sRawIn);
