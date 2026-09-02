@@ -90,7 +90,7 @@ English and other languages. Typically unboxing, clearing
 paper jams, and cartridge problems.  You could also use
 bing or google to possibly find instructional disassembly
 videos from other users.</p>
-<table border='2'><tr><td>@YouTube@</td></tr></table>
+@YouTube@
 
 
 <!-- @IDUSByesno@ TimeStamp=DDDDDDDD_TTTTTT -->
