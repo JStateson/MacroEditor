@@ -70,6 +70,9 @@
             this.btnFillRow = new System.Windows.Forms.Button();
             this.btnLRTD = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
+            this.btnSetFont = new System.Windows.Forms.Button();
+            this.cbBoxCol = new System.Windows.Forms.CheckBox();
+            this.cbBoxHTML = new System.Windows.Forms.CheckBox();
             this.cbRemE_tab = new System.Windows.Forms.CheckBox();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
@@ -103,6 +106,7 @@
             this.cbUseSpace = new System.Windows.Forms.CheckBox();
             this.btnShowCode = new System.Windows.Forms.Button();
             this.gbTxtCol = new System.Windows.Forms.GroupBox();
+            this.button4 = new System.Windows.Forms.Button();
             this.cbBold = new System.Windows.Forms.CheckBox();
             this.button6 = new System.Windows.Forms.Button();
             this.button5 = new System.Windows.Forms.Button();
@@ -114,15 +118,12 @@
             this.btnClrCol = new System.Windows.Forms.Button();
             this.btnApplyCol = new System.Windows.Forms.Button();
             this.tbTextToColor = new System.Windows.Forms.TextBox();
-            this.btnSetFont = new System.Windows.Forms.Button();
             this.tbColorResult = new System.Windows.Forms.TextBox();
             this.dgv = new System.Windows.Forms.DataGridView();
             this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.fontDialog1 = new System.Windows.Forms.FontDialog();
-            this.button4 = new System.Windows.Forms.Button();
-            this.cbBoxCol = new System.Windows.Forms.CheckBox();
-            this.cbBoxHTML = new System.Windows.Forms.CheckBox();
+            this.cbUseTab = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             this.groupBox10.SuspendLayout();
             this.groupBox9.SuspendLayout();
@@ -457,7 +458,7 @@
             // showExampleToolStripMenuItem
             // 
             this.showExampleToolStripMenuItem.Name = "showExampleToolStripMenuItem";
-            this.showExampleToolStripMenuItem.Size = new System.Drawing.Size(88, 20);
+            this.showExampleToolStripMenuItem.Size = new System.Drawing.Size(87, 20);
             this.showExampleToolStripMenuItem.Text = "Run Example";
             this.showExampleToolStripMenuItem.Click += new System.EventHandler(this.showExampleToolStripMenuItem_Click);
             // 
@@ -585,6 +586,43 @@
             this.toolTip1.SetToolTip(this.label1, "Does not use the Form HTML button\r\nCreates fixed font of size specified\r\nNo color" +
         " and bypasses Change Font");
             // 
+            // btnSetFont
+            // 
+            this.btnSetFont.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSetFont.ForeColor = System.Drawing.SystemColors.Highlight;
+            this.btnSetFont.Location = new System.Drawing.Point(15, 24);
+            this.btnSetFont.Name = "btnSetFont";
+            this.btnSetFont.Size = new System.Drawing.Size(108, 23);
+            this.btnSetFont.TabIndex = 0;
+            this.btnSetFont.Text = "Change Font";
+            this.toolTip1.SetToolTip(this.btnSetFont, "not all work in HP forum\r\nthey use <b> for bold, not\r\nfont-weight");
+            this.btnSetFont.UseVisualStyleBackColor = true;
+            this.btnSetFont.Click += new System.EventHandler(this.btnSetFont_Click);
+            // 
+            // cbBoxCol
+            // 
+            this.cbBoxCol.AutoSize = true;
+            this.cbBoxCol.ForeColor = System.Drawing.SystemColors.Highlight;
+            this.cbBoxCol.Location = new System.Drawing.Point(542, 123);
+            this.cbBoxCol.Name = "cbBoxCol";
+            this.cbBoxCol.Size = new System.Drawing.Size(48, 17);
+            this.cbBoxCol.TabIndex = 20;
+            this.cbBoxCol.Text = "BOX";
+            this.toolTip1.SetToolTip(this.cbBoxCol, "Form a box about object");
+            this.cbBoxCol.UseVisualStyleBackColor = true;
+            // 
+            // cbBoxHTML
+            // 
+            this.cbBoxHTML.AutoSize = true;
+            this.cbBoxHTML.ForeColor = System.Drawing.SystemColors.Highlight;
+            this.cbBoxHTML.Location = new System.Drawing.Point(305, 192);
+            this.cbBoxHTML.Name = "cbBoxHTML";
+            this.cbBoxHTML.Size = new System.Drawing.Size(48, 17);
+            this.cbBoxHTML.TabIndex = 21;
+            this.cbBoxHTML.Text = "BOX";
+            this.toolTip1.SetToolTip(this.cbBoxHTML, "Form a box about object");
+            this.cbBoxHTML.UseVisualStyleBackColor = true;
+            // 
             // cbRemE_tab
             // 
             this.cbRemE_tab.AutoSize = true;
@@ -592,7 +630,7 @@
             this.cbRemE_tab.CheckState = System.Windows.Forms.CheckState.Checked;
             this.cbRemE_tab.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbRemE_tab.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.cbRemE_tab.Location = new System.Drawing.Point(304, 70);
+            this.cbRemE_tab.Location = new System.Drawing.Point(293, 70);
             this.cbRemE_tab.Name = "cbRemE_tab";
             this.cbRemE_tab.Size = new System.Drawing.Size(167, 20);
             this.cbRemE_tab.TabIndex = 14;
@@ -637,7 +675,7 @@
             this.gpTable.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.gpTable.Location = new System.Drawing.Point(23, 10);
             this.gpTable.Name = "gpTable";
-            this.gpTable.Size = new System.Drawing.Size(564, 293);
+            this.gpTable.Size = new System.Drawing.Size(588, 293);
             this.gpTable.TabIndex = 10;
             this.gpTable.TabStop = false;
             // 
@@ -655,6 +693,7 @@
             // 
             // groupBox5
             // 
+            this.groupBox5.Controls.Add(this.cbUseTab);
             this.groupBox5.Controls.Add(this.btnLRTD);
             this.groupBox5.Controls.Add(this.btnDemoTB);
             this.groupBox5.Controls.Add(this.label5);
@@ -671,7 +710,7 @@
             this.groupBox5.ForeColor = System.Drawing.SystemColors.ControlText;
             this.groupBox5.Location = new System.Drawing.Point(23, 91);
             this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(519, 185);
+            this.groupBox5.Size = new System.Drawing.Size(544, 185);
             this.groupBox5.TabIndex = 9;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "How to fill in from clipboard";
@@ -705,7 +744,7 @@
             this.cbUseWhiteSpace.AutoSize = true;
             this.cbUseWhiteSpace.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbUseWhiteSpace.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.cbUseWhiteSpace.Location = new System.Drawing.Point(304, 44);
+            this.cbUseWhiteSpace.Location = new System.Drawing.Point(293, 44);
             this.cbUseWhiteSpace.Name = "cbUseWhiteSpace";
             this.cbUseWhiteSpace.Size = new System.Drawing.Size(160, 20);
             this.cbUseWhiteSpace.TabIndex = 15;
@@ -741,11 +780,11 @@
             this.cbUseDelims.AutoSize = true;
             this.cbUseDelims.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbUseDelims.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.cbUseDelims.Location = new System.Drawing.Point(304, 17);
+            this.cbUseDelims.Location = new System.Drawing.Point(293, 17);
             this.cbUseDelims.Name = "cbUseDelims";
-            this.cbUseDelims.Size = new System.Drawing.Size(132, 20);
+            this.cbUseDelims.Size = new System.Drawing.Size(111, 20);
             this.cbUseDelims.TabIndex = 8;
-            this.cbUseDelims.Text = "Split on comma";
+            this.cbUseDelims.Text = "Split comma";
             this.cbUseDelims.UseVisualStyleBackColor = true;
             // 
             // btnTransfer
@@ -1005,6 +1044,18 @@
             this.gbTxtCol.TabStop = false;
             this.gbTxtCol.Text = "Text to use";
             // 
+            // button4
+            // 
+            this.button4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button4.ForeColor = System.Drawing.SystemColors.Highlight;
+            this.button4.Location = new System.Drawing.Point(300, 121);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(47, 23);
+            this.button4.TabIndex = 19;
+            this.button4.Text = "14px";
+            this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.btnNewC_Click);
+            // 
             // cbBold
             // 
             this.cbBold.AutoSize = true;
@@ -1133,19 +1184,6 @@
             this.tbTextToColor.TabIndex = 4;
             this.tbTextToColor.Text = "Change This or click paste";
             // 
-            // btnSetFont
-            // 
-            this.btnSetFont.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSetFont.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.btnSetFont.Location = new System.Drawing.Point(15, 24);
-            this.btnSetFont.Name = "btnSetFont";
-            this.btnSetFont.Size = new System.Drawing.Size(108, 23);
-            this.btnSetFont.TabIndex = 0;
-            this.btnSetFont.Text = "Change Font";
-            this.toolTip1.SetToolTip(this.btnSetFont, "not all work in HP forum\r\nthey use <b> for bold, not\r\nfont-weight");
-            this.btnSetFont.UseVisualStyleBackColor = true;
-            this.btnSetFont.Click += new System.EventHandler(this.btnSetFont_Click);
-            // 
             // tbColorResult
             // 
             this.tbColorResult.Location = new System.Drawing.Point(6, 219);
@@ -1198,41 +1236,17 @@
             // 
             this.fontDialog1.Apply += new System.EventHandler(this.fontDialog1_Apply);
             // 
-            // button4
+            // cbUseTab
             // 
-            this.button4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button4.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.button4.Location = new System.Drawing.Point(300, 121);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(47, 23);
-            this.button4.TabIndex = 19;
-            this.button4.Text = "14px";
-            this.button4.UseVisualStyleBackColor = true;
-            this.button4.Click += new System.EventHandler(this.btnNewC_Click);
-            // 
-            // cbBoxCol
-            // 
-            this.cbBoxCol.AutoSize = true;
-            this.cbBoxCol.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.cbBoxCol.Location = new System.Drawing.Point(542, 123);
-            this.cbBoxCol.Name = "cbBoxCol";
-            this.cbBoxCol.Size = new System.Drawing.Size(48, 17);
-            this.cbBoxCol.TabIndex = 20;
-            this.cbBoxCol.Text = "BOX";
-            this.toolTip1.SetToolTip(this.cbBoxCol, "Form a box about object");
-            this.cbBoxCol.UseVisualStyleBackColor = true;
-            // 
-            // cbBoxHTML
-            // 
-            this.cbBoxHTML.AutoSize = true;
-            this.cbBoxHTML.ForeColor = System.Drawing.SystemColors.Highlight;
-            this.cbBoxHTML.Location = new System.Drawing.Point(305, 192);
-            this.cbBoxHTML.Name = "cbBoxHTML";
-            this.cbBoxHTML.Size = new System.Drawing.Size(48, 17);
-            this.cbBoxHTML.TabIndex = 21;
-            this.cbBoxHTML.Text = "BOX";
-            this.toolTip1.SetToolTip(this.cbBoxHTML, "Form a box about object");
-            this.cbBoxHTML.UseVisualStyleBackColor = true;
+            this.cbUseTab.AutoSize = true;
+            this.cbUseTab.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cbUseTab.ForeColor = System.Drawing.SystemColors.Highlight;
+            this.cbUseTab.Location = new System.Drawing.Point(422, 17);
+            this.cbUseTab.Name = "cbUseTab";
+            this.cbUseTab.Size = new System.Drawing.Size(83, 20);
+            this.cbUseTab.TabIndex = 21;
+            this.cbUseTab.Text = "Split tab";
+            this.cbUseTab.UseVisualStyleBackColor = true;
             // 
             // utils
             // 
@@ -1378,5 +1392,6 @@
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.CheckBox cbBoxCol;
         private System.Windows.Forms.CheckBox cbBoxHTML;
+        private System.Windows.Forms.CheckBox cbUseTab;
     }
 }

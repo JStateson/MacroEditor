@@ -185,6 +185,7 @@
             this.tbColorCode.Size = new System.Drawing.Size(69, 22);
             this.tbColorCode.TabIndex = 37;
             this.tbColorCode.Text = "#FF6600";
+            this.tbColorCode.TextChanged += new System.EventHandler(this.tbColorCode_TextChanged);
             // 
             // btnRed
             // 

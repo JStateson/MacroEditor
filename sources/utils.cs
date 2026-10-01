@@ -53,6 +53,7 @@ namespace MacroEditor
             tbCols.Text = "4";
             cbUseDelims.Checked = false;
             cbUseWhiteSpace.Checked = true;
+            cbUseTab.Checked = false;
             cbFormHL.Checked = true;
             cbUseBorder.Checked = true;
             CSendNotepad SendNotepad = new CSendNotepad();
@@ -355,6 +356,16 @@ namespace MacroEditor
         {
             string t = s.Trim();
             StringSplitOptions sso = cbRemE_tab.Checked ? StringSplitOptions.RemoveEmptyEntries : StringSplitOptions.None;
+            if(cbUseTab.Checked)
+            {
+                s = t.Replace("\t\t", "\t");
+                while(s != t)
+                {
+                    t = s;
+                    s = t.Replace("\t\t", "\t");
+                }
+                return t.Split(new char[] { '\t' }, sso);
+            }
             if (cbUseDelims.Checked && cbUseWhiteSpace.Checked)
             {
                 return t.Split(new char[] { ' ', '\t', ',' }, sso);
@@ -372,7 +383,7 @@ namespace MacroEditor
 
         private void FillTable()
         {
-            if (cbUseDelims.Checked || cbUseWhiteSpace.Checked)
+            if (cbUseDelims.Checked || cbUseWhiteSpace.Checked || cbUseTab.Checked)
             {
                 if (sEach.Length == 0) return;
                 string[] sFirst = DoReqSplit(sEach[0]);

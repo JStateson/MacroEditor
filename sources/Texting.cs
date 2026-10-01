@@ -140,5 +140,10 @@ namespace MacroEditor.sources
         {
             Utils.CopyHTML(tbBody.Text);
         }
+
+        private void tbColorCode_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

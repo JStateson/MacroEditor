@@ -4542,9 +4542,10 @@ namespace MacroEditor
 
         private string UseOEMink(string sID)
         {
-            string s = sID.Trim();
+            string s = sID.Trim().ToLower();
             if (!Utils.IsInteger(s)) return "";
-            if (s.Length > 4) return "";
+            if (s.Length > 5) return ""; //xxxxe
+            s = s.Replace("e", "");
             string sBlessed = "6950,6230,6810,6820,6830,6970,7740,8210,8610,8620,8630,8640,8660,8700,8715,8720,451,476,551,576,300,400,500";
             string sUrl = "https://support.hp.com/us-en/document/ish_11469335-11469393-16";
             string[] sS = sBlessed.Split(',');
@@ -4580,8 +4581,8 @@ namespace MacroEditor
 
         private void TSMprinterUsesAnyInk_Click(object sender, EventArgs e)
         {
-            string sClip = Clipboard.GetText();
-            if (sClip == null) return;
+            string sClip = Clipboard.GetText().Trim();
+            if (string.IsNullOrEmpty(sClip)) return;
             string sUrl = UseOEMink(sClip);
             if(sUrl != "")
             {
@@ -4595,7 +4596,9 @@ namespace MacroEditor
                 return;
             }
             //printer not in blessed list, give warning
-            MessageBox.Show("This printer is not in the blessed list for OEM ink/toner. Give the try if you like");
+            MessageBox.Show("The printer " + sClip + " is not in the blessed list for OEM ink/toner. Close and paste a reply");
+            string sOut = "Sorry, your printer " + sClip + " is not in <a href=\"https://support.hp.com/us-en/document/ish_11469335-11469393-16\" target=\"_blank\">the blessed list</a> for OEM ink/toner";
+            Clipboard.SetText(sOut);
         }
 
         private int GetMeta(string sID)
@@ -4773,6 +4776,11 @@ namespace MacroEditor
             ReplaceCode rc = new ReplaceCode();
             rc.ShowDialog();
             rc.Dispose();
+        }
+
+        private void tbColorCode_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -630,6 +630,7 @@
             this.tbColorCode.Size = new System.Drawing.Size(69, 22);
             this.tbColorCode.TabIndex = 32;
             this.tbColorCode.Text = "#FF6600";
+            this.tbColorCode.TextChanged += new System.EventHandler(this.tbColorCode_TextChanged);
             // 
             // btnRed
             // 
@@ -1598,28 +1599,28 @@
             // tsmConfig
             // 
             this.tsmConfig.Name = "tsmConfig";
-            this.tsmConfig.Size = new System.Drawing.Size(180, 22);
+            this.tsmConfig.Size = new System.Drawing.Size(179, 22);
             this.tsmConfig.Text = "Configure";
             this.tsmConfig.Click += new System.EventHandler(this.tsmConfig_Click);
             // 
             // tsmAssociate
             // 
             this.tsmAssociate.Name = "tsmAssociate";
-            this.tsmAssociate.Size = new System.Drawing.Size(180, 22);
+            this.tsmAssociate.Size = new System.Drawing.Size(179, 22);
             this.tsmAssociate.Text = "Associate Clipboard";
             this.tsmAssociate.Click += new System.EventHandler(this.tsmAssociate_Click);
             // 
             // uRLManagementToolStripMenuItem
             // 
             this.uRLManagementToolStripMenuItem.Name = "uRLManagementToolStripMenuItem";
-            this.uRLManagementToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.uRLManagementToolStripMenuItem.Size = new System.Drawing.Size(179, 22);
             this.uRLManagementToolStripMenuItem.Text = "URL management";
             this.uRLManagementToolStripMenuItem.Click += new System.EventHandler(this.uRLManagementToolStripMenuItem_Click);
             // 
             // tsReplaceCode
             // 
             this.tsReplaceCode.Name = "tsReplaceCode";
-            this.tsReplaceCode.Size = new System.Drawing.Size(180, 22);
+            this.tsReplaceCode.Size = new System.Drawing.Size(179, 22);
             this.tsReplaceCode.Text = "Replacements";
             this.tsReplaceCode.Visible = false;
             this.tsReplaceCode.Click += new System.EventHandler(this.tsReplaceCode_Click);

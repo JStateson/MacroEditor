@@ -2072,10 +2072,10 @@ namespace MacroEditor
             s2 = tbEdit.Text.Substring(i, j);
             s3 = tbEdit.Text.Substring(i + j);
             if (s2.Contains("<")) return; // not going to restore any previous FUs
-            string s = "<font color=\"" + sColor + "\">";
+            string s = "<font color=\"" + sColor + "\"><strong>";
             int n = s.Length;
             s1 += s;
-            s = "</font>";
+            s = "</strong></font>";
             n += s.Length;
             s2 += s;
             tbEdit.Text = s1 + s2 + s3;
