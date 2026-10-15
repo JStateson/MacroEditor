@@ -4766,6 +4766,11 @@ namespace MacroEditor
             }
         }
 
+        private void volunteerLoungeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Utils.LocalBrowser("https://h30434.www3.hp.com/t5/Volunteer-Lounge/bd-p/volunteer-lounge");
+        }
+
         private void spamFolderToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Utils.LocalBrowser("https://h30434.www3.hp.com/t5/Spam-Threads/bd-p/spam");
@@ -4778,9 +4783,22 @@ namespace MacroEditor
             rc.Dispose();
         }
 
-        private void tbColorCode_TextChanged(object sender, EventArgs e)
+        private void attachmentsToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            string FolderName = Utils.FnToFolder("ATT");
 
+            FolderName = System.IO.Path.GetFullPath(FolderName);
+
+            System.IO.Directory.CreateDirectory(FolderName);
+
+            var psi = new System.Diagnostics.ProcessStartInfo
+            {
+                FileName = "explorer.exe",
+                Arguments = "\"" + FolderName + "\"",
+                UseShellExecute = true
+            };
+
+            System.Diagnostics.Process.Start(psi);
         }
     }
 }

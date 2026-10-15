@@ -199,6 +199,7 @@
             this.DriverPackTSM = new System.Windows.Forms.ToolStripMenuItem();
             this.supportGPTToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.knowledgeBaseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.volunteerLoungeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.spamFolderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mnPhAlbum = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
@@ -243,6 +244,7 @@
             this.tsm2PasteAI = new System.Windows.Forms.ToolStripMenuItem();
             this.tsmRemove = new System.Windows.Forms.ToolStripMenuItem();
             this.SpellTimer = new System.Windows.Forms.Timer(this.components);
+            this.attachmentsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.lbName)).BeginInit();
             this.groupBox6.SuspendLayout();
             this.groupBox4.SuspendLayout();
@@ -630,7 +632,6 @@
             this.tbColorCode.Size = new System.Drawing.Size(69, 22);
             this.tbColorCode.TabIndex = 32;
             this.tbColorCode.Text = "#FF6600";
-            this.tbColorCode.TextChanged += new System.EventHandler(this.tbColorCode_TextChanged);
             // 
             // btnRed
             // 
@@ -1250,7 +1251,8 @@
             this.hPWebSitesToolStripMenuItem,
             this.mShowErr,
             this.mnuTexting,
-            this.quickWarningsToolStripMenuItem});
+            this.quickWarningsToolStripMenuItem,
+            this.attachmentsToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(1516, 24);
@@ -1854,6 +1856,7 @@
             this.DriverPackTSM,
             this.supportGPTToolStripMenuItem,
             this.knowledgeBaseToolStripMenuItem,
+            this.volunteerLoungeToolStripMenuItem,
             this.spamFolderToolStripMenuItem,
             this.mnPhAlbum,
             this.toolStripSeparator3,
@@ -1884,6 +1887,13 @@
             this.knowledgeBaseToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
             this.knowledgeBaseToolStripMenuItem.Text = "Knowledge Base";
             this.knowledgeBaseToolStripMenuItem.Click += new System.EventHandler(this.HPWS_click);
+            // 
+            // volunteerLoungeToolStripMenuItem
+            // 
+            this.volunteerLoungeToolStripMenuItem.Name = "volunteerLoungeToolStripMenuItem";
+            this.volunteerLoungeToolStripMenuItem.Size = new System.Drawing.Size(173, 22);
+            this.volunteerLoungeToolStripMenuItem.Text = "Volunteer Lounge";
+            this.volunteerLoungeToolStripMenuItem.Click += new System.EventHandler(this.volunteerLoungeToolStripMenuItem_Click);
             // 
             // spamFolderToolStripMenuItem
             // 
@@ -2290,6 +2300,13 @@
             this.SpellTimer.Tag = "";
             this.SpellTimer.Tick += new System.EventHandler(this.SpellTimer_Tick);
             // 
+            // attachmentsToolStripMenuItem
+            // 
+            this.attachmentsToolStripMenuItem.Name = "attachmentsToolStripMenuItem";
+            this.attachmentsToolStripMenuItem.Size = new System.Drawing.Size(87, 20);
+            this.attachmentsToolStripMenuItem.Text = "Attachments";
+            this.attachmentsToolStripMenuItem.Click += new System.EventHandler(this.attachmentsToolStripMenuItem_Click);
+            // 
             // main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -2553,6 +2570,8 @@
         private System.Windows.Forms.Button PasteRawHtml;
         private System.Windows.Forms.ToolStripMenuItem tsmDelDbl;
         private System.Windows.Forms.ToolStripMenuItem tsReplaceCode;
+        private System.Windows.Forms.ToolStripMenuItem volunteerLoungeToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem attachmentsToolStripMenuItem;
     }
 }
 

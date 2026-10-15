@@ -1508,6 +1508,11 @@ namespace MacroEditor
             return WhereExe + "/" + FNtoName(strFN);
         }
 
+        public static string FnToFolder(string strFN)
+        {
+            return WhereExe + "/" + strFN;   
+        }
+
         public static string FNtoName(string strFN)
         {
             string l = strFN.ToLower();
