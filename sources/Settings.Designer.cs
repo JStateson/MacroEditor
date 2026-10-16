@@ -617,8 +617,7 @@
             this.tbMSuffix.Name = "tbMSuffix";
             this.tbMSuffix.Size = new System.Drawing.Size(244, 88);
             this.tbMSuffix.TabIndex = 1;
-            this.tbMSuffix.Text = "Let me know if you have a flex system (Wi-Fi boosters or repeaters) as the setup " +
-    "is much more complicated.";
+            this.tbMSuffix.Text = "Please let me know what you find out.";
             // 
             // groupBox6
             // 

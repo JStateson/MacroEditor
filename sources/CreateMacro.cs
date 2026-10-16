@@ -52,8 +52,6 @@ namespace MacroEditor
             InitializeComponent();
             ExeFolder = Utils.WhereExe;
             strType = rstrType;
-            //axWMP.URL = "C:/Users/josep/Videos/2000_to_2011TU.mp4";
-            axWMP.PlayStateChange += axWMP_PlayStateChange;
             cbVSize.SelectedIndex = 0;
             cbImgSize.SelectedIndex = 0;
             this.KeyPreview = true;  // Ensure the form receives key events first
@@ -66,18 +64,6 @@ namespace MacroEditor
             {
                 this.Close();  // Close the form
             }
-        }
-
-        private void axWMP_PlayStateChange(object sender, AxWMPLib._WMPOCXEvents_PlayStateChangeEvent e)
-        {
-            // Check if the media is in the 'Playing' state
-            if (e.newState == (int)WMPLib.WMPPlayState.wmppsPlaying)
-            {
-                videoWidth = axWMP.currentMedia.imageSourceWidth;
-                videoHeight = axWMP.currentMedia.imageSourceHeight;
-                FindImageSizes();
-            }
-
         }
 
         private void FindImageSizes()
@@ -142,9 +128,7 @@ namespace MacroEditor
             if(bIsVideo)
             {
                 tcImaging.SelectedIndex = 1;
-                axWMP.URL = ImageLocation;
-                if (bIsPath)
-                    btnApply.Enabled = false;   // not supporting local video files!
+
             }
         }
 
@@ -253,7 +237,6 @@ namespace MacroEditor
         {
             pbImage.ImageLocation = null;
             pbImage.Image = null;
-            axWMP.URL = null;
             ImageLocation = "";
             tbUrlText.Text = "";
             tbWidth.Text = "";

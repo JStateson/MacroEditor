@@ -61,7 +61,6 @@
             this.btnVApply = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.tbVTitle = new System.Windows.Forms.TextBox();
-            this.axWMP = new AxWMPLib.AxWindowsMediaPlayer();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.tbHeight = new System.Windows.Forms.TextBox();
@@ -76,7 +75,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
             this.gbImSizeServer.SuspendLayout();
             this.tpVideo.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.axWMP)).BeginInit();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -372,7 +370,6 @@
             this.tpVideo.Controls.Add(this.btnVApply);
             this.tpVideo.Controls.Add(this.label3);
             this.tpVideo.Controls.Add(this.tbVTitle);
-            this.tpVideo.Controls.Add(this.axWMP);
             this.tpVideo.Location = new System.Drawing.Point(4, 22);
             this.tpVideo.Name = "tpVideo";
             this.tpVideo.Padding = new System.Windows.Forms.Padding(3);
@@ -447,15 +444,6 @@
             this.tbVTitle.Name = "tbVTitle";
             this.tbVTitle.Size = new System.Drawing.Size(228, 22);
             this.tbVTitle.TabIndex = 18;
-            // 
-            // axWMP
-            // 
-            this.axWMP.Enabled = true;
-            this.axWMP.Location = new System.Drawing.Point(27, 17);
-            this.axWMP.Name = "axWMP";
-            this.axWMP.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("axWMP.OcxState")));
-            this.axWMP.Size = new System.Drawing.Size(577, 402);
-            this.axWMP.TabIndex = 17;
             // 
             // label2
             // 
@@ -556,7 +544,6 @@
             this.gbImSizeServer.PerformLayout();
             this.tpVideo.ResumeLayout(false);
             this.tpVideo.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.axWMP)).EndInit();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.ResumeLayout(false);
@@ -578,7 +565,6 @@
         private System.Windows.Forms.OpenFileDialog ofd;
         private System.Windows.Forms.CheckBox cbFormBorder;
         private System.Windows.Forms.Button btnTest;
-        private AxWMPLib.AxWindowsMediaPlayer axWMP;
         private System.Windows.Forms.TabControl tcImaging;
         private System.Windows.Forms.TabPage tpImage;
         private System.Windows.Forms.TabPage tpVideo;
