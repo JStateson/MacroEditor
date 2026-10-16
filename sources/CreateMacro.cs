@@ -8,6 +8,7 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
@@ -15,6 +16,10 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using System;
+using System.Collections.Generic;
+using System.Net;
+using System.Web.Script.Serialization;
 using System.Windows.Forms;
 using System.Windows.Media.Media3D;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.Window;
@@ -58,7 +63,76 @@ namespace MacroEditor
             this.KeyDown += new KeyEventHandler(Form1_KeyDown);
         }
 
-        private void Form1_KeyDown(object sender, KeyEventArgs e)
+        //https://www.youtube.com/shorts/EcxafA7CWJk
+
+        private string CreateKhorosVideoHtml(string youtubeUrl)
+    {
+        var uri = new Uri(youtubeUrl);
+        string videoId;
+
+        if (uri.Host.Equals("youtu.be",
+            StringComparison.OrdinalIgnoreCase))
+        {
+            videoId = uri.AbsolutePath.Trim('/');
+        }
+        else if (uri.AbsolutePath.StartsWith(
+            "/shorts/", StringComparison.OrdinalIgnoreCase))
+        {
+            videoId = uri.AbsolutePath.Substring(8).Split('/')[0];
+        }
+        else if (uri.AbsolutePath.Equals(
+            "/watch", StringComparison.OrdinalIgnoreCase))
+        {
+            var query = System.Web.HttpUtility.ParseQueryString(
+                uri.Query);
+            videoId = query["v"];
+        }
+        else
+        {
+            throw new ArgumentException(
+                "Unsupported YouTube URL.", nameof(youtubeUrl));
+        }
+
+        if (string.IsNullOrWhiteSpace(videoId) ||
+            !System.Text.RegularExpressions.Regex.IsMatch(
+                videoId, @"^[A-Za-z0-9_-]{11}$"))
+        {
+            throw new ArgumentException("Invalid YouTube video ID.");
+        }
+
+        string thumbnail =
+            "https://i.ytimg.com/vi/" + videoId + "/hq2.jpg";
+
+        var attributes = new Dictionary<string, object>
+        {
+            ["vid"] = "https://www.youtube.com/shorts/" + videoId,
+            ["align"] = "center",
+            ["size"] = "small",
+            ["width"] = 200,
+            ["height"] = 150,
+            ["uploading"] = "false",
+            ["thumbnail"] = thumbnail,
+            ["external"] = "url"
+        };
+
+        string json = new JavaScriptSerializer()
+            .Serialize(attributes);
+
+        string encodedJson = WebUtility.HtmlEncode(json);
+
+        return
+            "<p><img style=\"border: 1px dotted black; " +
+            "background: url('" + thumbnail +
+            "') no-repeat center;\" " +
+            "class=\"mceItemLithiumVideo\" " +
+            "src=\"/i/p.gif\" border=\"0\" " +
+            "width=\"200\" height=\"150\" " +
+            "livideoattrs=\"" + encodedJson +
+            "\" /></p>";
+    }
+
+
+    private void Form1_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Escape)
             {
@@ -114,7 +188,7 @@ namespace MacroEditor
                 bIsVideo = true;
                 if (!Utils.IsUrlVideo(ImageLocation))
                 {
-                    bIsVideo = false;
+                    bIsVideo = ImageLocation.Contains("youtube");
                 }
             }
             btnApply.Enabled = true;
@@ -128,7 +202,7 @@ namespace MacroEditor
             if(bIsVideo)
             {
                 tcImaging.SelectedIndex = 1;
-
+                tbVTitle.Text = "Youtube Video";
             }
         }
 
@@ -159,7 +233,7 @@ namespace MacroEditor
 
         private void AddImage()
         {
-            strResultOut = bIsImage ? GetImage() : GetVideo();
+            strResultOut = bIsImage ? GetImage() : GetVideo(ImageLocation);
         }
 
         private string GetImage()
@@ -270,8 +344,12 @@ namespace MacroEditor
             }
         }
 
+        private string GetVideo(string str)
+        {
+            return CreateKhorosVideoHtml(str);
+        }
 
-        private string GetVideo()
+        private string GetVideo0()
         {
             string sV = ImageLocation; //"https://www.youtube.com/embed/lFB3mWUSnJMhttps://www.youtube.com/embed/lFB3mWUSnJM";
             string sO = "";// "allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" referrerpolicy=\"strict-origin-when-cross-origin\"";
@@ -289,7 +367,8 @@ namespace MacroEditor
             }
             if(bIsVideo)
             {
-                Utils.ShowPageInBrowser("", GetVideo());
+                string str = Utils.ShowPageInBrowser("", GetVideo(ImageLocation));
+                tbVideoHTML.Text = str;
             }
         }
 
@@ -333,7 +412,8 @@ namespace MacroEditor
 
         private void btnVApply_Click(object sender, EventArgs e)
         {
-            bHaveVideoSize = SetVideoSize();
+            //bHaveVideoSize = SetVideoSize();
+            tbVideoHTML.Text = GetVideo(ImageLocation);
         }
 
         // this is used only for video, not photo!!!  Oct 22, 2024

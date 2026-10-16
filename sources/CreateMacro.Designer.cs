@@ -67,6 +67,7 @@
             this.tbWidth = new System.Windows.Forms.TextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.cbDNU = new System.Windows.Forms.CheckBox();
+            this.tbVideoHTML = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.pbImage)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.tcImaging.SuspendLayout();
@@ -364,6 +365,7 @@
             // 
             // tpVideo
             // 
+            this.tpVideo.Controls.Add(this.tbVideoHTML);
             this.tpVideo.Controls.Add(this.label5);
             this.tpVideo.Controls.Add(this.cbVSize);
             this.tpVideo.Controls.Add(this.cbVBorder);
@@ -512,6 +514,14 @@
             this.cbDNU.Text = "Do Not Use";
             this.cbDNU.UseVisualStyleBackColor = true;
             // 
+            // tbVideoHTML
+            // 
+            this.tbVideoHTML.Location = new System.Drawing.Point(39, 38);
+            this.tbVideoHTML.Multiline = true;
+            this.tbVideoHTML.Name = "tbVideoHTML";
+            this.tbVideoHTML.Size = new System.Drawing.Size(528, 334);
+            this.tbVideoHTML.TabIndex = 28;
+            // 
             // CreateMacro
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -591,5 +601,6 @@
         private System.Windows.Forms.Label lbW;
         private System.Windows.Forms.Button btnApplySlider;
         private System.Windows.Forms.CheckBox cbDNU;
+        private System.Windows.Forms.TextBox tbVideoHTML;
     }
 }

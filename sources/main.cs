@@ -2179,6 +2179,7 @@ namespace MacroEditor
         private void btnAppendMac_Click(object sender, EventArgs e)
         {
             int i = tbBody.SelectionStart;
+            string s1, s2;
             CreateMacro MyCM = new CreateMacro(strType);
             MyCM.ShowDialog();
             string strReturn = MyCM.strResultOut;
@@ -2186,8 +2187,16 @@ namespace MacroEditor
             if (strReturn == null) return;
             if (strReturn == "") return;
             btnChangeUrls.Enabled = true;
-            string s1 = tbBody.Text.Substring(0, i) + "<br>";
-            string s2 = "<br>" + tbBody.Text.Substring(i);
+            if(strReturn.Substring(0,3) != "<p>")
+            {
+                s1 = tbBody.Text.Substring(0, i) + "<br>";
+                s2 = "<br>" + tbBody.Text.Substring(i);
+            }
+            else
+            {
+                s1 = tbBody.Text.Substring(0, i);
+                s2 = tbBody.Text.Substring(i);
+            }
             tbBody.Text = s1 + strReturn + s2;
         }
 
